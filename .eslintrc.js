@@ -47,7 +47,8 @@ module.exports = {
       'error',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
-    '@typescript-eslint/consistent-type-imports': ['error'],
+    '@typescript-eslint/no-redeclare': 'error',
+    '@typescript-eslint/consistent-type-imports': 'error',
     'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
     'no-console': ['warn', { allow: ['warn', 'error', 'table'] }],
     'no-undef': 'off',
@@ -70,4 +71,3 @@ module.exports = {
   },
   ignorePatterns: ['.*.js', 'node_modules/'],
 };
-s;
