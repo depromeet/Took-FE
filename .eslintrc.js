@@ -24,10 +24,6 @@ module.exports = {
         groups: ['external', 'builtin', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
         pathGroups: [
           {
-            pattern: '@sds/**',
-            group: 'internal',
-          },
-          {
             pattern: '@/**',
             group: 'internal',
           },
@@ -74,4 +70,4 @@ module.exports = {
   },
   ignorePatterns: ['.*.js', 'node_modules/'],
 };
-s
+s;
