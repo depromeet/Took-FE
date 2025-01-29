@@ -1,0 +1,18 @@
+name: 'issue'
+description: '새로운 이슈 생성 시'
+labels: 'issue'
+body:
+  - type: textarea
+    attributes:
+      label: ✨ 이슈 내용
+      description: 이슈에 대한 전반적인 설명을 작성해주세요.
+      placeholder: 작업 배경, 참고할 수 있는 스레드 링크 등을 작성해주시면 좋습니다.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: ✅ 작업 내용
+      description: 이슈에 대한 작업(Task)를 작성해 주세요.
+      placeholder: 최대한 세분화해서 작성해주시면 좋습니다.
+    validations:
+      required: true
