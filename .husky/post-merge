@@ -2,4 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "🛠️ node_modules를 재설치합니다."
+
 pnpm install
