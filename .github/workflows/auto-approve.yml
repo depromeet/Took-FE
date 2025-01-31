@@ -1,0 +1,24 @@
+name: Auto Approve PR
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  auto-approve:
+    if: github.event.label.name == 'auto approve'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Auto approve PR
+        run: |
+          PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          REVIEW_BODY="제 기준에서 이 코드는 이븐하게 잘 작성된 것 같습니다. 고생하셨습니다. \`Approve\` 드리겠습니다. 🎊"
+          curl -s -X POST \
+            -H "Authorization: token ${{ secrets.ACCESS_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"event\":\"APPROVE\", \"body\":\"${REVIEW_BODY}\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews"
