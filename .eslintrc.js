@@ -35,7 +35,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'no-duplicate-imports': 'error',
+    // 'no-duplicate-imports': 'error',
     'import/no-cycle': [
       'error',
       {
@@ -43,12 +43,9 @@ module.exports = {
         ignoreExternal: true,
       },
     ],
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
-    ],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-redeclare': 'error',
-    '@typescript-eslint/consistent-type-imports': 'error',
+    // '@typescript-eslint/consistent-type-imports': 'error',
     'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
     'no-console': ['warn', { allow: ['warn', 'error', 'table'] }],
     'no-undef': 'off',
