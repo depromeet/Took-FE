@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "setup": "sh scripts/setup.sh",
-    "dev": "node scripts/start-local-server.js",
+    "dev": "node scripts/https-local-server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

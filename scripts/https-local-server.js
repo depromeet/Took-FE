@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 
 require('dotenv').config();
 
@@ -33,5 +34,5 @@ app.prepare().then(() => {
 
   localServer.listen(port);
 
-  console.log(` ✅ Ready: \t https://${hostname}:${port} \n`);
+  console.log(` ✅ 접속 가능: \t https://${hostname}:${port} \n`);
 });
