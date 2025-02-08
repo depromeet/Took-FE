@@ -23,17 +23,17 @@ LOCAL_HOST=$(grep ^"$ENV_KEY"= "$ENV_FILE" | cut -d '=' -f2)
 if [ -z "$LOCAL_HOST" ]; then
   echo ""
   echo "==============   🚨 ERROR: $ENV_KEY NOT DECLARED   ================"
-  echo "== $ENV_FILE 파일에 $ENV_KEY 환경 변수를 설정해주세요."
+  echo "== $ENV_FILE 파일에 $ENV_KEY 환경 변수를 생성하고 값을 설정해주세요."
   echo "====================================================================="
   echo ""
   exit 1
 fi
 
-echo "> ✅ 환경 변수 $ENV_KEY 가 $ENV_FILE 에 선언되어 있습니다. (값: $LOCAL_HOST)"
+echo "> ✅ 환경 변수 $ENV_KEY 가 $ENV_FILE 에 설정되어 있습니다. ($ENV_KEY=$LOCAL_HOST)"
 
 # /etc/hosts 파일에 해당 로컬 호스트가 이미 있을 경우
 if grep -q "$LOCAL_HOST" "$HOSTS_FILE"; then
-  echo "> ✅ $HOSTS_FILE 에 $LOCAL_HOST 가 등록되어 있음을 확인했습니다."
+  echo "> ✅ $HOSTS_FILE 에 $LOCAL_HOST 가 설정되어 있습니다."
 else
 # /etc/hosts 파일에 해당 로컬 호스트가 없을 경우 신규 추가
   echo ""
