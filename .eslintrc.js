@@ -47,6 +47,7 @@ module.exports = {
     '@typescript-eslint/no-redeclare': 'error',
     'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
     'no-console': ['warn', { allow: ['warn', 'error', 'table'] }],
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-undef': 'off',
     'no-redeclare': 'off',
     'no-unused-vars': 'off',
