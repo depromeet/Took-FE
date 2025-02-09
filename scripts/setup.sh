@@ -7,8 +7,8 @@ HOSTS_FILE="/etc/hosts"
 # 환경 변수 파일이 없을 경우 에러 메시지 출력 후 종료
 if [ ! -f "$ENV_FILE" ]; then
   echo "=====================   🚨 ERROR: NO ENV FILE   ====================="
-  echo "== 환경 변수 파일이 없습니다."
-  echo "== 프로젝트 root에 $ENV_FILE 파일을 생성해주세요."
+  echo "                      환경 변수 파일이 없습니다."
+  echo "               프로젝트 root에 $ENV_FILE 파일을 생성해주세요."
   echo "====================================================================="
   echo ""
   exit 1
@@ -22,8 +22,8 @@ LOCAL_HOST=$(grep ^"$ENV_KEY"= "$ENV_FILE" | cut -d '=' -f2)
 # 환경 변수 파일에 로컬 호스트 값이 없을 경우 에러 메시지 출력 후 종료
 if [ -z "$LOCAL_HOST" ]; then
   echo ""
-  echo "==============   🚨 ERROR: $ENV_KEY NOT DECLARED   ================"
-  echo "== $ENV_FILE 파일에 $ENV_KEY 환경 변수를 생성하고 값을 설정해주세요."
+  echo "================   🚨 ERROR: $ENV_KEY NOT DECLARED   =============="
+  echo "   $ENV_FILE 파일에 $ENV_KEY 환경 변수를 생성하고 값을 설정해주세요."
   echo "====================================================================="
   echo ""
   exit 1
@@ -37,7 +37,7 @@ if grep -q "$LOCAL_HOST" "$HOSTS_FILE"; then
 else
 # /etc/hosts 파일에 해당 로컬 호스트가 없을 경우 신규 추가
   echo ""
-  echo "> 🚀 신규 로컬 호스트 [$LOCAL_HOST]를 $HOSTS_FILE 에 추가하기 위해 기기의 비밀번호(mac 비밀번호)를 입력하세요."
+  echo "> 🔐 신규 로컬 호스트 [$LOCAL_HOST]를 $HOSTS_FILE 에 추가하기 위해 기기의 비밀번호(mac 비밀번호)를 입력하세요."
   echo "127.0.0.1\t$LOCAL_HOST" | sudo tee -a "$HOSTS_FILE" >/dev/null
   echo "> ✅ $HOSTS_FILE 에 신규 로컬 호스트 [$LOCAL_HOST]을 등록했습니다."
 fi
