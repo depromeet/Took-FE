@@ -1,0 +1,70 @@
+name: Deploy Vercel With evenway2025
+
+on:
+  workflow_call:
+    inputs:
+      user_name:
+        description: 배포한 사용자
+        required: true
+        type: string
+      stage:
+        description: 배포 유형(production, develop)
+        required: true
+        type: string
+    secrets:
+      ACCESS_TOKEN:
+        required: true
+
+env:
+  DEVELOP_REPOSITORY: 16th-team2-FE-develop
+  PRODUCTION_REPOSITORY: 16th-team2-FE-production
+
+jobs:
+  variable:
+    name: set the target STAGE
+    runs-on: ubuntu-latest
+    outputs:
+      DESTINATION_REPOSITORY: ${{inputs.stage == 'production' && env.PRODUCTION_REPOSITORY || env.DEVELOP_REPOSITORY}}
+    steps:
+      - name: get variables
+        run: echo "$DESTINATION_REPOSITORY" |
+          echo "${{inputs.STAGE}}"
+
+  build:
+    needs: variable
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    outputs:
+      DESTINATION_REPOSITORY: ${{needs.variable.outputs.DESTINATION_REPOSITORY}}
+      target-branch: ${{steps.deploy-information.outputs.target-branch}}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+      - name: creates ouput
+        run: sh ./tools/build.sh
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'evenway2025'
+          destination-repository-name: ${{needs.variable.outputs.DESTINATION_REPOSITORY}}
+          user-email: ${{secrets.EMAIL}}
+          commit-message: 'chore: ${{inputs.user_name}} deploy ${{inputs.stage}}'
+          target-branch: ${{inputs.stage == 'production' && 'main' || 'main' }}
+      - name: get deploy information
+        id: deploy-information
+        run: echo "target-repository=${{needs.variable.outputs.DESTINATION_REPOSITORY}}" >> "$GITHUB_OUTPUT" |
+          echo "target-branch=${{inputs.stage == 'production' && 'main' || 'main' }}" >> "$GITHUB_OUTPUT"
+  info:
+    name: get deploy information
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: echo "$DESTINATION_REPOSITORY" |
+          echo "$target-branch"
+        env:
+          destination-repository: ${{needs.build.outputs.DESTINATION_REPOSITORY}}
+          target-branch: ${{needs.build.outputs.target-branch}}
