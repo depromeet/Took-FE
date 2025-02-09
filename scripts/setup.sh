@@ -43,4 +43,4 @@ else
 fi
 
 # 로컬 호스트에 대한 https 인증서 생성
-mkcert -key-file local-chat-key.pem -cert-file local-chat.pem "$LOCAL_HOST"
+mkcert -key-file local-private-key.pem -cert-file local-certificate.pem "$LOCAL_HOST"

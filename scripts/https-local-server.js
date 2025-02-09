@@ -23,8 +23,8 @@ console.log(' 🚀 로컬 서버 시작중...');
 app.prepare().then(() => {
   const localServer = createServer(
     {
-      key: fs.readFileSync('local-chat-key.pem'),
-      cert: fs.readFileSync('local-chat.pem'),
+      key: fs.readFileSync('local-private-key.pem'),
+      cert: fs.readFileSync('local-certificate.pem'),
     },
     (req, res) => {
       const parsedUrl = parse(req.url, true);
