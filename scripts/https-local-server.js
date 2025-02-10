@@ -13,7 +13,7 @@ const port = 2222;
 const hostname = process.env.LOCAL_HOST;
 const dev = process.env.NODE_ENV !== 'production';
 
-if (!hostname) throw new Error(' 🚨 LOCAL_HOST 환경변수가 설정되지 않았습니다!');
+if (!hostname) throw new Error(' 🚨 LOCAL_HOST 환경변수가 설정되지 않았습니다! README를 확인해주세요.');
 
 const app = next({ port, dev, hostname });
 const handle = app.getRequestHandler();
