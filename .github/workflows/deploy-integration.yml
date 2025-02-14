@@ -16,8 +16,8 @@ on:
         required: true
 
 env:
-  DEVELOP_REPOSITORY: 16th-team2-FE-develop
-  PRODUCTION_REPOSITORY: 16th-team2-FE-production
+  DEVELOP_REPOSITORY: Took-FE-develop
+  PRODUCTION_REPOSITORY: Took-FE-production
 
 jobs:
   variable:
