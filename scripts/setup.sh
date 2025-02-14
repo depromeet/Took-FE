@@ -39,7 +39,7 @@ else
   echo ""
   echo "> 🔐 신규 로컬 호스트 [$LOCAL_HOST]를 $HOSTS_FILE 에 추가하기 위해 기기의 비밀번호(mac 비밀번호)를 입력하세요."
   echo "127.0.0.1\t$LOCAL_HOST" | sudo tee -a "$HOSTS_FILE" >/dev/null
-  echo "> ✅ $HOSTS_FILE 에 신규 로컬 호스트 [$LOCAL_HOST]을 등록했습니다."
+  echo "> ✅ $HOSTS_FILE 에 신규 로컬 호스트 [$LOCAL_HOST]을 추가했습니다."
 fi
 
 # 로컬 호스트에 대한 https 인증서 생성
