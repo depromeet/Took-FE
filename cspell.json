@@ -1,4 +1,4 @@
 {
-  "words": [""],
+  "words": ["took"],
   "ignorePaths": ["pnpm-lock.yaml", "**/node_modules/**", "**/dist/**", "**/build/**", ".git/**"]
 }
