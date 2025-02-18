@@ -1,0 +1,38 @@
+# 이 GitHub Actions 워크플로우는 풀 리퀘스트 리뷰가 제출될 때 Slack 알림을 보냅니다.
+#
+# 작업:
+# - notify: 이 작업은 풀 리퀘스트 리뷰에 대한 세부 정보를 포함한 Slack 알림을 보냅니다.
+#
+# 단계:
+# - Slack 알림 보내기: `curl`을 사용하여 Slack 웹훅 URL에 POST 요청을 보내며, 다음 세부 정보를 포함합니다:
+#   - 리뷰어: 리뷰어의 GitHub 사용자 이름.
+#   - PR 제목: 풀 리퀘스트의 제목.
+#   - 리뷰 내용: 리뷰의 본문.
+#   - 리뷰 상태: 리뷰의 상태 (예: 승인됨, 변경 요청됨).
+#   - 링크: GitHub에서 리뷰를 볼 수 있는 URL.
+#
+# @see https://github.com/depromeet/Took-FE/settings/secrets/actions
+#
+# 참고:
+# - Slack 웹훅 URL은 리포지토리 시크릿에 `SLACK_WEBHOOK_URL`로 저장되어있습니다.
+
+name: PR Review to Slack
+
+on:
+  pull_request_review:
+    types: [submitted] # 리뷰가 제출될 때 실행
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🔔 *새로운 PR 리뷰가 등록되었습니다!*\n
+            *리뷰어:* ${{ github.event.review.user.login }}\n
+            *PR 제목:* ${{ github.event.pull_request.title }}\n
+            *리뷰 내용:* ${{ github.event.review.body }}\n
+            *리뷰 상태:* ${{ github.event.review.state }}\n
+            *링크:* <${{ github.event.review.html_url }}|리뷰 보기>"
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
