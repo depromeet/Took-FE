@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import Footer from '@/shared/ui/footer';
+import Input from '@/shared/ui/Input/input';
 import { Tab } from '@/shared/ui/tab';
 
 export default function Home() {
@@ -16,7 +17,12 @@ export default function Home() {
         <Tab variant="all">전체 보기</Tab>
         <Tab>도메인</Tab>
         <Tab>글쓰기 모임</Tab>
-        <Button>다음</Button>
+        <div className="flex w-full justify-center">
+          <Button variant="prev">이전</Button>
+          <Button>다음</Button>
+        </div>
+        <Input label="관심 도메인" placeholder="어떤 분야에 관심이 있나요?" />
+        <Input label="소속 정보" placeholder="어디에서 활동 중인지 알려주세요" />
         <Footer current="mycard" />
         <Footer current="collection" />
         <Footer current="setting" />
