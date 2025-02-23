@@ -6,6 +6,7 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -29,6 +30,7 @@ const config: Config = {
           700: 'var(--gray-700)',
           800: 'var(--gray-800)',
           900: 'var(--gray-900)',
+          black: 'var(--gray-black)',
         },
         /**
          * Primary
@@ -62,6 +64,10 @@ const config: Config = {
           'dark-active': 'var(--secondary-dark-active)',
           darker: 'var(--secondary-darker)',
         },
+      },
+      borderRadius: {
+        sm: 'var(--radius-s)',
+        lg: 'var(--radius-l)',
       },
     },
   },
