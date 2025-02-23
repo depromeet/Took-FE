@@ -17,9 +17,10 @@ export default function Home() {
         <Tab variant="all">전체 보기</Tab>
         <Tab>도메인</Tab>
         <Tab>글쓰기 모임</Tab>
-        <div className="flex w-full justify-center">
+        <div className="flex w-full justify-center text-base">
           <Button variant="prev">이전</Button>
           <Button>다음</Button>
+          <Button disabled>다음 비활성화</Button>
         </div>
         <Input
           label="관심 도메인"
