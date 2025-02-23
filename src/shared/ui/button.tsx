@@ -5,14 +5,15 @@ import * as React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 const buttonVariants = cva(
-  'whitespace-nowrap text-[16px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'whitespace-nowrap text-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active',
+        default: 'bg-primary text-white hover:bg-primary-normal-hover active:bg-primary-normal-active',
+        prev: 'bg-gray-100 text-gray-800',
       },
       size: {
-        default: 'w-[88.88%] h-[7.22%] px-8 rounded-sm ',
+        default: 'w-11/12 h-[52px] px-8 rounded-md',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
         icon: 'h-9 w-9',
