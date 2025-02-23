@@ -20,6 +20,7 @@
   --gray-700: #3f414f;
   --gray-800: #292b34;
   --gray-900: #1a1b22;
+  --gray-black: #14141a;
   /* primary */
   --primary-light: #eeeaff;
   --primary-hover: #e5e0ff;
@@ -44,6 +45,9 @@
   --secondary-dark-hover: #98004a;
   --secondary-dark-active: #720037;
   --secondary-darker: #59002b;
+  /* radius */
+  --radius-s: 12px;
+  --radius-l: 80px;
 }
 
 @media (prefers-color-scheme: dark) {
