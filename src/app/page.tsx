@@ -21,7 +21,11 @@ export default function Home() {
           <Button variant="prev">이전</Button>
           <Button>다음</Button>
         </div>
-        <Input label="관심 도메인" placeholder="어떤 분야에 관심이 있나요?" />
+        <Input
+          label="관심 도메인"
+          placeholder="어떤 분야에 관심이 있나요?"
+          info="생각과 경험이 담긴 글을 공유해 보세요"
+        />
         <Input label="소속 정보" placeholder="어디에서 활동 중인지 알려주세요" />
         <Footer current="mycard" />
         <Footer current="collection" />
