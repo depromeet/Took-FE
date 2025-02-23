@@ -1,3 +1,8 @@
+/* 공통 컴포넌트 - footer
+  사용 방법 : <Footer current={"mycard" || "collection" || "setting"} />
+  "mycard" - 내 명함 / "collection" - 받은 명함 / "setting" - 설정
+*/
+
 'use client';
 import Image from 'next/image';
 import React from 'react';

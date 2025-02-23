@@ -1,3 +1,11 @@
+/* 공통 컴포넌트 - avatar
+  사용 방법 : 
+  <Avatar>
+    <AvatarImage src={원하는 이미지 파일} />
+    <AvatarFallback>{이미지 에러 시 띄울 텍스트}</AvatarFallback>
+  </Avatar>
+*/
+
 'use client';
 
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
