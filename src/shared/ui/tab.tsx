@@ -10,7 +10,7 @@ import * as React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 const tabVariants = cva(
-  'inline-flex h- items-center justify-center rounded-lg border gap-2 px-3 py-1.5 text-xs cursor-pointer font-semibold transition-colors focus:outline-none',
+  'inline-flex items-center justify-center rounded-lg border gap-2 px-3 py-1.5 text-xs cursor-pointer font-semibold transition-colors focus:outline-none',
   {
     variants: {
       variant: {

@@ -7,7 +7,7 @@ import * as React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 const InputLabelVariants = cva(
-  'text-sm text-gray-50  font-medium" leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-[150%] tracking-[-0.28px]',
+  'text-sm text-gray-50 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-[150%] tracking-[-0.28px]',
 );
 
 const InputLabel = React.forwardRef<
