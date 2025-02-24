@@ -9,7 +9,7 @@ import { Tab } from '@/shared/ui/tab';
 export default function Home() {
   return (
     <div className="flex h-dvh w-full justify-center">
-      <div className="inline-flex w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
+      <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
