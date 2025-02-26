@@ -1,4 +1,4 @@
-/* 공통 컴포넌트 - avatar
+/** 공통 컴포넌트 - avatar
   사용 방법 : 
   <Avatar>
     <AvatarImage src={원하는 이미지 파일} />

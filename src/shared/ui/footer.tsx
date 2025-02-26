@@ -1,4 +1,4 @@
-/* 공통 컴포넌트 - footer
+/**  공통 컴포넌트 - footer
   사용 방법 : 
   <Footer current={"mycard" || "collection" || "setting"}
     onClick={(tab) => {
@@ -18,9 +18,11 @@ import creditCard from './icon/credit-card.svg';
 import frame from './icon/Frame.svg';
 import user from './icon/user.svg';
 
+type CommonCurrentType = 'mycard' | 'collection' | 'setting';
+
 type FooterProps = {
-  current: 'mycard' | 'collection' | 'setting';
-  onClick?: (tab: 'mycard' | 'collection' | 'setting') => void;
+  current: CommonCurrentType;
+  onClick?: (tab: CommonCurrentType) => void;
 };
 
 function Footer({ current, onClick }: FooterProps) {

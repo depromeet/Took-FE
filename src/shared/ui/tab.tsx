@@ -1,4 +1,4 @@
-/* 공통 컴포넌트 - tab
+/** 공통 컴포넌트 - tab
   사용 방법 : <Tab variant="all">전체 보기</Tab>
   variant - default : 일반 탭 디자인
           - all : '전체 보기' 탭 디자인
