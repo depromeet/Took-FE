@@ -7,6 +7,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -19,6 +20,7 @@ const config: Config = {
          * Gray
          */
         gray: {
+          white: 'var(--gray-white)',
           50: 'var(--gray-50)',
           75: 'var(--gray-75)',
           100: 'var(--gray-100)',
@@ -29,40 +31,52 @@ const config: Config = {
           600: 'var(--gray-600)',
           700: 'var(--gray-700)',
           800: 'var(--gray-800)',
-          900: 'var(--gray-900)',
+          black: 'var(--gray-black)',
         },
         /**
-         * Primary
+         * Primary - 변수명은 임시입니다.
          */
         primary: {
-          DEFAULT: 'var(--primary)',
-          light: 'var(--primary-light)',
-          hover: 'var(--primary-hover)',
-          active: 'var(--primary-active)',
-          normal: 'var(--primary-normal)',
-          'normal-hover': 'var(--primary-normal-hover)',
-          'normal-active': 'var(--primary-normal-active)',
-          dark: 'var(--primary-dark)',
-          'dark-hover': 'var(--primary-dark-hover)',
-          'dark-active': 'var(--primary-dark-active)',
-          darker: 'var(--primary-darker)',
+          DEFAULT: 'var(--primary-500)',
+          light: 'var(--primary-50)',
+          'light-hover': 'var(--primary-100)',
+          'light-active': 'var(--primary-200)',
+          hover: 'var(--primary-300)',
+          active: 'var(--primary-400)',
+          dark: 'var(--primary-500)',
         },
         /**
-         * Secondary
+         * Secondary - 변수명은 임시입니다.
          */
         secondary: {
-          DEFAULT: 'var(--secondary)',
-          light: 'var(--secondary-light)',
-          hover: 'var(--secondary-hover)',
-          active: 'var(--secondary-active)',
-          normal: 'var(--secondary-normal)',
-          'normal-hover': 'var(--secondary-normal-hover)',
-          'normal-active': 'var(--secondary-normal-active)',
-          dark: 'var(--secondary-dark)',
-          'dark-hover': 'var(--secondary-dark-hover)',
-          'dark-active': 'var(--secondary-dark-active)',
-          darker: 'var(--secondary-darker)',
+          DEFAULT: 'var(--secondary-500)',
+          light: 'var(--secondary-50)',
+          'light-hover': 'var(--secondary-100)',
+          'light-active': 'var(--secondary-200)',
+          hover: 'var(--secondary-300)',
+          active: 'var(--secondary-400)',
+          dark: 'var(--secondary-500)',
         },
+        /**
+         * Error - 속성들은 임시입니다.
+         */
+        error: {
+          light: 'var(--error-100)',
+          medium: 'var(--error-300)',
+          normal: 'var(--error-500)',
+          dark: 'var(--error-700)',
+        },
+        true: {
+          light: 'var(--true-100)',
+          medium: 'var(--true-300)',
+          normal: 'var(--true-500)',
+          dark: 'var(--true-700)',
+        },
+      },
+      borderRadius: {
+        sm: 'var(--radius-s)',
+        md: 'var(--radius-m)',
+        lg: 'var(--radius-l)',
       },
     },
   },
