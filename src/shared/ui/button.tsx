@@ -10,8 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-white hover:bg-primary-normal-hover active:bg-primary-normal-active disabled:bg-gray-300 disabled:text-gray-500',
-        prev: 'bg-gray-100 text-gray-800',
+          'bg-primary text-white hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-300 disabled:text-gray-500',
+        prev: 'bg-gray-100 text-gray-800 hover:bg-gray-200 active:bg-gray-300 disabled:bg-gray-300 disabled:text-gray-500',
       },
       size: {
         default: 'w-11/12 h-[52px] px-8 rounded-md',
