@@ -78,6 +78,9 @@ const config: Config = {
         md: 'var(--radius-m)',
         lg: 'var(--radius-l)',
       },
+      fontFamily: {
+        pretendard: ['var(--font-pretendard)'],
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
