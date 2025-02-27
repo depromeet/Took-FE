@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import Footer from '@/shared/ui/footer';
