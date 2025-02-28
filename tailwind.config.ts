@@ -81,6 +81,22 @@ const config: Config = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
       },
+      // '키 이름': [fontSize, { lineHeight, fontWeight, letterSpacing }]
+      // - fontSize: 글자 크기
+      // - lineHeight: 줄 높이
+      // - fontWeight: 글자 두께
+      // - letterSpacing: 글자 간격
+      fontSize: {
+        'title-1': ['22px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.44px' }],
+        'title-2': ['20px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.4px' }],
+        'title-3': ['18px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.36px' }],
+        'body-1': ['18px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.36px' }],
+        'body-2': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
+        'body-3': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
+        'body-4': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
+        'caption-1': ['12px', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '-0.24px' }],
+        'caption-2': ['11px', { lineHeight: '1.4', fontWeight: '400', letterSpacing: '-0.22px' }],
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
