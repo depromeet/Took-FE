@@ -1,7 +1,14 @@
+'use client';
+
+import Image from 'next/image';
+import { toast } from 'sonner';
+
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import Footer from '@/shared/ui/footer';
+import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
 import Input from '@/shared/ui/Input/input';
+import { Toaster } from '@/shared/ui/sonner';
 import { Tab } from '@/shared/ui/tab';
 
 export default function Home() {
@@ -25,10 +32,14 @@ export default function Home() {
           placeholder="어떤 분야에 관심이 있나요?"
           info="생각과 경험이 담긴 글을 공유해 보세요"
         />
+        <Toaster
+          icons={{
+            error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
+          }}
+          position="bottom-right"
+        />
+        <button onClick={() => toast.error('주의 해주세요 주의해주세요 이렇게 하지 마세요')}>토스트 잘 뜨나?</button>
         <Input label="소속 정보" placeholder="어디에서 활동 중인지 알려주세요" />
-        <Footer current="mycard" />
-        <Footer current="collection" />
-        <Footer current="setting" />
       </div>
     </div>
   );
