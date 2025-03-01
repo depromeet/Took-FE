@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
-import Footer from '@/shared/ui/footer';
 import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
 import Input from '@/shared/ui/Input/input';
 import { Toaster } from '@/shared/ui/sonner';
