@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import Footer from '@/shared/ui/footer';
 import Input from '@/shared/ui/Input/input';
