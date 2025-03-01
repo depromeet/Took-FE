@@ -19,7 +19,7 @@ function KakaoLoginButton() {
   return (
     <button
       onClick={kakaoLogin}
-      className="flex w-full items-center justify-between rounded-[12px] bg-yellow-300 px-4 py-[15px] text-gray-800"
+      className="flex w-full items-center justify-between rounded-md bg-yellow-300 px-4 py-[15px] text-gray-800"
     >
       <KakaoIcon />
       <Typography variant="body-2">카카오톡으로 시작하기</Typography>
