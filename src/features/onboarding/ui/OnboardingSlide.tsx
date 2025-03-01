@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { Typography } from '@/shared/ui/typography';
+
 import { isTextArray } from '../utils/text';
 
 interface OnboardingSlideProps {
