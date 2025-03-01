@@ -11,12 +11,6 @@ dependencies:
   '@radix-ui/react-label':
     specifier: ^2.1.2
     version: 2.1.2(@types/react-dom@18.3.5)(@types/react@18.3.18)(react-dom@18.3.1)(react@18.3.1)
-      '@radix-ui/react-avatar':
-        specifier: ^1.1.3
-        version: 1.1.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-label':
-        specifier: ^2.1.2
-        version: 2.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
   '@radix-ui/react-slot':
     specifier: ^1.1.2
     version: 1.1.2(@types/react@18.3.18)(react@18.3.1)
@@ -876,8 +870,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  '@radix-ui/react-compose-refs@1.1.1':
-    resolution: {integrity: sha512-Y9VzoRDSJtgFMUCoiZBDVo084VQ5hfpXxVE+NgkdNsjiDBByiImMZKKhxMwCbdHvhlENG6a833CbFkOQvTricw==}
+  /@radix-ui/react-avatar@1.1.3(@types/react-dom@18.3.5)(@types/react@18.3.18)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Paen00T4P8L8gd9bNsRMw7Cbaz85oxiv+hzomsRZgFm2byltPFDtfcoqlWJ8GyZlIBWgLssJlzLCnKU0G0302g==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -886,30 +880,34 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/react-context': 1.1.1(@types/react@18.3.18)(react@18.3.1)
+      '@radix-ui/react-primitive': 2.0.2(@types/react-dom@18.3.5)(@types/react@18.3.18)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-use-callback-ref': 1.1.0(@types/react@18.3.18)(react@18.3.1)
+      '@radix-ui/react-use-layout-effect': 1.1.0(@types/react@18.3.18)(react@18.3.1)
+      '@types/react': 18.3.18
+      '@types/react-dom': 18.3.5(@types/react@18.3.18)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
-  '@radix-ui/react-slot@1.1.2':
-    resolution: {integrity: sha512-YAKxaiGsSQJ38VzKH86/BPRC4rh+b1Jpa+JneA5LRE7skmLPNAyeG8kPJj/oo4STLvlrs8vkf/iYyc3A5stYCQ==}
+  /@radix-ui/react-compose-refs@1.1.1(@types/react@18.3.18)(react@18.3.1):
+    resolution: {integrity: sha512-Y9VzoRDSJtgFMUCoiZBDVo084VQ5hfpXxVE+NgkdNsjiDBByiImMZKKhxMwCbdHvhlENG6a833CbFkOQvTricw==}
     peerDependencies:
       '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 18.3.18
+      react: 18.3.1
+    dev: false
 
-  '@rtsao/scc@1.1.0':
-    resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
-
-  '@rushstack/eslint-patch@1.10.5':
-    resolution: {integrity: sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==}
-
-  '@swc/counter@0.1.3':
-    resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
-
-  '@swc/helpers@0.5.5':
-    resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
-
-  '@tanstack/eslint-plugin-query@5.66.1':
-    resolution: {integrity: sha512-pYMVTGgJ7yPk9Rm6UWEmbY6TX0EmMmxJqYkthgeDCwEznToy2m+W928nUODFirtZBZlhBsqHy33LO0kyTlgf0w==}
+  /@radix-ui/react-context@1.1.1(@types/react@18.3.18)(react@18.3.1):
+    resolution: {integrity: sha512-UASk9zi+crv9WteK/NU4PLvOoL3OuE6BWVKNF6hPRBtYBDXQ2u5iu3O59zUlJiTVvkyuycnqrztsHVJwcK9K+Q==}
     peerDependencies:
       '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
@@ -1045,409 +1043,32 @@ packages:
       '@tanstack/react-query': ^5.66.11
       react: ^18 || ^19
     dependencies:
-      '@babel/template': 7.26.9
-      '@babel/types': 7.26.9
-
-  '@babel/parser@7.26.9':
-    dependencies:
-      '@babel/types': 7.26.9
-
-  '@babel/template@7.26.9':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/parser': 7.26.9
-      '@babel/types': 7.26.9
-
-  '@babel/traverse@7.26.9':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/generator': 7.26.9
-      '@babel/parser': 7.26.9
-      '@babel/template': 7.26.9
-      '@babel/types': 7.26.9
-      debug: 4.4.0
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/types@7.26.9':
-    dependencies:
-      '@babel/helper-string-parser': 7.25.9
-      '@babel/helper-validator-identifier': 7.25.9
-
-  '@cspell/cspell-bundled-dicts@8.17.3':
-    dependencies:
-      '@cspell/dict-ada': 4.1.0
-      '@cspell/dict-al': 1.1.0
-      '@cspell/dict-aws': 4.0.9
-      '@cspell/dict-bash': 4.2.0
-      '@cspell/dict-companies': 3.1.14
-      '@cspell/dict-cpp': 6.0.3
-      '@cspell/dict-cryptocurrencies': 5.0.4
-      '@cspell/dict-csharp': 4.0.6
-      '@cspell/dict-css': 4.0.17
-      '@cspell/dict-dart': 2.3.0
-      '@cspell/dict-data-science': 2.0.7
-      '@cspell/dict-django': 4.1.4
-      '@cspell/dict-docker': 1.1.12
-      '@cspell/dict-dotnet': 5.0.9
-      '@cspell/dict-elixir': 4.0.7
-      '@cspell/dict-en-common-misspellings': 2.0.9
-      '@cspell/dict-en-gb': 1.1.33
-      '@cspell/dict-en_us': 4.3.31
-      '@cspell/dict-filetypes': 3.0.11
-      '@cspell/dict-flutter': 1.1.0
-      '@cspell/dict-fonts': 4.0.4
-      '@cspell/dict-fsharp': 1.1.0
-      '@cspell/dict-fullstack': 3.2.4
-      '@cspell/dict-gaming-terms': 1.1.0
-      '@cspell/dict-git': 3.0.4
-      '@cspell/dict-golang': 6.0.18
-      '@cspell/dict-google': 1.0.8
-      '@cspell/dict-haskell': 4.0.5
-      '@cspell/dict-html': 4.0.11
-      '@cspell/dict-html-symbol-entities': 4.0.3
-      '@cspell/dict-java': 5.0.11
-      '@cspell/dict-julia': 1.1.0
-      '@cspell/dict-k8s': 1.0.10
-      '@cspell/dict-kotlin': 1.1.0
-      '@cspell/dict-latex': 4.0.3
-      '@cspell/dict-lorem-ipsum': 4.0.4
-      '@cspell/dict-lua': 4.0.7
-      '@cspell/dict-makefile': 1.0.4
-      '@cspell/dict-markdown': 2.0.9(@cspell/dict-css@4.0.17)(@cspell/dict-html-symbol-entities@4.0.3)(@cspell/dict-html@4.0.11)(@cspell/dict-typescript@3.2.0)
-      '@cspell/dict-monkeyc': 1.0.10
-      '@cspell/dict-node': 5.0.6
-      '@cspell/dict-npm': 5.1.26
-      '@cspell/dict-php': 4.0.14
-      '@cspell/dict-powershell': 5.0.14
-      '@cspell/dict-public-licenses': 2.0.13
-      '@cspell/dict-python': 4.2.15
-      '@cspell/dict-r': 2.1.0
-      '@cspell/dict-ruby': 5.0.7
-      '@cspell/dict-rust': 4.0.11
-      '@cspell/dict-scala': 5.0.7
-      '@cspell/dict-shell': 1.1.0
-      '@cspell/dict-software-terms': 4.2.5
-      '@cspell/dict-sql': 2.2.0
-      '@cspell/dict-svelte': 1.0.6
-      '@cspell/dict-swift': 2.0.5
-      '@cspell/dict-terraform': 1.1.0
-      '@cspell/dict-typescript': 3.2.0
-      '@cspell/dict-vue': 3.0.4
-
-  '@cspell/cspell-json-reporter@8.17.3':
-    dependencies:
-      '@cspell/cspell-types': 8.17.3
-
-  '@cspell/cspell-pipe@8.17.3': {}
-
-  '@cspell/cspell-resolver@8.17.3':
-    dependencies:
-      global-directory: 4.0.1
-
-  '@cspell/cspell-service-bus@8.17.3': {}
-
-  '@cspell/cspell-types@8.17.3': {}
-
-  '@cspell/dict-ada@4.1.0': {}
-
-  '@cspell/dict-al@1.1.0': {}
-
-  '@cspell/dict-aws@4.0.9': {}
-
-  '@cspell/dict-bash@4.2.0':
-    dependencies:
-      '@cspell/dict-shell': 1.1.0
-
-  '@cspell/dict-companies@3.1.14': {}
-
-  '@cspell/dict-cpp@6.0.3': {}
-
-  '@cspell/dict-cryptocurrencies@5.0.4': {}
-
-  '@cspell/dict-csharp@4.0.6': {}
-
-  '@cspell/dict-css@4.0.17': {}
-
-  '@cspell/dict-dart@2.3.0': {}
-
-  '@cspell/dict-data-science@2.0.7': {}
-
-  '@cspell/dict-django@4.1.4': {}
-
-  '@cspell/dict-docker@1.1.12': {}
-
-  '@cspell/dict-dotnet@5.0.9': {}
-
-  '@cspell/dict-elixir@4.0.7': {}
-
-  '@cspell/dict-en-common-misspellings@2.0.9': {}
-
-  '@cspell/dict-en-gb@1.1.33': {}
-
-  '@cspell/dict-en_us@4.3.31': {}
-
-  '@cspell/dict-filetypes@3.0.11': {}
-
-  '@cspell/dict-flutter@1.1.0': {}
-
-  '@cspell/dict-fonts@4.0.4': {}
-
-  '@cspell/dict-fsharp@1.1.0': {}
-
-  '@cspell/dict-fullstack@3.2.4': {}
-
-  '@cspell/dict-gaming-terms@1.1.0': {}
-
-  '@cspell/dict-git@3.0.4': {}
-
-  '@cspell/dict-golang@6.0.18': {}
-
-  '@cspell/dict-google@1.0.8': {}
-
-  '@cspell/dict-haskell@4.0.5': {}
-
-  '@cspell/dict-html-symbol-entities@4.0.3': {}
-
-  '@cspell/dict-html@4.0.11': {}
-
-  '@cspell/dict-java@5.0.11': {}
-
-  '@cspell/dict-julia@1.1.0': {}
-
-  '@cspell/dict-k8s@1.0.10': {}
-
-  '@cspell/dict-kotlin@1.1.0': {}
-
-  '@cspell/dict-latex@4.0.3': {}
-
-  '@cspell/dict-lorem-ipsum@4.0.4': {}
-
-  '@cspell/dict-lua@4.0.7': {}
-
-  '@cspell/dict-makefile@1.0.4': {}
-
-  '@cspell/dict-markdown@2.0.9(@cspell/dict-css@4.0.17)(@cspell/dict-html-symbol-entities@4.0.3)(@cspell/dict-html@4.0.11)(@cspell/dict-typescript@3.2.0)':
-    dependencies:
-      '@cspell/dict-css': 4.0.17
-      '@cspell/dict-html': 4.0.11
-      '@cspell/dict-html-symbol-entities': 4.0.3
-      '@cspell/dict-typescript': 3.2.0
-
-  '@cspell/dict-monkeyc@1.0.10': {}
-
-  '@cspell/dict-node@5.0.6': {}
-
-  '@cspell/dict-npm@5.1.26': {}
-
-  '@cspell/dict-php@4.0.14': {}
-
-  '@cspell/dict-powershell@5.0.14': {}
-
-  '@cspell/dict-public-licenses@2.0.13': {}
-
-  '@cspell/dict-python@4.2.15':
-    dependencies:
-      '@cspell/dict-data-science': 2.0.7
-
-  '@cspell/dict-r@2.1.0': {}
-
-  '@cspell/dict-ruby@5.0.7': {}
-
-  '@cspell/dict-rust@4.0.11': {}
-
-  '@cspell/dict-scala@5.0.7': {}
-
-  '@cspell/dict-shell@1.1.0': {}
-
-  '@cspell/dict-software-terms@4.2.5': {}
-
-  '@cspell/dict-sql@2.2.0': {}
-
-  '@cspell/dict-svelte@1.0.6': {}
-
-  '@cspell/dict-swift@2.0.5': {}
-
-  '@cspell/dict-terraform@1.1.0': {}
-
-  '@cspell/dict-typescript@3.2.0': {}
-
-  '@cspell/dict-vue@3.0.4': {}
-
-  '@cspell/dynamic-import@8.17.3':
-    dependencies:
-      '@cspell/url': 8.17.3
-      import-meta-resolve: 4.1.0
-
-  '@cspell/filetypes@8.17.3': {}
-
-  '@cspell/strong-weak-map@8.17.3': {}
-
-  '@cspell/url@8.17.3': {}
-
-  '@eslint-community/eslint-utils@4.4.1(eslint@8.57.1)':
-    dependencies:
-      eslint: 8.57.1
-      eslint-visitor-keys: 3.4.3
-
-  '@eslint-community/regexpp@4.12.1': {}
-
-  '@eslint/eslintrc@2.1.4':
-    dependencies:
-      ajv: 6.12.6
-      debug: 4.4.0
-      espree: 9.6.1
-      globals: 13.24.0
-      ignore: 5.3.2
-      import-fresh: 3.3.1
-      js-yaml: 4.1.0
-      minimatch: 3.1.2
-      strip-json-comments: 3.1.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@eslint/js@8.57.1': {}
-
-  '@humanwhocodes/config-array@0.13.0':
-    dependencies:
-      '@humanwhocodes/object-schema': 2.0.3
-      debug: 4.4.0
-      minimatch: 3.1.2
-    transitivePeerDependencies:
-      - supports-color
-
-  '@humanwhocodes/module-importer@1.0.1': {}
-
-  '@humanwhocodes/object-schema@2.0.3': {}
-
-  '@isaacs/cliui@8.0.2':
-    dependencies:
-      string-width: 5.1.2
-      string-width-cjs: string-width@4.2.3
-      strip-ansi: 7.1.0
-      strip-ansi-cjs: strip-ansi@6.0.1
-      wrap-ansi: 8.1.0
-      wrap-ansi-cjs: wrap-ansi@7.0.0
-
-  '@jridgewell/gen-mapping@0.3.8':
-    dependencies:
-      '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.5.0
-      '@jridgewell/trace-mapping': 0.3.25
-
-  '@jridgewell/resolve-uri@3.1.2': {}
-
-  '@jridgewell/set-array@1.2.1': {}
-
-  '@jridgewell/sourcemap-codec@1.5.0': {}
-
-  '@jridgewell/trace-mapping@0.3.25':
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@microsoft/tsdoc-config@0.16.2':
-    dependencies:
-      '@microsoft/tsdoc': 0.14.2
-      ajv: 6.12.6
-      jju: 1.4.0
-      resolve: 1.19.0
-
-  '@microsoft/tsdoc@0.14.2': {}
-
-  '@next/env@14.2.23': {}
-
-  '@next/eslint-plugin-next@14.2.23':
-    dependencies:
-      glob: 10.3.10
-
-  '@next/swc-darwin-arm64@14.2.23':
-    optional: true
-
-  '@next/swc-darwin-x64@14.2.23':
-    optional: true
-
-  '@next/swc-linux-arm64-gnu@14.2.23':
-    optional: true
-
-  '@next/swc-linux-arm64-musl@14.2.23':
-    optional: true
-
-  '@next/swc-linux-x64-gnu@14.2.23':
-    optional: true
-
-  '@next/swc-linux-x64-musl@14.2.23':
-    optional: true
-
-  '@next/swc-win32-arm64-msvc@14.2.23':
-    optional: true
-
-  '@next/swc-win32-ia32-msvc@14.2.23':
-    optional: true
-
-  '@next/swc-win32-x64-msvc@14.2.23':
-    optional: true
-
-  '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
-    dependencies:
-      eslint-scope: 5.1.1
-
-  '@nodelib/fs.scandir@2.1.5':
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      run-parallel: 1.2.0
-
-  '@nodelib/fs.stat@2.0.5': {}
-
-  '@nodelib/fs.walk@1.2.8':
-    dependencies:
-      '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.19.0
-
-  '@nolyfill/is-core-module@1.0.39': {}
-
-  '@pkgjs/parseargs@0.11.0':
-    optional: true
-
-  '@pkgr/core@0.1.1': {}
-
-  '@radix-ui/react-compose-refs@1.1.1(@types/react@18.3.18)(react@18.3.1)':
-    dependencies:
+      '@tanstack/query-devtools': 5.65.0
+      '@tanstack/react-query': 5.66.11(react@18.3.1)
       react: 18.3.1
     dev: true
 
-  '@radix-ui/react-slot@1.1.2(@types/react@18.3.18)(react@18.3.1)':
+  /@tanstack/react-query@5.66.11(react@18.3.1):
+    resolution: {integrity: sha512-uPDiQbZScWkAeihmZ9gAm3wOBA1TmLB1KCB1fJ1hIiEKq3dTT+ja/aYM7wGUD+XiEsY4sDSE7p8VIz/21L2Dow==}
+    peerDependencies:
+      react: ^18 || ^19
     dependencies:
       '@tanstack/query-core': 5.66.11
       react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.18
 
-  '@rtsao/scc@1.1.0': {}
+  /@types/gensync@1.0.4:
+    resolution: {integrity: sha512-C3YYeRQWp2fmq9OryX+FoDy8nXS6scQ7dPptD8LnFDAUNcKWJjXQKDNJD3HVm+kOUsXhTOkpi69vI4EuAr95bA==}
 
-  '@rushstack/eslint-patch@1.10.5': {}
+  /@types/json-schema@7.0.15:
+    resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+    dev: true
 
-  '@swc/counter@0.1.3': {}
+  /@types/json5@0.0.29:
+    resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
 
-  '@swc/helpers@0.5.5':
-    dependencies:
-      '@swc/counter': 0.1.3
-      tslib: 2.8.1
-
-  '@tanstack/eslint-plugin-query@5.66.1(eslint@8.57.1)(typescript@5.7.3)':
-    dependencies:
-      '@typescript-eslint/utils': 8.24.1(eslint@8.57.1)(typescript@5.7.3)
-      eslint: 8.57.1
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-
-  '@types/json-schema@7.0.15': {}
-
-  '@types/json5@0.0.29': {}
-
-  '@types/node@20.17.19':
+  /@types/node@20.17.17:
+    resolution: {integrity: sha512-/WndGO4kIfMicEQLTi/mDANUu/iVUhT7KboZPdEqqHQ4aTS+3qT3U5gIqWDFV+XouorjfgGqvKILJeHhuQgFYg==}
     dependencies:
       undici-types: 6.19.8
     dev: true
