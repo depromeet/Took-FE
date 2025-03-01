@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { baseURL } from '.';
+import { BASE_URL } from '../constants';
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -47,7 +47,7 @@ export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance) => {
         const refreshToken = window.localStorage.getItem('refreshToken');
         return new Promise(function (resolve, reject) {
           axios
-            .post(`${baseURL}/api/auth/refresh`, { refreshToken })
+            .post(`${BASE_URL}/api/auth/refresh`, { refreshToken })
             .then(({ data }) => {
               // TODO: 필요시 브라우저 Cookie Set 로직 추가
               // axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;

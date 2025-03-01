@@ -1,12 +1,11 @@
 import axios from 'axios';
 
+import { BASE_URL } from '../constants';
+
 import { preventMultipleRefreshToken } from './preventMultipleRefreshToken';
 
-export const baseURL =
-  process.env.NEXT_PUBLIC_STAGE === 'production' ? 'https://api.somewhere' : `https://api-dev.somewhere`;
-
 const axiosInstance = axios.create({
-  baseURL,
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
