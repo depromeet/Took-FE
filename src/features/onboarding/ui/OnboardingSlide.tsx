@@ -13,7 +13,7 @@ function OnboardingSlide({ description, imageUrl, pagination }: OnboardingSlideP
     <div className="relative flex h-full w-full flex-col items-center">
       <div className="absolute inset-0 flex w-full items-center justify-center">
         <div className="relative h-[75%] w-[65%]">
-          <Image src={imageUrl} alt="온보딩 이미지" fill style={{ objectFit: 'contain' }} priority />
+          <Image src={imageUrl} alt="온보딩 이미지" fill className="object-contain" priority />
         </div>
       </div>
 
