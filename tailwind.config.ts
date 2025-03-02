@@ -88,9 +88,9 @@ const config: Config = {
         'developer-50': 'var(--developer-50)',
       },
       borderRadius: {
-        sm: 'var(--radius-s)',
-        md: 'var(--radius-m)',
-        lg: 'var(--radius-l)',
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
       },
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],

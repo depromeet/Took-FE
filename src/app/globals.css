@@ -62,9 +62,9 @@
     --developer-50: linear-gradient(#72a8ff80 0%, #c3d3ff80 100%);
 
     /* radius */
-    --radius-s: 8px;
-    --radius-m: 12px;
-    --radius-l: 80px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 80px;
   }
 
   @media (prefers-color-scheme: dark) {
