@@ -2,10 +2,8 @@ import Image from 'next/image';
 
 import { Typography } from '@/shared/ui/typography';
 
-import { isTextArray } from '../utils/text';
-
 interface OnboardingSlideProps {
-  description: string | string[];
+  description: string[];
   imageUrl: string;
   pagination?: React.ReactNode;
 }
@@ -23,15 +21,11 @@ function OnboardingSlide({ description, imageUrl, pagination }: OnboardingSlideP
         <div className="flex flex-col items-center px-6">
           {pagination && <div className="mb-6">{pagination}</div>}
 
-          {isTextArray(description) ? (
-            (description as string[]).map((line, index) => (
-              <Typography key={index} variant="title-2">
-                {line}
-              </Typography>
-            ))
-          ) : (
-            <Typography variant="body-1">{description as string}</Typography>
-          )}
+          {description.map((line, index) => (
+            <Typography key={index} variant="title-2">
+              {line}
+            </Typography>
+          ))}
         </div>
       </div>
     </div>
