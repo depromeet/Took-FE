@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { Swiper as SwiperType } from 'swiper';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -23,7 +23,7 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const handleNext = (): void => {
+  const handleNext = () => {
     if (activeIndex === slides.length - 1) {
       onComplete();
     } else if (swiperRef.current) {
@@ -31,34 +31,26 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
     }
   };
 
-  const handleSlideChange = (swiper: SwiperType): void => {
+  const handleSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
   };
 
-  const SlidePagination = () => (
-    <div className="mb-8 flex space-x-2">
-      {slides.map((_, index) => (
-        <button
-          key={index}
-          className={`h-2 rounded-full transition-all ${
-            index === activeIndex ? 'w-2 bg-white' : 'w-2 bg-white opacity-50'
-          }`}
-          onClick={() => swiperRef.current?.slideToLoop(index)}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <div className="w-full flex-1">
+      <div className="relative w-full flex-1">
+        {/*module Pagination사용으로 수정 */}
         <Swiper
-          modules={[Navigation, Autoplay]}
+          modules={[Pagination, Navigation, Autoplay]}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
           onSlideChange={handleSlideChange}
-          pagination={false}
+          pagination={{
+            clickable: true,
+            el: '.custom-pagination',
+            bulletClass: 'inline-block h-2 w-2 rounded-full mx-1 bg-white opacity-50',
+            bulletActiveClass: 'opacity-100',
+          }}
           navigation={false}
           slidesPerView={1}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -67,14 +59,18 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         >
           {slides.map((slide) => (
             <SwiperSlide key={slide.id}>
-              <OnboardingSlide
-                description={slide.description}
-                imageUrl={slide.imageUrl}
-                pagination={<SlidePagination />}
-              />
+              <OnboardingSlide description={slide.description} imageUrl={slide.imageUrl} />
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/**
+         * 커스텀 페이지네이션 위치
+         * 반응형으로 위치 조정
+         */}
+        <div className="absolute bottom-28 left-0 right-0 z-10 sm:bottom-36 md:bottom-40 lg:bottom-48">
+          <div className="custom-pagination flex justify-center"></div>
+        </div>
       </div>
 
       <div className="mt-auto w-full bg-black p-6">
