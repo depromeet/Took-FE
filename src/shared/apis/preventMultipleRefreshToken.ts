@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { cookies } from 'next/headers';
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -42,7 +43,8 @@ export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUr
         originalRequest._retry = true;
         isRefreshing = true;
 
-        const refreshToken = window.localStorage.getItem('refreshToken');
+        const refreshToken = cookies().get('refreshToken')?.value;
+
         return new Promise(function (resolve, reject) {
           axios
             .post(`${baseUrl}/api/auth/refresh`, { refreshToken })
