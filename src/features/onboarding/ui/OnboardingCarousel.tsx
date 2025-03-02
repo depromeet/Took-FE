@@ -35,7 +35,7 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
     setActiveIndex(swiper.realIndex);
   };
 
-  const Pagination = () => (
+  const SlidePagination = () => (
     <div className="mb-8 flex space-x-2">
       {slides.map((_, index) => (
         <button
@@ -53,7 +53,7 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
     <div className="flex h-full w-full flex-col items-center">
       <div className="w-full flex-1">
         <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
+          modules={[Navigation, Autoplay]}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
@@ -67,7 +67,11 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         >
           {slides.map((slide) => (
             <SwiperSlide key={slide.id}>
-              <OnboardingSlide description={slide.description} imageUrl={slide.imageUrl} pagination={<Pagination />} />
+              <OnboardingSlide
+                description={slide.description}
+                imageUrl={slide.imageUrl}
+                pagination={<SlidePagination />}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

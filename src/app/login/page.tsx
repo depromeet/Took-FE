@@ -12,10 +12,6 @@ export default function LoginPage() {
     setShowOnboarding(false);
   };
 
-  const handleSkipOnboarding = () => {
-    setShowOnboarding(false);
-  };
-
   return (
     <div className="flex h-dvh w-full justify-center">
       <div
@@ -27,11 +23,7 @@ export default function LoginPage() {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        {showOnboarding ? (
-          <OnboardingFeature onComplete={handleOnboardingComplete} onSkip={handleSkipOnboarding} />
-        ) : (
-          <LoginFeature />
-        )}
+        {showOnboarding ? <OnboardingFeature onComplete={handleOnboardingComplete} /> : <LoginFeature />}
       </div>
     </div>
   );
