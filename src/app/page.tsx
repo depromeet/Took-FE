@@ -35,9 +35,11 @@ export default function Home() {
           icons={{
             error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
           }}
-          position="bottom-right"
+          position="bottom-center"
         />
-        <button onClick={() => toast.error('주의 해주세요 주의해주세요 이렇게 하지 마세요')}>토스트 잘 뜨나?</button>
+        <button className="text-white" onClick={() => toast.error('주의 해주세요')}>
+          토스트 잘 뜨나?
+        </button>
         <Input label="소속 정보" placeholder="어디에서 활동 중인지 알려주세요" />
       </div>
     </div>
