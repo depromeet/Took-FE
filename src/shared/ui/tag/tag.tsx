@@ -53,7 +53,8 @@ function Tag({
 
   return (
     <span className={`inline-flex items-center rounded-full ${backgroundColor} ${sizeClasses[size]} ${className}`}>
-      <Typography variant="body-2">{message}</Typography>
+      {/* Typography 추가 이후 폰트 크기를 수정할 예정입니다. */}
+      <Typography variant={size === 'lg' ? 'body-2' : size === 'md' ? 'body-3' : 'caption-1'}>{message}</Typography>
       {hasCloseButton && (
         <button
           type="button"
