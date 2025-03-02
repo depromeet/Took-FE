@@ -18,19 +18,21 @@ const config: Config = {
         black: 'var(--black)',
         /**
          * Gray
+         * gray는 단순 숫자를 사용할지, 변수명을 사용할지 고민됩니다.
+         * 특정 컬러를 다양한 곳에서 사용하기 때문에....
          */
         gray: {
           white: 'var(--gray-white)',
-          // 50: 'var(--gray-50)',
+          50: 'var(--gray-50)',
           75: 'var(--gray-75)',
           100: 'var(--gray-100)',
-          // 200: 'var(--gray-200)',
-          // 300: 'var(--gray-300)',
-          'text-primary': 'var(--gray-400)',
-          'bg-disabled': 'var(--gray-500)',
-          'text-disabled': 'var(--gray-600)',
-          // 700: 'var(--gray-700)',
-          'bg-primary': 'var(--gray-800)',
+          200: 'var(--gray-200)',
+          300: 'var(--gray-300)',
+          400: 'var(--gray-400)',
+          500: 'var(--gray-500)',
+          600: 'var(--gray-600)',
+          700: 'var(--gray-700)',
+          800: 'var(--gray-800)',
           black: 'var(--gray-black)',
         },
         /**
@@ -80,8 +82,8 @@ const config: Config = {
        * Gradient - 변수명은 임시입니다.
        */
       backgroundImage: {
-        main: 'var(--background-main)',
-        sub: 'var(--background-sub)',
+        'gradient-primary': 'var(--background-main)',
+        'gradient-secondary': 'var(--background-sub)',
         designer: 'var(--designer)',
         'designer-50': 'var(--designer-50)',
         developer: 'var(--developer)',
@@ -105,9 +107,10 @@ const config: Config = {
         'title-2': ['20px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.4px' }],
         'title-3': ['18px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.36px' }],
         'body-1': ['18px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.36px' }],
-        'body-2': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
-        'body-3': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
-        'body-4': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
+        'body-2': ['18px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.36px' }],
+        'body-3': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
+        'body-4': ['14px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.28px' }],
+        'body-5': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
         'caption-1': ['12px', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '-0.24px' }],
         'caption-2': ['11px', { lineHeight: '1.4', fontWeight: '400', letterSpacing: '-0.22px' }],
       },
