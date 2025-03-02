@@ -31,7 +31,7 @@ export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUr
             failedQueue.push({ resolve, reject });
           })
             .then((token) => {
-              originalRequest.headers['Authorization'] = 'Bearer ' + token;
+              originalRequest.headers['Authorization'] = `Bearer ${token}`;
               return axios(originalRequest);
             })
             .catch((err) => {
@@ -48,8 +48,8 @@ export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUr
             .post(`${baseUrl}/api/auth/refresh`, { refreshToken })
             .then(({ data }) => {
               // TODO: 필요시 브라우저 Cookie Set 로직 추가
-              // axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
-              // originalRequest.headers['Authorization'] = 'Bearer ' + data.token;
+              // axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+              // originalRequest.headers['Authorization'] = `Bearer ${data.token}`;
 
               processQueue(null, data.token);
               resolve(axios(originalRequest));
