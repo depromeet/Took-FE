@@ -82,8 +82,8 @@ const config: Config = {
        * Gradient - 변수명은 임시입니다.
        */
       backgroundImage: {
-        'gradient-primary': 'var(--background-main)',
-        'gradient-secondary': 'var(--background-sub)',
+        main: 'var(--background-main)',
+        sub: 'var(--background-sub)',
         designer: 'var(--designer)',
         'designer-50': 'var(--designer-50)',
         developer: 'var(--developer)',
