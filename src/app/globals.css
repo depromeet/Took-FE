@@ -25,28 +25,42 @@
     --primary-50: #eeeaff;
     --primary-100: #e5e0ff;
     --primary-200: #cabfff;
-    --primary-300: #4226cc;
-    --primary-400: #3e24bf;
-    --primary-500: #5330ff; /* main color */
-    --primary-600: #321d99;
+    --primary-300: #9f8aff;
+    --primary-400: #8166ff;
+    --primary-500: #6535ff; /* main color */
+    --primary-600: #4f1cf3;
     /* secondary - blue */
     --secondary-50: #e8f3ff;
     --secondary-100: #c7e1ff;
     --secondary-200: #a9d1ff;
     --secondary-300: #83bdff;
     --secondary-400: #429aff;
-    --secondary-500: #0c7dff; /* main color */
-    --secondary-600: #006de9;
+    --secondary-500: #0c6dff; /* main color */
+    --secondary-600: #0051ff;
     /* error */
     --error-100: #fdaaaa;
     --error-300: #f66161;
-    --error-500: #bf0711;
+    --error-500: #d40e19;
     --error-700: #9d091e;
     /* true */
     --true-100: #9bf0b9;
     --true-300: #5fe28d;
     --true-500: #08c94b;
     --true-700: #07a840;
+    /* opacity */
+    --white-10: #ffffff1a;
+    --white-20: #ffffff33;
+    --purple-30: #8661c94d;
+    --purple-40: #5c2dff66;
+    --blue-40: #2d42ff66;
+    /* gradient */
+    --background-main: linear-gradient(#2370ff80 0%, #7023ff80 100%);
+    --background-sub: linear-gradient(#2370ff40 0%, #7023ff40 100%);
+    --designer: linear-gradient(#b59bff 0%, #e8e1ff 100%);
+    --designer-50: linear-gradient(#b59bff80 0%, #e8e1ff80 100%);
+    --developer: linear-gradient(#72a8ff 0%, #c3d3ff 100%);
+    --developer-50: linear-gradient(#72a8ff80 0%, #c3d3ff80 100%);
+
     /* radius */
     --radius-s: 8px;
     --radius-m: 12px;

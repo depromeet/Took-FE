@@ -58,7 +58,7 @@ const config: Config = {
           dark: 'var(--secondary-500)',
         },
         /**
-         * Error - 속성들은 임시입니다.
+         * Error - 변수명은 임시입니다.
          */
         error: {
           light: 'var(--error-100)',
@@ -66,12 +66,26 @@ const config: Config = {
           normal: 'var(--error-500)',
           dark: 'var(--error-700)',
         },
+        /**
+         * true - 변수명은 임시입니다.
+         */
         true: {
           light: 'var(--true-100)',
           medium: 'var(--true-300)',
           normal: 'var(--true-500)',
           dark: 'var(--true-700)',
         },
+      },
+      /**
+       * Gradient - 변수명은 임시입니다.
+       */
+      backgroundImage: {
+        main: 'var(--background-main)',
+        sub: 'var(--background-sub)',
+        designer: 'var(--designer)',
+        'designer-50': 'var(--designer-50)',
+        developer: 'var(--developer)',
+        'developer-50': 'var(--developer-50)',
       },
       borderRadius: {
         sm: 'var(--radius-s)',
