@@ -21,16 +21,16 @@ const config: Config = {
          */
         gray: {
           white: 'var(--gray-white)',
-          50: 'var(--gray-50)',
+          // 50: 'var(--gray-50)',
           75: 'var(--gray-75)',
           100: 'var(--gray-100)',
-          200: 'var(--gray-200)',
-          300: 'var(--gray-300)',
-          400: 'var(--gray-400)',
-          500: 'var(--gray-500)',
-          600: 'var(--gray-600)',
-          700: 'var(--gray-700)',
-          800: 'var(--gray-800)',
+          // 200: 'var(--gray-200)',
+          // 300: 'var(--gray-300)',
+          'text-primary': 'var(--gray-400)',
+          'bg-disabled': 'var(--gray-500)',
+          'text-disabled': 'var(--gray-600)',
+          // 700: 'var(--gray-700)',
+          'bg-primary': 'var(--gray-800)',
           black: 'var(--gray-black)',
         },
         /**
@@ -38,24 +38,24 @@ const config: Config = {
          */
         primary: {
           DEFAULT: 'var(--primary-500)',
-          light: 'var(--primary-50)',
-          'light-hover': 'var(--primary-100)',
-          'light-active': 'var(--primary-200)',
-          hover: 'var(--primary-300)',
-          active: 'var(--primary-400)',
-          dark: 'var(--primary-500)',
+          // light: 'var(--primary-50)',
+          // 'light-hover': 'var(--primary-100)',
+          // 'light-active': 'var(--primary-200)',
+          normal: 'var(--primary-300)',
+          // active: 'var(--primary-400)',
+          active: 'var(--primary-600)',
         },
         /**
          * Secondary - 변수명은 임시입니다.
          */
         secondary: {
           DEFAULT: 'var(--secondary-500)',
-          light: 'var(--secondary-50)',
-          'light-hover': 'var(--secondary-100)',
-          'light-active': 'var(--secondary-200)',
-          hover: 'var(--secondary-300)',
-          active: 'var(--secondary-400)',
-          dark: 'var(--secondary-500)',
+          // light: 'var(--secondary-50)',
+          // 'light-hover': 'var(--secondary-100)',
+          // 'light-active': 'var(--secondary-200)',
+          normal: 'var(--secondary-300)',
+          // active: 'var(--secondary-400)',
+          active: 'var(--secondary-600)',
         },
         /**
          * Error - 변수명은 임시입니다.
