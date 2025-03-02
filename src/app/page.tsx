@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
-import Input from '@/shared/ui/Input/input';
+import WrappedInput from '@/shared/ui/Input';
 import { Toaster } from '@/shared/ui/sonner';
 import { Tab } from '@/shared/ui/tab';
 
@@ -26,11 +26,10 @@ export default function Home() {
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>
-        <Input
-          label="관심 도메인"
-          placeholder="어떤 분야에 관심이 있나요?"
-          info="생각과 경험이 담긴 글을 공유해 보세요"
-        />
+        <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
+        <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" hasTitle={true} />
+        <WrappedInput variant="withBtn" placeholder="close icon 테스트 중이에요" />
+        <WrappedInput title="SNS" variant="withBtn" placeholder="close icon 테스트 중이에요" hasTitle={true} />
         <Toaster
           icons={{
             error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
@@ -40,7 +39,6 @@ export default function Home() {
         <button className="text-white" onClick={() => toast.error('주의 해주세요')}>
           토스트 잘 뜨나?
         </button>
-        <Input label="소속 정보" placeholder="어디에서 활동 중인지 알려주세요" />
       </div>
     </div>
   );
