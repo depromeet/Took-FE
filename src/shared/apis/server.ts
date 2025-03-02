@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-import { BASE_URL } from '../constants';
+import { SERVER_SIDE_URL } from '../constants';
 
 import { preventMultipleRefreshToken } from './preventMultipleRefreshToken';
 
+// TODO: 서버 인스턴스 옵션 추가 논의 필요
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
+  baseURL: SERVER_SIDE_URL,
 });
 
-preventMultipleRefreshToken(axiosInstance);
+preventMultipleRefreshToken(axiosInstance, SERVER_SIDE_URL);
 
-export const http = {
+export const server = {
   get: async <Response = unknown>(...args: Parameters<typeof axiosInstance.get>) => {
     const response = await axiosInstance.get<Response>(...args);
     return response.data;

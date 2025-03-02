@@ -1,7 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { BASE_URL } from '../constants';
-
 let isRefreshing = false;
 let failedQueue: any[] = [];
 
@@ -17,7 +15,7 @@ const processQueue = (error: any, token = null) => {
   failedQueue = [];
 };
 
-export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance) => {
+export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUrl: string) => {
   axiosInstance.interceptors.response.use(
     async (response) => {
       return response;
@@ -47,7 +45,7 @@ export const preventMultipleRefreshToken = (axiosInstance: AxiosInstance) => {
         const refreshToken = window.localStorage.getItem('refreshToken');
         return new Promise(function (resolve, reject) {
           axios
-            .post(`${BASE_URL}/api/auth/refresh`, { refreshToken })
+            .post(`${baseUrl}/api/auth/refresh`, { refreshToken })
             .then(({ data }) => {
               // TODO: 필요시 브라우저 Cookie Set 로직 추가
               // axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
