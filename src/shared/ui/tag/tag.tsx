@@ -10,8 +10,10 @@
 </div> */
 }
 
+import Image from 'next/image';
 import React from 'react';
 
+import closeBtn from '../icon/closeBtn.svg';
 import { Typography } from '../typography';
 
 type TagSize = 'sm' | 'md' | 'lg';
@@ -61,17 +63,7 @@ function Tag({
           onClick={handleClose}
           className="hover:bg-gray-300/30 flex items-center justify-center rounded-full transition-colors"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-            <g clipPath="url(#clip0_991_34930)">
-              <path d="M6.46445 5.03516L13.5355 12.1062" stroke="#999CBF" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M13.5356 5.03516L6.46448 12.1062" stroke="#999CBF" strokeWidth="1.5" strokeLinecap="round" />
-            </g>
-            <defs>
-              <clipPath id="clip0_991_34930">
-                <rect width="16" height="16" fill="white" transform="translate(0 0.5)" />
-              </clipPath>
-            </defs>
-          </svg>
+          <Image src={closeBtn} alt="closeBtn" className="h-4 w-4" />
         </button>
       )}
     </span>
