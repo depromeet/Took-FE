@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { toast } from 'sonner';
 
+import Appbar from '@/shared/ui/appbar';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
 import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
@@ -14,7 +15,8 @@ export default function Home() {
   return (
     <div className="flex h-dvh w-full justify-center">
       <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
-        <div>
+        <Appbar page="main" onLeftClick={() => console.log('left')} onRightClick={() => console.log('right')} />
+        <div className="flex w-full items-center justify-center">
           <WrappedAvatar />
           <WrappedAvatar size="medium" src="https://github.com/shadcn.png" />
           <WrappedAvatar size="medium" />
@@ -33,6 +35,7 @@ export default function Home() {
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>
+
         <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
         <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" />
         <WrappedInput variant="withBtn" placeholder="close icon 테스트 중이에요" />
