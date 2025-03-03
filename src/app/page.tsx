@@ -21,8 +21,13 @@ export default function Home() {
         <Tab variant="all">전체 보기</Tab>
         <Tab>도메인</Tab>
         <Tab>글쓰기 모임</Tab>
-        <div className="flex w-full justify-center text-base">
-          <Button variant="prev">이전</Button>
+        <div className="flex w-full flex-col items-center justify-center gap-2">
+          <div className="flex w-11/12 items-center justify-center gap-2">
+            <Button variant="prev">이전으로</Button>
+            <Button variant="prev" disabled>
+              이전으로 비활성화
+            </Button>
+          </div>
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>
