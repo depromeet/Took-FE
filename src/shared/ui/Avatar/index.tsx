@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AvatarIcon from '../icon/avatarIcon.svg';
+
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 
 type AvatarProps = {

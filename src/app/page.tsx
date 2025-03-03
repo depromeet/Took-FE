@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import { toast } from 'sonner';
 
+import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
 import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
 import WrappedInput from '@/shared/ui/Input';
 import { Toaster } from '@/shared/ui/sonner';
 import { Tab } from '@/shared/ui/tab';
-import WrappedAvatar from '@/shared/ui/Avatar';
 
 export default function Home() {
   return (
