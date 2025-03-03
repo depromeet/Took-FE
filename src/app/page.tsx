@@ -27,9 +27,9 @@ export default function Home() {
           <Button disabled>다음 비활성화</Button>
         </div>
         <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
-        <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" hasTitle={true} />
+        <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" />
         <WrappedInput variant="withBtn" placeholder="close icon 테스트 중이에요" />
-        <WrappedInput title="SNS" variant="withBtn" placeholder="close icon 테스트 중이에요" hasTitle={true} />
+        <WrappedInput title="SNS" variant="withBtn" placeholder="close icon 테스트 중이에요" />
         <Toaster
           icons={{
             error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
