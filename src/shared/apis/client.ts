@@ -2,16 +2,16 @@ import axios from 'axios';
 
 import { CLIENT_SIDE_URL } from '../constants';
 
-import { preventMultipleRefreshToken } from './preventMultipleRefreshToken';
+import { preventServerMultipleRefreshToken } from './preventServerMultipleRefreshToken';
 
 const axiosInstance = axios.create({
   baseURL: CLIENT_SIDE_URL,
   withCredentials: true,
 });
 
-preventMultipleRefreshToken(axiosInstance, CLIENT_SIDE_URL);
+preventServerMultipleRefreshToken(axiosInstance, CLIENT_SIDE_URL);
 
-export const browser = {
+export const client = {
   get: async <Response = unknown>(...args: Parameters<typeof axiosInstance.get>) => {
     const response = await axiosInstance.get<Response>(...args);
     return response.data;

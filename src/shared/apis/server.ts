@@ -2,14 +2,14 @@ import axios from 'axios';
 
 import { SERVER_SIDE_URL } from '../constants';
 
-import { preventMultipleRefreshToken } from './preventMultipleRefreshToken';
+import { preventServerMultipleRefreshToken } from './preventServerMultipleRefreshToken';
 
 // TODO: 서버 인스턴스 옵션 추가 논의 필요
 const axiosInstance = axios.create({
   baseURL: SERVER_SIDE_URL,
 });
 
-preventMultipleRefreshToken(axiosInstance, SERVER_SIDE_URL);
+preventServerMultipleRefreshToken(axiosInstance, SERVER_SIDE_URL);
 
 export const server = {
   get: async <Response = unknown>(...args: Parameters<typeof axiosInstance.get>) => {
