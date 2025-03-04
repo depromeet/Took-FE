@@ -37,7 +37,7 @@ interface TagProps {
  * <Tag message="큰 태그" size="lg" onClose={handleCloseBtn} />
  */
 
-function Tag({ message, size = 'md', onClose, className = 'bg-gray-300' }: TagProps) {
+function Tag({ message, size = 'md', onClose, className = 'bg-opacity-white-20' }: TagProps) {
   const tagStyles = cva('inline-flex items-center rounded-full', {
     variants: {
       size: {
