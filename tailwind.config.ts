@@ -18,6 +18,8 @@ const config: Config = {
         black: 'var(--black)',
         /**
          * Gray
+         * gray는 단순 숫자를 사용할지, 변수명을 사용할지 고민됩니다.
+         * 특정 컬러를 다양한 곳에서 사용하기 때문에....
          */
         gray: {
           white: 'var(--gray-white)',
@@ -38,27 +40,27 @@ const config: Config = {
          */
         primary: {
           DEFAULT: 'var(--primary-500)',
-          light: 'var(--primary-50)',
-          'light-hover': 'var(--primary-100)',
-          'light-active': 'var(--primary-200)',
-          hover: 'var(--primary-300)',
-          active: 'var(--primary-400)',
-          dark: 'var(--primary-500)',
+          // light: 'var(--primary-50)',
+          // 'light-hover': 'var(--primary-100)',
+          // 'light-active': 'var(--primary-200)',
+          normal: 'var(--primary-300)',
+          // active: 'var(--primary-400)',
+          active: 'var(--primary-600)',
         },
         /**
          * Secondary - 변수명은 임시입니다.
          */
         secondary: {
           DEFAULT: 'var(--secondary-500)',
-          light: 'var(--secondary-50)',
-          'light-hover': 'var(--secondary-100)',
-          'light-active': 'var(--secondary-200)',
-          hover: 'var(--secondary-300)',
-          active: 'var(--secondary-400)',
-          dark: 'var(--secondary-500)',
+          // light: 'var(--secondary-50)',
+          // 'light-hover': 'var(--secondary-100)',
+          // 'light-active': 'var(--secondary-200)',
+          normal: 'var(--secondary-300)',
+          // active: 'var(--secondary-400)',
+          active: 'var(--secondary-600)',
         },
         /**
-         * Error - 속성들은 임시입니다.
+         * Error - 변수명은 임시입니다.
          */
         error: {
           light: 'var(--error-100)',
@@ -66,6 +68,9 @@ const config: Config = {
           normal: 'var(--error-500)',
           dark: 'var(--error-700)',
         },
+        /**
+         * true - 변수명은 임시입니다.
+         */
         true: {
           light: 'var(--true-100)',
           medium: 'var(--true-300)',
@@ -73,10 +78,21 @@ const config: Config = {
           dark: 'var(--true-700)',
         },
       },
+      /**
+       * Gradient - 변수명은 임시입니다.
+       */
+      backgroundImage: {
+        main: 'var(--background-main)',
+        sub: 'var(--background-sub)',
+        designer: 'var(--designer)',
+        'designer-50': 'var(--designer-50)',
+        developer: 'var(--developer)',
+        'developer-50': 'var(--developer-50)',
+      },
       borderRadius: {
-        sm: 'var(--radius-s)',
-        md: 'var(--radius-m)',
-        lg: 'var(--radius-l)',
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
       },
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
@@ -91,9 +107,10 @@ const config: Config = {
         'title-2': ['20px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.4px' }],
         'title-3': ['18px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.36px' }],
         'body-1': ['18px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.36px' }],
-        'body-2': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
-        'body-3': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
-        'body-4': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
+        'body-2': ['18px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.36px' }],
+        'body-3': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
+        'body-4': ['14px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.28px' }],
+        'body-5': ['14px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.28px' }],
         'caption-1': ['12px', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '-0.24px' }],
         'caption-2': ['11px', { lineHeight: '1.4', fontWeight: '400', letterSpacing: '-0.22px' }],
       },
