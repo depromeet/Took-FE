@@ -30,8 +30,7 @@ interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const ProgressBar = ({ currentStep, totalSteps, color = 'bg-primary-normal', className }: ProgressBarProps) => {
   // 진행률 계산 (0-100 사이의 값)
-  const progressPercentage = Math.min(Math.max(Math.round((currentStep / totalSteps) * 100), 0), 100);
-
+  const progressPercentage = Math.round((currentStep / totalSteps) * 100);
   return (
     <div className="w-full space-y-2">
       <Progress value={progressPercentage} color={color} className={cn(className)} />
