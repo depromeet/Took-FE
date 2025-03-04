@@ -1,10 +1,9 @@
-
 import { pretendard } from '@/shared/lib/font';
+import { Providers } from '@/shared/providers';
 
 import type { Metadata } from 'next';
 
 import './globals.css';
-
 
 export const metadata: Metadata = {
   title: 'Took',
@@ -17,9 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${pretendard.variable} antialiased`}>{children}</body>
+    <html lang="ko">
+      <body className={`${pretendard.variable} antialiased`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
-
 }

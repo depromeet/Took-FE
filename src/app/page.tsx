@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
