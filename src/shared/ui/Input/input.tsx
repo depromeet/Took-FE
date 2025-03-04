@@ -1,27 +1,41 @@
-/** 공통 컴포넌트 - input
-  사용 방법 : 
-  <Input label={label} placeholder={플레이스홀더} info?={input창 밑 설명글}/>
-*/
+import { cva } from 'class-variance-authority';
+import * as React from 'react';
 
-import React from 'react';
+import { cn } from '@/shared/lib/utils';
 
-import { InputBody } from './inputBody';
-import { InputLabel } from './inputLabel';
+const inputVariants = cva(
+  'flex h-11 w-full rounded-sm px-3 py-2 text-body-5 bg-gray-800 !text-gray-100 placeholder:text-body-5 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-500',
+  {
+    variants: {
+      variant: {
+        default: '',
+        withBtn: 'pr-9',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
 
-type WrappedInputPropsType = {
-  label: string;
-  placeholder: string;
-  info?: string;
+type InputBodyProps = React.ComponentProps<'input'> & {
+  variant?: 'default' | 'withBtn'; // variant 타입 추가
 };
 
-function WrappedInput({ label, placeholder, info }: WrappedInputPropsType) {
-  return (
-    <div className="flex w-11/12 flex-col items-start justify-center gap-1">
-      <InputLabel>{label}</InputLabel>
-      <InputBody placeholder={placeholder}></InputBody>
-      {info && <p className="text-xs text-gray-400">{info}</p>}{' '}
-    </div>
-  );
-}
+const InputBody = React.forwardRef<HTMLInputElement, InputBodyProps>(
+  ({ className, variant, type, value, onChange, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(inputVariants({ variant, className }))}
+        ref={ref}
+        value={value}
+        onChange={onChange}
+        {...props}
+      />
+    );
+  },
+);
+InputBody.displayName = 'Input';
 
-export default WrappedInput;
+export { InputBody };
