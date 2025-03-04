@@ -1,9 +1,3 @@
-/** 공통 컴포넌트 - tab
-  사용 방법 : <Tab variant="all">전체 보기</Tab>
-  variant - default : 일반 탭 디자인
-          - all : '전체 보기' 탭 디자인
-*/
-
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
@@ -26,6 +20,20 @@ const tabVariants = cva(
 
 export interface tabProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof tabVariants> {}
 
+/**
+ * 공통 컴포넌트 - Tab
+ *
+ * @example
+ * <Tab variant="all">전체 보기</Tab>
+ *
+ * @prop {'default' | 'all'} [variant='default'] - 탭 스타일 종류
+ *  - `default`: 일반 탭 디자인 (검은 배경, 회색 테두리 및 텍스트)
+ *  - `all`: '전체 보기' 탭 디자인 (흰 배경, 짙은 회색 텍스트)
+ *
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - 기본 div 속성
+ *
+ * @returns {JSX.Element} Tab 컴포넌트
+ */
 function Tab({ className, variant, ...props }: tabProps) {
   return (
     <div>

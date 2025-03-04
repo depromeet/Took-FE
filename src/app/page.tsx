@@ -1,15 +1,11 @@
 'use client';
 
-import Image from 'next/image';
-import { toast } from 'sonner';
-
 import Appbar from '@/shared/ui/appbar';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
-import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
 import WrappedInput from '@/shared/ui/Input';
-import { Toaster } from '@/shared/ui/sonner';
 import { Tab } from '@/shared/ui/tab';
+import Toast from '@/shared/ui/Toast';
 
 export default function Home() {
   return (
@@ -35,20 +31,11 @@ export default function Home() {
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>
-
         <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
         <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" />
         <WrappedInput variant="withBtn" placeholder="close icon 테스트 중이에요" />
         <WrappedInput title="SNS" variant="withBtn" placeholder="close icon 테스트 중이에요" />
-        <Toaster
-          icons={{
-            error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
-          }}
-          position="bottom-center"
-        />
-        <button className="text-white" onClick={() => toast.error('주의 해주세요')}>
-          토스트 잘 뜨나?
-        </button>
+        <Toast buttonText="토스트 잘 뜨나?" message="주의해주세요" />
       </div>
     </div>
   );

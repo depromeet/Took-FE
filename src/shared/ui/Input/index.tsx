@@ -2,8 +2,6 @@
 import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
 
-import deleteIcon from '../icon/deleteIcon.svg';
-
 import { InputBody } from './input';
 
 type WrappedInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
@@ -50,8 +48,10 @@ function WrappedInput({ variant = 'default', title, ...props }: WrappedInputProp
       <InputBody variant={variant} value={value} onChange={(e) => setValue(e.target.value)} {...props}></InputBody>
       {variant === 'withBtn' && (
         <Image
-          src={deleteIcon}
+          src="/icons/deleteIcon.svg"
           alt="삭제 아이콘"
+          width={16}
+          height={16}
           className={`absolute right-3 ${title && 'bottom-[14.5px]'} h-4 w-4 cursor-pointer`}
           onClick={handleClearInput}
         />
