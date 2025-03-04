@@ -10,6 +10,7 @@ export const typography = cva('typography', {
       'body-2': 'text-body-2',
       'body-3': 'text-body-3',
       'body-4': 'text-body-4',
+      'body-5': 'text-body-5',
       'caption-1': 'text-caption-1',
       'caption-2': 'text-caption-2',
     },
