@@ -7,7 +7,7 @@ import React from 'react';
 import closeBtn from '../icon/closeBtn.svg';
 import { Typography } from '../typography';
 
-/**
+/** 공통 컴포넌트 - tag
  * Tag 컴포넌트는 다양한 크기와 옵션을 가진 태그를 렌더링합니다.
  *
  * @param {object} props - 컴포넌트 속성 객체

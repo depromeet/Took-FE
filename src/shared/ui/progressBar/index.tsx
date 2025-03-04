@@ -10,7 +10,7 @@ interface ProgressBarProps {
   className?: string;
 }
 
-/**
+/** 공통 컴포넌트 - ProgressBar
  * 진행 상태를 시각적으로 표시하는 ProgressBar 컴포넌트입니다.
  *
  * @param {object} props - 컴포넌트 속성 객체
