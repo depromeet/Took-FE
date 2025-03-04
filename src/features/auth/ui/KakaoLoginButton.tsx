@@ -1,5 +1,9 @@
 'use client';
 
+// 추가적으로 디자인이 수정될 페이지 같아서 임시로 작성했습니다
+
+import { Typography } from '@/shared/ui/typography';
+
 import { kakaoLogin } from '../model/providers/kakao';
 
 function KakaoLoginButton() {
@@ -13,11 +17,13 @@ function KakaoLoginButton() {
   );
 
   return (
-    <button onClick={kakaoLogin} className="flex items-center rounded bg-yellow-300 px-4 py-2">
-      <span className="mr-2">
-        <KakaoIcon />
-      </span>
-      카카오 로그인
+    <button
+      onClick={kakaoLogin}
+      className="flex w-full items-center justify-between rounded-md bg-yellow-300 px-4 py-[15px] text-gray-800"
+    >
+      <KakaoIcon />
+      <Typography variant="body-2">카카오톡으로 시작하기</Typography>
+      <div></div>
     </button>
   );
 }
