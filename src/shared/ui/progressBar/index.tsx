@@ -3,7 +3,7 @@
 import { cn } from '@/shared/lib/utils';
 import { Progress } from '@/shared/ui/progressBar/progress';
 
-interface ProgressBarProps {
+interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   currentStep: number;
   totalSteps: number;
   color?: string;
