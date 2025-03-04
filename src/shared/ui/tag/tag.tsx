@@ -6,7 +6,6 @@ import React from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
-import closeBtn from '../icon/closeBtn.svg';
 import { Typography } from '../typography';
 
 /** 공통 컴포넌트 - tag
@@ -79,7 +78,7 @@ function Tag({
           onClick={handleClose}
           className="hover:bg-gray-300/30 ml-1 flex items-center justify-center rounded-full transition-colors"
         >
-          <Image src={closeBtn} alt="closeBtn" className="h-4 w-4" />
+          <Image src="/icon/closeBtn.svg" width={16} height={16} alt="닫기" />
         </button>
       )}
     </span>
