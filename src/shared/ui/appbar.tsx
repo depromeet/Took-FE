@@ -1,11 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import AlarmIcon from './icon/alarmIcon.svg';
-import Logo from './icon/Logo.svg';
-import MenuIcon from './icon/MenuIcon.svg';
-import PrevIcon from './icon/prevIcon.svg';
-
 type appbarPropsType = {
   page: 'main' | 'detail' | 'create';
   onLeftClick?: () => void;
@@ -17,14 +12,14 @@ function renderLeftIcon({ page, onLeftClick }: appbarPropsType & React.ButtonHTM
     case 'main':
       return (
         <button onClick={onLeftClick}>
-          <Image src={Logo} alt="로고" />
+          <Image src="/icons/logo.svg" alt="로고" width={72} height={24} />
         </button>
       );
     case 'detail':
     case 'create':
       return (
         <button onClick={onLeftClick}>
-          <Image src={PrevIcon} alt="이전 아이콘" />
+          <Image src="/icons/prevIcon.svg" alt="이전 아이콘" width={24} height={24} />
         </button>
       );
     default:
@@ -37,13 +32,13 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
     case 'main':
       return (
         <button onClick={onRightClick}>
-          <Image src={AlarmIcon} alt="알람 아이콘" />
+          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} />
         </button>
       );
     case 'detail':
       return (
         <button onClick={onRightClick}>
-          <Image src={MenuIcon} alt="메뉴 아이콘" />
+          <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
     default:

@@ -6,8 +6,6 @@ import * as React from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
-import AvatarIcon from '../icon/avatarIcon.svg';
-
 const avatarVariants = cva('rounded-full bg-gray-100', {
   variants: {
     size: {
@@ -46,7 +44,7 @@ const AvatarImage = React.forwardRef<
     medium: 'w-7 h-7',
     small: 'w-7 h-7',
   };
-  const isDefaultIcon = src === AvatarIcon.src;
+  const isDefaultIcon = src === '/icons/avatarIcon.svg';
 
   return (
     <AvatarPrimitive.Image
