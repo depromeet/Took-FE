@@ -2,8 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 import { toast } from 'sonner';
 
-import ErrorIcon from '@/shared/ui/icon/sonnerIcon.svg';
-
 import { Toaster } from './sonner';
 
 type toastProps = {
@@ -25,7 +23,7 @@ function Toast({ buttonText, message }: toastProps) {
     <>
       <Toaster
         icons={{
-          error: <Image src={ErrorIcon} className="h-6 w-6 text-red-500" alt="error-icon" />,
+          error: <Image src="/icons/sonnerIcon.svg" className="text-red-500" alt="error-icon" width={24} height={24} />,
         }}
         position="bottom-right"
       />
