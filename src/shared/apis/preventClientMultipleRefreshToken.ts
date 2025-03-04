@@ -75,6 +75,6 @@ const onRejected = async (error: any, baseUrl: string) => {
   return Promise.reject(error);
 };
 
-export const preventServerMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUrl: string) => {
+export const preventClientMultipleRefreshToken = (axiosInstance: AxiosInstance, baseUrl: string) => {
   axiosInstance.interceptors.response.use(onFulfilled, async (error: any) => onRejected(error, baseUrl));
 };
