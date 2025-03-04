@@ -4,6 +4,8 @@ import { cva } from 'class-variance-authority';
 import Image from 'next/image';
 import React from 'react';
 
+import { cn } from '@/shared/lib/utils';
+
 import closeBtn from '../icon/closeBtn.svg';
 import { Typography } from '../typography';
 
@@ -69,7 +71,7 @@ function Tag({
   };
 
   return (
-    <span className={`${tagStyles({ size })} ${backgroundColor} ${className}`}>
+    <span className={cn(tagStyles({ size }), backgroundColor, className)}>
       <Typography variant={size === 'lg' ? 'body-2' : size === 'md' ? 'body-3' : 'caption-1'}>{message}</Typography>
       {hasCloseButton && (
         <button
