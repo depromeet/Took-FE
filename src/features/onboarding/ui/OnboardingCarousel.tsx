@@ -49,7 +49,7 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             clickable: true,
             el: '.custom-pagination',
             bulletClass: 'inline-block h-2 w-2 rounded-full mx-1 bg-white opacity-50',
-            bulletActiveClass: 'opacity-100',
+            bulletActiveClass: '!opacity-100',
           }}
           navigation={false}
           slidesPerView={1}
@@ -67,6 +67,7 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         {/**
          * 커스텀 페이지네이션 위치
          * 반응형으로 위치 조정
+         * - 반응형 위치가 아직 구현되지 않았습니다
          */}
         <div className="absolute bottom-28 left-0 right-0 z-10 sm:bottom-36 md:bottom-40 lg:bottom-48">
           <div className="custom-pagination flex justify-center"></div>
