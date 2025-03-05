@@ -34,18 +34,16 @@ type WrappedListProps = {
 
 const WrappedListItem: React.FC<WrappedListProps> = ({
   leftIcon = <UnionIcon />,
-  rightIcon,
   withArrow = <ArrowBtn />,
   text
 }) => {
   return (
-    <ListItem>
+    <ListItem className='flex'>
       {leftIcon && <div className={cn('left-icon', spacingStyles({ paddingRight: 'sm' }))}>{leftIcon}</div>}
       <ListItemText>
         {text}
       </ListItemText>
-      {rightIcon && <div className="right-icon">{rightIcon}</div>}
-      {withArrow && <div className="with-arrow">{withArrow}</div>}
+      {withArrow && <div className={cn('with-arrow', spacingStyles({ marginLeft: 'md' }))}>{withArrow}</div>}
     </ListItem>
   );
 }

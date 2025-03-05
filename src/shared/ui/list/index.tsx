@@ -5,7 +5,7 @@ import { cn } from '@/shared/lib/utils'
 import { spacingStyles } from '@/shared/spacing';
 
 const listItemVariants = cva(
-  `flex bg-gray-800 items-center rounded-md ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })} w-[320px]`,
+  `flex bg-gray-800 items-center rounded-md ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })} w-full max-w-[320px]`,
   {
     variants: {},
     defaultVariants: {},
@@ -13,7 +13,7 @@ const listItemVariants = cva(
 )
 
 const listItemTextVariants = cva(
-  `overflow-hidden text-ellipsis whitespace-nowrap text-white text-body-5`,
+  `overflow-hidden text-ellipsis whitespace-nowrap text-white text-body-5 w-full`,
   {
     variants: {},
     defaultVariants: {},
