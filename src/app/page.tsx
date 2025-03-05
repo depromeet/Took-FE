@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/avatar';
 import { Button } from '@/shared/ui/button';
+import Img from '@/shared/ui/img';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
 import Toast from '@/shared/ui/Toast';
@@ -21,6 +22,11 @@ export default function Home() {
           <Button variant="prev">이전</Button>
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
+        </div>
+        <div className="flex gap-2">
+          <Img size="large" />
+          <Img size="medium" src="/icons/logo.svg" />
+          <Img size="small" />
         </div>
         <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
         <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" />
