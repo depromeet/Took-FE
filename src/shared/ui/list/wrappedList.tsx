@@ -1,10 +1,14 @@
-import React from 'react';
-import { ListItem, ListItemText } from '.';
-import { cn } from '@/shared/lib/utils';
 import Image from 'next/image';
-import Union from '../icon/Union.svg';
-import Arrow from '../icon/Arrow.svg';
+import React from 'react';
+
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+
+import Arrow from '../icon/Arrow.svg';
+import Union from '../icon/Union.svg';
+
+
+import { ListItem, ListItemText } from '.';
 
 type WrappedListProps = {
   /** 아이템 왼쪽 아이콘 */

@@ -1,6 +1,6 @@
+import { cva, VariantProps } from "class-variance-authority"
 import React from "react";
 
-import { cva, VariantProps } from "class-variance-authority"
 import { cn } from '@/shared/lib/utils'
 import { spacingStyles } from '@/shared/spacing';
 
