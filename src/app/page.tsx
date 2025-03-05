@@ -3,6 +3,7 @@
 import Appbar from '@/shared/ui/appbar';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
+import Header from '@/shared/ui/header';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
 import Toast from '@/shared/ui/Toast';
@@ -12,6 +13,10 @@ export default function Home() {
     <div className="flex h-dvh w-full justify-center">
       <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
         <Appbar page="main" onLeftClick={() => console.log('left')} onRightClick={() => console.log('right')} />
+        <Header
+          title={`명함에 추가할 태그를 \n 선택해주세요`}
+          description="직군에 맞는 템플릿으로 내 명함을 만들 수 있어요!"
+        />
         <div className="flex w-full items-center justify-center">
           <WrappedAvatar />
           <WrappedAvatar size="medium" src="https://github.com/shadcn.png" />
