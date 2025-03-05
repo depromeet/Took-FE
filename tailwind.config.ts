@@ -77,6 +77,17 @@ const config: Config = {
           normal: 'var(--true-500)',
           dark: 'var(--true-700)',
         },
+
+        /**
+         * opacity - 변수명은 임시입니다.
+         */
+        opacity: {
+          'white-10': 'var(--white-10)',
+          'white-20': 'var(--white-20)',
+          'purple-30': 'var(--purple-30)',
+          'purple-40': 'var(--purple-40)',
+          'blue-40': 'var(--blue-40)',
+        },
       },
       /**
        * Gradient - 변수명은 임시입니다.
