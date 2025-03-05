@@ -60,7 +60,7 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
 function Appbar({ page, onLeftClick, onRightClick }: appbarPropsType) {
   return (
     <header
-      className={`z-100 fixed top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4 ${
+      className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4 ${
         page === 'create' ? 'bg-gray-black' : ''
       }`}
     >
