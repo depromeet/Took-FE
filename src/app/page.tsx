@@ -5,6 +5,7 @@ import { Button } from '@/shared/ui/button';
 import Img from '@/shared/ui/img';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
+import Thumbnail from '@/shared/ui/thumbnail';
 import Toast from '@/shared/ui/Toast';
 
 export default function Home() {
@@ -22,6 +23,9 @@ export default function Home() {
           <Button variant="prev">이전</Button>
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
+        </div>
+        <div>
+          <Thumbnail />
         </div>
         <div className="flex gap-2">
           <Img size="large" />
