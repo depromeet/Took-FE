@@ -38,8 +38,12 @@ export default function Home() {
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>
-        <div>
-          <Thumbnail />
+        <div className="flex gap-3">
+          <Thumbnail tag="대표 프로젝트" title="프로젝트 제목" description="link" />
+          <Thumbnail
+            tag="최근 소식"
+            description={`부동산 스타트업에서 2년간 일하다가\n 퇴사하고 지금은 이직 준비 중이에요`}
+          />
         </div>
         <div className="flex gap-2">
           <Img size="large" />
