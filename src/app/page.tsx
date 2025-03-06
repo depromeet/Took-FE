@@ -1,7 +1,9 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/avatar';
+import Appbar from '@/shared/ui/appbar';
+import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
+import Header from '@/shared/ui/header';
 import Img from '@/shared/ui/img';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
@@ -12,15 +14,27 @@ export default function Home() {
   return (
     <div className="flex h-dvh w-full justify-center">
       <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <Appbar page="main" onLeftClick={() => console.log('left')} onRightClick={() => console.log('right')} />
+        <Header
+          title={`명함에 추가할 태그를 \n 선택해주세요`}
+          description="직군에 맞는 템플릿으로 내 명함을 만들 수 있어요!"
+        />
+        <div className="flex w-full items-center justify-center">
+          <WrappedAvatar />
+          <WrappedAvatar size="medium" src="https://github.com/shadcn.png" />
+          <WrappedAvatar size="medium" />
+          <WrappedAvatar size="small" />
+        </div>
         <Tab variant="all">전체 보기</Tab>
         <Tab>도메인</Tab>
         <Tab>글쓰기 모임</Tab>
-        <div className="flex w-full justify-center text-base">
-          <Button variant="prev">이전</Button>
+        <div className="flex w-full flex-col items-center justify-center gap-2">
+          <div className="flex w-11/12 items-center justify-center gap-2">
+            <Button variant="prev">이전으로</Button>
+            <Button variant="prev" disabled>
+              이전으로 비활성화
+            </Button>
+          </div>
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
         </div>

@@ -117,6 +117,7 @@ const config: Config = {
         'title-1': ['22px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.44px' }],
         'title-2': ['20px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.4px' }],
         'title-3': ['18px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '-0.36px' }],
+        'title-4': ['16px', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '-0.36px' }],
         'body-1': ['18px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '-0.36px' }],
         'body-2': ['18px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.36px' }],
         'body-3': ['16px', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '-0.32px' }],
