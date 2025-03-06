@@ -23,18 +23,16 @@ function Thumbnail({ tag, title, description }: thumbnailPropsType) {
   const isExistImg = tag === '대표 프로젝트' || tag === '작성한 글' || tag === 'SNS';
 
   return (
-    <>
-      <div className="flex items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3">
-        {isExistImg && <Img size="medium" />}
-        <div className="flex flex-col">
-          <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
-            {tag}
-          </div>
-          {isExistImg && <p className="whitespace-pre-line text-body-5 text-white">{title}</p>}
-          {tag !== 'SNS' && <p className="whitespace-pre-line text-caption-1 text-white">{description}</p>}
+    <div className="flex items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3">
+      {isExistImg && <Img size="medium" />}
+      <div className="flex flex-col">
+        <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
+          {tag}
         </div>
+        {isExistImg && <p className="whitespace-pre-line text-body-5 text-white">{title}</p>}
+        {description && <p className="whitespace-pre-line text-caption-1 text-white">{description}</p>}
       </div>
-    </>
+    </div>
   );
 }
 export default Thumbnail;
