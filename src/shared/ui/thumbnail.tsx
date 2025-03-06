@@ -24,14 +24,14 @@ function Thumbnail({ tag, title, description }: thumbnailPropsType) {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-2 rounded-md bg-opacity-white-20 p-3">
+      <div className="flex items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3">
         {isExistImg && <Img size="medium" />}
-        <div className="flex flex-col gap-1">
-          <div className="flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
+        <div className="flex flex-col">
+          <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
             {tag}
           </div>
           {isExistImg && <p className="whitespace-pre-line text-body-5 text-white">{title}</p>}
-          <p className="whitespace-pre-line text-caption-1 text-white">{description}</p>
+          {tag !== 'SNS' && <p className="whitespace-pre-line text-caption-1 text-white">{description}</p>}
         </div>
       </div>
     </>
