@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
+import { cn } from '../lib/utils';
+
 type ImagePropsType = {
   size: 'large' | 'medium' | 'small';
   src?: string;
@@ -29,7 +31,10 @@ function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }
 
   return (
     <div
-      className={`relative flex items-center justify-center rounded-md border border-opacity-white-10 bg-opacity-white-20 p-3 ${container}`}
+      className={cn(
+        'relative flex items-center justify-center rounded-md border border-opacity-white-10 bg-opacity-white-20 p-3',
+        container,
+      )}
     >
       {isDefaultImage ? (
         <Image src={src} alt={alt} width={image.width} height={image.height} className={opacity} {...props} />
