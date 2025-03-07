@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 
 import WrappedAvatar from '@/shared/ui/Avatar';
 import ImageAdd from '@/shared/ui/Avatar/imageAdd';
-import { MAX_FILE_SIZE } from '../config';
 
 function AvatarImg() {
   const fileInputRef = useRef<HTMLInputElement>(null);
