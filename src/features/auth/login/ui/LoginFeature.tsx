@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import KakaoLoginButton from './KakaoLoginButton';
+import LoginButton from './LoginButton';
 
 export function LoginFeature() {
   const imgUrl = '/images/login/onboarding/onboarding-login.png';
@@ -14,8 +14,9 @@ export function LoginFeature() {
         </div>
 
         <div className="absolute bottom-0 w-full space-y-4 px-6 pb-10">
-          <KakaoLoginButton />
-          <KakaoLoginButton /> {/* 구글 , 애플 로그인 버튼으로 바꿀 예정 */}
+          <LoginButton provider="google" />
+          <LoginButton provider="apple" />
+          <LoginButton provider="kakao" />
         </div>
       </div>
     </div>
