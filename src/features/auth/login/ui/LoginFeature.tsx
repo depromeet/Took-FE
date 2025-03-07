@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import KakaoLoginButton from '../../ui/KakaoLoginButton';
+import KakaoLoginButton from './KakaoLoginButton';
 
 export function LoginFeature() {
   const imgUrl = '/images/login/onboarding/onboarding-login.png';
