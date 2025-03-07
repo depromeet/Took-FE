@@ -1,13 +1,15 @@
 "use client";
 
-import Appbar from '@/shared/ui/appbar';
-import useHistoryBack from '@/shared/hooks/useHistoryBack';
-import CareerFormView from './careerForm';
 import { useCallback, useState } from 'react';
-import { Button } from '@/shared/ui/button';
-import ProgressBar from '@/shared/ui/progressBar';
+
+import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import Appbar from '@/shared/ui/appbar';
+import { Button } from '@/shared/ui/button';
+import ProgressBar from '@/shared/ui/progressBar';
+
+import CareerFormView from './careerForm';
 
 function MultiStepFormView() {
   const handleBack = useHistoryBack();

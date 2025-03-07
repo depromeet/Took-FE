@@ -1,8 +1,9 @@
 "use client";
 
-import Appbar from '@/shared/ui/appbar';
-import OnBoardingView from './onBoardingView';
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
+import Appbar from '@/shared/ui/appbar';
+
+import OnBoardingView from './onBoardingView';
 
 const CardCreateView = () => {
   const handleBack = useHistoryBack();

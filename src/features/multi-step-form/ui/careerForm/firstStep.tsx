@@ -1,8 +1,9 @@
+import { cn } from '@/shared/lib/utils';
+import { spacingStyles } from '@/shared/spacing';
 import WrappedInput from '@/shared/ui/Input';
+
 import AvatarImg from '../../components/AvartaImg';
 import { CAREER_FORM } from '../../config';
-import { spacingStyles } from '@/shared/spacing';
-import { cn } from '@/shared/lib/utils';
 
 function FirstStep() {
   return (

@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
+
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { List } from '@/shared/ui/list';
 import WrappedListItem from '@/shared/ui/list/wrappedList';
+
 import { ONBOARDING_CARD_CREATE, ROUTEER_PATH } from '../config';
-import { useRouter } from 'next/navigation';
 
 function OnBoardingView() {
   const router = useRouter();

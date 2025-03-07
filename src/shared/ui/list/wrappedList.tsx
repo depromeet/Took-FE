@@ -101,7 +101,7 @@ const ArrowBtn = ({
       onClick={onClick}
     >
       <Image
-        src={'/icons/rightArrow.svg'}
+        src="/icons/rightArrow.svg"
         alt='Arrow'
         width={8}
         height={8}

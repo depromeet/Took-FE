@@ -1,5 +1,5 @@
-import { cn } from '@/shared/lib/utils';
 import { CAREER_FORM } from '@/features/multi-step-form/config';
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedInput from '@/shared/ui/Input';
 

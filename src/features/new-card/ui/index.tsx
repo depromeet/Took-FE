@@ -1,8 +1,9 @@
 "use client";
 
-import Appbar from '@/shared/ui/appbar';
-import NewCreateCardView from './newCreateCardView';
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
+import Appbar from '@/shared/ui/appbar';
+
+import NewCreateCardView from './newCreateCardView';
 
 function CareerSelectView() {
   const handleBack = useHistoryBack();

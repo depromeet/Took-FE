@@ -1,8 +1,6 @@
-import { cn } from '@/shared/lib/utils';
-import { spacingStyles } from '@/shared/spacing';
 import FirstStep from './firstStep';
-import TwoStep from './twoStep';
 import ThirdStep from './thridStep';
+import TwoStep from './twoStep';
 
 type CareerFormViewProps = {
   currentStep: number;

@@ -1,9 +1,11 @@
+import { useRouter } from 'next/navigation';
+
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
-import WrappedListItem from '@/shared/ui/list/wrappedList';
 import { List } from '@/shared/ui/list';
+import WrappedListItem from '@/shared/ui/list/wrappedList';
+
 import { CAREER_SELECT, ROUTEER_PATH } from '../config';
-import { useRouter } from 'next/navigation';
 
 function NewCreateCardView() {
   const router = useRouter();
