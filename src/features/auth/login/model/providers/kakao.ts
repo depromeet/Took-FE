@@ -1,6 +1,6 @@
 'use client';
 
-export const PROVIDER_ID = 'kakao';
+export const PROVIDER_ID = 'KAKAO';
 
 export const kakaoLogin = () => {
   const restApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
