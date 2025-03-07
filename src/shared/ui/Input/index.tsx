@@ -43,7 +43,7 @@ function WrappedInput({ variant = 'default', title, ...props }: WrappedInputProp
   };
 
   return (
-    <div className="relative flex w-11/12 flex-col items-start justify-center gap-1">
+    <div className="relative flex flex-col items-start justify-center gap-[6px]">
       {renderTitle()}
       <InputBody variant={variant} value={value} onChange={(e) => setValue(e.target.value)} {...props}></InputBody>
       {variant === 'withBtn' && (
