@@ -4,8 +4,10 @@ import Appbar from '@/shared/ui/appbar';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
 import Header from '@/shared/ui/header';
+import Img from '@/shared/ui/img';
 import WrappedInput from '@/shared/ui/Input';
 import { Tab } from '@/shared/ui/tab';
+import Thumbnail from '@/shared/ui/thumbnail';
 import Toast from '@/shared/ui/Toast';
 
 export default function Home() {
@@ -35,6 +37,18 @@ export default function Home() {
           </div>
           <Button>다음</Button>
           <Button disabled>다음 비활성화</Button>
+        </div>
+        <div className="flex gap-3">
+          <Thumbnail tag="대표 프로젝트" title="프로젝트 제목" description="link" />
+          <Thumbnail
+            tag="최근 소식"
+            description={`부동산 스타트업에서 2년간 일하다가\n 퇴사하고 지금은 이직 준비 중이에요`}
+          />
+        </div>
+        <div className="flex gap-2">
+          <Img size="large" />
+          <Img size="medium" src="/icons/logo.svg" />
+          <Img size="small" />
         </div>
         <WrappedInput placeholder="어떤 분야에 관심이 있나요?" />
         <WrappedInput title="대표 프로젝트" placeholder="직접 참여한 프로젝트 링크를 추가해보세요" />
