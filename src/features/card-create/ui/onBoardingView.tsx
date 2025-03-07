@@ -7,19 +7,19 @@ import { spacingStyles } from '@/shared/spacing';
 import { List } from '@/shared/ui/list';
 import WrappedListItem from '@/shared/ui/list/wrappedList';
 
-import { ONBOARDING_CARD_CREATE, ROUTEER_PATH } from '../config';
+import { ONBOARDING_CARD_CREATE, ROUTE_PATH } from '../config';
 
 function OnBoardingView() {
   const router = useRouter();
 
   // 새로운 명함 만들기
   const handleCreateNewCard = () => {
-    router.push(ROUTEER_PATH.newCard);
+    router.push(ROUTE_PATH.newCard);
   };
 
   // 기존 명함 수정해서 새로 만들기
   const handleModifyExistingCard = () => {
-    router.push(ROUTEER_PATH.modifyCard);
+    router.push(ROUTE_PATH.modifyCard);
   };
 
   return (

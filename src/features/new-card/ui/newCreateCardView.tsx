@@ -5,17 +5,17 @@ import { spacingStyles } from '@/shared/spacing';
 import { List } from '@/shared/ui/list';
 import WrappedListItem from '@/shared/ui/list/wrappedList';
 
-import { CAREER_SELECT, ROUTEER_PATH } from '../config';
+import { CAREER_SELECT, ROUTE_PATH } from '../config';
 
 function NewCreateCardView() {
   const router = useRouter();
 
   const handleCreateDesignCard = () => {
-    router.push(ROUTEER_PATH.design);
+    router.push(ROUTE_PATH.design);
   }
 
   const handleCreateDevCard = () => {
-    router.push(ROUTEER_PATH.dev);
+    router.push(ROUTE_PATH.dev);
   }
 
   return (

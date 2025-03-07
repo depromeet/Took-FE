@@ -9,3 +9,6 @@ export const CAREER_FORM = {
     description: '공통점을 찾아, 깊은 대화를 나누어보세요',
   },
 };
+
+// 백엔드
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

@@ -9,7 +9,7 @@ export const CAREER_SELECT = {
   },
 };
 
-export const ROUTEER_PATH = {
+export const ROUTE_PATH = {
   design: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
   dev: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
 };

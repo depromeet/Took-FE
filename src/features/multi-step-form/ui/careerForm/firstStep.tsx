@@ -2,7 +2,7 @@ import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedInput from '@/shared/ui/Input';
 
-import AvatarImg from '../../components/AvartaImg';
+import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 
 function FirstStep() {

@@ -9,7 +9,7 @@ export const ONBOARDING_CARD_CREATE = {
   },
 };
 
-export const ROUTEER_PATH = {
+export const ROUTE_PATH = {
   newCard: `${DOMAIN_BASE_URL}/new-card`,
   modifyCard: `${DOMAIN_BASE_URL}/modify-card`,
 };
