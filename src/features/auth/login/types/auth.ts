@@ -1,3 +1,6 @@
+// 소셜 버튼 타입
+export type SocialProvider = 'kakao' | 'google' | 'apple';
+
 // POST - api/auth/login/{oauthType}
 
 export type ApiResponse<T> = {

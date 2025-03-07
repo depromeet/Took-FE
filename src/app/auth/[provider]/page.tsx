@@ -3,8 +3,8 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { handleSocialAuth, SocialProvider } from '@/features/auth/login/apis/getToken';
-import { RedirectDto } from '@/features/auth/login/types/auth';
+import { handleSocialAuth } from '@/features/auth/login/apis/getToken';
+import { RedirectDto, SocialProvider } from '@/features/auth/login/types/auth';
 import { client } from '@/shared/apis/client';
 
 export default function SocialAuthCallbackPage({ params }: { params: { provider: string } }) {
@@ -13,7 +13,7 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
 
   useEffect(() => {
     const code = searchParams.get('code');
-    const provider = params.provider.toUpperCase() as SocialProvider;
+    const provider = params.provider as SocialProvider;
 
     console.log(provider);
 

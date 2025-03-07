@@ -5,13 +5,13 @@ import { setCookie } from 'cookies-next';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
-import { AuthDto } from '../types/auth';
-
-export type SocialProvider = 'KAKAO' | 'GOOGLE' | 'APPLE';
+import { AuthDto, SocialProvider } from '../types/auth';
 
 export async function getToken(provider: SocialProvider, code: string): Promise<AuthDto> {
   try {
-    const response = await client.post<null, AuthDto>(`${CLIENT_SIDE_URL}/api/auth/login/${provider}?code=${code}`);
+    const response = await client.post<null, AuthDto>(
+      `${CLIENT_SIDE_URL}/api/auth/login/${provider.toUpperCase()}?code=${code}`,
+    );
     return response;
   } catch (error) {
     console.error(error);
