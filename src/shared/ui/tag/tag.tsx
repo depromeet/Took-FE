@@ -60,7 +60,7 @@ function Tag({ message, size = 'md', onClose, className = 'bg-opacity-white-20' 
 
   return (
     <span className={cn(tagStyles({ size }), className)}>
-      <Typography variant={size === 'lg' ? 'body-2' : size === 'md' ? 'body-3' : 'caption-1'}>{message}</Typography>
+      <Typography variant={size === 'lg' ? 'body-5' : size === 'md' ? 'body-5' : 'caption-1'}>{message}</Typography>
       {onClose && (
         <button
           type="button"
