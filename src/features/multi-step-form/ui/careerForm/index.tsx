@@ -71,7 +71,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <StepFormView currentStep={currentStep} />
         </form>
-        <Button onClick={handleNextStep}>{currentStep < TOTAL_STEPS ? '다음' : '제출'}</Button>
+        {currentStep !== 2 && <Button onClick={handleNextStep}>{currentStep < TOTAL_STEPS ? '다음' : '제출'}</Button>}
       </FormProvider>
     </>
   );
