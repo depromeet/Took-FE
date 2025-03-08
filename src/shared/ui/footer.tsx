@@ -11,8 +11,8 @@
 */
 
 'use client';
+
 import Image from 'next/image';
-import React from 'react';
 
 type CommonCurrentType = 'mycard' | 'collection' | 'setting';
 
@@ -45,7 +45,5 @@ function Footer({ current, onClick }: FooterProps) {
     </footer>
   );
 }
-
-//  opacity-30
 
 export default Footer;
