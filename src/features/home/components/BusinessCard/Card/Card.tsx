@@ -24,7 +24,7 @@ export const WrappedCard = forwardRef<HTMLDivElement, WrappedCardProps>(
     const Background = cardType === 'designer' ? DesignerCardBackground : DeveloperCardBackground;
 
     return (
-      <div ref={ref} className={cn('relative h-full w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
+      <div ref={ref} className={cn('relative h-[394px] w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
         <Background />
         <div className="absolute top-0 z-10 p-[24px]">{children}</div>
       </div>
