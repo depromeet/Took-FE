@@ -46,8 +46,8 @@ function MultiStepFormView() {
         <main
           className={cn(
             'flex flex-col gap-4',
-            currentStep === 2 && 'h-[calc(100dvh-52px)] bg-[url(/images/tag/background.png)] bg-cover bg-center',
             spacingStyles({ paddingX: 'ml', paddingY: 'lg' }),
+            currentStep === 2 && 'h-[calc(100dvh-52px)] bg-[url(/images/tag/background.png)] bg-cover bg-center',
           )}
         >
           <CareerFormView currentStep={currentStep} onNextStep={handleNextStep} />
