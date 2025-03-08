@@ -1,5 +1,6 @@
+'use client';
+
 import Image from 'next/image';
-import React from 'react';
 import { toast } from 'sonner';
 
 import { Toaster } from './sonner';
