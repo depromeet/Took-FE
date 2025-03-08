@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { tagConfig, ThumbnailTag } from '../config';
 
 import Img from './img';
@@ -21,6 +19,7 @@ type thumbnailPropsType = {
  *
  * @returns {JSX.Element} - Thumbnail 컴포넌트
  */
+
 function Thumbnail({ tag, title, description }: thumbnailPropsType) {
   const config = tagConfig[tag];
 

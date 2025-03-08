@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 
 import { cn } from '../lib/utils';
 
@@ -25,6 +24,7 @@ const sizeVariants = {
  *
  * @returns {JSX.Element} - 이미지 컴포넌트
  */
+
 function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }: ImagePropsType) {
   const { container, image, opacity } = sizeVariants[size];
   const isDefaultImage = src == '/icons/imageIcon.svg';

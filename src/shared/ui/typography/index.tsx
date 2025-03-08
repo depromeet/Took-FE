@@ -15,8 +15,8 @@ type TypographyProps = TypographyVariantProps & {
  *
  * @returns {JSX.Element} 지정된 태그와 스타일을 적용한 텍스트 요소를 반환합니다.
  */
-
-export const Typography = ({ as: Tag = "span", variant, children }: TypographyProps) => {
+export const Typography = ({ as: Tag = 'span', variant, children }: TypographyProps) => {
   const className = typography({ variant });
+
   return <Tag className={className}>{children}</Tag>;
 };
