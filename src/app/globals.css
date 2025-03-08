@@ -86,58 +86,57 @@
       transition: all 0.5s ease-in-out;
 
       @media (max-width: 452px) {
-        transform: translateX(-108px) rotate(3deg) !important;
+        transform: translate(-108px, 8px) rotate(3deg) !important;
       }
 
       @media (max-width: 420px) {
-        transform: translateX(-92px) rotate(3deg) !important;
+        transform: translate(-92px, 8px) rotate(3deg) !important;
       }
 
       @media (max-width: 390px) {
-        transform: translateX(-80px) rotate(3deg) !important;
+        transform: translate(-80px, 8px) rotate(3deg) !important;
       }
 
       @media (max-width: 375px) {
-        transform: translateX(-68px) rotate(3deg) !important;
+        transform: translate(-68px, 8px) rotate(3deg) !important;
       }
 
       @media (max-width: 360px) {
-        transform: translateX(-52px) rotate(3deg) !important;
+        transform: translate(-52px, 8px) rotate(3deg) !important;
       }
 
       @media (max-width: 332px) {
-        transform: translateX(0) rotate(0) !important;
+        transform: translate(0) rotate(0) !important;
       }
     }
 
     .swiper-slide-prev {
       display: flex;
       justify-content: center;
-      transform: translateX(84px) rotate(-3deg) !important;
       transition: all 0.5s ease-in-out;
 
       @media (max-width: 452px) {
-        transform: translateX(108px) rotate(-3deg) !important;
+        transform: translate(108px, 8px) rotate(-3deg) !important;
       }
 
       @media (max-width: 420px) {
-        transform: translateX(92px) rotate(-3deg) !important;
+        transform: translate(92px, 8px) rotate(-3deg) !important;
       }
 
       @media (max-width: 390px) {
-        transform: translateX(80px) rotate(-3deg) !important;
+        transform: translate(80px, 8px) rotate(-3deg) !important;
       }
 
       @media (max-width: 375px) {
-        transform: translateX(68px) rotate(-3deg) !important;
+        transform: translate(68px, 8px) rotate(-3deg) !important;
       }
 
       @media (max-width: 360px) {
-        transform: translateX(52px) rotate(-3deg) !important;
+        transform: translate(52px, 8px) rotate(-3deg) !important;
       }
 
       @media (max-width: 332px) {
-        transform: translateX(0) rotate(0) !important;
+        transform: translate(0) rotate(0) !important;
       }
     }
   }

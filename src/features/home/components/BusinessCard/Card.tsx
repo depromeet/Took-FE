@@ -7,9 +7,9 @@ import { JopType } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
-import { Typography } from '../../../../../shared/ui/typography';
-import { DesignerIcon } from '../../icons/DesignerIcon';
-import { DeveloperIcon } from '../../icons/DeveloperIcon';
+import { Typography } from '../../../../shared/ui/typography';
+import { DesignerIcon } from '../icons/DesignerIcon';
+import { DeveloperIcon } from '../icons/DeveloperIcon';
 
 import { CardTag } from './CardTag';
 
