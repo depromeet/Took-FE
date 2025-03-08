@@ -8,8 +8,8 @@ import { TOTAL_STEPS } from '../../config';
 import { cardCreateSchema, CareerFormData } from '../../schema';
 
 import FirstStep from './firstStep';
-import ThirdStep from './thridStep';
 import SecondStep from './secondStep';
+import ThirdStep from './thridStep';
 
 type CareerFormViewProps = {
   currentStep: number;

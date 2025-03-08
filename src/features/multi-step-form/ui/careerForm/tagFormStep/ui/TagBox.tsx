@@ -1,5 +1,7 @@
-import Tag from '@/shared/ui/tag/tag';
 import React from 'react';
+
+import Tag from '@/shared/ui/tag/tag';
+
 import { tagConfig } from '../config/config';
 
 /**
@@ -9,8 +11,8 @@ import { tagConfig } from '../config/config';
 function TagBox() {
   return (
     <>
-      {tagConfig.map((tag, index) => {
-        return <Tag message={tag.message} size="lg" className={tag.className} />;
+      {tagConfig.map((tag) => {
+        return <Tag key={tag.id} message={tag.message} size="lg" className={tag.className} />;
       })}
     </>
   );

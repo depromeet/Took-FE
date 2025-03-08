@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedInput from '@/shared/ui/Input';
-// import WrappedTagInput from '@/shared/ui/Input/tagInput';
+import WrappedTagInput from '@/shared/ui/Input/tagInput';
 
 import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
@@ -53,7 +53,7 @@ function FirstStep() {
             name="domain"
             render={({ field }) => (
               <>
-                {/* <WrappedTagInput title="관심 도메인" placeholder="관심 도메인" {...field} /> */}
+                <WrappedTagInput title="관심 도메인" placeholder="관심 도메인" {...field} />
                 {/* <WrappedInput title='관심 도메인' placeholder='관심도메인' {...field} />
                 {errors.domain && <ErrorMsg errorMsg={errors.domain.message} />} */}
               </>

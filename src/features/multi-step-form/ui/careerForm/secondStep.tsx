@@ -2,10 +2,9 @@
 
 import React from 'react';
 
-import { Button } from '@/shared/ui/button';
-import Header from '@/shared/ui/header';
 import Ball from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/Ball';
 import TagBox from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/TagBox';
+import Header from '@/shared/ui/header';
 
 function SecondStep() {
   return (
