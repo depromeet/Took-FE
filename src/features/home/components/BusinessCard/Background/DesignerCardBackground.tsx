@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 export const DesignerCardBackground = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className="relative" {...props}>
-      <div className="bg-[rgba(255,255,255, 0.2)] absolute z-10 h-full w-full backdrop-blur-[70px]" />
+      <div className="bg-[rgba(255,255,255, 0.2)] absolute z-10 h-full w-full backdrop-blur-[57px]" />
       <svg width="270" height="394" viewBox="0 0 270 390" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_1399_27916)">
           <rect width="270" height="390" rx="16" fill="white" />
