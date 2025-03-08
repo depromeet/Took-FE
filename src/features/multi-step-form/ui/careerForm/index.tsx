@@ -56,7 +56,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     const valid = await trigger(fieldsToValidate);
 
     if (valid) {
-      if (currentStep < 1) {
+      if (currentStep < TOTAL_STEPS) {
         onNextStep();
       } else {
         // 마지막 단계인 경우 form 제출
