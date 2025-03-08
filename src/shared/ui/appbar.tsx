@@ -16,6 +16,11 @@ function renderLeftIcon({ page, onLeftClick }: appbarPropsType & React.ButtonHTM
         </button>
       );
     case 'detail':
+      return (
+        <button onClick={onLeftClick}>
+          <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
     case 'create':
       return (
         <button onClick={onLeftClick}>
@@ -38,7 +43,7 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
     case 'detail':
       return (
         <button onClick={onRightClick}>
-          <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
+          <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
     default:
@@ -61,7 +66,7 @@ function Appbar({ page, onLeftClick, onRightClick }: appbarPropsType) {
   return (
     <header
       className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4 ${
-        page === 'create' ? 'bg-gray-black' : ''
+        page === 'detail' ? 'bg-opacity-90' : page === 'create' ? 'bg-gray-black' : ''
       }`}
     >
       {renderLeftIcon({ page, onLeftClick })}
