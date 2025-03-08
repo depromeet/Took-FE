@@ -6,6 +6,7 @@ type AvatarProps = {
   src?: string;
   alt?: string;
   size?: 'large' | 'medium' | 'small';
+  onClick?: () => void;
 };
 
 /**
@@ -18,9 +19,9 @@ type AvatarProps = {
  * @param {string} [alt] - 이미지 설명 텍스트. 이미지 로드 실패 시 표시됩니다.
  * @param {'large' | 'medium' | 'small'} [size='large'] - 아바타 크기. 기본값은 'large'입니다.
  */
-function WrappedAvatar({ src, alt, size = 'large' }: AvatarProps) {
+function WrappedAvatar({ src, alt, size = 'large', onClick }: AvatarProps) {
   return (
-    <Avatar size={size}>
+    <Avatar size={size} onClick={onClick}>
       {src ? <AvatarImage src={src} /> : <AvatarImage size={size} src="/icons/avatarIcon.svg" />}
       <AvatarFallback>{alt}</AvatarFallback>
     </Avatar>
