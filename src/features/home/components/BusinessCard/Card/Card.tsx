@@ -102,7 +102,7 @@ export const CardTags = ({ tags, tagType, ...rest }: CardTagsProps & HTMLAttribu
   return (
     <div className="mt-[44px] flex flex-wrap items-center gap-1" {...rest}>
       {convertedTags.map((tag, index) => (
-        <CardTag key={index} tagType={tagType}>
+        <CardTag key={`${tag}-${index}`} tagType={tagType}>
           {tag}
         </CardTag>
       ))}
