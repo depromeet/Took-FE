@@ -38,7 +38,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   const formMethod = useForm<CareerFormData>({
     resolver: zodResolver(cardCreateSchema),
     defaultValues: initialValues,
-    mode: 'onBlur',
+    mode: 'onChange', // 필드 값이 변경될 때마다 검증
   });
 
   const { handleSubmit, trigger } = formMethod;
@@ -56,7 +56,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     const valid = await trigger(fieldsToValidate);
 
     if (valid) {
-      if (currentStep < 1) {
+      if (currentStep < TOTAL_STEPS) {
         onNextStep();
       } else {
         // 마지막 단계인 경우 form 제출

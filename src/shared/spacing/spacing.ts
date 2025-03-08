@@ -14,6 +14,7 @@ export const spacingStyles = cva('', {
     padding: {
       xs: 'p-xs', // padding: 4px;
       sm: 'p-sm', // padding: 8px;
+      ms: 'p-ms', // padding: 12px;
       md: 'p-md', // padding: 16px;
       ml: 'p-ml', // padding: 20px;
       lg: 'p-lg', // padding: 24px;

@@ -8,7 +8,6 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Took',
   description: 'Took name service',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 };
 
 export const viewport: Viewport = {
@@ -24,10 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={`${pretendard.variable} antialiased`}>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <>
+      <html lang="ko">
+        <body className={`${pretendard.variable} antialiased`}>
+          <Providers>{children}</Providers>
+        </body>
+      </html>
+    </>
   );
 }

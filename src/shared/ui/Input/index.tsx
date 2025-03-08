@@ -8,6 +8,8 @@ import { InputBody } from './input';
 type WrappedInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
   variant?: 'default' | 'withBtn';
   title?: string;
+  error?: boolean;
+  errorMsg?: string;
 };
 
 /** 공통 컴포넌트 - input
@@ -24,7 +26,7 @@ type WrappedInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
  */
 
 const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
-  ({ variant = 'default', title, ...props }, ref) => {
+  ({ variant = 'default', error, errorMsg, title, ...props }, ref) => {
     const [value, setValue] = useState('');
 
     const handleClearInput = useCallback(() => {
@@ -48,6 +50,7 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
       <div className="relative flex flex-col items-start justify-center gap-[6px]">
         {renderTitle()}
         <InputBody
+          error={error}
           variant={variant}
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -64,6 +67,7 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
             onClick={handleClearInput}
           />
         )}
+        {errorMsg && <p className="text-left text-caption-1 text-error-medium">{errorMsg}</p>}
       </div>
     );
   },
