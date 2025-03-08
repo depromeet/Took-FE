@@ -4,36 +4,36 @@ export const tagConfig = [
   {
     id: 1,
     message: '소속 정보',
-    className: `top-44 ${tagStyle}`,
+    className: `left-1/2 -translate-x-1/2 ${tagStyle}`,
   },
   {
     id: 2,
     message: '활동 지역',
-    className: `left-8 top-60 ${tagStyle}`,
+    className: `top-20 ${tagStyle}`,
   },
   {
     id: 3,
     message: 'SNS',
-    className: `right-11 top-56 ${tagStyle}`,
+    className: `right-0 top-16 ${tagStyle}`,
   },
   {
     id: 4,
     message: '최근 소식',
-    className: `bottom-60 left-5 ${tagStyle}`,
+    className: `bottom-40 ${tagStyle}`,
   },
   {
     id: 5,
     message: '작성한 글',
-    className: `bottom-40 left-[4.5rem] ${tagStyle}`,
+    className: `bottom-16 left-12 ${tagStyle}`,
   },
   {
     id: 6,
     message: '취미',
-    className: `bottom-32 right-28 ${tagStyle}`,
+    className: `bottom-8 right-20 ${tagStyle}`,
   },
   {
     id: 7,
     message: '대표 프로젝트',
-    className: `bottom-52 right-7 ${tagStyle}`,
+    className: `bottom-28 right-0 ${tagStyle}`,
   },
 ];

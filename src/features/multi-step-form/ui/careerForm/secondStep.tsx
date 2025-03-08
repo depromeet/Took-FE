@@ -8,13 +8,13 @@ import Header from '@/shared/ui/header';
 
 function SecondStep() {
   return (
-    <div className="flex h-[76dvh] w-full flex-col items-center justify-start gap-4">
-      <main className="flex w-full flex-col items-center justify-between">
+    <div className="h-[72dvh] items-center justify-start gap-4 overflow-hidden">
+      <main className="relative flex h-full w-full flex-col items-center justify-between">
         <Header title={`명함에 추가할 태그를 \n 선택해 주세요`} />
-        <>
-          <Ball />
+        <Ball />
+        <div className="relative h-full w-full">
           <TagBox />
-        </>
+        </div>
       </main>
     </div>
   );
