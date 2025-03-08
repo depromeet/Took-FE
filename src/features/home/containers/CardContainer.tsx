@@ -3,6 +3,7 @@
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { AddCard } from '../components/BusinessCard/AddCard';
 import {
   CardAvatar,
   CardDescription,
@@ -38,6 +39,11 @@ export const CardContainer = () => {
           </SwiperSlide>
         );
       })}
+      {data.length <= 3 && (
+        <SwiperSlide>
+          <AddCard />
+        </SwiperSlide>
+      )}
     </Swiper>
   );
 };
