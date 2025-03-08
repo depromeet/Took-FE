@@ -1,9 +1,8 @@
-import React from 'react';
-
 type headerPropsType = {
   title: string;
   description?: string;
 };
+
 /**
  * 공통 컴포넌트 - Header
  *
@@ -14,6 +13,7 @@ type headerPropsType = {
  *
  * @returns {JSX.Element} Header 컴포넌트
  */
+
 function Header({ title, description }: headerPropsType) {
   return (
     <header className="flex w-full max-w-[600px] flex-col items-start justify-between gap-3">

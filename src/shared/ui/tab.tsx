@@ -1,3 +1,5 @@
+'use client';
+
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
@@ -34,6 +36,7 @@ export interface tabProps extends React.HTMLAttributes<HTMLDivElement>, VariantP
  *
  * @returns {JSX.Element} Tab 컴포넌트
  */
+
 function Tab({ className, variant, ...props }: tabProps) {
   return (
     <div>
