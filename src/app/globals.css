@@ -65,6 +65,80 @@
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 80px;
+
+    .swiper-pagination-bullet {
+      background: var(--gray-600);
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: #fff;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .swiper-slide-next {
+      display: flex;
+      justify-content: center;
+      transition: all 0.35s ease-in-out;
+
+      @media (max-width: 452px) {
+        transform: translate(-108px, 8px) rotate(3deg) !important;
+      }
+
+      @media (max-width: 420px) {
+        transform: translate(-92px, 8px) rotate(3deg) !important;
+      }
+
+      @media (max-width: 390px) {
+        transform: translate(-80px, 8px) rotate(3deg) !important;
+      }
+
+      @media (max-width: 375px) {
+        transform: translate(-68px, 8px) rotate(3deg) !important;
+      }
+
+      @media (max-width: 360px) {
+        transform: translate(-52px, 8px) rotate(3deg) !important;
+      }
+
+      @media (max-width: 332px) {
+        transform: translate(0) rotate(0) !important;
+      }
+    }
+
+    .swiper-slide-prev {
+      display: flex;
+      justify-content: center;
+      transition: all 0.35s ease-in-out;
+
+      @media (max-width: 452px) {
+        transform: translate(108px, 8px) rotate(-3deg) !important;
+      }
+
+      @media (max-width: 420px) {
+        transform: translate(92px, 8px) rotate(-3deg) !important;
+      }
+
+      @media (max-width: 390px) {
+        transform: translate(80px, 8px) rotate(-3deg) !important;
+      }
+
+      @media (max-width: 375px) {
+        transform: translate(68px, 8px) rotate(-3deg) !important;
+      }
+
+      @media (max-width: 360px) {
+        transform: translate(52px, 8px) rotate(-3deg) !important;
+      }
+
+      @media (max-width: 332px) {
+        transform: translate(0) rotate(0) !important;
+      }
+    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -84,5 +158,68 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  @keyframes scaleAnimation {
+    0% {
+      transform: scale(0); /* 시작 시 크기 */
+    }
+    100% {
+      transform: scale(2); /* 시작 크기로 돌아옴 */
+      opacity: 0;
+    }
+  }
+
+  .firstWave {
+    position: absolute; /* absolute 위치 지정 */
+    animation: scaleAnimation 5s infinite;
+    transform-origin: center; /* 중심을 기준으로 스케일 */
+  }
+  .secondWave {
+    position: absolute; /* absolute 위치 지정 */
+    animation: scaleAnimation 5s infinite; /* 2s duration, infinite looping */
+    transform-origin: center; /* 중심을 기준으로 스케일 */
+    animation-delay: 0.05s;
+  }
+
+  /* 임시 포지션 */
+  .move-to-one {
+    left: 50%;
+    top: 42.5%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    transition: all 0.7s ease-in-out;
+  }
+  .move-to-two {
+    left: 50%;
+    top: 32.5%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    transition: all 0.7s ease-in-out;
+  }
+  .move-to-three {
+    left: 50%;
+    top: 52.5%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    transition: all 0.7s ease-in-out;
+  }
+
+  @keyframes upDownAnimation {
+    0% {
+      transform: translateY(0); /* 원래 위치 */
+    }
+    50% {
+      transform: translateY(-6px); /* 3px 위로 이동 */
+    }
+    100% {
+      transform: translateY(0); /* 원래 위치로 돌아옴 */
+    }
+  }
+  .upanddown {
+    animation: upDownAnimation 2.5s infinite;
   }
 }

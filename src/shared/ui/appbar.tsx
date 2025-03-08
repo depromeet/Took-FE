@@ -1,5 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
+
+import { cn } from '../lib/utils';
 
 type appbarPropsType = {
   page: 'main' | 'detail' | 'create';

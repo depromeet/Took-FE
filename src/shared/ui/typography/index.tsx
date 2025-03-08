@@ -1,9 +1,14 @@
+import { ComponentPropsWithoutRef, ElementType } from 'react';
+
+import { cn } from '@/shared/lib/utils';
+
 import { typography, type TypographyVariantProps } from './typography';
 
-type TypographyProps = TypographyVariantProps & {
-  as?: keyof JSX.IntrinsicElements;
+type TypographyProps<T extends ElementType = 'span'> = {
+  as?: T;
   children: React.ReactNode;
-};
+} & TypographyVariantProps &
+  ComponentPropsWithoutRef<T>;
 
 /**
  * `Typography` 컴포넌트는 Took 디자인 시스템 글꼴 및 다양한 텍스트 스타일을 적용할 수 있는 컴포넌트입니다.
@@ -15,8 +20,14 @@ type TypographyProps = TypographyVariantProps & {
  *
  * @returns {JSX.Element} 지정된 태그와 스타일을 적용한 텍스트 요소를 반환합니다.
  */
-
-export const Typography = ({ as: Tag = "span", variant, children }: TypographyProps) => {
+export const Typography = <T extends ElementType = 'span'>({ as, variant, children, ...rest }: TypographyProps<T>) => {
+  const Tag = as ?? 'span';
   const className = typography({ variant });
-  return <Tag className={className}>{children}</Tag>;
+  const { className: outerClassName, ...restProps } = rest;
+
+  return (
+    <Tag className={cn(className, outerClassName)} {...restProps}>
+      {children}
+    </Tag>
+  );
 };
