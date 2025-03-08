@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import React from 'react';
 
+import { cn } from '../lib/utils';
+
 type appbarPropsType = {
   page: 'main' | 'detail' | 'create';
   onLeftClick?: () => void;
@@ -62,10 +64,10 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
 function Appbar({ page, onLeftClick, onRightClick }: appbarPropsType) {
   return (
     <header
-      className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-5 py-5 pb-5 pr-5 ${
-        page === 'create' ? 'bg-gray-black' : ''
-      }`}
-    >
+      className={cn(
+        'z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4',
+        page === 'create' ? 'bg-gray-black' : '',
+      )}>
       {renderLeftIcon({ page, onLeftClick })}
       {renderRightIcon({ page, onRightClick })}
     </header>
