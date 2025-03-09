@@ -10,6 +10,8 @@ import Thumbnail from '@/shared/ui/thumbnail';
 
 import { SelectedTagType, tagConfig } from './tagFormStep/config/config';
 
+const LAST_NUMBER = 7;
+
 function FourthStep() {
   const [selectedTag, setSelectedTag] = useState<SelectedTagType>('대표 프로젝트');
   const [index, setIndex] = useState<number>(0);
@@ -41,7 +43,7 @@ function FourthStep() {
         </p>
         <div className="grid-w-full my-6 grid w-full grid-cols-2 gap-2">
           {tagConfig.map((tag) => {
-            if (tag.id == 7) return null;
+            if (tag.id === LAST_NUMBER) return null;
             return (
               <div
                 key={tag.id}
