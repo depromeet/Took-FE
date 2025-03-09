@@ -212,16 +212,30 @@
 
   @keyframes upDownAnimation {
     0% {
-      transform: translateY(0); /* 원래 위치 */
+      transform: translateY(0);
     }
     50% {
-      transform: translateY(-6px); /* 3px 위로 이동 */
+      transform: translateY(6px);
     }
     100% {
-      transform: translateY(0); /* 원래 위치로 돌아옴 */
+      transform: translateY(0);
+    }
+  }
+  @keyframes downUpAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+    100% {
+      transform: translateY(0);
     }
   }
   .upanddown {
     animation: upDownAnimation 2.5s infinite;
+  }
+  .downandup {
+    animation: downUpAnimation 2.5s infinite;
   }
 }

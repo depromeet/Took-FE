@@ -9,6 +9,7 @@ export type TagConfigItem = {
   position: string;
   title?: string;
   description?: string;
+  animation: string;
 };
 
 export const tagConfig: TagConfigItem[] = [
@@ -20,6 +21,7 @@ export const tagConfig: TagConfigItem[] = [
     // position: 'top-72 left-52',
     title: '프로젝트 제목',
     description: '김디퍼님의 프로젝트 링크',
+    animation: 'downandup',
   },
   {
     id: 2,
@@ -29,6 +31,7 @@ export const tagConfig: TagConfigItem[] = [
     // position: 'top-80 left-12',
     title: '작성한 글 제목',
     description: '김디퍼님의 게시물 링크',
+    animation: 'downandup',
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ export const tagConfig: TagConfigItem[] = [
     // position: 'top-16 left-64',
     position: `right-0 top-16`,
     title: 'SNS 아이디',
+    animation: 'upanddown',
   },
   {
     id: 4,
@@ -45,6 +49,7 @@ export const tagConfig: TagConfigItem[] = [
     position: 'bottom-8 right-20',
     // position: 'top-[23rem] left-44',
     description: `고소한 커피 한 잔과 함께 노트북을 켜고 새\n로운 아이디어를 정리하는 걸 좋아해요`,
+    animation: 'upanddown',
   },
   {
     id: 5,
@@ -53,6 +58,7 @@ export const tagConfig: TagConfigItem[] = [
     // position: 'top-64',
     position: 'bottom-40',
     description: `부동산 스타트업에서 2년간 일하다가 \n 퇴사하고 지금은 이직 준비 중이에요`,
+    animation: 'upanddown',
   },
   {
     id: 6,
@@ -60,6 +66,7 @@ export const tagConfig: TagConfigItem[] = [
     className: tagStyle,
     position: `top-20`,
     description: `주로 서울 전역에서 활동하지만, \n특히 강남에서 자주 출몰해요`,
+    animation: 'upanddown',
   },
   {
     id: 7,
@@ -67,5 +74,6 @@ export const tagConfig: TagConfigItem[] = [
     className: tagStyle,
     // position: 'top-0 left-28',
     position: `left-1/2 -translate-x-1/2`,
+    animation: 'downandup',
   },
 ];
