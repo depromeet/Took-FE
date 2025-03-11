@@ -3,10 +3,10 @@ import React from 'react';
 import { spacingStyles } from '@/shared/spacing';
 import PostThumbnail from '@/shared/ui/postThumbnail';
 
-import { PostDto } from '../types/sample';
+import { ContentItemDto } from '../types/cardDetail';
 
 interface PostsProps {
-  data: PostDto[];
+  data: ContentItemDto[];
 }
 
 function Posts({ data }: PostsProps) {
@@ -19,7 +19,7 @@ function Posts({ data }: PostsProps) {
               title={post.title}
               description={post.description}
               link={post.link || ''}
-              imageSrc={post.thumbnail || undefined}
+              imageSrc={post.imageUrl || undefined}
             />
           </div>
         );
