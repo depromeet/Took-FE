@@ -18,19 +18,28 @@ type CareerFormViewProps = {
 
 type StepFormViewProps = {
   currentStep: number;
+  handleNextStep: () => void;
 };
 
 const initialValues: CareerFormData = {
-  name: '',
-  detail_career: '',
-  domain: '',
-  description: '',
+  profileImage: '',
+  nickname: '',
+  detailJobId: '',
+  interestDomain: [],
+  summary: '',
+  organization: '',
+  sns: '',
+  region: '',
+  hobby: [],
+  news: [],
+  content: [],
+  project: [],
 };
 
 const stepValidationFields: Record<number, (keyof CareerFormData)[]> = {
-  1: ['name', 'detail_career', 'domain', 'description'],
+  1: ['nickname', 'detailJobId', 'interestDomain', 'summary'],
   2: [],
-  3: [],
+  3: ['organization', 'sns', 'region', 'hobby', 'news', 'content', 'project'],
   4: [],
 };
 
@@ -41,14 +50,27 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     mode: 'onChange', // 필드 값이 변경될 때마다 검증
   });
 
-  const { handleSubmit, trigger } = formMethod;
+  const {
+    handleSubmit,
+    trigger,
+    watch,
+    formState: { errors },
+  } = formMethod;
 
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {
     console.log('최종 제출 데이터', data);
   };
 
+  // watch를 사용하여 현재 스텝의 필드 값들을 가져옵니다.
+  const watchedValues = watch(stepValidationFields[currentStep]);
+
+  // 모든 필드가 채워졌는지(빈 문자열이 아닌지) 체크
+  const isFilled = watchedValues.every((value) => value !== undefined && value.toString().trim() !== '');
+  // 에러가 없는지도 함께 체크
+  const isStepValid = isFilled && stepValidationFields[currentStep].every((field) => !errors[field]);
   // 각 스텝에 해당하는 필드만 trigger로 검증 후 다음 단계로 이동
+
   const handleNextStep = async () => {
     const fieldsToValidate = stepValidationFields[currentStep];
     if (!fieldsToValidate) return;
@@ -69,18 +91,22 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     <>
       <FormProvider {...formMethod}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <StepFormView currentStep={currentStep} />
+          <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} />
         </form>
-        {currentStep !== 2 && <Button onClick={handleNextStep}>{currentStep < TOTAL_STEPS ? '다음' : '제출'}</Button>}
+        {currentStep !== 2 && (
+          <Button className="z-100" disabled={!isStepValid} onClick={handleNextStep}>
+            {currentStep < TOTAL_STEPS ? '다음' : '제출'}
+          </Button>
+        )}
       </FormProvider>
     </>
   );
 }
 
-const StepFormView = ({ currentStep }: StepFormViewProps) => {
+const StepFormView = ({ currentStep, handleNextStep }: StepFormViewProps) => {
   return match(currentStep)
     .with(1, () => <FirstStep />)
-    .with(2, () => <SecondStep />)
+    .with(2, () => <SecondStep handleNextStep={handleNextStep} />)
     .with(3, () => <ThirdStep />)
     .otherwise(() => <></>);
 };

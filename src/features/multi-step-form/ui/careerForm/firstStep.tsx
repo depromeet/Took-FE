@@ -6,8 +6,10 @@ import WrappedInput from '@/shared/ui/Input';
 import { Textarea } from '@/shared/ui/textArea';
 
 import AvatarImg from '../../components/AvartarImg';
-import { CAREER_FORM } from '../../config';
+import { CAREER_FORM, careerOptions } from '../../config';
 import { CareerFormData } from '../../schema';
+import TagInput from '@/shared/ui/tagInput';
+import SearchDropdown, { SearchOptions } from '@/shared/ui/dropDown/searchDropdown';
 
 function FirstStep() {
   const {
@@ -28,14 +30,14 @@ function FirstStep() {
           </div>
           <Controller
             control={control}
-            name="name"
+            name="nickname"
             render={({ field }) => (
               <>
                 <WrappedInput
                   title="이름"
                   placeholder="이름을 입력해주세요."
-                  errorMsg={errors.name?.message}
-                  error={!!errors.name?.message}
+                  errorMsg={errors.nickname?.message}
+                  error={!!errors.nickname?.message}
                   {...field}
                 />
               </>
@@ -43,29 +45,40 @@ function FirstStep() {
           />
           <Controller
             control={control}
-            name="detail_career"
-            render={({ field }) => (
-              <>
-                <WrappedInput
+            name="detailJobId"
+            render={({ field }) => {
+              const { onChange: fieldOnChange, value: fieldValue, ...props } = field;
+
+              // 선택된 옵션에서 value만 추출하여 전달하는 핸들러
+              const handleChange = (selectedOption: SearchOptions | null) => {
+                fieldOnChange(selectedOption ? selectedOption.value : null);
+              };
+
+              // 현재 필드의 값(fieldValue)에 해당하는 옵션을 찾아 selectedOption에 할당
+              const selectedOptionValue = careerOptions.find((option) => option.value === fieldValue) || null;
+
+              return (
+                <SearchDropdown
                   title="세부직군"
-                  placeholder="세부직군"
-                  errorMsg={errors.detail_career?.message}
-                  error={!!errors.detail_career?.message}
-                  {...field}
+                  placeholder="세부직군을 입력해주세요."
+                  errorMsg={errors.detailJobId?.message}
+                  options={careerOptions}
+                  value={selectedOptionValue}
+                  onChange={handleChange}
+                  {...props}
                 />
-              </>
-            )}
+              );
+            }}
           />
           <Controller
             control={control}
-            name="domain"
+            name="interestDomain"
             render={({ field }) => (
               <>
-                <WrappedInput
+                <TagInput
                   title="관심 도메인"
-                  placeholder="관심 도메인"
-                  errorMsg={errors.domain?.message}
-                  error={!!errors.domain?.message}
+                  placeholder="어떤 분야에 괸심이 있나요?"
+                  errorMsg={errors.interestDomain?.message}
                   {...field}
                 />
               </>
@@ -73,7 +86,7 @@ function FirstStep() {
           />
           <Controller
             control={control}
-            name="description"
+            name="summary"
             render={({ field }) => (
               <>
                 <Textarea
@@ -81,8 +94,8 @@ function FirstStep() {
                   totalNumber={40}
                   placeholder="본인을 잘 드러낼 수 있는 문장을 작성해 주세요."
                   size="max"
-                  errorMsg={errors.description?.message}
-                  error={!!errors.description?.message}
+                  errorMsg={errors.summary?.message}
+                  error={!!errors.summary?.message}
                   {...field}
                 />
               </>
