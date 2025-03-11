@@ -1,42 +1,29 @@
 'use client';
 
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 import { spacingStyles } from '@/shared/spacing/spacing';
 import Appbar from '@/shared/ui/appbar';
-import { Typography } from '@/shared/ui/typography';
 
-import { useUser, useUserDetail } from '../hooks/sample';
-//import useReverseScrollView from '../hooks/useReverseScrollView';
+import JOB_CONFIG, { JobType } from '../config/jobs-config';
+import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 
 const CardDetailHeader = () => {
-  const { data: userData } = useUser();
-  const { data: userDataDetail } = useUserDetail();
-  //const { isReverseScroll } = useReverseScrollView();
+  const { id } = useParams();
+  const { data } = useCardDetailQuery(id as string);
 
-  // isReverseScroll 값이 변경될 때마다 부모에게 알림
-  // useEffect(() => {
-  //   onReverseScroll(isReverseScroll);
-  // }, [isReverseScroll, onReverseScroll]);
+  const userJob = (data?.data?.job as JobType) || 'DEVELOPER';
 
-  // const { ref } = useBottomOffset({
-  //   offset: 0,
-  //   onTrigger: () => {
-  //     console.log('트리거 감지됨');
-  //     setToggle((prev) => !prev);
-  //     if (isReverseScroll && toggle) {
-  //       console.log('역스크롤 감지됨', isReverseScroll);
-  //       onReverseScroll(true);
-  //     }
-  //   },
-  // });
+  // config에서 해당 직군의 설정 가져오기
+  const currentJob = JOB_CONFIG[userJob];
 
   return (
     <>
       <div
         className="card-detail-header w-full bg-cover bg-center pb-[40px]"
         style={{
-          backgroundImage: `url('/images/card-detail/card-detail-develop.png')`,
+          backgroundImage: `url('${currentJob.backgroundImage}')`,
         }}
       >
         {/* 카드 상세 헤더 */}
@@ -52,21 +39,25 @@ const CardDetailHeader = () => {
                 <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
               </div>
               {/* 개발자 , 디자이너 아이콘 */}
-              <Image src="/icons/developer-icon-white.svg" alt="developerIcon" width="30" height="30" />
+              <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />
             </div>
-            <Typography variant="title-1">{userData?.userData.name}</Typography>
-            <div className={`${spacingStyles({ marginBottom: 'ms' })} flex text-title-3`}>
-              <p className={`${spacingStyles({ marginRight: 'sm' })}`}>{userDataDetail?.userDataDetail.jobTitle}</p>
-              {userDataDetail?.userDataDetail.jobTitle && (
+            <p className="title-1 line-clamp-1">{data.data.nickname}</p>
+            <div
+              className={`${spacingStyles({ marginBottom: 'ms' })} line-clamp-1 flex w-full items-center text-title-3`}
+            >
+              <span className={`max-w-1/2 truncate ${spacingStyles({ marginRight: 'sm' })}`}>
+                {data?.data.detailJob}
+              </span>
+              {data?.data && (
                 <>
-                  <span>|</span>
-                  <p className={`${spacingStyles({ marginLeft: 'sm' })}`}>
-                    {userDataDetail?.userDataDetail.organization}
-                  </p>
+                  <span className="flex-shrink-0 px-1">|</span>
+                  <span className={`max-w-1/2 truncate ${spacingStyles({ marginLeft: 'sm' })}`}>
+                    {data?.data.organization}
+                  </span>
                 </>
               )}
             </div>
-            <Typography variant="body-5">{userDataDetail?.userDataDetail.summary}</Typography>
+            <p className="body-5 line-clamp-2">{data?.data.summary}</p>
             <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
               <Image
                 src="/icons/region.svg"
@@ -75,7 +66,7 @@ const CardDetailHeader = () => {
                 height={16}
                 className={`${spacingStyles({ marginRight: 'xs' })}`}
               />
-              <p>{userDataDetail?.userDataDetail.region}</p>
+              <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
             </div>
           </div>
         </div>
