@@ -7,10 +7,13 @@ import TagBox from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/TagB
 import { Button } from '@/shared/ui/button';
 import Header from '@/shared/ui/header';
 
-function SecondStep() {
+type SecondStepProps = {
+  handleNextStep: () => void;
+};
+
+function SecondStep({ handleNextStep }: SecondStepProps) {
   const [tagCount, setTagCount] = useState(0);
   const [tagArray, setTagArray] = useState<string[]>([]);
-  // const [a, b] = useState<Record<string, string | number>[]>();
 
   return (
     <>
@@ -37,7 +40,7 @@ function SecondStep() {
           </Button>
         )}
 
-        <Button className="w-full" disabled={tagCount === 0}>
+        <Button className="w-full" disabled={tagCount === 0} onClick={handleNextStep}>
           다음
         </Button>
       </div>
