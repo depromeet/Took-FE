@@ -3,7 +3,6 @@
 import Appbar from '@/shared/ui/appbar';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import { Button } from '@/shared/ui/button';
-import { InputWithDropdown } from '@/shared/ui/dropDown/inputDropdown';
 import Header from '@/shared/ui/header';
 import Img from '@/shared/ui/img';
 import WrappedInput from '@/shared/ui/Input';
@@ -14,8 +13,7 @@ import Toast from '@/shared/ui/Toast';
 export default function Home() {
   return (
     <div className="flex h-dvh w-full justify-center">
-      <div></div>
-      {/* <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
+      <div className="inline-flex w-full max-w-[600px] flex-col items-center justify-center gap-4 border border-white bg-black">
         <Appbar page="main" onLeftClick={() => console.log('left')} onRightClick={() => console.log('right')} />
         <Header
           title={`명함에 추가할 태그를 \n 선택해주세요`}
@@ -57,8 +55,7 @@ export default function Home() {
         <WrappedInput variant="withBtn" placeholder="close icon 테스트 중이에요" />
         <WrappedInput title="SNS" variant="withBtn" placeholder="close icon 테스트 중이에요" />
         <Toast buttonText="토스트 잘 뜨나?" message="주의해주세요" />
-      </div> */}
-      <InputWithDropdown items={['test', 'test']} />
+      </div>
     </div>
   );
 }
