@@ -14,7 +14,6 @@ type SecondStepPropsType = {
 function SecondStep({ handleNextStep }: SecondStepPropsType) {
   const [tagCount, setTagCount] = useState(0);
   const [tagArray, setTagArray] = useState<string[]>([]);
-  // const [a, b] = useState<Record<string, string | number>[]>();
 
   return (
     <>
