@@ -2,16 +2,14 @@ import React from 'react';
 
 import { spacingStyles } from '@/shared/spacing';
 
-import { HobbyDto } from '../types/sample';
-
 interface HobbyProps {
-  data: HobbyDto;
+  data: string;
 }
 
 function Hobby({ data }: HobbyProps) {
   return (
     <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
-      <p className="text-body-3">{data.content}</p>
+      <p className="text-body-3">{data}</p>
     </div>
   );
 }
