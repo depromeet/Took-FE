@@ -1,8 +1,8 @@
 import { cn } from '@/shared/lib/utils';
+import { spacingStyles } from '@/shared/spacing';
 import { Typography } from '@/shared/ui/typography';
 
 import { TabId } from '../config/tabs-config';
-import { spacingStyles } from '@/shared/spacing';
 
 type TabItem = {
   id: TabId;
