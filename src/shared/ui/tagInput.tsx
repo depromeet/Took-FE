@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
-import Tag from './tag/tag';
-import { Label } from './label';
+
 import { cn } from '../lib/utils';
 import { spacingStyles } from '../spacing';
+
+import { Label } from './label';
+import Tag from './tag/tag';
 
 type TagInputProps = {
   placeholder?: string;

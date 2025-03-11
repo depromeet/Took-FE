@@ -1,13 +1,13 @@
 'use client';
 
+import { Label } from '@radix-ui/react-label';
+import { disassemble } from 'es-hangul';
 import { forwardRef } from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
 import Select, { FilterOptionOption, type StylesConfig, type GroupBase, Props as ReactSelectProps } from 'react-select';
 
 // es-hangul 패키지의 disassemble 함수를 임포트
-import { disassemble } from 'es-hangul';
-import { cva, VariantProps } from 'class-variance-authority';
-import { ControllerRenderProps } from 'react-hook-form';
-import { Label } from '@radix-ui/react-label';
+
 import { cn } from '@/shared/lib/utils';
 
 export type SearchOptions = {
@@ -28,24 +28,10 @@ type CombineSearchDropdownProps = SearchDropdownProps &
   // react-select에서 사용하는 기본 속성
   Omit<ReactSelectProps<SearchOptions, false, GroupBase<SearchOptions>>, 'value' | 'onChange'> &
   // react-hook-form에서 넘어오는 field (onChange, onBlur, ref, name, value 등)
-  Partial<ControllerRenderProps<any, any>> &
-  VariantProps<typeof searchDropdownVariant>;
-
-const searchDropdownVariant = cva('', {
-  variants: {
-    size: {
-      sm: 'w-[320px]',
-      md: 'w-[400px]',
-      lg: 'w-[480px]',
-    },
-  },
-  defaultVariants: {
-    size: 'sm',
-  },
-});
+  Partial<ControllerRenderProps<any, any>>;
 
 const SearchDropdown = forwardRef<any, CombineSearchDropdownProps>(
-  ({ title, placeholder, size, options, onChange, errorMsg, ...props }, ref) => {
+  ({ title, placeholder, options, onChange, errorMsg, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-[6px]">
         {title && <Label className="text-body-5 text-gray-100">{title}</Label>}
@@ -64,6 +50,8 @@ const SearchDropdown = forwardRef<any, CombineSearchDropdownProps>(
     );
   },
 );
+
+SearchDropdown.displayName = 'SearchDropdown';
 /**
  * es-hangul의 disassemble 함수를 활용해 한글 문자열을 분해한 후,
  * 커스텀 필터 함수에서 분해된 문자열끼리 비교합니다.

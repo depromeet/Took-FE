@@ -2,14 +2,14 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import SearchDropdown, { SearchOptions } from '@/shared/ui/dropDown/searchDropdown';
 import WrappedInput from '@/shared/ui/Input';
+import TagInput from '@/shared/ui/tagInput';
 import { Textarea } from '@/shared/ui/textArea';
 
 import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM, careerOptions } from '../../config';
 import { CareerFormData } from '../../schema';
-import TagInput from '@/shared/ui/tagInput';
-import SearchDropdown, { SearchOptions } from '@/shared/ui/dropDown/searchDropdown';
 
 function FirstStep() {
   const {
