@@ -21,8 +21,10 @@ export type TokenDto = {
 };
 
 export type AuthResponseDto = {
-  token: TokenDto;
-  user: UserDto;
+  data: {
+    token: TokenDto;
+    user: UserDto;
+  };
 };
 
 export type AuthDto = ApiResponse<AuthResponseDto>;
