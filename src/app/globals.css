@@ -162,24 +162,20 @@
 
   @keyframes scaleAnimation {
     0% {
-      transform: scale(0); /* 시작 시 크기 */
+      transform: translate(-50%, -50%) scale(0); /* 시작 위치 & 크기 */
     }
     100% {
-      transform: scale(2); /* 시작 크기로 돌아옴 */
+      transform: translate(-50%, -50%) scale(2);
       opacity: 0;
     }
   }
 
   .firstWave {
-    position: absolute; /* absolute 위치 지정 */
-    animation: scaleAnimation 5s infinite;
-    transform-origin: center; /* 중심을 기준으로 스케일 */
+    animation: scaleAnimation 4s infinite linear;
   }
   .secondWave {
-    position: absolute; /* absolute 위치 지정 */
-    animation: scaleAnimation 5s infinite; /* 2s duration, infinite looping */
-    transform-origin: center; /* 중심을 기준으로 스케일 */
-    animation-delay: 0.05s;
+    animation: scaleAnimation 4s infinite linear;
+    animation-delay: 0.15s;
   }
 
   /* 임시 포지션 */
@@ -210,16 +206,30 @@
 
   @keyframes upDownAnimation {
     0% {
-      transform: translateY(0); /* 원래 위치 */
+      transform: translateY(0);
     }
     50% {
-      transform: translateY(-6px); /* 3px 위로 이동 */
+      transform: translateY(3px);
     }
     100% {
-      transform: translateY(0); /* 원래 위치로 돌아옴 */
+      transform: translateY(0);
+    }
+  }
+  @keyframes downUpAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0);
     }
   }
   .upanddown {
-    animation: upDownAnimation 2.5s infinite;
+    animation: upDownAnimation 2.5s infinite ease-in-out;
+  }
+  .downandup {
+    animation: downUpAnimation 2.5s infinite ease-in-out;
   }
 }
