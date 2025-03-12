@@ -33,18 +33,17 @@ function TagBox({ tagCount, tagArray, setTagCount, setTagArray }: TagBoxPropsTyp
     }
   }
 
-  // className: `left-1/2 -translate-x-1/2 top-40
   return (
     <>
       {tagConfig.map((tag) => {
         return (
-          <div key={tag.id} className={cn()} onClick={() => handleTagClick(tag.message)}>
+          <div key={tag.id} onClick={() => handleTagClick(tag.message)}>
             <Tag
               message={tag.message}
               size="lg"
               className={cn(
                 'transition-all duration-500 ease-in-out',
-                !tagArray.includes(tag.message) && 'upanddown',
+                !tagArray.includes(tag.message) && tag.animation,
                 tag.className,
                 tag.position,
                 tagArray[0] === tag.message ? 'move-to-one' : tag.position,
