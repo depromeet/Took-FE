@@ -51,7 +51,7 @@ const onRejected = async (error: any, baseUrl: string) => {
       axios
         .post(`${baseUrl}/api/auth/refresh`, { refreshToken })
         .then(({ data }) => {
-          const { accessToken, refreshToken } = data as { accessToken: string; refreshToken: string };
+          const { accessToken, refreshToken } = data.data as { accessToken: string; refreshToken: string };
 
           axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
           originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
