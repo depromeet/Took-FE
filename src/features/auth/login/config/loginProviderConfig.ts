@@ -10,14 +10,14 @@ export type ProviderConfig = {
 };
 
 export const loginProviderConfig: Record<SocialProvider, ProviderConfig> = {
-  kakao: {
+  KAKAO: {
     icon: '/icons/kakao-icon.svg', // 경로 변경
     text: '카카오톡으로 시작하기',
     bgColor: 'bg-yellow-300',
     textColor: 'text-gray-800',
     loginFn: kakaoLogin,
   },
-  google: {
+  GOOGLE: {
     icon: '/icons/google-icon.svg', // 경로 변경
     text: '구글 계정으로 시작하기',
     bgColor: 'bg-white',
@@ -25,7 +25,7 @@ export const loginProviderConfig: Record<SocialProvider, ProviderConfig> = {
     // googleLogin으로 변경 예정
     loginFn: kakaoLogin,
   },
-  apple: {
+  APPLE: {
     icon: '/icons/apple-icon.svg', // 경로 변경
     text: '애플로 시작하기',
     bgColor: 'bg-white',

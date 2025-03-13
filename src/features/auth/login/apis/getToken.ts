@@ -9,10 +9,7 @@ import { AuthDto, SocialProvider } from '../types/auth';
 
 export async function getToken(provider: SocialProvider, code: string): Promise<AuthDto> {
   try {
-    const data = await client.post<null, AuthDto>(
-      `${CLIENT_SIDE_URL}/api/auth/login/${provider.toUpperCase()}?code=${code}`,
-    );
-    console.log(data);
+    const data = await client.post<null, AuthDto>(`${CLIENT_SIDE_URL}/api/auth/login/${provider}?code=${code}`);
     return data;
   } catch (error) {
     console.error(error);

@@ -12,8 +12,8 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
 
   useEffect(() => {
     const code = searchParams.get('code');
-    // provider : kakao | google | apple
-    const provider = params.provider as SocialProvider;
+    // provider : KAKAO | GOOGLE | APPLE
+    const provider = params.provider.toUpperCase() as SocialProvider;
 
     const processAuth = async () => {
       try {

@@ -14,9 +14,9 @@ export function LoginFeature() {
         </div>
 
         <div className="absolute bottom-0 w-full space-y-4 px-6 pb-10">
-          <LoginButton provider="google" />
-          <LoginButton provider="apple" />
-          <LoginButton provider="kakao" />
+          <LoginButton provider="GOOGLE" />
+          <LoginButton provider="APPLE" />
+          <LoginButton provider="KAKAO" />
         </div>
       </div>
     </div>
