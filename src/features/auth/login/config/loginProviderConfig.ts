@@ -1,3 +1,4 @@
+import { googleLogin } from '../model/providers/google';
 import { kakaoLogin } from '../model/providers/kakao';
 import { SocialProvider } from '../types/auth';
 
@@ -23,7 +24,7 @@ export const loginProviderConfig: Record<SocialProvider, ProviderConfig> = {
     bgColor: 'bg-white',
     textColor: 'text-gray-800',
     // googleLogin으로 변경 예정
-    loginFn: kakaoLogin,
+    loginFn: googleLogin,
   },
   APPLE: {
     icon: '/icons/apple-icon.svg', // 경로 변경
