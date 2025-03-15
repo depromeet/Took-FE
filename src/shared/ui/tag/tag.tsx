@@ -15,6 +15,7 @@ interface TagProps {
   size?: TagSize;
   onClose?: () => void;
   className?: string;
+  onClick?: (event: React.MouseEvent<HTMLSpanElement>) => void; // 추가
 }
 
 /** 공통 컴포넌트 - tag
@@ -37,7 +38,7 @@ interface TagProps {
  * <Tag message="큰 태그" size="lg" onClose={handleCloseBtn} />
  */
 
-function Tag({ message, size = 'md', onClose, className = 'bg-opacity-white-20' }: TagProps) {
+function Tag({ message, size = 'md', onClose, onClick, className = 'bg-opacity-white-20' }: TagProps) {
   const tagStyles = cva('inline-flex items-center rounded-full', {
     variants: {
       size: {
@@ -59,7 +60,7 @@ function Tag({ message, size = 'md', onClose, className = 'bg-opacity-white-20' 
   };
 
   return (
-    <span className={cn(tagStyles({ size }), className)}>
+    <span onClick={onClick} className={cn(tagStyles({ size }), className)}>
       <Typography variant={size === 'lg' ? 'body-5' : size === 'md' ? 'body-5' : 'caption-1'}>{message}</Typography>
       {onClose && (
         <button
