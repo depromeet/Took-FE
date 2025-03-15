@@ -10,7 +10,8 @@ type WrappedInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
   title?: string;
   error?: boolean;
   errorMsg?: string;
-  onAddClick?: () => void;
+  closeBtn?: boolean;
+  closeBtnClick?: () => void; // 닫기 버튼 클릭 시 실행할 함수 - react hook form의 setValue를 사용하기 위함
 };
 
 /** 공통 컴포넌트 - input
@@ -27,7 +28,7 @@ type WrappedInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
  */
 
 const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
-  ({ variant = 'default', error, errorMsg, title, onAddClick, ...props }, ref) => {
+  ({ variant = 'default', error, closeBtn, errorMsg, title, onBlur, closeBtnClick, ...props }, ref) => {
     const { onChange, value: hookValue } = props; // react-hook-form의 Controller로부터 전달받은 props
 
     const isControlled = hookValue !== undefined;
@@ -47,9 +48,10 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
       if (!isControlled) {
         setInternalValue('');
       } else if (onChange) {
+        closeBtnClick && closeBtnClick();
         onChange({ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>);
       }
-    }, [isControlled, onChange]);
+    }, [closeBtnClick, isControlled, onChange]);
 
     const renderTitle = () => {
       if (!title) return null;
@@ -57,9 +59,6 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
         return (
           <div className="flex w-full justify-between">
             <p className="text-body-5 text-gray-100">{title}</p>
-            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={onAddClick}>
-              추가
-            </p>
           </div>
         );
       }
@@ -70,8 +69,16 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
       <div className="relative flex flex-col items-start justify-center gap-[6px]">
         {renderTitle()}
         <div className="relative flex w-full flex-wrap items-center">
-          <InputBody error={error} variant={variant} value={value} onChange={handleChange} ref={ref} {...props} />
-          {variant === 'withBtn' && (
+          <InputBody
+            error={error}
+            variant={variant}
+            value={value}
+            onChange={handleChange}
+            ref={ref}
+            onBlur={onBlur}
+            {...props}
+          />
+          {closeBtn && (
             <Image
               src="/icons/deleteIcon.svg"
               alt="삭제 아이콘"
