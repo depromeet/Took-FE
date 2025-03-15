@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch } from 'react';
 
 import { cn } from '@/shared/lib/utils';
 import Tag from '@/shared/ui/tag/tag';
@@ -12,6 +12,8 @@ type TagBoxPropsType = {
   setTagCount: Dispatch<React.SetStateAction<number>>;
   setTagArray: Dispatch<React.SetStateAction<string[]>>;
 };
+
+const MAX_DYNAMIC_TAGS = 4;
 
 /**
  * TagBox : 태그 박스
@@ -28,21 +30,10 @@ function TagBox({ tagCount, tagArray, setTagCount, setTagArray }: TagBoxPropsTyp
     }
   }
 
-  // 선택된 태그가 4개 이상일 때의 고정 좌표, 추후 파일 분리
-  const tagFixedPositions: Record<string, string> = {
-    '대표 프로젝트': 'right-[calc(50%-96px)] bottom-[calc(50%-5px)]',
-    '작성한 글': 'left-[calc(50%-96px)] bottom-[calc(50%-5px)]',
-    SNS: 'right-[calc(50%)] top-[calc(50%+9px)]',
-    취미: 'right-[calc(50%-60px)] bottom-[calc(50%-50px)]',
-    '최근 소식': 'left-[calc(50%+4px)] bottom-[calc(50%+39px)]',
-    '활동 지역': 'left-[calc(50%-88px)] top-[calc(50%-80px)]',
-    '소속 정보': 'left-[calc(50%-40px)] top-[calc(50%-124px)]',
-  };
-
   // 선택된 태그의 좌표 이동
   function getTagPositions(position: string, tag: TagConfigItem) {
-    if (tagArray.length >= 4 && tagArray.includes(tag.message)) {
-      return tagFixedPositions[tag.message];
+    if (tagArray.length >= MAX_DYNAMIC_TAGS && tagArray.includes(tag.message)) {
+      return tag.fixedPosition;
     }
 
     if (tagArray[0] === tag.message) {
@@ -76,11 +67,6 @@ function TagBox({ tagCount, tagArray, setTagCount, setTagArray }: TagBoxPropsTyp
         return 'left-[calc(50%-40px)] bottom-[calc(50%-32px)]';
     }
   }
-
-  useEffect(() => {
-    console.log(tagCount);
-    console.log(tagArray);
-  }, [tagCount]);
 
   return (
     <>

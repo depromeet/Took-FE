@@ -7,6 +7,7 @@ export type TagConfigItem = {
   message: SelectedTagType;
   className: string;
   position: string;
+  fixedPosition: string;
   title?: string;
   description?: string;
   animation: string;
@@ -18,6 +19,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '대표 프로젝트',
     className: tagStyle,
     position: 'bottom-28 right-0',
+    fixedPosition: 'right-[calc(50%-96px)] bottom-[calc(50%-5px)]',
     title: '프로젝트 제목',
     description: '김디퍼님의 프로젝트 링크',
     animation: 'downandup',
@@ -27,6 +29,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '작성한 글',
     className: tagStyle,
     position: 'bottom-16 left-12',
+    fixedPosition: 'left-[calc(50%-96px)] bottom-[calc(50%-5px)]',
     title: '작성한 글 제목',
     description: '김디퍼님의 게시물 링크',
     animation: 'downandup',
@@ -36,6 +39,7 @@ export const tagConfig: TagConfigItem[] = [
     message: 'SNS',
     className: tagStyle,
     position: `right-0 top-16`,
+    fixedPosition: 'right-[calc(50%)] top-[calc(50%+9px)]',
     title: 'SNS 아이디',
     animation: 'upanddown',
   },
@@ -44,6 +48,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '취미',
     className: tagStyle,
     position: 'bottom-8 right-20',
+    fixedPosition: 'right-[calc(50%-60px)] bottom-[calc(50%-50px)]',
     description: `고소한 커피 한 잔과 함께 노트북을 켜고 새\n로운 아이디어를 정리하는 걸 좋아해요`,
     animation: 'upanddown',
   },
@@ -52,6 +57,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '최근 소식',
     className: tagStyle,
     position: 'bottom-40 left-0',
+    fixedPosition: 'left-[calc(50%+4px)] bottom-[calc(50%+39px)]',
     description: `부동산 스타트업에서 2년간 일하다가 \n 퇴사하고 지금은 이직 준비 중이에요`,
     animation: 'upanddown',
   },
@@ -60,6 +66,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '활동 지역',
     className: tagStyle,
     position: `top-20 left-0`,
+    fixedPosition: 'left-[calc(50%-88px)] top-[calc(50%-80px)]',
     description: `주로 서울 전역에서 활동하지만, \n특히 강남에서 자주 출몰해요`,
     animation: 'upanddown',
   },
@@ -68,6 +75,7 @@ export const tagConfig: TagConfigItem[] = [
     message: '소속 정보',
     className: tagStyle,
     position: 'left-40 top-0',
+    fixedPosition: 'left-[calc(50%-40px)] top-[calc(50%-124px)]',
     animation: 'downandup',
   },
 ];
