@@ -81,8 +81,8 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
 
 const StepFormView = ({ currentStep, handleNextStep }: StepFormViewProps) => {
   return match(currentStep)
-    .with(2, () => <FirstStep />)
-    .with(1, () => <SecondStep handleNextStep={handleNextStep} />)
+    .with(1, () => <FirstStep />)
+    .with(2, () => <SecondStep handleNextStep={handleNextStep} />)
     .with(3, () => <ThirdStep />)
     .with(4, () => <FourthStep />)
     .otherwise(() => <></>);
