@@ -70,13 +70,7 @@ function Appbar({ page, hasBackground, onLeftClick, onRightClick }: appbarPropsT
   return (
     <header
       className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4 ${
-        page === 'detail' && hasBackground
-          ? 'bg-gray-black'
-          : page === 'detail'
-            ? 'backdrop-blur-sm'
-            : page === 'create'
-              ? 'bg-gray-black'
-              : ''
+        page === 'detail' && hasBackground ? 'bg-gray-black' : page === 'create' ? 'bg-gray-black' : ''
       }`}
     >
       {renderLeftIcon({ page, onLeftClick })}
