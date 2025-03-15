@@ -8,6 +8,7 @@ import { TOTAL_STEPS } from '../../config';
 import { cardCreateSchema, CareerFormData } from '../../schema';
 
 import FirstStep from './firstStep';
+import FourthStep from './fourthStep';
 import SecondStep from './secondStep';
 import ThirdStep from './thridStep';
 
@@ -132,6 +133,7 @@ const StepFormView = ({ currentStep, handleNextStep }: StepFormViewProps) => {
     .with(1, () => <FirstStep />)
     .with(2, () => <SecondStep handleNextStep={handleNextStep} />)
     .with(3, () => <ThirdStep />)
+    .with(4, () => <FourthStep />)
     .otherwise(() => <></>);
 };
 
