@@ -40,8 +40,6 @@ function LoginButton({ provider }: LoginButtonProps) {
   const config = loginProviderConfig[provider];
   const authUrl = getAuthUrl[provider]();
 
-  console.log('authUrl : ' + authUrl);
-
   return (
     <Link
       href={authUrl}
