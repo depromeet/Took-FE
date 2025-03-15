@@ -36,12 +36,12 @@ export type CardDetailResponse = {
   organization: string;
   summary: string;
   region: string;
-  interestDomain: string[];
-  sns: SnsDto[];
-  news: string;
-  hobby: string;
-  content: ContentItemDto[];
-  project: ProjectDto[];
+  interestDomain?: string[] | undefined;
+  sns?: SnsDto[] | undefined;
+  news?: string | undefined;
+  hobby?: string | undefined;
+  content?: ContentItemDto[] | undefined;
+  project?: ProjectDto[] | undefined;
 };
 
 // 카드 상세 응답 타입

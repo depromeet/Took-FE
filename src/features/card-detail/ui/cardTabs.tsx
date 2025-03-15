@@ -120,59 +120,71 @@ function CardTabs() {
         </div>
 
         <div className="bg-black">
-          <div
-            ref={combineRefs('domains')}
-            id="domains"
-            className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-          >
-            <Typography variant="body-1">관심 도메인</Typography>
-            {data && <DomainList data={data.data.interestDomain} />}
-          </div>
+          {data.data.interestDomain && (
+            <div
+              ref={combineRefs('domains')}
+              id="domains"
+              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+            >
+              <Typography variant="body-1">관심 도메인</Typography>
+              <DomainList data={data.data.interestDomain} />
+            </div>
+          )}
 
-          <div
-            ref={combineRefs('sns')}
-            id="sns"
-            className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-          >
-            <Typography variant="body-1">SNS</Typography>
-            {data && <SNS data={data.data.sns} />}
-          </div>
+          {data.data.sns && (
+            <div
+              ref={combineRefs('sns')}
+              id="sns"
+              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+            >
+              <Typography variant="body-1">SNS</Typography>
+              <SNS data={data.data.sns} />
+            </div>
+          )}
 
-          <div
-            ref={combineRefs('news')}
-            id="news"
-            className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-          >
-            <Typography variant="body-1">최근 소식</Typography>
-            {data && <RecentNews data={data.data.news} />}
-          </div>
+          {data.data.news && (
+            <div
+              ref={combineRefs('news')}
+              id="news"
+              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+            >
+              <Typography variant="body-1">최근 소식</Typography>
+              <RecentNews data={data.data.news} />
+            </div>
+          )}
 
-          <div
-            ref={combineRefs('hobby')}
-            id="hobby"
-            className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-          >
-            <Typography variant="body-1">취미</Typography>
-            {data && <Hobby data={data.data.hobby} />}
-          </div>
+          {data.data.hobby && (
+            <div
+              ref={combineRefs('hobby')}
+              id="hobby"
+              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+            >
+              <Typography variant="body-1">취미</Typography>
+              <Hobby data={data.data.hobby} />
+            </div>
+          )}
 
-          <div
-            ref={combineRefs('posts')}
-            id="posts"
-            className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-          >
-            <Typography variant="body-1">작성한 글</Typography>
-            {data && <Posts data={data.data.content} />}
-          </div>
+          {data.data.content && (
+            <div
+              ref={combineRefs('posts')}
+              id="posts"
+              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+            >
+              <Typography variant="body-1">작성한 글</Typography>
+              <Posts data={data.data.content} />
+            </div>
+          )}
 
-          <div
-            ref={combineRefs('projects')}
-            id="projects"
-            className={`${spacingStyles({ paddingTop: 'xl' })} px-[20px] pb-[77px]`}
-          >
-            <Typography variant="body-1">대표 프로젝트</Typography>
-            {data && <Projects data={data.data.project} />}
-          </div>
+          {data.data.project && (
+            <div
+              ref={combineRefs('projects')}
+              id="projects"
+              className={`${spacingStyles({ paddingTop: 'xl' })} px-[20px] pb-[77px]`}
+            >
+              <Typography variant="body-1">대표 프로젝트</Typography>
+              <Projects data={data.data.project} />
+            </div>
+          )}
         </div>
       </div>
     </>
