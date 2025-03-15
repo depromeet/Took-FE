@@ -28,12 +28,33 @@ const initialValues: CareerFormData = {
   interestDomain: [],
   summary: '',
   organization: '',
-  sns: '',
+  sns: [
+    {
+      type: '',
+      link: '',
+    },
+  ],
   region: '',
-  hobby: [],
-  news: [],
-  content: [],
-  project: [],
+  hobby: '',
+  news: '',
+  content: [
+    {
+      type: 'blog',
+      link: '',
+      title: '',
+      imageUrl: '',
+      description: '',
+    },
+  ],
+  project: [
+    {
+      type: 'project',
+      link: '',
+      title: '',
+      imageUrl: '',
+      description: '',
+    },
+  ],
 };
 
 const stepValidationFields: Record<number, (keyof CareerFormData)[]> = {
@@ -65,8 +86,11 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   // watch를 사용하여 현재 스텝의 필드 값들을 가져옵니다.
   const watchedValues = watch(stepValidationFields[currentStep]);
 
+  // console.log('watchedValues', watchedValues);
+
   // 모든 필드가 채워졌는지(빈 문자열이 아닌지) 체크
   const isFilled = watchedValues.every((value) => value !== undefined && value.toString().trim() !== '');
+
   // 에러가 없는지도 함께 체크
   const isStepValid = isFilled && stepValidationFields[currentStep].every((field) => !errors[field]);
   // 각 스텝에 해당하는 필드만 trigger로 검증 후 다음 단계로 이동
