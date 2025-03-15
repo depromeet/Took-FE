@@ -114,7 +114,7 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
         <div
           ref={containerRef}
           className={cn(
-            'inline-flex h-[44px] min-h-[44px] w-full cursor-text flex-wrap gap-2 rounded-sm bg-gray-800 text-body-5 !text-gray-100 placeholder:text-body-5 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus-visible:ring-1 focus-visible:ring-gray-500',
+            'inline-flex min-h-[44px] w-full cursor-text flex-wrap gap-2 rounded-sm bg-gray-800 text-body-5 !text-gray-100 placeholder:text-body-5 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus-visible:ring-1 focus-visible:ring-gray-500',
             errorMsg && 'border border-error-medium',
             spacingStyles({ padding: 'ms' }),
           )}
