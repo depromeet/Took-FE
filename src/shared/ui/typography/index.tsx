@@ -20,15 +20,9 @@ type TypographyProps<T extends ElementType = 'span'> = {
  *
  * @returns {JSX.Element} 지정된 태그와 스타일을 적용한 텍스트 요소를 반환합니다.
  */
-export const Typography = <T extends ElementType = 'span'>({
-  as,
-  variant,
-  color,
-  children,
-  ...rest
-}: TypographyProps<T>) => {
+export const Typography = <T extends ElementType = 'span'>({ as, variant, children, ...rest }: TypographyProps<T>) => {
   const Tag = as ?? 'span';
-  const className = typography({ variant, color });
+  const className = typography({ variant });
   const { className: outerClassName, ...restProps } = rest;
 
   return (
