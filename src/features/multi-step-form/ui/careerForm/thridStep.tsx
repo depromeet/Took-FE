@@ -11,9 +11,10 @@ import { useCardFormStore } from '@/shared/store/cardFormState';
 import WrappedInput from '@/shared/ui/Input';
 
 import CardView from '../../components/Cardview';
+import { useScrap } from '../../hooks/queries/useScrap';
 import { useEditingStates } from '../../hooks/useEditingStates';
 import { CareerFormData } from '../../schema';
-import { extractDomainUsingRegex } from '../../utils';
+import { getPlatformFromUrl } from '../../utils';
 
 function ThirdStep() {
   const {
@@ -25,6 +26,7 @@ function ThirdStep() {
     fields: contentsFields,
     append: contentAppend,
     remove: contentRemove,
+    update: contentUpdate,
   } = useFieldArray({
     control,
     name: 'content',
@@ -34,6 +36,7 @@ function ThirdStep() {
     fields: snsFields,
     append: snsAppend,
     remove: snsRemove,
+    update: snsUpdate,
   } = useFieldArray({
     control,
     name: 'sns',
@@ -43,6 +46,7 @@ function ThirdStep() {
     fields: projectFields,
     append: projectAppend,
     remove: projectRemove,
+    update: projectUpdate,
   } = useFieldArray({
     control,
     name: 'project',
@@ -73,7 +77,9 @@ function ThirdStep() {
   } = useEditingStates(projectFields);
 
   // secondStep에서 선택한 태그를 가져옴
-  const [selectedTags] = useCardFormStore(useShallow((state) => [state.tagArray]));
+  const selectedTags = useCardFormStore(useShallow((state) => state.tagArray));
+
+  const { mutateAsync } = useScrap();
 
   return (
     <>
@@ -109,16 +115,21 @@ function ThirdStep() {
                 control={control}
                 name={`sns.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
+
                   const handleBlur = () => {
                     fieldOnBlur();
+                    snsUpdate(idx, {
+                      ...field,
+                      type: parseLinkToTitle.toUpperCase(),
+                      link: fieldProps.value,
+                    });
                     setSnsEditingState(idx, false);
                   };
 
-                  const parseLink = extractDomainUsingRegex(fieldProps.value);
-
                   const CardEditView = () => (
                     <CardView
-                      title={parseLink}
+                      title={parseLinkToTitle}
                       link={fieldProps.value}
                       onCloseClick={() => {
                         snsRemove(idx);
@@ -231,16 +242,46 @@ function ThirdStep() {
                 control={control}
                 name={`content.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
+
+                  // 스크래핑 함수
+                  const handleScrap = async () => {
+                    try {
+                      const { data } = await mutateAsync({
+                        payload: { link: fieldProps.value },
+                        type: 'BLOG',
+                      });
+                      const { link, title, imageUrl, description } = data;
+
+                      // update로 전체 항목 갱신
+                      contentUpdate(idx, {
+                        ...field, // 기존에 가지고 있던 다른 필드가 있으면 유지
+                        link,
+                        title,
+                        imageUrl,
+                        description,
+                      });
+                    } catch (error) {
+                      contentUpdate(idx, {
+                        ...field,
+                        link: fieldProps.value,
+                        title: parseLinkToTitle,
+                        imageUrl: '',
+                        description: '',
+                      });
+                    }
+                  };
+
+                  // onBlur시 스크랩 함수 호출
                   const handleBlur = () => {
                     fieldOnBlur();
+                    if (fieldProps.value) handleScrap();
                     setContentsEditingStates(idx, false);
                   };
 
-                  const parseLink = extractDomainUsingRegex(fieldProps.value);
-
                   const CardEditView = () => (
                     <CardView
-                      title={parseLink}
+                      title={parseLinkToTitle}
                       link={fieldProps.value}
                       onCloseClick={() => {
                         contentRemove(idx);
@@ -253,8 +294,8 @@ function ThirdStep() {
                   const InputView = () => (
                     <WrappedInput
                       placeholder="작성한 글을 입력해주세요."
-                      errorMsg={errors.content?.[idx]?.message}
-                      error={!!errors.content?.[idx]?.message}
+                      errorMsg={errors.content?.[idx]?.link?.message}
+                      error={!!errors.content?.[idx]?.link?.message}
                       closeBtn={idx !== 0}
                       closeBtnClick={() => {
                         contentRemove(idx);
@@ -305,16 +346,45 @@ function ThirdStep() {
                 control={control}
                 name={`project.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
+
+                  // 스크래핑 함수
+                  const handleScrap = async () => {
+                    try {
+                      const { data } = await mutateAsync({
+                        payload: { link: fieldProps.value },
+                        type: 'PROJECT',
+                      });
+                      const { link, title, imageUrl, description } = data;
+
+                      // update로 전체 항목 갱신
+                      projectUpdate(idx, {
+                        ...field,
+                        link,
+                        title,
+                        imageUrl,
+                        description,
+                      });
+                    } catch (error) {
+                      projectUpdate(idx, {
+                        ...field,
+                        link: fieldProps.value,
+                        title: parseLinkToTitle,
+                        imageUrl: '',
+                        description: '',
+                      });
+                    }
+                  };
+
                   const handleBlur = () => {
                     fieldOnBlur();
+                    if (fieldProps.value) handleScrap();
                     setProjectEditingStates(idx, false);
                   };
 
-                  const parseLink = extractDomainUsingRegex(fieldProps.value);
-
                   const CardEditView = () => (
                     <CardView
-                      title={parseLink}
+                      title={parseLinkToTitle}
                       link={fieldProps.value}
                       onCloseClick={() => {
                         projectRemove(idx);
