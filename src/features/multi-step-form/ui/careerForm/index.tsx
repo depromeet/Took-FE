@@ -8,6 +8,7 @@ import { TOTAL_STEPS } from '../../config';
 import { cardCreateSchema, CareerFormData } from '../../schema';
 
 import FirstStep from './firstStep';
+import FourthStep from './fourthStep';
 import SecondStep from './secondStep';
 import ThirdStep from './thridStep';
 
@@ -18,6 +19,7 @@ type CareerFormViewProps = {
 
 type StepFormViewProps = {
   currentStep: number;
+  handleNextStep: () => Promise<void>;
 };
 
 const initialValues: CareerFormData = {
@@ -56,7 +58,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     const valid = await trigger(fieldsToValidate);
 
     if (valid) {
-      if (currentStep < 1) {
+      if (currentStep < TOTAL_STEPS) {
         onNextStep();
       } else {
         // 마지막 단계인 경우 form 제출
@@ -69,19 +71,20 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     <>
       <FormProvider {...formMethod}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <StepFormView currentStep={currentStep} />
+          <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} />
         </form>
-        <Button onClick={handleNextStep}>{currentStep < TOTAL_STEPS ? '다음' : '제출'}</Button>
+        {currentStep !== 2 && <Button onClick={handleNextStep}>{currentStep < TOTAL_STEPS ? '다음' : '제출'}</Button>}
       </FormProvider>
     </>
   );
 }
 
-const StepFormView = ({ currentStep }: StepFormViewProps) => {
+const StepFormView = ({ currentStep, handleNextStep }: StepFormViewProps) => {
   return match(currentStep)
     .with(1, () => <FirstStep />)
-    .with(2, () => <SecondStep />)
+    .with(2, () => <SecondStep handleNextStep={handleNextStep} />)
     .with(3, () => <ThirdStep />)
+    .with(4, () => <FourthStep />)
     .otherwise(() => <></>);
 };
 

@@ -159,4 +159,51 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  @keyframes scaleAnimation {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0;
+    }
+  }
+
+  .firstWave {
+    animation: scaleAnimation 4s infinite linear;
+  }
+  .secondWave {
+    animation: scaleAnimation 4s infinite linear;
+    animation-delay: 0.15s;
+  }
+
+  @keyframes upDownAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(3px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes downUpAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .upanddown {
+    animation: upDownAnimation 2.5s infinite ease-in-out;
+  }
+  .downandup {
+    animation: downUpAnimation 2.5s infinite ease-in-out;
+  }
 }

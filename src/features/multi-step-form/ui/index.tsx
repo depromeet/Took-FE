@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useCallback, useState } from 'react';
 
@@ -40,15 +40,21 @@ function MultiStepFormView() {
 
   return (
     <div className="flex h-dvh w-full justify-center">
-      <div className='flex flex-col w-full max-w-[600px] bg-gray-black'>
-        <Appbar page='create' onLeftClick={handleStepBack} />
+      <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
+        <Appbar page="create" onLeftClick={handleStepBack} />
         <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
-        <main className={cn('flex flex-col gap-4', spacingStyles({ paddingX: 'ml', paddingY: 'lg' }))}>
+        <main
+          className={cn(
+            'flex flex-col gap-4',
+            spacingStyles({ paddingX: 'ml', paddingY: 'lg' }),
+            currentStep === 2 && 'h-[calc(100dvh-52px)] bg-[url(/images/tag/background.png)] bg-cover bg-center',
+          )}
+        >
           <CareerFormView currentStep={currentStep} onNextStep={handleNextStep} />
         </main>
-      </div >
+      </div>
     </div>
-  )
+  );
 }
 
 export default MultiStepFormView;

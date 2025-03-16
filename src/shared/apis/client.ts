@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 import { CLIENT_SIDE_URL } from '../constants';
 
@@ -8,6 +9,20 @@ const axiosInstance = axios.create({
   baseURL: CLIENT_SIDE_URL,
   withCredentials: true,
 });
+
+// 요청 인터셉터를 추가하여 모든 요청에 Authorization 헤더 추가
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const accessToken = getCookie('accessToken');
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 preventClientMultipleRefreshToken(axiosInstance, CLIENT_SIDE_URL);
 
