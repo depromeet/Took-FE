@@ -12,24 +12,32 @@ const AUTH_BASE_URLS = {
   APPLE: 'https://appleid.apple.com/auth/authorize',
 };
 
+const isProd = process.env.NODE_ENV === 'production';
+
 /**
  * 각 소셜 로그인 제공자별 환경 변수 설정
  */
 export const providerEnvConfig = {
   KAKAO: {
     restApiKey: required('NEXT_PUBLIC_KAKAO_REST_API_KEY', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY),
-    redirectUrl: required('NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL),
+    redirectUrl: isProd
+      ? required('NEXT_PUBLIC_KAKAO_REDIRECT_URI', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI)
+      : required('NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL),
     scope: optional(''),
   },
   GOOGLE: {
     clientId: required('NEXT_PUBLIC_GOOGLE_CLIENT_ID', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID),
-    redirectUrl: required('NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL),
+    redirectUrl: isProd
+      ? required('NEXT_PUBLIC_GOOGLE_REDIRECT_URI', process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI)
+      : required('NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL),
     scope: optional('email profile'),
   },
   // 현재 카카오로 임시 설정
   APPLE: {
     restApiKey: required('NEXT_PUBLIC_KAKAO_REST_API_KEY', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY),
-    redirectUrl: required('NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL),
+    redirectUrl: isProd
+      ? required('NEXT_PUBLIC_KAKAO_REDIRECT_URI', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI)
+      : required('NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL),
     scope: optional(''),
   },
 };
