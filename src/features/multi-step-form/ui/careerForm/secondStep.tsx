@@ -3,10 +3,11 @@
 import { useShallow } from 'zustand/shallow';
 
 import Ball from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/Ball';
-import TagBox from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/TagBox';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import { Button } from '@/shared/ui/button';
 import Header from '@/shared/ui/header';
+
+import TagBox from './tagFormStep/ui/TagBox';
 
 type SecondStepProps = {
   handleNextStep: () => void;
