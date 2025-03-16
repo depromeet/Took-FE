@@ -1,12 +1,48 @@
 import { Dispatch } from 'react';
 import { create } from 'zustand';
 
+import { TagValue } from '@/features/multi-step-form/ui/careerForm/tagFormStep/config/config';
+
 interface CardFormState {
-  tagArray: string[];
-  setTagArray: Dispatch<React.SetStateAction<string[]>>;
+  tagArray: TagValue[];
+  setTagArray: Dispatch<React.SetStateAction<TagValue[]>>;
+  tagCount: number;
+  incrementTagCount: Dispatch<React.SetStateAction<number>>;
+  handleTagClick: (tagMessage: TagValue) => void;
 }
 
-export const useCardFormStore = create<CardFormState>((set) => ({
+export const useCardFormStore = create<CardFormState>((set, get) => ({
   tagArray: [],
-  setTagArray: (tags) => set((state) => ({ ...state, tags })),
+  tagCount: 0,
+  incrementTagCount: () => {
+    set((state) => ({
+      tagCount: state.tagCount + 1,
+    }));
+  },
+  setTagArray: (tags) =>
+    set((state) => ({
+      ...state,
+      tagArray: typeof tags === 'function' ? tags(state.tagArray) : tags,
+    })),
+  // 태그 클릭 핸들러
+  handleTagClick: (tagMessage: TagValue) => {
+    const { tagArray, tagCount } = get();
+    if (!tagArray.includes(tagMessage)) {
+      set({
+        tagArray: [...tagArray, tagMessage],
+        tagCount: tagCount + 1,
+      });
+    } else {
+      set({
+        tagArray: tagArray.filter((t) => t !== tagMessage),
+        tagCount: tagCount - 1,
+      });
+    }
+  },
+  // 태그 카운트와 태그 배열 초기화
+  resetTagArray: () =>
+    set({
+      tagArray: [],
+      tagCount: 0,
+    }),
 }));
