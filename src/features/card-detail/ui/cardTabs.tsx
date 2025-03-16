@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { Typography } from '@/shared/ui/typography';
@@ -23,8 +24,8 @@ import { UnderlineTabs } from './underlineTabs';
 
 function CardTabs() {
   const [activeTab, setActiveTab] = useState<TabId>('domains');
-  const { id } = useParams();
-  const { data } = useCardDetailQuery(id as string);
+  const { cardId } = useParams();
+  const { data } = useCardDetailQuery(Number(cardId));
 
   // 교차점 감지 훅 사용 - 감지 포인트는 컴포넌트의 최상단
   const { ref: intersectionRef, isIntersecting } = useScrollPosition({
@@ -106,7 +107,10 @@ function CardTabs() {
         <div className="sticky top-0 z-10 w-full">
           {/* Appbar에 트랜지션 효과 추가 */}
           <div
-            className={`transition-all duration-300 ease-in-out ${showAppbar ? 'max-h-16 opacity-100' : 'max-h-0 overflow-hidden opacity-0'}`}
+            className={cn(
+              'transition-all duration-300 ease-in-out',
+              showAppbar ? 'max-h-16 opacity-100' : 'max-h-0 overflow-hidden opacity-0',
+            )}
           >
             <Appbar page="detail" hasBackground={true} />
           </div>

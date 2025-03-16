@@ -10,8 +10,8 @@ import JOB_CONFIG, { JobType } from '../config/jobs-config';
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 
 const CardDetailHeader = () => {
-  const { id } = useParams();
-  const { data } = useCardDetailQuery(id as string);
+  const { cardId } = useParams();
+  const { data } = useCardDetailQuery(Number(cardId));
 
   const userJob = (data?.data?.job as JobType) || 'DEVELOPER';
 
