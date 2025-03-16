@@ -1,10 +1,12 @@
 const tagStyle = 'absolute z-50 bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
 
 export type SelectedTagType = '대표 프로젝트' | '작성한 글' | 'SNS' | '취미' | '최근 소식' | '활동 지역' | '소속 정보';
+export type TagValue = 'project' | 'content' | 'sns' | 'hobby' | 'news' | 'region' | 'organization';
 
 export type TagConfigItem = {
   id: number;
   message: SelectedTagType;
+  value: TagValue;
   className: string;
   position: string;
   fixedPosition: string;
@@ -18,6 +20,7 @@ export const tagConfig: TagConfigItem[] = [
     id: 1,
     message: '대표 프로젝트',
     className: tagStyle,
+    value: 'project',
     position: 'bottom-28 right-0',
     fixedPosition: 'right-[calc(50%-96px)] bottom-[calc(50%-5px)]',
     title: '프로젝트 제목',
@@ -28,6 +31,7 @@ export const tagConfig: TagConfigItem[] = [
     id: 2,
     message: '작성한 글',
     className: tagStyle,
+    value: 'content',
     position: 'bottom-16 left-12',
     fixedPosition: 'left-[calc(50%-96px)] bottom-[calc(50%-5px)]',
     title: '작성한 글 제목',
@@ -37,6 +41,7 @@ export const tagConfig: TagConfigItem[] = [
   {
     id: 3,
     message: 'SNS',
+    value: 'sns',
     className: tagStyle,
     position: `right-0 top-16`,
     fixedPosition: 'right-[calc(50%)] top-[calc(50%+9px)]',
@@ -46,6 +51,7 @@ export const tagConfig: TagConfigItem[] = [
   {
     id: 4,
     message: '취미',
+    value: 'hobby',
     className: tagStyle,
     position: 'bottom-8 right-20',
     fixedPosition: 'right-[calc(50%-60px)] bottom-[calc(50%-50px)]',
@@ -55,6 +61,7 @@ export const tagConfig: TagConfigItem[] = [
   {
     id: 5,
     message: '최근 소식',
+    value: 'news',
     className: tagStyle,
     position: 'bottom-40 left-0',
     fixedPosition: 'left-[calc(50%+4px)] bottom-[calc(50%+39px)]',
@@ -64,6 +71,7 @@ export const tagConfig: TagConfigItem[] = [
   {
     id: 6,
     message: '활동 지역',
+    value: 'region',
     className: tagStyle,
     position: `top-20 left-0`,
     fixedPosition: 'left-[calc(50%-88px)] top-[calc(50%-80px)]',
@@ -73,6 +81,7 @@ export const tagConfig: TagConfigItem[] = [
   {
     id: 7,
     message: '소속 정보',
+    value: 'organization',
     className: tagStyle,
     position: 'left-40 top-0',
     fixedPosition: 'left-[calc(50%-40px)] top-[calc(50%-124px)]',
