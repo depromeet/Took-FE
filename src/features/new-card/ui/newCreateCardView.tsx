@@ -1,21 +1,27 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import { List } from '@/shared/ui/list';
 import WrappedListItem from '@/shared/ui/list/wrappedList';
 
 import { CAREER_SELECT, ROUTE_PATH } from '../config';
 
 function NewCreateCardView() {
+  const setJob = useCardFormStore((state) => state.setJob);
   const router = useRouter();
 
   const handleCreateDesignCard = () => {
-    router.push(ROUTE_PATH.design);
+    router.push(ROUTE_PATH.DESIGNER);
+    setJob('DESIGNER');
   };
 
   const handleCreateDevCard = () => {
-    router.push(ROUTE_PATH.dev);
+    router.push(ROUTE_PATH.DEVELOPER);
+    setJob('DEVELOPER');
   };
 
   return (
