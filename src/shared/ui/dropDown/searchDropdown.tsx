@@ -11,7 +11,8 @@ import Select, { FilterOptionOption, type StylesConfig, type GroupBase, Props as
 import { cn } from '@/shared/lib/utils';
 
 export type SearchOptions = {
-  value: string;
+  id: string | number;
+  value: string | number;
   label: string;
   keywords: string[];
 };
@@ -43,6 +44,7 @@ const SearchDropdown = forwardRef<any, CombineSearchDropdownProps>(
           styles={customStyles}
           filterOption={customFilterOption}
           onChange={onChange}
+          instanceId={title}
           {...props}
         />
         {errorMsg && <p className="text-left text-caption-1 text-error-medium">{errorMsg}</p>}

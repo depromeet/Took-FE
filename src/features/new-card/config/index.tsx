@@ -10,6 +10,6 @@ export const CAREER_SELECT = {
 };
 
 export const ROUTE_PATH = {
-  design: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
-  dev: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
+  DESIGNER: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
+  DEVELOPER: `${DOMAIN_BASE_URL}/new-card/multi-step-form`,
 };
