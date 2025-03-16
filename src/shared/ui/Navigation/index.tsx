@@ -29,7 +29,7 @@ export const Navbar = () => {
   const goToSetting = () => router.push(TEMP_SETTING_URL);
 
   return (
-    <section className="relative z-[100] flex h-[80px] w-full items-center justify-between rounded-t-[20px] bg-gray-800 px-5">
+    <section className="fixed bottom-0 z-[100] flex h-[80px] w-full items-center justify-between rounded-t-[20px] bg-gray-800 px-5">
       <NavItem onClick={goToHome}>
         <MyCardIcon strokeColor={myCardStrokeColor} />
         <Typography variant="caption-1" style={{ color: myCardStrokeColor }}>
