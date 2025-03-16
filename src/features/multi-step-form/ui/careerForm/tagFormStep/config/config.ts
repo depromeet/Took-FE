@@ -13,6 +13,9 @@ export type TagConfigItem = {
   title?: string;
   description?: string;
   animation: string;
+  // 부모 컨테이너 중앙 기준으로 x, y 오프셋
+  initialPosition: { x: number; y: number };
+  endPosition: { x: number; y: number };
 };
 
 export const tagConfig: TagConfigItem[] = [
@@ -23,6 +26,8 @@ export const tagConfig: TagConfigItem[] = [
     value: 'project',
     position: 'bottom-28 right-0',
     fixedPosition: 'right-[calc(50%-96px)] bottom-[calc(50%-5px)]',
+    initialPosition: { x: 120, y: -200 },
+    endPosition: { x: 0, y: 0 },
     title: '프로젝트 제목',
     description: '김디퍼님의 프로젝트 링크',
     animation: 'downandup',
@@ -34,6 +39,8 @@ export const tagConfig: TagConfigItem[] = [
     value: 'content',
     position: 'bottom-16 left-12',
     fixedPosition: 'left-[calc(50%-96px)] bottom-[calc(50%-5px)]',
+    initialPosition: { x: -250, y: 0 },
+    endPosition: { x: 0, y: 0 },
     title: '작성한 글 제목',
     description: '김디퍼님의 게시물 링크',
     animation: 'downandup',
@@ -43,8 +50,10 @@ export const tagConfig: TagConfigItem[] = [
     message: 'SNS',
     value: 'sns',
     className: tagStyle,
-    position: `right-0 top-16`,
+    position: 'right-0 top-16',
     fixedPosition: 'right-[calc(50%)] top-[calc(50%+9px)]',
+    initialPosition: { x: 200, y: -30 },
+    endPosition: { x: 0, y: 0 },
     title: 'SNS 아이디',
     animation: 'upanddown',
   },
@@ -55,6 +64,8 @@ export const tagConfig: TagConfigItem[] = [
     className: tagStyle,
     position: 'bottom-8 right-20',
     fixedPosition: 'right-[calc(50%-60px)] bottom-[calc(50%-50px)]',
+    initialPosition: { x: 100, y: 180 },
+    endPosition: { x: 0, y: 0 },
     description: `고소한 커피 한 잔과 함께 노트북을 켜고 새\n로운 아이디어를 정리하는 걸 좋아해요`,
     animation: 'upanddown',
   },
@@ -65,6 +76,8 @@ export const tagConfig: TagConfigItem[] = [
     className: tagStyle,
     position: 'bottom-40 left-0',
     fixedPosition: 'left-[calc(50%+4px)] bottom-[calc(50%+39px)]',
+    initialPosition: { x: -200, y: 220 },
+    endPosition: { x: 0, y: 0 },
     description: `부동산 스타트업에서 2년간 일하다가 \n 퇴사하고 지금은 이직 준비 중이에요`,
     animation: 'upanddown',
   },
@@ -73,8 +86,10 @@ export const tagConfig: TagConfigItem[] = [
     message: '활동 지역',
     value: 'region',
     className: tagStyle,
-    position: `top-20 left-0`,
+    position: 'top-20 left-0',
     fixedPosition: 'left-[calc(50%-88px)] top-[calc(50%-80px)]',
+    initialPosition: { x: -240, y: -200 },
+    endPosition: { x: 0, y: 0 },
     description: `주로 서울 전역에서 활동하지만, \n특히 강남에서 자주 출몰해요`,
     animation: 'upanddown',
   },
@@ -85,6 +100,8 @@ export const tagConfig: TagConfigItem[] = [
     className: tagStyle,
     position: 'left-40 top-0',
     fixedPosition: 'left-[calc(50%-40px)] top-[calc(50%-124px)]',
+    initialPosition: { x: -30, y: -280 },
+    endPosition: { x: 0, y: 0 },
     animation: 'downandup',
   },
 ];
