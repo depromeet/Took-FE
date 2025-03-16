@@ -1,25 +1,22 @@
 import { z } from 'zod';
 
-// const linkValidationRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)([\/\w-]*)*\/?$/;
-
 export const cardCreateSchema = z.object({
-  profileImage: z.string().min(1),
+  profileImage: z.union([
+    z
+      .instanceof(File, { message: '파일 객체가 필요합니다.' })
+      .refine((file) => file.size > 0, { message: '빈 파일은 업로드할 수 없습니다.' }),
+    z.string().url(),
+  ]),
   nickname: z
     .string()
-    .min(1, { message: '이름을 입력해주세요.' })
+    .min(1, { message: '명함에 노출될 이름을 입력해주세요' })
     .max(100)
     .refine((value) => value.length > 1, {
       message: '이름은 2글자 이상이어야 합니다.',
     }),
-  detailJobId: z
-    .string()
-    .min(1, {
-      message: '세부직군을 입력해주세요.',
-    })
-    .max(100)
-    .refine((value) => value.length > 1, {
-      message: '세부직군은 2글자 이상이어야 합니다.',
-    }),
+  detailJobId: z.number({
+    message: '직군을 입력해주세요.',
+  }),
   interestDomain: z
     .array(z.string())
     .min(1, {
@@ -55,9 +52,12 @@ export const cardCreateSchema = z.object({
     .array(
       z.object({
         type: z.string(),
-        link: z.string().url({
-          message: '유효한 링크를 입력해주세요.',
-        }),
+        link: z.union([
+          z.literal(''),
+          z.string().url({
+            message: '유효한 링크를 입력해주세요.',
+          }),
+        ]),
       }),
     )
     .optional(),
@@ -90,9 +90,12 @@ export const cardCreateSchema = z.object({
       z.object({
         type: z.enum(['project', 'blog']),
         title: z.string(),
-        link: z.string().url({
-          message: '유효한 링크를 입력해주세요.',
-        }),
+        link: z.union([
+          z.literal(''),
+          z.string().url({
+            message: '유효한 링크를 입력해주세요.',
+          }),
+        ]),
         imageUrl: z.string(),
         description: z.string(),
       }),
@@ -103,9 +106,12 @@ export const cardCreateSchema = z.object({
       z.object({
         type: z.enum(['project', 'blog']),
         title: z.string(),
-        link: z.string().url({
-          message: '유효한 링크를 입력해주세요.',
-        }),
+        link: z.union([
+          z.literal(''),
+          z.string().url({
+            message: '유효한 링크를 입력해주세요.',
+          }),
+        ]),
         imageUrl: z.string(),
         description: z.string(),
       }),
