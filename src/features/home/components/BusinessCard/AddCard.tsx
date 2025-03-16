@@ -2,7 +2,7 @@ import { Typography } from '@/shared/ui/typography';
 
 import { CardPlusIcon } from '../icons/CardPlusIcon';
 
-import { AddCardBackground } from './Background/AddCradBackground';
+import { AddCardBackground } from './Background/AddCardBackground';
 
 export const AddCard = () => {
   return (
