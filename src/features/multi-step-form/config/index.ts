@@ -1,3 +1,6 @@
+import { CareerFormData } from '../schema';
+import { TagValue } from '../ui/careerForm/tagFormStep/config/config';
+
 export const CAREER_FORM = {
   firstStep: {
     title: '직군을 선택해 주세요',
@@ -66,5 +69,15 @@ const developerOptions = [
   },
   { value: 'qa-developer', label: 'QA Developer - 큐에이, QA', keywords: ['큐에이', 'QA'] },
 ];
+
+export const FIELD_TAG_MAPPING: Record<keyof Pick<CareerFormData, TagValue>, TagValue> = {
+  organization: 'organization',
+  sns: 'sns',
+  region: 'region',
+  hobby: 'hobby',
+  news: 'news',
+  content: 'content',
+  project: 'project',
+};
 
 export const careerOptions = [...designOptions, ...developerOptions];

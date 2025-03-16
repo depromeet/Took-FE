@@ -2,10 +2,12 @@
 
 import { Label } from '@radix-ui/react-label';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+import { useShallow } from 'zustand/shallow';
 
-import { CAREER_FORM, MAXIMUM_ADD } from '@/features/multi-step-form/config';
+import { CAREER_FORM, FIELD_TAG_MAPPING, MAXIMUM_ADD } from '@/features/multi-step-form/config';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import WrappedInput from '@/shared/ui/Input';
 
 import CardView from '../../components/Cardview';
@@ -70,6 +72,9 @@ function ThirdStep() {
     addEditingState: addProjectEditingState,
   } = useEditingStates(projectFields);
 
+  // secondStep에서 선택한 태그를 가져옴
+  const [selectedTags] = useCardFormStore(useShallow((state) => [state.tagArray]));
+
   return (
     <>
       <header className="flex flex-col gap-3">
@@ -81,140 +86,133 @@ function ThirdStep() {
       </header>
       <section className={cn(spacingStyles({ marginTop: 'xl' }))}>
         <div className="flex flex-col gap-4">
-          <Controller
-            control={control}
-            name="organization"
-            render={({ field }) => {
-              return (
-                <>
-                  <WrappedInput
-                    title="소속 정보"
-                    placeholder="소속 정보를 입력해주세요."
-                    errorMsg={errors.organization?.message}
-                    error={!!errors.organization?.message}
-                    {...field}
-                  />
-                </>
-              );
-            }}
-          />
-          {snsFields.map((field, idx) => (
+          {selectedTags.includes(FIELD_TAG_MAPPING.organization) && (
             <Controller
-              key={field.id}
               control={control}
-              name={`sns.${idx}.link`}
-              render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                // 블러 이벤트 핸들러: Controller의 onBlur와 상태 업데이트를 함께 처리
-                const handleBlur = () => {
-                  fieldOnBlur();
-                  setSnsEditingState(idx, false);
-                };
-
-                const parseLink = extractDomainUsingRegex(fieldProps.value);
-
-                // 카드뷰 렌더링
-                const CardEditView = () => (
-                  <CardView
-                    title={parseLink}
-                    link={fieldProps.value}
-                    onCloseClick={() => {
-                      snsRemove(idx);
-                      removeSnsEditingState(idx);
-                    }}
-                    // 카드뷰 클릭 시 다시 편집 모드로 전환
-                    onClick={() => setSnsEditingState(idx, true)}
-                  />
-                );
-
-                // 입력뷰 렌더링
-                const InputView = () => (
-                  <WrappedInput
-                    placeholder="SNS 주소를 입력해주세요."
-                    errorMsg={errors.sns?.[idx]?.link?.message}
-                    error={!!errors.sns?.[idx]?.link?.message}
-                    onBlur={handleBlur}
-                    closeBtn={idx !== 0}
-                    closeBtnClick={() => {
-                      snsRemove(idx);
-                      removeSnsEditingState(idx);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        setSnsEditingState(idx, false);
-                      }
-                    }}
-                    variant={idx === 0 ? 'withBtn' : 'default'}
-                    {...fieldProps}
-                  />
-                );
-
-                // 추가 버튼 클릭 시
-                const handleAddClick = () => {
-                  snsAppend({ type: '', link: '' });
-                  addSnsEditingState();
-                };
-
-                return (
-                  <div className="flex flex-col gap-[6px]" key={field.id}>
-                    {idx === 0 && (
-                      <div className="flex items-center justify-between">
-                        <Label className="text-body-5 text-gray-100">SNS</Label>
-                        {snsFields.length < MAXIMUM_ADD && (
-                          <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                            추가
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    {!errors.sns?.[idx]?.link?.message && fieldProps.value && !snsEditingStates[idx]
-                      ? CardEditView()
-                      : InputView()}
-                  </div>
-                );
-              }}
+              name="organization"
+              render={({ field }) => (
+                <WrappedInput
+                  title="소속 정보"
+                  placeholder="소속 정보를 입력해주세요."
+                  errorMsg={errors.organization?.message}
+                  error={!!errors.organization?.message}
+                  {...field}
+                />
+              )}
             />
-          ))}
+          )}
 
-          <Controller
-            control={control}
-            name="region"
-            render={({ field }) => {
-              return (
-                <>
-                  <WrappedInput
-                    title="활동 지역"
-                    placeholder="주로 활동하는 지역을 입력해 주세요."
-                    errorMsg={errors.region?.message}
-                    error={!!errors.region?.message}
-                    {...field}
-                  />
-                </>
-              );
-            }}
-          />
-          <Controller
-            control={control}
-            name="hobby"
-            render={({ field }) => {
-              return (
-                <>
-                  <WrappedInput
-                    title="취미"
-                    placeholder="대화의 시작이 될 수 있는 관심사를 입력해 보세요."
-                    errorMsg={errors.hobby?.message}
-                    error={!!errors.hobby?.message}
-                    {...field}
-                  />
-                </>
-              );
-            }}
-          />
-          <Controller
-            control={control}
-            name="news"
-            render={({ field }) => (
-              <>
+          {selectedTags.includes(FIELD_TAG_MAPPING.sns) &&
+            snsFields.map((field, idx) => (
+              <Controller
+                key={field.id}
+                control={control}
+                name={`sns.${idx}.link`}
+                render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const handleBlur = () => {
+                    fieldOnBlur();
+                    setSnsEditingState(idx, false);
+                  };
+
+                  const parseLink = extractDomainUsingRegex(fieldProps.value);
+
+                  const CardEditView = () => (
+                    <CardView
+                      title={parseLink}
+                      link={fieldProps.value}
+                      onCloseClick={() => {
+                        snsRemove(idx);
+                        removeSnsEditingState(idx);
+                      }}
+                      onClick={() => setSnsEditingState(idx, true)}
+                    />
+                  );
+
+                  const InputView = () => (
+                    <WrappedInput
+                      placeholder="SNS 주소를 입력해주세요."
+                      errorMsg={errors.sns?.[idx]?.link?.message}
+                      error={!!errors.sns?.[idx]?.link?.message}
+                      onBlur={handleBlur}
+                      closeBtn={idx !== 0}
+                      closeBtnClick={() => {
+                        snsRemove(idx);
+                        removeSnsEditingState(idx);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          setSnsEditingState(idx, false);
+                        }
+                      }}
+                      variant={idx === 0 ? 'withBtn' : 'default'}
+                      {...fieldProps}
+                    />
+                  );
+
+                  const handleAddClick = () => {
+                    snsAppend({ type: '', link: '' });
+                    addSnsEditingState();
+                  };
+
+                  return (
+                    <div className="flex flex-col gap-[6px]" key={field.id}>
+                      {idx === 0 && (
+                        <div className="flex items-center justify-between">
+                          <Label className="text-body-5 text-gray-100">SNS</Label>
+                          {snsFields.length < MAXIMUM_ADD && (
+                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
+                              추가
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {!errors.sns?.[idx]?.link?.message && fieldProps.value && !snsEditingStates[idx]
+                        ? CardEditView()
+                        : InputView()}
+                    </div>
+                  );
+                }}
+              />
+            ))}
+
+          {selectedTags.includes(FIELD_TAG_MAPPING.region) && (
+            <Controller
+              control={control}
+              name="region"
+              render={({ field }) => (
+                <WrappedInput
+                  title="활동 지역"
+                  placeholder="주로 활동하는 지역을 입력해 주세요."
+                  errorMsg={errors.region?.message}
+                  error={!!errors.region?.message}
+                  {...field}
+                />
+              )}
+            />
+          )}
+
+          {selectedTags.includes(FIELD_TAG_MAPPING.hobby) && (
+            <Controller
+              control={control}
+              name="hobby"
+              render={({ field }) => (
+                <WrappedInput
+                  title="취미"
+                  placeholder="대화의 시작이 될 수 있는 관심사를 입력해 보세요."
+                  errorMsg={errors.hobby?.message}
+                  error={!!errors.hobby?.message}
+                  {...field}
+                />
+              )}
+            />
+          )}
+
+          {selectedTags.includes(FIELD_TAG_MAPPING.news) && (
+            <Controller
+              control={control}
+              name="news"
+              render={({ field }) => (
                 <WrappedInput
                   title="최근 소식"
                   placeholder="직무,프로젝트,커리어 변화 소식을 공유해보세요."
@@ -222,44 +220,37 @@ function ThirdStep() {
                   error={!!errors.news?.message}
                   {...field}
                 />
-              </>
-            )}
-          />
+              )}
+            />
+          )}
 
-          {contentsFields.map((field, idx) => (
-            <Controller
-              key={field.id}
-              control={control}
-              name={`content.${idx}.link`}
-              render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                const handleAddClick = () => {
-                  contentAppend({ type: 'blog', link: '', title: '', imageUrl: '', description: '' });
-                  addContentsEditingState();
-                };
+          {selectedTags.includes(FIELD_TAG_MAPPING.content) &&
+            contentsFields.map((field, idx) => (
+              <Controller
+                key={field.id}
+                control={control}
+                name={`content.${idx}.link`}
+                render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const handleBlur = () => {
+                    fieldOnBlur();
+                    setContentsEditingStates(idx, false);
+                  };
 
-                const handleBlur = () => {
-                  fieldOnBlur();
-                  setContentsEditingStates(idx, false);
-                };
+                  const parseLink = extractDomainUsingRegex(fieldProps.value);
 
-                const parseLink = extractDomainUsingRegex(fieldProps.value);
+                  const CardEditView = () => (
+                    <CardView
+                      title={parseLink}
+                      link={fieldProps.value}
+                      onCloseClick={() => {
+                        contentRemove(idx);
+                        removeContentsEditingState(idx);
+                      }}
+                      onClick={() => setContentsEditingStates(idx, true)}
+                    />
+                  );
 
-                // 카드뷰 렌더링
-                const CardEditView = () => (
-                  <CardView
-                    title={parseLink}
-                    link={fieldProps.value}
-                    onCloseClick={() => {
-                      snsRemove(idx);
-                      removeContentsEditingState(idx);
-                    }}
-                    // 카드뷰 클릭 시 다시 편집 모드로 전환
-                    onClick={() => setContentsEditingStates(idx, true)}
-                  />
-                );
-
-                const InputView = () => {
-                  return (
+                  const InputView = () => (
                     <WrappedInput
                       placeholder="작성한 글을 입력해주세요."
                       errorMsg={errors.content?.[idx]?.message}
@@ -280,64 +271,60 @@ function ThirdStep() {
                       {...fieldProps}
                     />
                   );
-                };
 
-                return (
-                  <div className="flex flex-col gap-[6px]">
-                    {idx === 0 && (
-                      <div className="flex items-center justify-between">
-                        <Label className="text-body-5 text-gray-100">작성한 글</Label>
-                        {contentsFields.length < MAXIMUM_ADD && (
-                          <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                            추가
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    {!errors.content?.[idx]?.link?.message && fieldProps.value && !contentsEditingStates[idx]
-                      ? CardEditView()
-                      : InputView()}
-                  </div>
-                );
-              }}
-            />
-          ))}
+                  const handleAddClick = () => {
+                    contentAppend({ type: 'blog', link: '', title: '', imageUrl: '', description: '' });
+                    addContentsEditingState();
+                  };
 
-          {/* 프로젝트 입력 */}
-          {projectFields.map((field, idx) => (
-            <Controller
-              key={field.id}
-              control={control}
-              name={`project.${idx}.link`}
-              render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                const handleAddClick = () => {
-                  projectAppend({ type: 'project', link: '', title: '', imageUrl: '', description: '' });
-                  addProjectEditingState();
-                };
-
-                const handleBlur = () => {
-                  fieldOnBlur();
-                  setProjectEditingStates(idx, false);
-                };
-
-                const parseLink = extractDomainUsingRegex(fieldProps.value);
-
-                // 카드뷰 렌더링
-                const CardEditView = () => (
-                  <CardView
-                    title={parseLink}
-                    link={fieldProps.value}
-                    onCloseClick={() => {
-                      snsRemove(idx);
-                      removeProjectEditingState(idx);
-                    }}
-                    // 카드뷰 클릭 시 다시 편집 모드로 전환
-                    onClick={() => setProjectEditingStates(idx, true)}
-                  />
-                );
-
-                const InputView = () => {
                   return (
+                    <div className="flex flex-col gap-[6px]">
+                      {idx === 0 && (
+                        <div className="flex items-center justify-between">
+                          <Label className="text-body-5 text-gray-100">작성한 글</Label>
+                          {contentsFields.length < MAXIMUM_ADD && (
+                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
+                              추가
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {!errors.content?.[idx]?.link?.message && fieldProps.value && !contentsEditingStates[idx]
+                        ? CardEditView()
+                        : InputView()}
+                    </div>
+                  );
+                }}
+              />
+            ))}
+
+          {selectedTags.includes(FIELD_TAG_MAPPING.project) &&
+            projectFields.map((field, idx) => (
+              <Controller
+                key={field.id}
+                control={control}
+                name={`project.${idx}.link`}
+                render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
+                  const handleBlur = () => {
+                    fieldOnBlur();
+                    setProjectEditingStates(idx, false);
+                  };
+
+                  const parseLink = extractDomainUsingRegex(fieldProps.value);
+
+                  const CardEditView = () => (
+                    <CardView
+                      title={parseLink}
+                      link={fieldProps.value}
+                      onCloseClick={() => {
+                        projectRemove(idx);
+                        removeProjectEditingState(idx);
+                      }}
+                      onClick={() => setProjectEditingStates(idx, true)}
+                    />
+                  );
+
+                  const InputView = () => (
                     <WrappedInput
                       placeholder="대표 프로젝트를 입력해주세요."
                       errorMsg={errors.project?.[idx]?.link?.message}
@@ -358,28 +345,32 @@ function ThirdStep() {
                       {...fieldProps}
                     />
                   );
-                };
 
-                return (
-                  <div className="flex flex-col gap-[6px]">
-                    {idx === 0 && (
-                      <div className="flex items-center justify-between">
-                        <Label className="text-body-5 text-gray-100">대표 프로젝트</Label>
-                        {projectFields.length < MAXIMUM_ADD && (
-                          <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                            추가
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    {!errors.project?.[idx]?.link?.message && fieldProps.value && !projectEditingStates[idx]
-                      ? CardEditView()
-                      : InputView()}
-                  </div>
-                );
-              }}
-            />
-          ))}
+                  const handleAddClick = () => {
+                    projectAppend({ type: 'project', link: '', title: '', imageUrl: '', description: '' });
+                    addProjectEditingState();
+                  };
+
+                  return (
+                    <div className="flex flex-col gap-[6px]">
+                      {idx === 0 && (
+                        <div className="flex items-center justify-between">
+                          <Label className="text-body-5 text-gray-100">대표 프로젝트</Label>
+                          {projectFields.length < MAXIMUM_ADD && (
+                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
+                              추가
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {!errors.project?.[idx]?.link?.message && fieldProps.value && !projectEditingStates[idx]
+                        ? CardEditView()
+                        : InputView()}
+                    </div>
+                  );
+                }}
+              />
+            ))}
         </div>
       </section>
     </>
