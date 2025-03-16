@@ -3,11 +3,12 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 
 import { client } from '@/shared/apis/client';
 import { server } from '@/shared/apis/server';
+import { CLIENT_SIDE_URL } from '@/shared/constants';
 
 export const SAMPLE_QUERY_KEY = 'SAMPLE_QUERY_KEY';
 
 const getClientSideSampleFunc = async (params: any) => {
-  const data = await client.get<any>('/somewhere/client-side', {
+  const data = await client.get<any>(`${CLIENT_SIDE_URL}`, {
     params,
   });
 
@@ -22,7 +23,7 @@ export const useSampleQuery = (params: any) => {
 };
 
 const getServerSideSampleFunc = async (params: any, cookie: ReadonlyRequestCookies) => {
-  const data = await server.get<any>('/somewhere/server-side', {
+  const data = await server.get<any>(`${CLIENT_SIDE_URL}`, {
     params,
     headers: {
       Cookie: cookie?.toString(),
