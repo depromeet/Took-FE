@@ -1,14 +1,18 @@
+'use client';
+
 import { Controller, useFormContext } from 'react-hook-form';
 
+import { useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import SearchDropdown, { SearchOptions } from '@/shared/ui/dropDown/searchDropdown';
 import WrappedInput from '@/shared/ui/Input';
 import TagInput from '@/shared/ui/tagInput';
 import { Textarea } from '@/shared/ui/textArea';
 
 import AvatarImg from '../../components/AvartarImg';
-import { CAREER_FORM, careerOptions } from '../../config';
+import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
 
 function FirstStep() {
@@ -16,6 +20,12 @@ function FirstStep() {
     control,
     formState: { errors },
   } = useFormContext<CareerFormData>();
+
+  const job = useCardFormStore((state) => state.job);
+
+  const { data: careerOptions } = useRegisterQuery({
+    job: job,
+  });
 
   return (
     <>
@@ -35,7 +45,7 @@ function FirstStep() {
               <>
                 <WrappedInput
                   title="이름"
-                  placeholder="이름을 입력해주세요."
+                  placeholder="명함에 노출될 이름을 입력해주세요."
                   errorMsg={errors.nickname?.message}
                   error={!!errors.nickname?.message}
                   {...field}
@@ -51,18 +61,18 @@ function FirstStep() {
 
               // 선택된 옵션에서 value만 추출하여 전달하는 핸들러
               const handleChange = (selectedOption: SearchOptions | null) => {
-                fieldOnChange(selectedOption ? selectedOption.value : null);
+                fieldOnChange(selectedOption ? selectedOption.id : null);
               };
 
               // 현재 필드의 값(fieldValue)에 해당하는 옵션을 찾아 selectedOption에 할당
-              const selectedOptionValue = careerOptions.find((option) => option.value === fieldValue) || null;
+              const selectedOptionValue = careerOptions?.find((option) => option.id === fieldValue) || null;
 
               return (
                 <SearchDropdown
                   title="세부직군"
-                  placeholder="세부직군을 입력해주세요."
+                  placeholder="직군을 입력해주세요."
                   errorMsg={errors.detailJobId?.message}
-                  options={careerOptions}
+                  options={careerOptions ?? []}
                   value={selectedOptionValue}
                   onChange={handleChange}
                   {...props}

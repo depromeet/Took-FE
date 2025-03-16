@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import { create } from 'zustand';
 
 import { TagValue } from '@/features/multi-step-form/ui/careerForm/tagFormStep/config/config';
+import { CardJobType } from '@/features/new-card/hooks/queries/useRegisterQuery';
 
 interface CardFormState {
   tagArray: TagValue[];
@@ -9,11 +10,18 @@ interface CardFormState {
   tagCount: number;
   incrementTagCount: Dispatch<React.SetStateAction<number>>;
   handleTagClick: (tagMessage: TagValue) => void;
+  job: CardJobType;
+  setJob: Dispatch<React.SetStateAction<CardJobType>>;
 }
 
 export const useCardFormStore = create<CardFormState>((set, get) => ({
   tagArray: [],
   tagCount: 0,
+  job: 'DESIGNER',
+  setJob: (job) =>
+    set((state) => ({
+      job: typeof job === 'function' ? job(state.job) : job,
+    })),
   incrementTagCount: () => {
     set((state) => ({
       tagCount: state.tagCount + 1,
