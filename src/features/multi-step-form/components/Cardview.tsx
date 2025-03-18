@@ -4,13 +4,14 @@ import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
 type CardViewProps = {
+  index: number;
   title: string;
   link: string;
   onCloseClick?: () => void;
   onClick: () => void;
 };
 
-const CardView = ({ title, link, onCloseClick, onClick }: CardViewProps) => {
+const CardView = ({ index, title, link, onCloseClick, onClick }: CardViewProps) => {
   return (
     <div
       className={cn('flex w-full justify-between rounded-md bg-gray-800', spacingStyles({ padding: 'md' }))}
@@ -23,14 +24,16 @@ const CardView = ({ title, link, onCloseClick, onClick }: CardViewProps) => {
         </div>
       </div>
 
-      <Image
-        src="/icons/deleteIcon.svg"
-        alt="삭제 아이콘"
-        width={16}
-        height={16}
-        className="h-4 w-4 cursor-pointer"
-        onClick={onCloseClick}
-      />
+      {index !== 0 && (
+        <Image
+          src="/icons/deleteIcon.svg"
+          alt="삭제 아이콘"
+          width={16}
+          height={16}
+          className="h-4 w-4 cursor-pointer"
+          onClick={onCloseClick}
+        />
+      )}
     </div>
   );
 };
