@@ -87,7 +87,7 @@ function FirstStep() {
               <>
                 <TagInput
                   title="관심 도메인"
-                  placeholder="어떤 분야에 괸심이 있나요?"
+                  placeholder="어떤 분야에 관심이 있나요?"
                   errorMsg={errors.interestDomain?.message}
                   {...field}
                 />

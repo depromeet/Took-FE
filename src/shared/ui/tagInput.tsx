@@ -121,7 +121,6 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
       <div className="flex flex-col gap-[6px]">
         {title && <Label className="text-body-5 text-gray-100">{title}</Label>}
         <div
-          // ref={containerRef}
           className={cn(
             'inline-flex min-h-[44px] w-full cursor-text flex-wrap gap-2 rounded-sm bg-gray-800 text-body-5 !text-gray-100 placeholder:text-body-5 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus-visible:ring-1 focus-visible:ring-gray-500',
             errorMsg && 'border border-error-medium',

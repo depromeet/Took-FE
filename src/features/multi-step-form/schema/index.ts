@@ -64,7 +64,7 @@ export const cardCreateSchema = z.object({
   region: z
     .string()
     .min(1, {
-      message: '최소 하나의  지역을 입력해주세요.',
+      message: '최소 하나의 지역을 입력해주세요.',
     })
     .optional(),
   hobby: z

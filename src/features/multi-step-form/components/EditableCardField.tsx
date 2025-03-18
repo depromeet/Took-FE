@@ -4,7 +4,7 @@ import { FieldArrayWithId, Noop, RefCallBack, UseFieldArrayUpdate } from 'react-
 import WrappedInput from '@/shared/ui/Input';
 import { Label } from '@/shared/ui/label';
 
-import { MAXIMUM_ADD } from '../config';
+import { MAXIMUM_TAG_ADD } from '../config';
 import { useScrap } from '../hooks/queries/useScrap';
 import { getPlatformFromUrl } from '../utils';
 
@@ -161,7 +161,7 @@ const EditableCardField = ({
       {index === 0 && (
         <div className="flex items-center justify-between">
           <Label className="text-body-5 text-gray-100">{title}</Label>
-          {fields.length < MAXIMUM_ADD && (
+          {fields.length < MAXIMUM_TAG_ADD && (
             <p className="cursor-pointer text-caption-1 text-gray-200" onClick={fieldAppend}>
               추가
             </p>

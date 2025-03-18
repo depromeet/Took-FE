@@ -92,7 +92,7 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
 
   // 배열 필드: project
   if (project && project.every((projectItem) => projectItem.link !== '')) {
-    formData.append('project', JSON.stringify(content)); // JSON.stringify로 배열 전체를 문자열로 변환
+    formData.append('project', JSON.stringify(project)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // previewInfoType

@@ -91,7 +91,6 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
 
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {
-    // console.log(data);
     createCardAPI(createCareerFormData(data));
   };
 

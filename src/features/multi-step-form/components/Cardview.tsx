@@ -12,6 +12,11 @@ type CardViewProps = {
 };
 
 const CardView = ({ index, title, link, onCloseClick, onClick }: CardViewProps) => {
+  const handleCloseClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onCloseClick?.();
+  };
+
   return (
     <div
       className={cn('flex w-full justify-between rounded-md bg-gray-800', spacingStyles({ padding: 'md' }))}
@@ -31,7 +36,7 @@ const CardView = ({ index, title, link, onCloseClick, onClick }: CardViewProps) 
           width={16}
           height={16}
           className="h-4 w-4 cursor-pointer"
-          onClick={onCloseClick}
+          onClick={handleCloseClick}
         />
       )}
     </div>

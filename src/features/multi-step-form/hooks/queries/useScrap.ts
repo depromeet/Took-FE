@@ -18,7 +18,7 @@ type ScrapResponse = {
   description: string;
 };
 
-const postScapLink = async ({ payload, type }: { payload: ScrapPayload; type: ScrapType }) => {
+const postScrapLink = async ({ payload, type }: { payload: ScrapPayload; type: ScrapType }) => {
   const res = (await client.post<ApiResponseType<ScrapResponse>>(`${CLIENT_SIDE_URL}/api/card/scrap`, payload, {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -33,7 +33,7 @@ const postScapLink = async ({ payload, type }: { payload: ScrapPayload; type: Sc
 
 export const useScrap = () => {
   return useMutation<ApiResponseType<ScrapResponse>, unknown, { payload: ScrapPayload; type: ScrapType }>({
-    mutationFn: postScapLink,
+    mutationFn: postScrapLink,
     onSuccess: () => {},
     onError: () => {},
   });
