@@ -65,17 +65,18 @@ function CardTabs() {
     projects: useRef<HTMLDivElement | null>(null) as React.MutableRefObject<HTMLDivElement | null>,
   };
 
-  // 기존 ref와 intersection observer ref를 결합하는 함수
+  const sectionRefTable: Record<TabId, (el: HTMLDivElement) => void> = {
+    domains: domainsRef,
+    sns: snsRef,
+    news: newsRef,
+    hobby: hobbyRef,
+    posts: postsRef,
+    projects: projectsRef,
+  };
+
   const combineRefs = (section: TabId) => (el: HTMLDivElement) => {
     sectionRefs[section].current = el;
-
-    // 각 섹션에 맞는 ref 설정
-    if (section === 'domains') domainsRef(el);
-    else if (section === 'sns') snsRef(el);
-    else if (section === 'news') newsRef(el);
-    else if (section === 'hobby') hobbyRef(el);
-    else if (section === 'posts') postsRef(el);
-    else if (section === 'projects') projectsRef(el);
+    sectionRefTable[section]?.(el);
   };
 
   const handleTabChange = (tabId: TabId) => {
