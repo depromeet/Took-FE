@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
-        <HomeBackground className="absolute" />
+        <HomeBackground className="absolute z-[-10]" />
         <HeaderContainer />
-        <section className="absolute left-1/2 top-1/2 h-auto w-full -translate-x-1/2 -translate-y-1/2 pb-20">
+        <section className="py-10">
           <CardContainer />
           <ClipboardContainer />
         </section>
