@@ -48,6 +48,6 @@ export const config = {
      * - _next/image (이미지 최적화 파일)
      * - favicon.ico (파비콘 파일)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };
