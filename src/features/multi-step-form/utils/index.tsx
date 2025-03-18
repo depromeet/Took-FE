@@ -1,76 +1,52 @@
 import { CareerFormData } from '../schema';
 
-/**
- * URL에서 "https://" 이후, ".com" 직전의 문자열을 추출합니다.
- * @param url 추출할 대상 URL
- * @returns 추출된 문자열 또는 매칭되지 않으면 null
- */
+interface PlatformPattern {
+  pattern: RegExp;
+  platform: string;
+}
 
-export const extractDomainBeforeCom = (url: string): string => {
-  const regex = /^https:\/\/(.*?)\.com/;
-  const match = url.match(regex);
-
-  // 정규식 매칭에 실패하면 'unknown' 반환
-  if (!match) {
-    return 'link';
-  }
-
-  // match[1]에 해당 정규식 그룹이 들어 있음
-  return match[1];
-};
-export const extractDomainUsingRegex = (url: string) => {
-  // https:// 또는 http:// 뒤에 오는 호스트(도메인) 부분만 추출
-  // ^https?:\/\/([^/]+) -> 프로토콜 이후 슬래시 전까지
-  const match = url.match(/^https?:\/\/([^/]+)/);
-  return match ? match[1] : '';
+export const extractDomainUsingRegex = (url: string): string => {
+  // 프로토콜 이후 '/' 전까지의 전체 호스트 추출 (선택적으로 "www." 제거)
+  const match = url.match(/^https?:\/\/(?:www\.)?([^/]+)/);
+  return match ? match[1].toLowerCase() : '';
 };
 
-// 2) 도메인(혹은 호스트 전체)을 보고 플랫폼을 분기 처리하기 위한 룩업 테이블
-//    - pattern: 정규식
-//    - platform: 매칭되면 반환할 플랫폼 이름
-const PLATFORM_PATTERNS: { pattern: RegExp; platform: string }[] = [
-  // velog.io
+// 플랫폼 패턴 룩업 테이블
+const PLATFORM_PATTERNS: PlatformPattern[] = [
+  // 블로그, 프로젝트
   { pattern: /velog\.io$/i, platform: 'velog' },
-  // brunch.co.kr
   { pattern: /brunch\.co\.kr$/i, platform: 'brunch' },
-  // tistory.com
   { pattern: /tistory\.com$/i, platform: 'tistory' },
-  // behance.net
   { pattern: /behance\.net$/i, platform: 'behance' },
-  // github.com
   { pattern: /github\.com$/i, platform: 'github' },
-  // play.google.com
   { pattern: /play\.google\.com$/i, platform: 'playStore' },
-  // apps.apple.com
   { pattern: /apps\.apple\.com$/i, platform: 'appStore' },
+  { pattern: /blog\.naver\.com$/i, platform: 'naver' },
+
+  // sns
+  { pattern: /youtube\.com$/i, platform: 'youtube' },
+  { pattern: /instagram\.com$/i, platform: 'instagram' },
+  { pattern: /facebook\.com$/i, platform: 'facebook' },
+  { pattern: /twitter\.com$/i, platform: 'twitter' },
+  { pattern: /linkedin\.com$/i, platform: 'linkedin' },
+  { pattern: /medium\.com$/i, platform: 'medium' },
 ];
 
 /**
- * 최종적으로 URL을 받아서 플랫폼을 판별하는 함수
+ * URL을 받아 플랫폼을 판별합니다.
+ * - 플랫폼 패턴에 해당하면 해당 플랫폼 문자열 반환
+ * - 해당되지 않으면 "LINK" 반환
  */
 export function getPlatformFromUrl(url: string): string {
-  // 1) 먼저 extractDomainUsingRegex로 호스트(도메인) 추출
-  //    예) "https://velog.io/@jangwonyoon/테스트" -> "velog.io"
-  //        "https://github.com/user" -> "github.com"
-  //        "https://play.google.com/store" -> "play.google.com"
-  //        "https://apps.apple.com/kr/app" -> "apps.apple.com"
-  const extracted = extractDomainUsingRegex(url);
+  const domain = extractDomainUsingRegex(url).toLowerCase();
 
-  if (!extracted) {
-    return 'link';
-  }
-
-  const domain = extracted.toLowerCase();
-
-  // 2) 룩업 테이블 순회하며 정규식으로 매칭되는지 검사
   for (const { pattern, platform } of PLATFORM_PATTERNS) {
     if (pattern.test(domain)) {
-      return platform;
+      return platform.toUpperCase();
     }
   }
 
-  // 3) 매칭되는 패턴이 없으면 unknown
-  return extractDomainBeforeCom(url);
+  return 'LINK';
 }
 
 export const createCareerFormData = (data: CareerFormData): FormData => {
@@ -106,33 +82,21 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
 
   // 배열 필드: sns
   if (sns && sns.every((snsItem) => snsItem.link !== '')) {
-    sns.forEach((snsItem, idx) => {
-      formData.append(`sns[${idx}][type]`, snsItem.type);
-      formData.append(`sns[${idx}][link]`, snsItem.link);
-    });
+    formData.append('sns', JSON.stringify(sns)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: content
   if (content && content.every((contentItem) => contentItem.link !== '')) {
-    content.forEach((contentItem, idx) => {
-      formData.append(`content[${idx}][type]`, contentItem.type);
-      formData.append(`content[${idx}][link]`, contentItem.link);
-      formData.append(`content[${idx}][title]`, contentItem.title);
-      formData.append(`content[${idx}][imageUrl]`, contentItem.imageUrl);
-      formData.append(`content[${idx}][description]`, contentItem.description);
-    });
+    formData.append('content', JSON.stringify(content)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: project
   if (project && project.every((projectItem) => projectItem.link !== '')) {
-    project.forEach((projectItem, idx) => {
-      formData.append(`project[${idx}][type]`, projectItem.type);
-      formData.append(`project[${idx}][link]`, projectItem.link);
-      formData.append(`project[${idx}][title]`, projectItem.title);
-      formData.append(`project[${idx}][imageUrl]`, projectItem.imageUrl);
-      formData.append(`project[${idx}][description]`, projectItem.description);
-    });
+    formData.append('project', JSON.stringify(content)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
+
+  // previewInfoType
+  formData.append('previewInfoType', data.previewInfoType || '');
 
   return formData;
 };
