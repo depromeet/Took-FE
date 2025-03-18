@@ -1,20 +1,17 @@
 'use client';
 
-import { Label } from '@radix-ui/react-label';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
-import { CAREER_FORM, FIELD_TAG_MAPPING, MAXIMUM_ADD } from '@/features/multi-step-form/config';
+import { CAREER_FORM, FIELD_TAG_MAPPING } from '@/features/multi-step-form/config';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import WrappedInput from '@/shared/ui/Input';
 
-import CardView from '../../components/Cardview';
-import { useScrap } from '../../hooks/queries/useScrap';
+import EditableCardField from '../../components/EditableCardField';
 import { useEditingStates } from '../../hooks/useEditingStates';
 import { CareerFormData } from '../../schema';
-import { getPlatformFromUrl } from '../../utils';
 
 function ThirdStep() {
   const {
@@ -79,8 +76,6 @@ function ThirdStep() {
   // secondStep에서 선택한 태그를 가져옴
   const selectedTags = useCardFormStore(useShallow((state) => state.tagArray));
 
-  const { mutateAsync: scapAPI } = useScrap();
-
   return (
     <>
       <header className="flex flex-col gap-3">
@@ -115,73 +110,33 @@ function ThirdStep() {
                 control={control}
                 name={`sns.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
-
-                  const handleBlur = () => {
-                    fieldOnBlur();
-                    snsUpdate(idx, {
-                      ...field,
-                      type: parseLinkToTitle.toUpperCase(),
-                      link: fieldProps.value,
-                    });
-                    setSnsEditingState(idx, false);
-                  };
-
-                  const CardEditView = () => (
-                    <CardView
-                      title={parseLinkToTitle}
-                      link={fieldProps.value}
-                      onCloseClick={() => {
-                        snsRemove(idx);
-                        removeSnsEditingState(idx);
-                      }}
-                      onClick={() => setSnsEditingState(idx, true)}
-                    />
-                  );
-
-                  const InputView = () => (
-                    <WrappedInput
-                      placeholder="SNS 주소를 입력해주세요."
-                      errorMsg={errors.sns?.[idx]?.link?.message}
-                      error={!!errors.sns?.[idx]?.link?.message}
-                      onBlur={handleBlur}
-                      closeBtn={idx !== 0}
-                      closeBtnClick={() => {
-                        snsRemove(idx);
-                        removeSnsEditingState(idx);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          setSnsEditingState(idx, false);
-                        }
-                      }}
-                      variant={idx === 0 ? 'withBtn' : 'default'}
-                      {...fieldProps}
-                    />
-                  );
-
-                  const handleAddClick = () => {
+                  // 추가 버튼 클릭 시
+                  const handleFieldAppend = () => {
                     snsAppend({ type: '', link: '' });
                     addSnsEditingState();
                   };
 
+                  const handleFieldRemove = (idx: number) => {
+                    snsRemove(idx);
+                    removeSnsEditingState(idx);
+                  };
+
                   return (
-                    <div className="flex flex-col gap-[6px]" key={field.id}>
-                      {idx === 0 && (
-                        <div className="flex items-center justify-between">
-                          <Label className="text-body-5 text-gray-100">SNS</Label>
-                          {snsFields.length < MAXIMUM_ADD && (
-                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                              추가
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      {!errors.sns?.[idx]?.link?.message && fieldProps.value && !snsEditingStates[idx]
-                        ? CardEditView()
-                        : InputView()}
-                    </div>
+                    <EditableCardField
+                      index={idx}
+                      title="SNS"
+                      placeholder="SNS 주소를 입력해주세요."
+                      field={field}
+                      fields={snsFields}
+                      fieldAppend={handleFieldAppend}
+                      updateField={snsUpdate}
+                      fieldProps={fieldProps}
+                      fieldOnBlur={fieldOnBlur}
+                      error={errors.sns?.[idx]?.link?.message}
+                      removeField={handleFieldRemove}
+                      editingStates={snsEditingStates}
+                      setEditingState={setSnsEditingState}
+                    />
                   );
                 }}
               />
@@ -242,98 +197,32 @@ function ThirdStep() {
                 control={control}
                 name={`content.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
-
-                  // 스크래핑 함수
-                  const handleScrap = async () => {
-                    try {
-                      const { data } = await scapAPI({
-                        payload: { link: fieldProps.value },
-                        type: 'BLOG',
-                      });
-                      const { link, title, imageUrl, description } = data;
-
-                      // update로 전체 항목 갱신
-                      contentUpdate(idx, {
-                        ...field, // 기존에 가지고 있던 다른 필드가 있으면 유지
-                        link,
-                        title,
-                        imageUrl,
-                        description,
-                      });
-                    } catch (error) {
-                      contentUpdate(idx, {
-                        ...field,
-                        link: fieldProps.value,
-                        title: parseLinkToTitle,
-                        imageUrl: '',
-                        description: '',
-                      });
-                    }
-                  };
-
-                  // onBlur시 스크랩 함수 호출
-                  const handleBlur = () => {
-                    fieldOnBlur();
-                    if (fieldProps.value) handleScrap();
-                    setContentsEditingStates(idx, false);
-                  };
-
-                  const CardEditView = () => (
-                    <CardView
-                      title={parseLinkToTitle}
-                      link={fieldProps.value}
-                      onCloseClick={() => {
-                        contentRemove(idx);
-                        removeContentsEditingState(idx);
-                      }}
-                      onClick={() => setContentsEditingStates(idx, true)}
-                    />
-                  );
-
-                  const InputView = () => (
-                    <WrappedInput
-                      placeholder="작성한 글을 입력해주세요."
-                      errorMsg={errors.content?.[idx]?.link?.message}
-                      error={!!errors.content?.[idx]?.link?.message}
-                      closeBtn={idx !== 0}
-                      closeBtnClick={() => {
-                        contentRemove(idx);
-                        removeContentsEditingState(idx);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          setContentsEditingStates(idx, false);
-                        }
-                      }}
-                      onBlur={handleBlur}
-                      variant={idx === 0 ? 'withBtn' : 'default'}
-                      {...fieldProps}
-                    />
-                  );
-
-                  const handleAddClick = () => {
+                  const handleFieldAppend = () => {
                     contentAppend({ type: 'blog', link: '', title: '', imageUrl: '', description: '' });
                     addContentsEditingState();
                   };
 
+                  const handleFieldRemove = (idx: number) => {
+                    contentRemove(idx);
+                    removeContentsEditingState(idx);
+                  };
+
                   return (
-                    <div className="flex flex-col gap-[6px]">
-                      {idx === 0 && (
-                        <div className="flex items-center justify-between">
-                          <Label className="text-body-5 text-gray-100">작성한 글</Label>
-                          {contentsFields.length < MAXIMUM_ADD && (
-                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                              추가
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      {!errors.content?.[idx]?.link?.message && fieldProps.value && !contentsEditingStates[idx]
-                        ? CardEditView()
-                        : InputView()}
-                    </div>
+                    <EditableCardField
+                      index={idx}
+                      title="작성한 글"
+                      placeholder="작성한 글을 입력해주세요."
+                      field={field}
+                      fields={contentsFields}
+                      fieldAppend={handleFieldAppend}
+                      updateField={contentUpdate}
+                      fieldProps={fieldProps}
+                      fieldOnBlur={fieldOnBlur}
+                      error={errors.sns?.[idx]?.link?.message}
+                      removeField={handleFieldRemove}
+                      editingStates={contentsEditingStates}
+                      setEditingState={setContentsEditingStates}
+                    />
                   );
                 }}
               />
@@ -346,97 +235,38 @@ function ThirdStep() {
                 control={control}
                 name={`project.${idx}.link`}
                 render={({ field: { onBlur: fieldOnBlur, ...fieldProps } }) => {
-                  const parseLinkToTitle = getPlatformFromUrl(fieldProps.value);
-
-                  // 스크래핑 함수
-                  const handleScrap = async () => {
-                    try {
-                      const { data } = await scapAPI({
-                        payload: { link: fieldProps.value },
-                        type: 'PROJECT',
-                      });
-                      const { link, title, imageUrl, description } = data;
-
-                      // update로 전체 항목 갱신
-                      projectUpdate(idx, {
-                        ...field,
-                        link,
-                        title,
-                        imageUrl,
-                        description,
-                      });
-                    } catch (error) {
-                      projectUpdate(idx, {
-                        ...field,
-                        link: fieldProps.value,
-                        title: parseLinkToTitle,
-                        imageUrl: '',
-                        description: '',
-                      });
-                    }
-                  };
-
-                  const handleBlur = () => {
-                    fieldOnBlur();
-                    if (fieldProps.value) handleScrap();
-                    setProjectEditingStates(idx, false);
-                  };
-
-                  const CardEditView = () => (
-                    <CardView
-                      title={parseLinkToTitle}
-                      link={fieldProps.value}
-                      onCloseClick={() => {
-                        projectRemove(idx);
-                        removeProjectEditingState(idx);
-                      }}
-                      onClick={() => setProjectEditingStates(idx, true)}
-                    />
-                  );
-
-                  const InputView = () => (
-                    <WrappedInput
-                      placeholder="대표 프로젝트를 입력해주세요."
-                      errorMsg={errors.project?.[idx]?.link?.message}
-                      error={!!errors.project?.[idx]?.link?.message}
-                      closeBtn={idx !== 0}
-                      closeBtnClick={() => {
-                        projectRemove(idx);
-                        removeProjectEditingState(idx);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          setProjectEditingStates(idx, false);
-                        }
-                      }}
-                      onBlur={handleBlur}
-                      variant={idx === 0 ? 'withBtn' : 'default'}
-                      {...fieldProps}
-                    />
-                  );
-
                   const handleAddClick = () => {
-                    projectAppend({ type: 'project', link: '', title: '', imageUrl: '', description: '' });
+                    projectAppend({
+                      type: 'project',
+                      link: '',
+                      title: '',
+                      imageUrl: '',
+                      description: '',
+                    });
                     addProjectEditingState();
                   };
 
+                  const handleFieldRemove = (idx: number) => {
+                    projectRemove(idx);
+                    removeProjectEditingState(idx);
+                  };
+
                   return (
-                    <div className="flex flex-col gap-[6px]">
-                      {idx === 0 && (
-                        <div className="flex items-center justify-between">
-                          <Label className="text-body-5 text-gray-100">대표 프로젝트</Label>
-                          {projectFields.length < MAXIMUM_ADD && (
-                            <p className="cursor-pointer text-caption-1 text-gray-200" onClick={handleAddClick}>
-                              추가
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      {!errors.project?.[idx]?.link?.message && fieldProps.value && !projectEditingStates[idx]
-                        ? CardEditView()
-                        : InputView()}
-                    </div>
+                    <EditableCardField
+                      index={idx}
+                      title="대표 프로젝트"
+                      placeholder="대표 프로젝트를 입력해주세요."
+                      field={field}
+                      fields={projectFields}
+                      fieldAppend={handleAddClick}
+                      updateField={projectUpdate}
+                      fieldProps={fieldProps}
+                      fieldOnBlur={fieldOnBlur}
+                      error={errors.project?.[idx]?.link?.message}
+                      removeField={handleFieldRemove}
+                      editingStates={projectEditingStates}
+                      setEditingState={setProjectEditingStates}
+                    />
                   );
                 }}
               />

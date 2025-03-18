@@ -4,7 +4,7 @@ import { FieldArrayWithId } from 'react-hook-form';
 /**
  * useEditingStates 훅은 주어진 필드 배열에 대한 편집 상태를 관리합니다.
  *
- * @param {any[]} fields - 편집 상태를 관리할 필드 배열입니다.
+ * @param {FieldArrayWithId[]} fields - 편집 상태를 관리할 필드 배열입니다.
  * @returns {{
  *   editingStates: boolean[];
  *   setEditingState: (index: number, isEditing: boolean) => void;
