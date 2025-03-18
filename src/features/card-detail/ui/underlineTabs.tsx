@@ -2,12 +2,7 @@ import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { Typography } from '@/shared/ui/typography';
 
-import { TabId } from '../config/tabs-config';
-
-type TabItem = {
-  id: TabId;
-  label: string;
-};
+import { TabId, TabItem } from '../config/tabs-config';
 
 type UnderlineTabsProps = {
   tabs: TabItem[];
