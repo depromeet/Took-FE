@@ -4,10 +4,8 @@ import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 import { ApiResponseType } from '@/shared/types';
 
-import { CareerFormData } from '../../schema';
-
-const createCard = async (payload: CareerFormData) => {
-  const res = await client.post<ApiResponseType<any>>(`${CLIENT_SIDE_URL}/api/card`, payload);
+const createCard = async (payload: FormData) => {
+  const res = await client.post<ApiResponseType<null>>(`${CLIENT_SIDE_URL}/api/card`, payload);
   return res;
 };
 
@@ -15,5 +13,11 @@ const createCard = async (payload: CareerFormData) => {
 export const useCreateCard = () => {
   return useMutation({
     mutationFn: createCard,
+    onSuccess: (data) => {
+      console.log('카드 생성 성공', data);
+    },
+    onError: (error) => {
+      console.error('카드 생성 실패', error);
+    },
   });
 };
