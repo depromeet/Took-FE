@@ -22,10 +22,11 @@ export const UnderlineTabs = ({ tabs, activeTab, onChange, className }: Underlin
     >
       {tabs.map((tab) => (
         <button
+          role="tab"
           key={tab.id}
           onClick={() => onChange(tab.id)}
           className={cn(
-            `mr-2 flex-shrink-0 transition-all duration-200 ${spacingStyles({ paddingX: 'sm', paddingY: 'ms' })}`,
+            `mr-2 flex-shrink-0 transition-colors duration-200 ${spacingStyles({ paddingX: 'sm', paddingY: 'ms' })}`,
             activeTab === tab.id ? 'border-b-2 border-gray-white text-gray-white' : 'text-gray-600',
           )}
         >
