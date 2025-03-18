@@ -1,3 +1,5 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
@@ -6,6 +8,7 @@ import { useCardFormStore } from '@/shared/store/cardFormState';
 import { Button } from '@/shared/ui/button';
 
 import { TOTAL_STEPS } from '../../config';
+import { useCreateCard } from '../../hooks/queries/useCreateCard';
 import { cardCreateSchema, CareerFormData } from '../../schema';
 import { createCareerFormData } from '../../utils';
 
@@ -58,6 +61,7 @@ const initialValues: CareerFormData = {
       description: '',
     },
   ],
+  previewInfoType: 'PROJECT',
 };
 
 function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
@@ -74,6 +78,8 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     formState: { errors },
   } = formMethod;
 
+  const { mutate: createCardAPI } = useCreateCard();
+
   const validationTagArray = useCardFormStore((state) => state.tagArray);
 
   const stepValidationFields: Record<number, (keyof CareerFormData)[]> = {
@@ -85,7 +91,8 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
 
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {
-    console.log('최종 제출 데이터', createCareerFormData(data));
+    // console.log(data);
+    createCardAPI(createCareerFormData(data));
   };
 
   // watch를 사용하여 현재 스텝의 필드 값들을 가져옵니다.
@@ -138,7 +145,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   return (
     <>
       <FormProvider {...formMethod}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} />
         </form>
         {currentStep !== 2 && (

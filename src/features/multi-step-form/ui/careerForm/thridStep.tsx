@@ -79,7 +79,7 @@ function ThirdStep() {
   // secondStep에서 선택한 태그를 가져옴
   const selectedTags = useCardFormStore(useShallow((state) => state.tagArray));
 
-  const { mutateAsync } = useScrap();
+  const { mutateAsync: scapAPI } = useScrap();
 
   return (
     <>
@@ -247,7 +247,7 @@ function ThirdStep() {
                   // 스크래핑 함수
                   const handleScrap = async () => {
                     try {
-                      const { data } = await mutateAsync({
+                      const { data } = await scapAPI({
                         payload: { link: fieldProps.value },
                         type: 'BLOG',
                       });
@@ -351,7 +351,7 @@ function ThirdStep() {
                   // 스크래핑 함수
                   const handleScrap = async () => {
                     try {
-                      const { data } = await mutateAsync({
+                      const { data } = await scapAPI({
                         payload: { link: fieldProps.value },
                         type: 'PROJECT',
                       });
