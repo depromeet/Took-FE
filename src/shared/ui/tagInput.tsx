@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
 
+import useOnClickOutside from '../hooks/useOnClickOutside';
 import { cn } from '../lib/utils';
 import { spacingStyles } from '../spacing';
 
@@ -77,7 +78,7 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (isComposing || e.nativeEvent.isComposing) return;
 
-      if (e.key === ' ' || e.key === ',') {
+      if (e.key === ' ' || e.key === ',' || e.key === 'Tab') {
         e.preventDefault();
         addTag(inputValue.trim());
       } else if (e.key === 'Backspace' && inputValue === '') {
@@ -108,11 +109,19 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
         setInternalTags(newTags);
       }
     };
+
+    // 외부 클릭 시 입력값이 있으면 태그로 추가
+    useOnClickOutside(inputRef, () => {
+      if (!isComposing && inputValue.trim()) {
+        addTag(inputValue.trim());
+      }
+    });
+
     return (
       <div className="flex flex-col gap-[6px]">
         {title && <Label className="text-body-5 text-gray-100">{title}</Label>}
         <div
-          ref={containerRef}
+          // ref={containerRef}
           className={cn(
             'inline-flex min-h-[44px] w-full cursor-text flex-wrap gap-2 rounded-sm bg-gray-800 text-body-5 !text-gray-100 placeholder:text-body-5 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus-visible:ring-1 focus-visible:ring-gray-500',
             errorMsg && 'border border-error-medium',
