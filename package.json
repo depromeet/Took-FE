@@ -39,7 +39,6 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/eslint-plugin-query": "^5.50.1",
     "@tanstack/react-query-devtools": "^5.66.11",
     "@types/node": "^20",
