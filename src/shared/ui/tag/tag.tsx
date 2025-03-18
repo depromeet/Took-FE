@@ -8,7 +8,7 @@ import { cn } from '@/shared/lib/utils';
 
 import { Typography } from '../typography';
 
-type TagSize = 'sm' | 'md' | 'lg';
+type TagSize = 'sm' | 'md' | 'lg' | 'create-input';
 
 interface TagProps {
   message: string;
@@ -45,6 +45,7 @@ function Tag({ message, size = 'md', onClose, onClick, className = 'bg-opacity-w
         sm: 'px-2 py-0.5', // px: 8px, py: 2px
         md: 'px-3.5 py-1.5', // px: 14px, py: 6px
         lg: 'px-4 py-2', // px: 16px, py: 8px
+        'create-input': 'px-[8px] py-[3px] text-catpion-1', // px: 8px, py: 3px
       },
     },
     defaultVariants: {
@@ -66,7 +67,7 @@ function Tag({ message, size = 'md', onClose, onClick, className = 'bg-opacity-w
         <button
           type="button"
           onClick={handleClose}
-          className="hover:bg-gray-300/30 ml-1 flex items-center justify-center rounded-full transition-colors"
+          className="hover:bg-gray-300/30 ml-[2px] flex items-center justify-center rounded-full transition-colors"
         >
           <Image src="/icon/closeBtn.svg" width={16} height={16} alt="닫기" />
         </button>

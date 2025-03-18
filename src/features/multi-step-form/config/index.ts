@@ -1,3 +1,6 @@
+import { CareerFormData } from '../schema';
+import { TagValue } from '../ui/careerForm/tagFormStep/config/config';
+
 export const CAREER_FORM = {
   firstStep: {
     title: '직군을 선택해 주세요',
@@ -16,3 +19,14 @@ export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 // 스텝 상수
 export const TOTAL_STEPS = 4;
 export const MINIMUM_STEP = 1;
+export const MAXIMUM_TAG_ADD = 10;
+
+export const FIELD_TAG_MAPPING: Record<keyof Pick<CareerFormData, TagValue>, TagValue> = {
+  organization: 'organization',
+  sns: 'sns',
+  region: 'region',
+  hobby: 'hobby',
+  news: 'news',
+  content: 'content',
+  project: 'project',
+};

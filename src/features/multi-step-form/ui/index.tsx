@@ -23,7 +23,7 @@ function MultiStepFormView() {
       }
       return prev;
     });
-  }, [currentStep]);
+  }, []);
 
   const handleStepBack = useCallback(() => {
     setCurrentStep((prev) => {
@@ -36,7 +36,7 @@ function MultiStepFormView() {
       }
       return prev;
     });
-  }, [currentStep]);
+  }, [handleBack]);
 
   return (
     <div className="flex h-dvh w-full justify-center">

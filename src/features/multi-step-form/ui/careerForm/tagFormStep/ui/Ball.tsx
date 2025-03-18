@@ -22,9 +22,21 @@ function Ball({ tagCount }: BallPropsType) {
   return (
     <>
       <div
-        className={cn('z-10 h-[494px] w-[494px] opacity-40', circleStyles.join(' '), shadowStyles[0], 'firstWave')}
+        className={cn(
+          'pointer-events-none z-10 h-[494px] w-[494px] opacity-40',
+          circleStyles.join(' '),
+          shadowStyles[0],
+          'firstWave',
+        )}
       />
-      <div className={cn('z-20 h-72 w-72 opacity-50', circleStyles.join(' '), shadowStyles[1], 'secondWave')} />
+      <div
+        className={cn(
+          'pointer-events-none z-20 h-72 w-72 opacity-50',
+          circleStyles.join(' '),
+          shadowStyles[1],
+          'secondWave',
+        )}
+      />
       <div
         className={cn(
           `absolute left-1/2 top-1/2 z-30 flex h-44 w-44 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[url(/images/tag/ball.png)] bg-cover bg-center`,

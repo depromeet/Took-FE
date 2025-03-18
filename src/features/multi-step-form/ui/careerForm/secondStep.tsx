@@ -1,19 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useShallow } from 'zustand/shallow';
 
 import Ball from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/Ball';
-import TagBox from '@/features/multi-step-form/ui/careerForm/tagFormStep/ui/TagBox';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import { Button } from '@/shared/ui/button';
 import Header from '@/shared/ui/header';
 
-type SecondStepPropsType = {
-  handleNextStep: () => Promise<void>;
+import TagBox from './tagFormStep/ui/TagBox';
+
+type SecondStepProps = {
+  handleNextStep: () => void;
 };
 
-function SecondStep({ handleNextStep }: SecondStepPropsType) {
-  const [tagCount, setTagCount] = useState(0);
-  const [tagArray, setTagArray] = useState<string[]>([]);
+function SecondStep({ handleNextStep }: SecondStepProps) {
+  const setTagArray = useCardFormStore(useShallow((state) => state.setTagArray));
+  const [tagCount, setTagCount] = useCardFormStore(useShallow((state) => [state.tagCount, state.incrementTagCount]));
 
   return (
     <>
@@ -22,7 +24,7 @@ function SecondStep({ handleNextStep }: SecondStepPropsType) {
           <Header title={`명함에 추가할 태그를 \n 선택해 주세요`} />
           <Ball tagCount={tagCount} />
           <div className="relative h-full w-full">
-            <TagBox tagCount={tagCount} tagArray={tagArray} setTagCount={setTagCount} setTagArray={setTagArray} />
+            <TagBox />
           </div>
         </main>
       </div>

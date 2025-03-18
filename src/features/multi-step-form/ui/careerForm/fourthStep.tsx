@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { CardTags, WrappedCard } from '@/features/home/components/BusinessCard/Card';
 import { ThumbnailTag } from '@/shared/config';
@@ -8,11 +9,15 @@ import { cn } from '@/shared/lib/utils';
 import Header from '@/shared/ui/header';
 import Thumbnail from '@/shared/ui/thumbnail';
 
+import { CareerFormData } from '../../schema';
+
 import { SelectedTagType, tagConfig } from './tagFormStep/config/config';
 
 const LAST_NUMBER = 7;
 
 function FourthStep() {
+  const { control } = useFormContext<CareerFormData>();
+
   const [selectedTag, setSelectedTag] = useState<SelectedTagType>('대표 프로젝트');
   const [index, setIndex] = useState<number>(0);
 
@@ -41,25 +46,34 @@ function FourthStep() {
         <p className="mt-4 self-start text-caption-1 text-gray-400">
           현재 화면은 예시이며, 홈에서는 직접 입력한 정보가 보여요
         </p>
-        <div className="grid-w-full my-6 grid w-full grid-cols-2 gap-2">
-          {tagConfig.map((tag) => {
-            if (tag.id === LAST_NUMBER) return null;
-            return (
-              <div
-                key={tag.id}
-                className={cn(
-                  'flex h-10 cursor-pointer items-center justify-center rounded-[6px]',
-                  selectedTag === tag.message
-                    ? 'border border-primary-normal bg-gray-700 text-white'
-                    : 'bg-gray-800 text-gray-600',
-                )}
-                onClick={() => handleSelectTag(tag.message)}
-              >
-                <p>{tag.message}</p>
-              </div>
-            );
-          })}
-        </div>
+        <Controller
+          control={control}
+          name="previewInfoType"
+          render={({ field: { onChange } }) => (
+            <div className="grid-w-full my-6 grid w-full grid-cols-2 gap-2">
+              {tagConfig.map((tag) => {
+                if (tag.id === LAST_NUMBER) return null;
+                return (
+                  <div
+                    key={tag.id}
+                    className={cn(
+                      'flex h-10 cursor-pointer items-center justify-center rounded-[6px]',
+                      selectedTag === tag.message
+                        ? 'border border-primary-normal bg-gray-700 text-white'
+                        : 'bg-gray-800 text-gray-600',
+                    )}
+                    onClick={() => {
+                      handleSelectTag(tag.message);
+                      onChange(tag.value.toUpperCase());
+                    }}
+                  >
+                    <p>{tag.message}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        />
       </main>
     </>
   );

@@ -13,6 +13,9 @@ const inputVariants = cva(
         default: '',
         withBtn: 'pr-9',
       },
+      error: {
+        true: 'border border-error-medium',
+      },
     },
     defaultVariants: {
       variant: 'default',
@@ -20,16 +23,17 @@ const inputVariants = cva(
   },
 );
 
-type InputBodyProps = React.ComponentProps<'input'> & {
+export type InputBodyProps = React.ComponentProps<'input'> & {
   variant?: 'default' | 'withBtn'; // variant 타입 추가
+  error?: boolean;
 };
 
 const InputBody = React.forwardRef<HTMLInputElement, InputBodyProps>(
-  ({ className, variant, type, value, onChange, ...props }, ref) => {
+  ({ className, error, variant, type, value, onChange, ...props }, ref) => {
     return (
       <input
         type={type}
-        className={cn(inputVariants({ variant, className }))}
+        className={cn(inputVariants({ variant, error }), className)}
         ref={ref}
         value={value}
         onChange={onChange}
@@ -38,6 +42,7 @@ const InputBody = React.forwardRef<HTMLInputElement, InputBodyProps>(
     );
   },
 );
+
 InputBody.displayName = 'Input';
 
-export { InputBody };
+export { InputBody, inputVariants };

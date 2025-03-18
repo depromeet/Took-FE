@@ -2,7 +2,9 @@
 
 import React, { forwardRef, useState } from 'react';
 
-import { InputBody } from './input';
+import { cn } from '@/shared/lib/utils';
+
+import { InputBodyProps, inputVariants } from './input';
 
 type WrappedTagInputPropsType = React.ComponentPropsWithoutRef<'input'> & {
   variant?: 'default' | 'withBtn';
@@ -16,13 +18,12 @@ const WrappedTagInput = forwardRef<HTMLInputElement, WrappedTagInputPropsType>(
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        console.log(tags, 'tags');
         e.preventDefault();
-        // const trimmedValue = inputValue.trim();
-        // if (trimmedValue && !tags.includes(trimmedValue)) {
-        //   setTags((prevTags) => [...prevTags, trimmedValue]);
-        //   setInputValue(''); // 태그 추가 후 인풋 초기화
-        // }
+        const trimmedValue = inputValue.trim();
+        if (trimmedValue && !tags.includes(trimmedValue)) {
+          setTags((prevTags) => [...prevTags, trimmedValue]);
+          setInputValue(''); // 태그 추가 후 인풋 초기화
+        }
       }
     };
 
@@ -31,21 +32,15 @@ const WrappedTagInput = forwardRef<HTMLInputElement, WrappedTagInputPropsType>(
     };
 
     return (
-      <div className="relative flex flex-col items-start justify-center gap-[6px]">
+      <div className="relative flex flex-col items-start justify-center">
         {title && <p className="text-body-5 text-gray-100">{title}</p>}
 
         {/* 태그 목록을 인풋 필드 안에 렌더링 */}
-        <div className="relative flex flex-wrap gap-2 mt-2">
+        <div className="relative flex flex-wrap gap-2">
           {tags.map((tag, index) => (
-            <div
-              key={index}
-              className="flex items-center bg-gray-200 rounded-lg px-2 py-1 absolute left-3 top-1"
-            >
+            <div key={index} className="absolute left-3 top-1 flex items-center rounded-lg bg-gray-200 px-2 py-1">
               <span className="text-body-5 text-gray-700">{tag}</span>
-              <span
-                className="ml-2 cursor-pointer text-red-500"
-                onClick={() => handleRemoveTag(tag)}
-              >
+              <span className="ml-2 cursor-pointer text-red-500" onClick={() => handleRemoveTag(tag)}>
                 x
               </span>
             </div>
@@ -53,12 +48,12 @@ const WrappedTagInput = forwardRef<HTMLInputElement, WrappedTagInputPropsType>(
         </div>
 
         {/* 입력 필드 */}
-        <InputBody
+        <TagInputBody
+          ref={ref}
           variant={variant}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          ref={ref}
           {...props}
         />
       </div>
@@ -66,6 +61,22 @@ const WrappedTagInput = forwardRef<HTMLInputElement, WrappedTagInputPropsType>(
   },
 );
 
+const TagInputBody = React.forwardRef<HTMLInputElement, InputBodyProps>(
+  ({ className, variant, type, value, onChange, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(inputVariants({ variant, className }))}
+        ref={ref}
+        value={value}
+        onChange={onChange}
+        {...props}
+      />
+    );
+  },
+);
+
 WrappedTagInput.displayName = 'WrappedTagInput';
+TagInputBody.displayName = 'TagInputBody';
 
 export default WrappedTagInput;
