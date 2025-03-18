@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { cn } from '../lib/utils';
-
 type appbarPropsType = {
   page: 'main' | 'detail' | 'create';
   onLeftClick?: () => void;
   onRightClick?: () => void;
+  // appbar [detail]에서 배경이 필요해 추가
+  hasBackground?: boolean;
 };
 
 function renderLeftIcon({ page, onLeftClick }: appbarPropsType & React.ButtonHTMLAttributes<HTMLButtonElement>) {
@@ -20,6 +20,11 @@ function renderLeftIcon({ page, onLeftClick }: appbarPropsType & React.ButtonHTM
         </button>
       );
     case 'detail':
+      return (
+        <button onClick={onLeftClick}>
+          <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
     case 'create':
       return (
         <button onClick={onLeftClick}>
@@ -42,7 +47,7 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
     case 'detail':
       return (
         <button onClick={onRightClick}>
-          <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
+          <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
     default:
@@ -61,13 +66,12 @@ function renderRightIcon({ page, onRightClick }: appbarPropsType & React.ButtonH
  *
  * @returns {JSX.Element} - appbar 컴포넌트
  */
-function Appbar({ page, onLeftClick, onRightClick }: appbarPropsType) {
+function Appbar({ page, hasBackground, onLeftClick, onRightClick }: appbarPropsType) {
   return (
     <header
-      className={cn(
-        'z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4',
-        page === 'create' ? 'bg-gray-black' : '',
-      )}
+      className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 py-5 pb-5 pr-4 ${
+        page === 'detail' && hasBackground ? 'bg-gray-black' : page === 'create' ? 'bg-gray-black' : ''
+      }`}
     >
       {renderLeftIcon({ page, onLeftClick })}
       {renderRightIcon({ page, onRightClick })}
