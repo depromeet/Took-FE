@@ -117,6 +117,7 @@ export const cardCreateSchema = z.object({
       }),
     )
     .optional(),
+  previewInfoType: z.enum(['PROJECT', 'CONTENT', 'HOBBY', 'SNS', 'NEWS', 'REGION']).optional(),
 });
 
 export type CareerFormData = z.infer<typeof cardCreateSchema>;
