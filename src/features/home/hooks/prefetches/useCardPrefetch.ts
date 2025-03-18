@@ -3,11 +3,10 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 
 import { server } from '@/shared/apis/server';
 
-import { CARD_QUERY_KEY } from '../queries/useCardQuery';
+import { MY_CARD_QUERY_KEY } from '../queries/useCardQuery';
 
-const _getCardPrefetch = async (params: any, cookie: ReadonlyRequestCookies) => {
+const _getCardPrefetch = async (cookie: ReadonlyRequestCookies) => {
   const data = await server.get<any>('/somewhere/server-side', {
-    params,
     headers: {
       Cookie: cookie?.toString(),
     },
@@ -16,9 +15,9 @@ const _getCardPrefetch = async (params: any, cookie: ReadonlyRequestCookies) => 
   return data;
 };
 
-export const getCardPrefetch = (params: any, queryClient: QueryClient, cookie: ReadonlyRequestCookies) => {
+export const getCardPrefetch = (queryClient: QueryClient, cookie: ReadonlyRequestCookies) => {
   return queryClient.prefetchQuery({
-    queryKey: [CARD_QUERY_KEY, params],
-    queryFn: () => _getCardPrefetch(params, cookie),
+    queryKey: [MY_CARD_QUERY_KEY],
+    queryFn: () => _getCardPrefetch(cookie),
   });
 };

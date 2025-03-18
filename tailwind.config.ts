@@ -129,6 +129,7 @@ const config: Config = {
       spacing: {
         xs: '4px',
         sm: '8px',
+        ms: '12px',
         md: '16px',
         ml: '20px',
         lg: '24px',
@@ -137,6 +138,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/line-clamp')],
+  plugins: [require('tailwindcss-animate')],
 };
 export default config;

@@ -1,24 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { client } from '@/shared/apis/client';
-import { CLIENT_SIDE_URL } from '@/shared/constants';
 
 import { CARD_MOCK } from '../../mocks';
+import { MyCardDto } from '../../types';
 
-export const CARD_QUERY_KEY = 'CARD_QUERY_KEY';
+export const MY_CARD_QUERY_KEY = 'MY_CARD_QUERY_KEY';
 
-const _getCard = async (params: any) => {
-  const data = await client.get<any>(`${CLIENT_SIDE_URL}/api/card/my`, {
-    params,
-  });
+const _getCard = async () => {
+  const data = await client.get<MyCardDto>(`/api/card/my`);
 
   return data;
 };
 
-export const useCardQuery = (params?: any) => {
+export const useCardQuery = () => {
   const { data: _ } = useQuery({
-    queryKey: [CARD_QUERY_KEY, params],
-    queryFn: () => _getCard(params),
+    queryKey: [MY_CARD_QUERY_KEY],
+    queryFn: () => _getCard(),
   });
 
   return { data: CARD_MOCK };
