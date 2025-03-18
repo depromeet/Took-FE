@@ -1,8 +1,8 @@
 export type TabId = 'domains' | 'sns' | 'news' | 'hobby' | 'posts' | 'projects';
-export interface TabItem {
+export type TabItem = {
   id: TabId;
   label: string;
-}
+};
 
 export const CARD_TABS: TabItem[] = [
   { id: 'domains', label: '관심 도메인' },

@@ -4,12 +4,12 @@ import { Typography } from '@/shared/ui/typography';
 
 import { TabId, TabItem } from '../config/tabs-config';
 
-type UnderlineTabsProps = {
+interface UnderlineTabsProps {
   tabs: TabItem[];
   activeTab: string;
   onChange: (tabId: TabId) => void;
   className?: string;
-};
+}
 
 export const UnderlineTabs = ({ tabs, activeTab, onChange, className }: UnderlineTabsProps) => {
   return (
