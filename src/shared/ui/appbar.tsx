@@ -59,7 +59,7 @@ function renderRightIcon({
           <button onClick={onRightClick}>
             <Image src="/icons/searchIcon.svg" alt="검색 아이콘" width={24} height={24} />
           </button>
-          <button onClick={onRightClickSecond}>
+          <button onClick={onRightClickSecond ?? (() => {})}>
             <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
           </button>
         </div>
