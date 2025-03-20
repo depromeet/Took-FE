@@ -9,6 +9,7 @@ export const spacingStyles = cva('', {
       md: 'm-md', // margin: 16px;
       ml: 'm-ml', // margin: 20px;
       lg: 'm-lg', // margin: 24px;
+      lx: 'm-lx', // margin: 28px;
       xl: 'm-xl', // margin: 32px;
       '2xl': 'm-2xl', // margin: 48px;
     },
@@ -19,6 +20,7 @@ export const spacingStyles = cva('', {
       md: 'p-md', // padding: 16px;
       ml: 'p-ml', // padding: 20px;
       lg: 'p-lg', // padding: 24px;
+      lx: 'p-lx', // padding: 28px;
       xl: 'p-xl', // padding: 32px;
       '2xl': 'p-2xl', // padding: 48px;
     },
@@ -29,6 +31,7 @@ export const spacingStyles = cva('', {
       md: 'mx-md', // margin-left: 16px; margin-right: 16px;
       ml: 'mx-ml', // margin-left: 20px; margin-right: 20px;
       lg: 'mx-lg', // margin-left: 24px; margin-right: 24px;
+      lx: 'mx-lx', // margin-left: 28px; margin-right: 28px;
       xl: 'mx-xl', // margin-left: 32px; margin-right: 32px;
       '2xl': 'mx-2xl', // margin-left: 48px; margin-right: 48px;
     },
@@ -39,6 +42,7 @@ export const spacingStyles = cva('', {
       md: 'my-md', // margin-top: 16px; margin-bottom: 16px;
       ml: 'my-ml', // margin-top: 20px; margin-bottom: 20px;
       lg: 'my-lg', // margin-top: 24px; margin-bottom: 24px;
+      lx: 'my-lx', // margin-top: 28px; margin-bottom: 28px;
       xl: 'my-xl', // margin-top: 32px; margin-bottom: 32px;
       '2xl': 'my-2xl', // margin-top: 48px; margin-bottom: 48px;
     },
@@ -49,6 +53,7 @@ export const spacingStyles = cva('', {
       md: 'px-md', // padding-left: 16px; padding-right: 16px;
       ml: 'px-ml', // padding-left: 20px; padding-right: 20px;
       lg: 'px-lg', // padding-left: 24px; padding-right: 24px;
+      lx: 'px-lx', // padding-left: 28px; padding-right: 28px;
       xl: 'px-xl', // padding-left: 32px; padding-right: 32px;
       '2xl': 'px-2xl', // padding-left: 48px; padding-right: 48px;
     },
@@ -59,6 +64,7 @@ export const spacingStyles = cva('', {
       md: 'py-md', // padding-top: 16px; padding-bottom: 16px;
       ml: 'py-ml', // padding-top: 20px; padding-bottom: 20px;
       lg: 'py-lg', // padding-top: 24px; padding-bottom: 24px;
+      lx: 'py-lx', // padding-top: 28px; padding-bottom: 28px;
       xl: 'py-xl', // padding-top: 32px; padding-bottom: 32px;
       '2xl': 'py-2xl', // padding-top: 48px; padding-bottom: 48px;
     },
@@ -69,6 +75,7 @@ export const spacingStyles = cva('', {
       md: 'mt-md', // margin-top: 16px;
       ml: 'mt-ml', // margin-top: 20px;
       lg: 'mt-lg', // margin-top: 24px;
+      lx: 'mt-lx', // margin-top: 28px;
       xl: 'mt-xl', // margin-top: 32px;
       '2xl': 'mt-2xl', // margin-top: 48px;
     },
@@ -79,6 +86,7 @@ export const spacingStyles = cva('', {
       md: 'mb-md', // margin-bottom: 16px;
       ml: 'mb-ml', // margin-bottom: 20px;
       lg: 'mb-lg', // margin-bottom: 24px;
+      lx: 'mb-lx', // margin-bottom: 28px;
       xl: 'mb-xl', // margin-bottom: 32px;
       '2xl': 'mb-2xl', // margin-bottom: 48px;
     },
@@ -89,6 +97,7 @@ export const spacingStyles = cva('', {
       md: 'ml-md', // margin-left: 16px;
       ml: 'ml-ml', // margin-left: 20px;
       lg: 'ml-lg', // margin-left: 24px;
+      lx: 'ml-lx', // margin-left: 28px;
       xl: 'ml-xl', // margin-left: 32px;
       '2xl': 'ml-2xl', // margin-left: 48px;
     },
@@ -99,6 +108,7 @@ export const spacingStyles = cva('', {
       md: 'mr-md', // margin-right: 16px;
       ml: 'mr-ml', // margin-right: 20px;
       lg: 'mr-lg', // margin-right: 24px;
+      lx: 'mr-lx', // margin-right: 28px;
       xl: 'mr-xl', // margin-right: 32px;
       '2xl': 'mr-2xl', // margin-right: 48px;
     },
@@ -109,6 +119,7 @@ export const spacingStyles = cva('', {
       md: 'pt-md', // padding-top: 16px;
       ml: 'pt-ml', // padding-top: 20px;
       lg: 'pt-lg', // padding-top: 24px;
+      lx: 'pt-lx', // padding-top: 28px;
       xl: 'pt-xl', // padding-top: 32px;
       '2xl': 'pt-2xl', // padding-top: 48px;
     },
@@ -119,6 +130,7 @@ export const spacingStyles = cva('', {
       md: 'pb-md', // padding-bottom: 16px;
       ml: 'pb-ml', // padding-bottom: 20px;
       lg: 'pb-lg', // padding-bottom: 24px;
+      lx: 'pb-lx', // padding-bottom: 28px;
       xl: 'pb-xl', // padding-bottom: 32px;
       '2xl': 'pb-2xl', // padding-bottom: 48px;
     },
@@ -129,6 +141,7 @@ export const spacingStyles = cva('', {
       md: 'pl-md', // padding-left: 16px;
       ml: 'pl-ml', // padding-left: 20px;
       lg: 'pl-lg', // padding-left: 24px;
+      lx: 'pl-lx', // padding-left: 28px;
       xl: 'pl-xl', // padding-left: 32px;
       '2xl': 'pl-2xl', // padding-left: 48px;
     },
@@ -139,6 +152,7 @@ export const spacingStyles = cva('', {
       md: 'pr-md', // padding-right: 16px;
       ml: 'pr-ml', // padding-right: 20px;
       lg: 'pr-lg', // padding-right: 24px;
+      lx: 'pr-lx', // padding-right: 28px;
       xl: 'pr-xl', // padding-right: 32px;
       '2xl': 'pr-2xl', // padding-right: 48px;
     },
