@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: 'ko' # 한국어 리뷰
+early_access: false # 베타 기능 비활성화
+reviews:
+  profile: 'chill' # 적절한 코드 리뷰 스타일
+  request_changes_workflow: false # 변경 요청 활성화
+  high_level_summary: true # 코드 리뷰 요약 포함
+  poem: false # 유머/시적 리뷰 비활성화
+  review_status: true # PR 상태에서 리뷰 진행 여부 표시
+  collapse_walkthrough: true # 코드 개요는 기본적으로 접힘
+  auto_review:
+    enabled: true # 자동 리뷰 활성화
+    base_branches: ['.*'] # 모든 브랜치에 대해 자동 리뷰
+chat:
+  auto_reply: true # 질문에 자동 응답 활성화

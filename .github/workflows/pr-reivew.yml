@@ -1,0 +1,21 @@
+# 이 GitHub Actions 워크플로우는 PR 리뷰 요청 시 슬랙으로 알림을 보내는 작업을 수행합니다.
+
+# @see: https://github.com/naver/notify-pr-review/tree/v1.2.1/
+# 네이버 PR 리뷰 알림 레포지토리의 v1.2.1 버전을 사용합니다.
+# 추후 개인 알람이 아닌 채널에 알람을 보낼 수 있도록 업데이트 변경이 있을수 도 있습니다.
+
+name: notify pr review
+
+on:
+  pull_request:
+    types: [review_requested] # PR 리뷰 요청 이벤트가 발생할 때 트리거됩니다.
+
+jobs:
+  notify:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Notify PR Review
+        uses: naver/notify-pr-review@v1.2.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          slackBotToken: ${{ secrets.SLACK_BOT_TOKEN }}
