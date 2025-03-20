@@ -13,7 +13,6 @@ type LeftIconType = 'design' | 'dev';
 type WrappedListProps = {
   /** 아이템 왼쪽 아이콘 */
   leftIcon?: LeftIconType;
-  rightIcon?: React.ReactNode;
   withArrow?: React.ReactNode;
   /** 아이템 text */
   text: string;
@@ -89,12 +88,10 @@ const UnionIcon = () => {
 };
 
 type ArrowProps = {
-  width?: number;
-  height?: number;
   onClick?: () => void;
 };
 
-const ArrowBtn = ({ onClick }: ArrowProps) => {
+export const ArrowBtn = ({ onClick }: ArrowProps) => {
   return (
     <button className={cn('flex h-6 w-6 cursor-pointer items-center justify-center')} onClick={onClick}>
       <Image src="/icons/rightArrow.svg" alt="Arrow" width={8} height={8} />
