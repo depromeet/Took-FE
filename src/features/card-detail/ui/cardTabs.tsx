@@ -1,16 +1,21 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { Toaster } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
+import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
+import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
+import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
+import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
 
@@ -26,6 +31,16 @@ function CardTabs() {
   const [activeTab, setActiveTab] = useState<TabId>('domains');
   const { cardId } = useParams();
   const { data } = useCardDetailQuery(Number(cardId));
+  const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
+  const [memo, setMemo] = useState(false);
+
+  const handleMemo = () => {
+    setMemo(true);
+  };
+
+  const handleCancelMemo = () => {
+    setMemo(false);
+  };
 
   // 교차점 감지 훅 사용 - 감지 포인트는 컴포넌트의 최상단
   const { ref: intersectionRef, isIntersecting } = useScrollPosition({
@@ -113,7 +128,7 @@ function CardTabs() {
               showAppbar ? 'max-h-16 opacity-100' : 'max-h-0 overflow-hidden opacity-0',
             )}
           >
-            <Appbar page="detail" hasBackground={true} />
+            <Appbar page="detail" hasBackground={true} onRightClick={headerRightHandler} />
           </div>
 
           <UnderlineTabs
@@ -125,7 +140,7 @@ function CardTabs() {
         </div>
 
         <div className="bg-black">
-          {data.data.interestDomain && (
+          {data?.data.interestDomain && (
             <div
               ref={combineRefs('domains')}
               id="domains"
@@ -136,7 +151,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data.data.sns && (
+          {data?.data.sns && (
             <div
               ref={combineRefs('sns')}
               id="sns"
@@ -147,7 +162,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data.data.news && (
+          {data?.data.news && (
             <div
               ref={combineRefs('news')}
               id="news"
@@ -158,7 +173,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data.data.hobby && (
+          {data?.data.hobby && (
             <div
               ref={combineRefs('hobby')}
               id="hobby"
@@ -169,7 +184,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data.data.content && (
+          {data?.data.content && (
             <div
               ref={combineRefs('posts')}
               id="posts"
@@ -180,7 +195,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data.data.project && (
+          {data?.data.project && (
             <div
               ref={combineRefs('projects')}
               id="projects"
@@ -192,6 +207,17 @@ function CardTabs() {
           )}
         </div>
       </div>
+      {!memo ? (
+        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
+          <BottomMenuItem onClick={handleMemo}>한 줄 메모</BottomMenuItem>
+          <BottomMenuItem>삭제하기</BottomMenuItem>
+        </BottomModal>
+      ) : (
+        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMemo}>
+          <MemoInput onClose={handleCancelMemo} />
+        </BottomModal>
+      )}
+      <Toaster position="bottom-center" />
     </>
   );
 }

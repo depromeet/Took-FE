@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { spacingStyles } from '@/shared/spacing';
 
 interface HobbyProps {
