@@ -3,14 +3,14 @@
 import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Toaster } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
-import { MemoInput } from '@/shared/ui/bottomModal/modeInput';
+import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
+import { ModeInput } from '@/shared/ui/bottomModal/modeInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
@@ -32,14 +32,14 @@ function CardTabs() {
   const { cardId } = useParams();
   const { data } = useCardDetailQuery(Number(cardId));
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  const [memo, setMemo] = useState(false);
+  const [mode, setMode] = useState(false);
 
-  const handleMemo = () => {
-    setMemo(true);
+  const handleMode = () => {
+    setMode(true);
   };
 
-  const handleCancelMemo = () => {
-    setMemo(false);
+  const handleCancelMode = () => {
+    setMode(false);
   };
 
   // 교차점 감지 훅 사용 - 감지 포인트는 컴포넌트의 최상단
@@ -207,17 +207,17 @@ function CardTabs() {
           )}
         </div>
       </div>
-      {!memo ? (
+      {!mode ? (
         <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
-          <BottomMenuItem onClick={handleMemo}>한 줄 메모</BottomMenuItem>
+          <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
           <BottomMenuItem>삭제하기</BottomMenuItem>
         </BottomModal>
       ) : (
-        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMemo}>
-          <MemoInput onClose={handleCancelMemo} />
+        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode}>
+          <BottomModalTitle>한줄 메모</BottomModalTitle>
+          <ModeInput onClose={closeModal} handleCancelMode={handleCancelMode} />
         </BottomModal>
       )}
-      <Toaster position="bottom-center" />
     </>
   );
 }
