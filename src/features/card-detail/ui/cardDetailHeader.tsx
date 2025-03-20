@@ -10,7 +10,7 @@ import Appbar from '@/shared/ui/appbar';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
+import { ModeInput } from '@/shared/ui/bottomModal/modeInput';
 import Tag from '@/shared/ui/tag/tag';
 
 import JOB_CONFIG, { JobType } from '../config/jobs-config';
@@ -123,7 +123,7 @@ const CardDetailHeader = () => {
       ) : (
         <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode}>
           <BottomModalTitle>한줄 메모</BottomModalTitle>
-          <MemoInput onClose={closeModal} handleCancelMode={handleCancelMode} />
+          <ModeInput onClose={closeModal} handleCancelMode={handleCancelMode} />
         </BottomModal>
       )}
       <Toaster position="bottom-center" />

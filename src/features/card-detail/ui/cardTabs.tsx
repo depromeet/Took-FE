@@ -10,7 +10,7 @@ import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
-import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
+import { MemoInput } from '@/shared/ui/bottomModal/modeInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
