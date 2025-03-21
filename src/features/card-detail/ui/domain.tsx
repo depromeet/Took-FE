@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { spacingStyles } from '@/shared/spacing';
 import Tag from '@/shared/ui/tag/tag';
 
