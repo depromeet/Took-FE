@@ -128,7 +128,7 @@ function CardTabs() {
               showAppbar ? 'max-h-16 opacity-100' : 'max-h-0 overflow-hidden opacity-0',
             )}
           >
-            <Appbar page="detail" hasBackground={true} onRightClick={headerRightHandler} />
+            <Appbar page="detail" hasBackground={true} onRightClick={showAppbar ? headerRightHandler : undefined} />
           </div>
 
           <UnderlineTabs
