@@ -31,7 +31,9 @@ const CardDetailHeader = () => {
     setMode(false);
   };
 
-  const isMyCard = true;
+  // isMyCard : 받은 명함 임시적으로 명시
+  const isMyCard = false;
+
   const userJob = (data?.data?.job as JobType) || 'DEVELOPER';
 
   // config에서 해당 직군의 설정 가져오기
@@ -90,7 +92,7 @@ const CardDetailHeader = () => {
               <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
             </div>
             {/* 이후 폴더를 map으로 수정 예정 */}
-            {isMyCard && (
+            {!isMyCard && (
               <div className={`${spacingStyles({ marginTop: 'lg' })} flex items-center`}>
                 {data?.data.group.map((e, i) => {
                   return (
@@ -105,9 +107,9 @@ const CardDetailHeader = () => {
             )}
 
             {/* 한 줄 메모 */}
-            {isMyCard && (
+            {!isMyCard && (
               <div
-                className={`${spacingStyles({ paddingX: 'md', paddingY: 'ms', marginTop: 'md' })} rounded-md bg-opacity-white-20`}
+                className={`${spacingStyles({ paddingX: 'md', paddingY: 'ms', marginTop: 'md' })} w-full rounded-md bg-opacity-white-20`}
               >
                 <span className="line-clamp-2 text-body-5">{data?.data.introduce}</span>
               </div>

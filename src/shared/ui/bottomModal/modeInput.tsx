@@ -9,6 +9,7 @@ interface MemoInputProps {
   handleCancelMode: () => void;
 }
 
+// 한줄 메모 최대 글자 수
 const MAX_LENGTH = 40;
 
 export const ModeInput = ({ onClose, handleCancelMode }: MemoInputProps) => {
