@@ -92,7 +92,7 @@ const CardDetailHeader = () => {
               <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
             </div>
             {/* 이후 폴더를 map으로 수정 예정 */}
-            {!isMyCard && (
+            {!isMyCard && data?.data.group && (
               <div className={`${spacingStyles({ marginTop: 'lg' })} flex items-center`}>
                 {data?.data.group.map((e, i) => {
                   return (
@@ -107,7 +107,7 @@ const CardDetailHeader = () => {
             )}
 
             {/* 한 줄 메모 */}
-            {!isMyCard && (
+            {!isMyCard && data?.data.introduce && (
               <div
                 className={`${spacingStyles({ paddingX: 'md', paddingY: 'ms', marginTop: 'md' })} w-full rounded-md bg-opacity-white-20`}
               >

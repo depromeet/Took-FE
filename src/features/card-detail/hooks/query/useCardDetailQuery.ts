@@ -5,13 +5,12 @@ import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
-import { mockReceivedCardDetailData } from '../../mocks/receivedCardDetail';
-//import { CardDetailDto } from '../../types/cardDetail';
-import { ReceivedCardDetailDto } from '../../types/receivedCardDetail';
+import { mockCardDetailData } from '../../mocks/myCardDetail';
+import { CardDetailDto } from '../../types/cardDetail';
 
 // API 호출 함수
-const getCardDetail = async (cardId: number): Promise<ReceivedCardDetailDto> => {
-  const data = await client.get<ReceivedCardDetailDto>(`${CLIENT_SIDE_URL}/api/card/detail?cardId=${cardId}`);
+const getCardDetail = async (cardId: number): Promise<CardDetailDto> => {
+  const data = await client.get<CardDetailDto>(`${CLIENT_SIDE_URL}/api/card/detail?cardId=${cardId}`);
   return data;
 };
 
@@ -28,7 +27,7 @@ export const useCardDetailQuery = (cardId: number) => {
     queryFn: () => getCardDetail(cardId),
   });
 
-  return { data: mockReceivedCardDetailData };
+  return { data: mockCardDetailData };
 };
 
 // 내 명함 목록 조회
