@@ -1,11 +1,21 @@
+'use client';
+
 import { Label } from '@radix-ui/react-label';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { List, ListItem, ListItemText } from '@/shared/ui/list';
 import { ArrowBtn } from '@/shared/ui/list/wrappedList';
 
+import LogoutDialog from './dialog/logout';
+
 const SettingView = () => {
+  const router = useRouter();
+  const handleLogout = () => {
+    router.push('/login');
+  };
+
   return (
     <List variant="settingItem">
       <Label className="text-body-3 text-gray-400">기타</Label>
@@ -14,7 +24,7 @@ const SettingView = () => {
       <SettingItem text="개인정보처리약관" />
 
       <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
-      <SettingItem text="로그아웃" />
+      <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
       <SettingItem text="회원 탈퇴" />
     </List>
   );
