@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
@@ -33,6 +34,7 @@ function CardTabs() {
   const { data } = useCardDetailQuery(Number(cardId));
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
+  const handleBack = useHistoryBack();
 
   const handleMode = () => {
     setMode(true);
@@ -128,7 +130,12 @@ function CardTabs() {
               showAppbar ? 'max-h-16 opacity-100' : 'max-h-0 overflow-hidden opacity-0',
             )}
           >
-            <Appbar page="detail" hasBackground={true} onRightClick={showAppbar ? headerRightHandler : undefined} />
+            <Appbar
+              page="detail"
+              hasBackground={true}
+              onRightClick={showAppbar ? headerRightHandler : undefined}
+              onLeftClick={handleBack}
+            />
           </div>
 
           <UnderlineTabs

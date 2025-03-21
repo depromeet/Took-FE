@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Toaster } from 'sonner';
 
+import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { spacingStyles } from '@/shared/spacing/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
@@ -22,6 +23,7 @@ const CardDetailHeader = () => {
   const { data } = useCardDetailQuery(Number(cardId));
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
+  const handleBack = useHistoryBack();
 
   const handleMode = () => {
     setMode(true);
@@ -48,7 +50,7 @@ const CardDetailHeader = () => {
         }}
       >
         {/* 카드 상세 헤더 */}
-        <Appbar page="detail" onRightClick={headerRightHandler} />
+        <Appbar page="detail" onRightClick={headerRightHandler} onLeftClick={handleBack} />
         {/* 카드 상세 userData */}
         <div className={`flex w-full items-start ${spacingStyles({ marginTop: 'ms' })}`}>
           <div
