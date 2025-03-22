@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import { tagConfig, ThumbnailTag } from '../config';
 
 import Img from './img';
@@ -6,6 +8,7 @@ type thumbnailPropsType = {
   tag: ThumbnailTag;
   title?: string; // '대표 프로젝트', '작성한 글', 'SNS'
   description?: string; // SNS를 제외한 전 tag
+  className?: string;
 };
 
 /** 공통 컴포넌트 : Thumbnail
@@ -20,11 +23,16 @@ type thumbnailPropsType = {
  * @returns {JSX.Element} - Thumbnail 컴포넌트
  */
 
-function Thumbnail({ tag, title, description }: thumbnailPropsType) {
+function Thumbnail({ tag, title, description, className }: thumbnailPropsType) {
   const config = tagConfig[tag];
 
   return (
-    <div className="flex h-[84px] w-[222px] items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3">
+    <div
+      className={clsx(
+        'flex h-[84px] w-[222px] items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3',
+        className,
+      )}
+    >
       {config.hasImg && <Img size="medium" />}
       <div className="flex flex-col">
         <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">

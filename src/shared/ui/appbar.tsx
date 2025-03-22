@@ -84,7 +84,7 @@ function renderRightIcon({
 function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond }: appbarPropsType) {
   return (
     <header
-      className={`z-100 sticky top-0 flex h-16 w-full max-w-[600px] items-center justify-between px-4 ${
+      className={`z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4 ${
         page === 'detail' && hasBackground ? 'bg-gray-black' : page === 'create' ? 'bg-gray-black' : ''
       }`}
     >
