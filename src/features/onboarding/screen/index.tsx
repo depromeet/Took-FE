@@ -17,7 +17,7 @@ import { BackgroundContainer } from '../containers/BackgroundContainer';
 
 export default function OnboardingScreen() {
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
 
   const handleNext = () => {
