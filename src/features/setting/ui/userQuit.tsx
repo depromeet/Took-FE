@@ -25,6 +25,7 @@ const UserQuitView = () => {
   const handleBack = useHistoryBack();
   const [customText, setCustomText] = useState(''); // 직접입력 텍스트
   const [isCustomReasonChecked, setIsCustomReasonChecked] = useState(false); // 직접입력 체크박스 상태
+  const [isDirty, setIsDirty] = useState(false); // 텍스트 영역 더티 상태 추적
 
   const { control, handleSubmit, watch, setValue } = useForm<UserQuitSchema>({
     defaultValues: {
@@ -60,14 +61,22 @@ const UserQuitView = () => {
   const handleCustomReasonCheck = (checked: boolean) => {
     setIsCustomReasonChecked(checked);
 
-    // 체크 해제 시 관련 텍스트 제거
+    // 체크 해제 시 관련 텍스트 제거 및 상태 초기화
     if (!checked) {
       setCustomText('');
+      setIsDirty(false);
 
       // reasons 배열에서 QUIT_REASONS에 포함되지 않은 모든 항목 제거 (직접입력 텍스트)
       const filteredReasons = reasons.filter((reason) => QUIT_REASONS.includes(reason));
       setValue('reasons', filteredReasons);
     }
+  };
+
+  // 텍스트 변경 핸들러
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // 처음 입력 시 dirty 상태로 설정
+    if (!isDirty) setIsDirty(true);
+    setCustomText(e.target.value);
   };
 
   // customText 또는 isCustomReasonChecked가 변경될 때 reasons 업데이트
@@ -97,6 +106,11 @@ const UserQuitView = () => {
     // 제출 시 로그인 페이지로 이동
     router.replace('/login');
   };
+
+  // 직접입력 에러 상태 계산
+  const isCustomTextError = isDirty && (customText.length > TEXT_AREA_MAX_LENGTH || customText.length === 0);
+  // 직접입력 에러 메시지 계산
+  const customTextErrorMsg = isDirty && customText.length === 0 ? '최소 1자 이상 입력해주세요' : undefined;
 
   return (
     <>
@@ -130,10 +144,10 @@ const UserQuitView = () => {
                 <Textarea
                   placeholder="탈퇴하는 이유를 자세히 입력해주세요"
                   value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
+                  onChange={handleTextChange}
                   size="lg"
-                  error={customText.length > TEXT_AREA_MAX_LENGTH || customText.length === 0}
-                  errorMsg={customText.length === 0 ? '최소 1자 이상 입력해주세요' : undefined}
+                  error={isCustomTextError}
+                  errorMsg={customTextErrorMsg}
                   totalNumber={TEXT_AREA_MAX_LENGTH}
                 />
               </div>
@@ -143,7 +157,7 @@ const UserQuitView = () => {
           {/* 고정된 하단 버튼 */}
           <FixedButton
             onClick={handleSubmit(onSubmit)}
-            disabled={reasons.length === 0} // 선택된 이유가 없으면 버튼 비활성화
+            disabled={reasons.length === 0 || (isCustomReasonChecked && customText.length === 0)} // 선택된 이유가 없거나 직접입력이 선택됐는데 내용이 없으면 버튼 비활성화
             title="탈퇴하기"
           />
         </main>
