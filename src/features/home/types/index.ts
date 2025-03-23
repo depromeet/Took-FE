@@ -1,4 +1,5 @@
 export type JopType = 'designer' | 'developer';
+export type PreviewInfoType = 'PROJECT' | 'CONTENT' | 'HOBBY' | 'SNS' | 'NEWS' | 'REGION';
 
 export type MyCardDto = {
   status: string;
@@ -17,7 +18,7 @@ export type Card = {
   detailJob: string;
   summary: string;
   interestDomain: string[];
-  previewInfoType: JopType;
+  previewInfoType: PreviewInfoType;
   previewInfo: PreviewInfo;
   imagePath: string;
 };

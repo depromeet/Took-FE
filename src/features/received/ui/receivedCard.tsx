@@ -9,17 +9,11 @@ import WrappedAvatar from '@/shared/ui/Avatar';
 import Tag from '@/shared/ui/tag/tag';
 import Thumbnail from '@/shared/ui/thumbnail';
 
-import { RECEIVED_CARD_MOCK } from '../config';
-
 type ReceivedCardProps = {
-  index: number;
-};
-
-type ThumbnailProps = {
   cardData: Card;
 };
 
-function RenderingThumbnail({ cardData }: ThumbnailProps) {
+function RenderingThumbnail({ cardData }: ReceivedCardProps) {
   const previewInfoType = cardData.previewInfoType;
   const previewInfo = cardData.previewInfo;
 
@@ -63,9 +57,7 @@ function RenderingThumbnail({ cardData }: ThumbnailProps) {
   }
 }
 
-export default function ReceivedCard({ index }: ReceivedCardProps) {
-  const cardData = RECEIVED_CARD_MOCK.data.cards[index];
-
+export default function ReceivedCard({ cardData }: ReceivedCardProps) {
   function ParseSummary(summary: string) {
     const MAX_LENGTH = 22;
     if (summary.length >= MAX_LENGTH) return summary.substring(0, MAX_LENGTH) + '...';
@@ -80,7 +72,7 @@ export default function ReceivedCard({ index }: ReceivedCardProps) {
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar src={cardData.imagePath} alt="f" size="medium" />
+          <WrappedAvatar src={cardData?.imagePath} alt="f" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex w-36 items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>

@@ -5,13 +5,13 @@ import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Tag from '@/shared/ui/tag/tag';
 
-import { RECEIVED_CARD_MOCK } from '../config';
+import { useReceivedCardQuery } from '../model/queries/useReceivedCardQuery';
 
 import ReceivedCard from './receivedCard';
 
 export default function ReceivedCardView() {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
-  const info = RECEIVED_CARD_MOCK.data.cards;
+  const { data } = useReceivedCardQuery();
 
   return (
     <main className="overflow-y-auto pb-24">
@@ -42,8 +42,8 @@ export default function ReceivedCardView() {
         <Image className="cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
       <div className="flex flex-col gap-4">
-        {info.map((_, index) => (
-          <ReceivedCard key={index} index={index} />
+        {data.map((value, index) => (
+          <ReceivedCard key={index} cardData={value} />
         ))}
       </div>
     </main>
