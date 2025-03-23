@@ -13,7 +13,7 @@ import { slides } from '@/features/onboarding/config/slides';
 import { Button } from '@/shared/ui/button';
 import { Typography } from '@/shared/ui/typography';
 
-import OnboardingSlide from './OnboardingSlide';
+import { getOnboardings } from './components/getOnboardings';
 
 interface OnboardingCarouselProps {
   onComplete: () => void;
@@ -38,7 +38,6 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
   return (
     <div className="flex h-full w-full flex-col items-center">
       <div className="relative w-full flex-1">
-        {/*module Pagination사용으로 수정 */}
         <Swiper
           modules={[Pagination, Navigation, Autoplay]}
           onSwiper={(swiper) => {
@@ -52,15 +51,10 @@ function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
             bulletActiveClass: '!opacity-100',
           }}
           navigation={false}
-          slidesPerView={1}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          loop={true}
-          className="h-full w-full"
+          className="max-content w-full"
         >
-          {slides.map((slide) => (
-            <SwiperSlide key={slide.id}>
-              <OnboardingSlide description={slide.description} imageUrl={slide.imageUrl} />
-            </SwiperSlide>
+          {getOnboardings().map(({ id, render }) => (
+            <SwiperSlide key={id}>{render()}</SwiperSlide>
           ))}
         </Swiper>
 
