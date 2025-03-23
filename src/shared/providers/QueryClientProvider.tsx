@@ -6,6 +6,7 @@ const generateQueryClient = () => {
     defaultOptions: {
       queries: {
         retry: 1,
+        throwOnError: true,
       },
     },
   });
@@ -13,7 +14,7 @@ const generateQueryClient = () => {
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-const getQueryClient = () => {
+export const getQueryClient = () => {
   if (isServer) {
     return generateQueryClient();
   }
