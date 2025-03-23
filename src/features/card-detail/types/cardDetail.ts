@@ -36,6 +36,8 @@ export type CardDetailResponse = {
   organization: string;
   summary: string;
   region: string;
+  group?: string[];
+  introduce?: string;
   interestDomain?: string[] | undefined;
   sns?: SnsDto[] | undefined;
   news?: string | undefined;

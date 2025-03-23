@@ -6,28 +6,43 @@ import React from 'react';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
-const listItemVariants = cva(
-  `flex bg-gray-800 active:bg-gray-700 items-center rounded-md ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })} w-full cursor-pointer`,
-  {
-    variants: {},
-    defaultVariants: {},
+const listItemVariants = cva(`flex items-center rounded-md  w-full cursor-pointer`, {
+  variants: {
+    variant: {
+      createCardItem: `bg-gray-800 active:bg-gray-700 ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })}`,
+      settingItem: `active:bg-gray-700 ${spacingStyles({ paddingY: 'ms' })}`,
+      alramItem: `${spacingStyles({ paddingY: 'ms' })}`,
+    },
   },
-);
+  defaultVariants: {
+    variant: 'createCardItem',
+  },
+});
 
-const listItemTextVariants = cva(`overflow-hidden text-ellipsis whitespace-nowrap text-gray-white text-body-5 w-full`, {
-  variants: {},
-  defaultVariants: {},
+const listItemTextVariants = cva(`overflow-hidden text-ellipsis whitespace-nowrap w-full`, {
+  variants: {
+    variant: {
+      createCardItem: 'text-body-5 text-gray-white',
+      settingItem: 'text-body-3 text-gray-50',
+      alramItem: 'text-body-3 text-gray-50',
+    },
+  },
+  defaultVariants: {
+    variant: 'createCardItem',
+  },
 });
 
 export interface ListItemProps extends React.HTMLAttributes<HTMLLIElement>, VariantProps<typeof listItemVariants> {}
 
-export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({ className, children, ...props }, ref) => {
-  return (
-    <li ref={ref} className={cn(listItemVariants(), className)} {...props}>
-      {children}
-    </li>
-  );
-});
+export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
+  ({ className, variant, children, ...props }, ref) => {
+    return (
+      <li ref={ref} className={cn(listItemVariants({ variant }), className)} {...props}>
+        {children}
+      </li>
+    );
+  },
+);
 
 ListItem.displayName = 'ListItem';
 
@@ -36,9 +51,9 @@ export interface ListItemTextProps
     VariantProps<typeof listItemTextVariants> {}
 
 export const ListItemText = React.forwardRef<HTMLSpanElement, ListItemTextProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, variant, children, ...props }, ref) => {
     return (
-      <span className={cn(listItemTextVariants(), className)} ref={ref} {...props}>
+      <span className={cn(listItemTextVariants({ variant }), className)} ref={ref} {...props}>
         {children}
       </span>
     );
@@ -47,16 +62,24 @@ export const ListItemText = React.forwardRef<HTMLSpanElement, ListItemTextProps>
 
 ListItemText.displayName = 'ListItemText';
 
-const listVariants = cva(`flex flex-col gap-4`, {
-  variants: {},
-  defaultVariants: {},
+const listVariants = cva(`flex flex-col`, {
+  variants: {
+    variant: {
+      createCardItem: 'gap-4',
+      settingItem: '',
+      alramItem: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'createCardItem',
+  },
 });
 
 export interface ListProps extends React.HTMLAttributes<HTMLUListElement>, VariantProps<typeof listVariants> {}
 
-export const List = React.forwardRef<HTMLUListElement, ListProps>(({ className, children, ...props }, ref) => {
+export const List = React.forwardRef<HTMLUListElement, ListProps>(({ className, variant, children, ...props }, ref) => {
   return (
-    <ul className={cn(listVariants(), className)} ref={ref} {...props}>
+    <ul className={cn(listVariants({ variant }), className)} ref={ref} {...props}>
       {children}
     </ul>
   );

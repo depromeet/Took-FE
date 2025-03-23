@@ -64,6 +64,7 @@
     /* radius */
     --radius-sm: 8px;
     --radius-md: 12px;
+    --radius-ml: 20px;
     --radius-lg: 80px;
 
     .home-swiper .swiper-pagination-bullet {
