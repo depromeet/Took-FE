@@ -83,8 +83,7 @@ export const getAuthUrl = {
   APPLE: () => {
     const { restApiKey } = providerEnvConfig.APPLE;
     const redirectUrl = getRedirectUrl('APPLE');
-    const scope = providerEnvConfig.APPLE.scope;
 
-    return `${AUTH_BASE_URLS.APPLE}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}`;
+    return `${AUTH_BASE_URLS.APPLE}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code&scope=name+email&response_mode=form_post`;
   },
 };
