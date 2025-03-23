@@ -1,5 +1,6 @@
 import { FirstOnboardingContainer } from '../containers/FirstOnboardingContainer';
 import { SecondOnboardingContainer } from '../containers/SecondOnboardingContainer';
+import { ThirdOnboardingContainer } from '../containers/ThirdOnboardingContainer';
 
 export const slides = [
   {
@@ -15,6 +16,6 @@ export const slides = [
   {
     id: 3,
     descriptions: ['손쉽게 툭 공유하는', '나만의 명함'],
-    component: FirstOnboardingContainer,
+    component: ThirdOnboardingContainer,
   },
 ];

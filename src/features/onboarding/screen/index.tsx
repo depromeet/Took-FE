@@ -15,7 +15,7 @@ import { slides } from '../config/slides';
 import { BackgroundContainer } from '../containers/BackgroundContainer';
 
 export default function OnboardingScreen() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(2);
   const [showOnboarding, setShowOnboarding] = useState(true);
   const swiperRef = useRef<SwiperType | null>(null);
 

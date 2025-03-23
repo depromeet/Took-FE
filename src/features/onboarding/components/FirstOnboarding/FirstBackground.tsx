@@ -25,16 +25,17 @@ export const FirstBackground = (props: HTMLAttributes<HTMLDivElement>) => {
           fillOpacity="0.4"
         />
       </svg>
-      <div>
-        <svg width="407" height="368" viewBox="0 0 407 368" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="406.64" height="367.105" fill="url(#paint0_linear_6472_1470)" fillOpacity="0.25" />
+
+      <div className="w-full">
+        <svg width="600" height="367" viewBox="0 0 600 367" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="600" height="367" fill="url(#paint0_linear_6472_1470)" fillOpacity="0.25" />
           <defs>
             <linearGradient
               id="paint0_linear_6472_1470"
-              x1="203.32"
-              y1="47.4399"
-              x2="203.32"
-              y2="367.105"
+              x1="300"
+              y1="47.4263"
+              x2="300"
+              y2="367"
               gradientUnits="userSpaceOnUse"
             >
               <stop stopColor="#2370FF" stopOpacity="0" />
