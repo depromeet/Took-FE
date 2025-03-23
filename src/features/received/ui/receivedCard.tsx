@@ -1,13 +1,76 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 
+import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import Tag from '@/shared/ui/tag/tag';
 import Thumbnail from '@/shared/ui/thumbnail';
 
-export default function ReceivedCard() {
+import { RECEIVED_CARD_MOCK } from '../config';
+
+type ReceivedCardProps = {
+  index: number;
+};
+
+type ThumbnailProps = {
+  cardData: Card;
+};
+
+function RenderingThumbnail({ cardData }: ThumbnailProps) {
+  const previewInfoType = cardData.previewInfoType;
+  const previewInfo = cardData.previewInfo;
+
+  switch (previewInfoType) {
+    case 'PROJECT':
+      return (
+        <Thumbnail
+          tag="대표 프로젝트"
+          title={previewInfo.project?.title}
+          description={previewInfo.project?.link}
+          className="!w-auto !bg-gray-700"
+        />
+      );
+    case 'CONTENT':
+      return (
+        <Thumbnail
+          tag="작성한 글"
+          title={previewInfo.content?.title}
+          description={previewInfo.content?.link}
+          imageUrl={previewInfo.content?.imageUrl}
+          className="!w-auto !bg-gray-700"
+        />
+      );
+    case 'HOBBY':
+      return <Thumbnail tag="취미" description={previewInfo.hobby} className="!w-auto !bg-gray-700" />;
+    case 'SNS':
+      return (
+        <Thumbnail
+          tag="SNS"
+          title={previewInfo.sns?.link}
+          imageUrl={previewInfo.content?.imageUrl} // sns icon 조건부 렌더링 추후 구현
+          className="!w-auto !bg-gray-700"
+        />
+      );
+    case 'NEWS':
+      return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!w-auto !bg-gray-700" />;
+    case 'REGION':
+      return <Thumbnail tag="활동 지역" description={previewInfo.region} className="!w-auto !bg-gray-700" />;
+    default:
+      return null;
+  }
+}
+
+export default function ReceivedCard({ index }: ReceivedCardProps) {
+  const cardData = RECEIVED_CARD_MOCK.data.cards[index];
+
+  function ParseSummary(summary: string) {
+    const MAX_LENGTH = 22;
+    if (summary.length >= MAX_LENGTH) return summary.substring(0, MAX_LENGTH) + '...';
+    else return summary;
+  }
   return (
     <div
       className={cn(
@@ -17,31 +80,31 @@ export default function ReceivedCard() {
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar size="medium" />
+          <WrappedAvatar src={cardData.imagePath} alt="f" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex w-36 items-center justify-start gap-2 text-white">
-              <p className="text-title-2">김디퍼</p>
-              <p className="text-caption-1">디프만</p>
+              <p className="text-title-2">{cardData.nickname}</p>
+              <p className="text-caption-1">{cardData.organization}</p>
             </div>
-            <p className="text-body-3 text-white">Frontend Developer</p>
+            <p className="text-body-3 text-white">{cardData.detailJob}</p>
           </div>
         </div>
         <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
       </div>
-      <p className={cn('text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>
-        안녕하세요 저는 무엇을 원하는 개발자입니다
+      <p
+        className={cn(
+          'w-auto text-ellipsis text-body-5 text-white',
+          spacingStyles({ marginTop: 'md', marginBottom: 'lg' }),
+        )}
+      >
+        {ParseSummary(cardData.summary)}
       </p>
       <div className={cn('flex gap-1', spacingStyles({ marginBottom: 'md' }))}>
-        <Tag size="sm" message="SaaS" className="bg-opacity-white-10 text-white" />
-        <Tag size="sm" message="스타트업" className="bg-opacity-white-10 text-white" />
-        <Tag size="sm" message="스타트업" className="bg-opacity-white-10 text-white" />
+        {cardData.interestDomain.map((tag, index) => {
+          return <Tag key={index} size="sm" message={tag} className="bg-opacity-white-10 text-white" />;
+        })}
       </div>
-      <Thumbnail
-        tag="대표 프로젝트"
-        title="프로젝트 제목"
-        description="김디퍼님의 프로젝트 링크"
-        className="!w-auto !bg-gray-700"
-      />
+      <RenderingThumbnail cardData={cardData} />
     </div>
   );
 }
