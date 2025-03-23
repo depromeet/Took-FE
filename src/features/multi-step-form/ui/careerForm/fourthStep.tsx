@@ -6,13 +6,13 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { CardTags, WrappedCard } from '@/features/home/components/BusinessCard/Card';
 import { ThumbnailTag } from '@/shared/config';
 import { cn } from '@/shared/lib/utils';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import Header from '@/shared/ui/header';
 import Thumbnail from '@/shared/ui/thumbnail';
 
 import { CareerFormData } from '../../schema';
 
 import { SelectedTagType, tagConfig } from './tagFormStep/config/config';
-import { useCardFormStore } from '@/shared/store/cardFormState';
 
 const LAST_NUMBER = 7;
 
