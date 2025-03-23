@@ -5,6 +5,6 @@ function Page() {
     <>
       <CardCreateView />
     </>
-  )
+  );
 }
 export default Page;

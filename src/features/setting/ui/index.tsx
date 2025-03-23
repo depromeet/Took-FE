@@ -12,8 +12,13 @@ import LogoutDialog from './dialog/logout';
 
 const SettingView = () => {
   const router = useRouter();
+
   const handleLogout = () => {
     router.push('/login');
+  };
+
+  const handleUserQuit = () => {
+    router.push('/setting/user-quit');
   };
 
   return (
@@ -25,7 +30,7 @@ const SettingView = () => {
 
       <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
       <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
-      <SettingItem text="회원 탈퇴" />
+      <SettingItem text="회원 탈퇴" onClick={handleUserQuit} />
     </List>
   );
 };
