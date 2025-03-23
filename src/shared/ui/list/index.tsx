@@ -11,6 +11,7 @@ const listItemVariants = cva(`flex items-center rounded-md  w-full cursor-pointe
     variant: {
       createCardItem: `bg-gray-800 active:bg-gray-700 ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })}`,
       settingItem: `active:bg-gray-700 ${spacingStyles({ paddingY: 'ms' })}`,
+      alramItem: `${spacingStyles({ paddingY: 'ms' })}`,
     },
   },
   defaultVariants: {
@@ -23,6 +24,7 @@ const listItemTextVariants = cva(`overflow-hidden text-ellipsis whitespace-nowra
     variant: {
       createCardItem: 'text-body-5 text-gray-white',
       settingItem: 'text-body-3 text-gray-50',
+      alramItem: 'text-body-3 text-gray-50',
     },
   },
   defaultVariants: {
@@ -65,6 +67,7 @@ const listVariants = cva(`flex flex-col`, {
     variant: {
       createCardItem: 'gap-4',
       settingItem: '',
+      alramItem: '',
     },
   },
   defaultVariants: {
