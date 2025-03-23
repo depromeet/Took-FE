@@ -33,6 +33,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 로그인 페이지로 리다이렉트
+  // 임시로 온보딩 페이지로 리다이렉션합니다. 추후 isLogined 와 같은 서버 스펙 나오면 분리예정
   if (!isPublicPath && (!accessToken || !refreshToken)) {
     return NextResponse.redirect(new URL('/onboarding', request.url));
   }
