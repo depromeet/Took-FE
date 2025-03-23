@@ -103,6 +103,7 @@ const config: Config = {
       borderRadius: {
         sm: 'var(--radius-sm)',
         md: 'var(--radius-md)',
+        ml: 'var(--radius-ml)',
         lg: 'var(--radius-lg)',
       },
       fontFamily: {
@@ -134,6 +135,7 @@ const config: Config = {
         ml: '20px',
         lg: '24px',
         xl: '32px',
+        lx: '28px',
         '2xl': '48px',
       },
     },
