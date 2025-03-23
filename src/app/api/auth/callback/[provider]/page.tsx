@@ -27,7 +27,7 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
     };
 
     processAuth();
-  }, []);
+  }, [params.provider, searchParams, router]);
 
-  return <div>로그인 진행중..</div>;
+  return null;
 }
