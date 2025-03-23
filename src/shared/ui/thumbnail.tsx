@@ -8,6 +8,7 @@ type thumbnailPropsType = {
   tag: ThumbnailTag;
   title?: string; // '대표 프로젝트', '작성한 글', 'SNS'
   description?: string; // SNS를 제외한 전 tag
+  imageUrl?: string;
   className?: string;
 };
 
@@ -23,7 +24,7 @@ type thumbnailPropsType = {
  * @returns {JSX.Element} - Thumbnail 컴포넌트
  */
 
-function Thumbnail({ tag, title, description, className }: thumbnailPropsType) {
+function Thumbnail({ tag, title, description, imageUrl, className }: thumbnailPropsType) {
   const config = tagConfig[tag];
 
   return (
@@ -33,7 +34,7 @@ function Thumbnail({ tag, title, description, className }: thumbnailPropsType) {
         className,
       )}
     >
-      {config.hasImg && <Img size="medium" />}
+      {config.hasImg && <Img size="medium" src={imageUrl} alt="" />}
       <div className="flex flex-col">
         <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
           {tag}

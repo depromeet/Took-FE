@@ -29,7 +29,7 @@ function renderLeftIcon({ page, onLeftClick }: Pick<appbarPropsType, 'page' | 'o
         </button>
       );
     case 'received':
-      return <h1 className="text-title-1">받은 명함</h1>;
+      return <h1 className="text-title-1 text-white">받은 명함</h1>;
     default:
       return null;
   }
