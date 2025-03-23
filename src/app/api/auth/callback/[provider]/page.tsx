@@ -19,7 +19,7 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
       try {
         const result = await handleSocialAuth(provider, code as string);
         if (result.success) {
-          router.push('/');
+          router.replace('/');
         }
       } catch (err) {
         console.error('인증 처리 중 오류:', err);

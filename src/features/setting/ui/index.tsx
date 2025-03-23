@@ -12,20 +12,29 @@ import LogoutDialog from './dialog/logout';
 
 const SettingView = () => {
   const router = useRouter();
+
   const handleLogout = () => {
     router.push('/login');
+  };
+
+  const handleUserQuit = () => {
+    router.push('/setting/user-quit');
+  };
+
+  const handleAlram = () => {
+    router.push('/setting/alram');
   };
 
   return (
     <List variant="settingItem">
       <Label className="text-body-3 text-gray-400">기타</Label>
-      <SettingItem text="알림 설정" />
+      <SettingItem text="알림 설정" onClick={handleAlram} />
       <SettingItem text="이용 약관" />
       <SettingItem text="개인정보처리약관" />
 
       <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
       <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
-      <SettingItem text="회원 탈퇴" />
+      <SettingItem text="회원 탈퇴" onClick={handleUserQuit} />
     </List>
   );
 };
