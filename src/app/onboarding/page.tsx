@@ -1,5 +1,5 @@
 import OnboardingScreen from '@/features/onboarding/screen';
 
-export default function LoginPage() {
+export default function OnboardingPage() {
   return <OnboardingScreen />;
 }

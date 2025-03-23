@@ -3,6 +3,7 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 import { Pagination } from 'swiper/modules';
@@ -15,17 +16,13 @@ import { slides } from '../config/slides';
 import { BackgroundContainer } from '../containers/BackgroundContainer';
 
 export default function OnboardingScreen() {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(2);
-  const [showOnboarding, setShowOnboarding] = useState(true);
   const swiperRef = useRef<SwiperType | null>(null);
-
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
-  };
 
   const handleNext = () => {
     if (activeIndex === slides.length - 1) {
-      handleOnboardingComplete();
+      router.replace('/login');
     } else if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
@@ -40,33 +37,32 @@ export default function OnboardingScreen() {
       <div className="absolute z-[-10]">
         <BackgroundContainer activeIndex={activeIndex} />
       </div>
-      {showOnboarding && (
-        <Swiper
-          className="h-full w-full"
-          modules={[Pagination]}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          onSlideChange={handleSlideChange}
-          pagination={{
-            clickable: true,
-            el: '.custom-pagination',
-            bulletClass: 'inline-block h-2 w-2 rounded-full mx-1 bg-white opacity-50',
-            bulletActiveClass: '!opacity-100',
-          }}
-          navigation={false}
-        >
-          {slides.map(({ id, component }) => {
-            const Component = component;
 
-            return (
-              <SwiperSlide className="overflow-hidden" key={id}>
-                <Component />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      )}
+      <Swiper
+        className="h-full w-full"
+        modules={[Pagination]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        onSlideChange={handleSlideChange}
+        pagination={{
+          clickable: true,
+          el: '.custom-pagination',
+          bulletClass: 'inline-block h-2 w-2 rounded-full mx-1 bg-white opacity-50',
+          bulletActiveClass: '!opacity-100',
+        }}
+        navigation={false}
+      >
+        {slides.map(({ id, component }) => {
+          const Component = component;
+
+          return (
+            <SwiperSlide className="overflow-hidden" key={id}>
+              <Component />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
 
       <div className="absolute bottom-0 z-10 mt-auto w-full p-6">
         <div className="flex w-full flex-col items-center justify-center pb-8">
