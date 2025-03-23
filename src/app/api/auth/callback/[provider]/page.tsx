@@ -11,7 +11,12 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
   const router = useRouter();
 
   useEffect(() => {
-    const code = searchParams.get('code');
+    let code = searchParams.get('code');
+
+    if (!code) {
+      // apple login 관련 로직
+    }
+
     // provider : KAKAO | GOOGLE | APPLE
     const provider = params.provider.toUpperCase() as SocialProvider;
 
