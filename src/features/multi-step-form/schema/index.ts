@@ -5,7 +5,7 @@ export const cardCreateSchema = z.object({
     z
       .instanceof(File, { message: '파일 객체가 필요합니다.' })
       .refine((file) => file.size > 0, { message: '빈 파일은 업로드할 수 없습니다.' }),
-    z.string().url(),
+    z.string(),
   ]),
   nickname: z
     .string()

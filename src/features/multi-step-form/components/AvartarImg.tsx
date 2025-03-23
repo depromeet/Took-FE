@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import WrappedAvatar from '@/shared/ui/Avatar';
@@ -8,12 +8,28 @@ import ImageAdd from '@/shared/ui/Avatar/imageAdd';
 
 import { CareerFormData } from '../schema';
 
+// 기본 아바타 이미지 경로 (상대 경로)
+const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
+
 function AvatarImg() {
-  const { control } = useFormContext<CareerFormData>();
+  const { control, setValue } = useFormContext<CareerFormData>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 미리보기용 state (string | null)
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
+
+  // 컴포넌트 마운트 시 기본 이미지 URL을 폼에 설정
+  useEffect(() => {
+    // 이미지가 선택되지 않았다면 기본 이미지 URL을 설정
+    if (!avatarSrc) {
+      // 클라이언트 측에서만 실행되도록 (SSR에서는 window가 없음)
+      if (typeof window !== 'undefined') {
+        // 완전한 URL 형식으로 설정 (스키마의 URL 검증을 통과하기 위함)
+        const fullUrl = `${window.location.origin}${AVATAR_IMAGE_PATH}`;
+        setValue('profileImage', fullUrl);
+      }
+    }
+  }, [setValue, avatarSrc]);
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -46,8 +62,8 @@ function AvatarImg() {
               }
             }}
           />
-          {/* WrappedAvatar에는 파일 객체 대신, 미리보기용 Data URL을 넘겨줍니다. */}
-          <WrappedAvatar src={avatarSrc || ''} alt="이미지 추가" size="large" />
+          {/* 이미지가 있는 경우에만 src 속성을 전달하고, 없는 경우 기본 이미지를 사용합니다 */}
+          <WrappedAvatar src={avatarSrc || undefined} alt="프로필 이미지" size="large" />
           <div className="absolute bottom-0 right-0">
             <ImageAdd />
           </div>
