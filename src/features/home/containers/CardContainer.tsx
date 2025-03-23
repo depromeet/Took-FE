@@ -19,10 +19,10 @@ export const CardContainer = () => {
   const { data } = useCardQuery();
 
   return (
-    <Swiper pagination modules={[Pagination]} className="h-[440px]">
+    <Swiper pagination modules={[Pagination]} className="home-swiper h-[440px]">
       {data.map(({ id, type, profileImg, name, organization, job, introduction, tags, project }) => {
         return (
-          <SwiperSlide key={id}>
+          <SwiperSlide key={id} className="home-swiper">
             <WrappedCard cardType={type} style={{ marginBottom: '20px' }}>
               <CardAvatar src={profileImg} alt={`${name}의 프로필 이미지`} />
               <CardName organization={organization}>{name}</CardName>

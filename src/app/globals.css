@@ -64,23 +64,24 @@
     /* radius */
     --radius-sm: 8px;
     --radius-md: 12px;
+    --radius-ml: 20px;
     --radius-lg: 80px;
 
-    .swiper-pagination-bullet {
+    .home-swiper .swiper-pagination-bullet {
       background: var(--gray-600);
     }
 
-    .swiper-pagination-bullet-active {
+    .home-swiper .swiper-pagination-bullet-active {
       background-color: #fff;
     }
 
-    .swiper-slide {
+    .home-swiper .swiper-slide {
       display: flex;
       justify-content: center;
       transition: all 0.5s ease-in-out;
     }
 
-    .swiper-slide-next {
+    .home-swiper .swiper-slide-next {
       display: flex;
       justify-content: center;
       transition: all 0.35s ease-in-out;
@@ -110,7 +111,7 @@
       }
     }
 
-    .swiper-slide-prev {
+    .home-swiper .swiper-slide-prev {
       display: flex;
       justify-content: center;
       transition: all 0.35s ease-in-out;

@@ -24,7 +24,24 @@ function Toast({ buttonText, message }: toastProps) {
     <>
       <Toaster
         icons={{
-          error: <Image src="/icons/sonnerIcon.svg" className="text-red-500" alt="error-icon" width={24} height={24} />,
+          success: (
+            <Image
+              src="/icons/toast-icon/checkIcon.svg"
+              className="text-secondary"
+              alt="error-icon"
+              width={24}
+              height={24}
+            />
+          ),
+          error: (
+            <Image
+              src="/icons/toast-icon/warningIcon.svg"
+              className="text-error-medium"
+              alt="error-icon"
+              width={24}
+              height={24}
+            />
+          ),
         }}
         position="bottom-right"
       />

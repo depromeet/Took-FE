@@ -8,11 +8,13 @@ export const mockCardDetailData: CardDetailDto = {
   timestamp: '2025-03-10T08:03:28.800Z',
   data: {
     nickname: '이재인',
-    job: 'DEVELOPER',
+    job: 'DESIGNER',
     detailJob: 'Frontend Developer',
     organization: '디프만',
     summary: '사용자 경험을 중요시하는 프론트엔드 개발자입니다. ',
     region: '게더',
+    group: ['디프만', '엘리스랩'],
+    introduce: '디프만 web 16기 윤장원입니다!',
     interestDomain: ['웹 개발', 'UI/UX', '프론트엔드', 'React'],
     sns: [
       {
