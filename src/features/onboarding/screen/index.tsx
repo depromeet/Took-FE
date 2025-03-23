@@ -56,18 +56,28 @@ export default function OnboardingScreen() {
           }}
           navigation={false}
         >
-          {slides.map(({ id, render }) => (
-            <SwiperSlide className="overflow-hidden" key={id}>
-              {render()}
-            </SwiperSlide>
-          ))}
+          {slides.map(({ id, component }) => {
+            const Component = component;
+
+            return (
+              <SwiperSlide className="overflow-hidden" key={id}>
+                <Component />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       )}
 
       <div className="absolute bottom-0 z-10 mt-auto w-full p-6">
-        <div className="mb-10 flex items-center justify-center">
+        <div className="flex w-full flex-col items-center justify-center pb-8">
+          <Typography variant="title-2">{slides[activeIndex].descriptions[0]}</Typography>
+          <Typography variant="title-2">{slides[activeIndex].descriptions[1]}</Typography>
+        </div>
+
+        <div className="mb-6 flex items-center justify-center">
           <div className="custom-pagination flex justify-center"></div>
         </div>
+
         <Button onClick={handleNext} className="w-full">
           <Typography variant="body-2">다음</Typography>
         </Button>
