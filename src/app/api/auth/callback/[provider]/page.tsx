@@ -19,7 +19,7 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
       try {
         const result = await handleSocialAuth(provider, code as string);
         if (result.success) {
-          router.push('/');
+          router.replace('/');
         }
       } catch (err) {
         console.error('인증 처리 중 오류:', err);
@@ -27,7 +27,7 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
     };
 
     processAuth();
-  }, []);
+  }, [params.provider, searchParams, router]);
 
-  return <div>로그인 진행중..</div>;
+  return null;
 }

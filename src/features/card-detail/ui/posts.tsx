@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { spacingStyles } from '@/shared/spacing';
 import PostThumbnail from '@/shared/ui/postThumbnail';
 
@@ -14,7 +12,7 @@ function Posts({ data }: PostsProps) {
     <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
       {data.map((post, i) => {
         return (
-          <div key={i} className={`${spacingStyles({ marginBottom: 'ms' })} `}>
+          <div key={i} className={`${spacingStyles({ marginBottom: 'ms' })}`}>
             <PostThumbnail
               title={post.title}
               description={post.description}
