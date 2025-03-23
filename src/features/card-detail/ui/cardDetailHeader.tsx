@@ -122,7 +122,7 @@ const CardDetailHeader = () => {
       {!mode ? (
         <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
           <BottomMenuItem onClick={handleMode}>한줄 메모</BottomMenuItem>
-          <BottomMenuItem>삭제하기</BottomMenuItem>
+          <BottomMenuItem className="text-error-medium">삭제하기</BottomMenuItem>
         </BottomModal>
       ) : (
         <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode} mode={mode}>

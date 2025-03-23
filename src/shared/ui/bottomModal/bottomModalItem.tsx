@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
 interface BottomMenuItemProps {
@@ -11,6 +12,8 @@ interface BottomMenuItemProps {
   // 각 아이콘별 핸들러 함수 (undefined이면 아이콘 표시 안함)
   update?: (() => void) | boolean;
   delete?: (() => void) | boolean;
+
+  className?: string;
 }
 
 export const BottomMenuItem = ({
@@ -18,6 +21,7 @@ export const BottomMenuItem = ({
   children,
   update,
   delete: deleteIcon, // delete는 예약어라 다른 이름 사용
+  className,
 }: BottomMenuItemProps) => {
   // 아이콘 클릭 이벤트 처리 함수
   const handleIconClick = (e: React.MouseEvent<HTMLDivElement>, handler?: (() => void) | boolean) => {
@@ -32,7 +36,7 @@ export const BottomMenuItem = ({
       className={`${spacingStyles({ padding: 'ml' })} flex cursor-pointer items-center justify-between`}
       onClick={onClick}
     >
-      <p className="body-3 z-50 text-white">{children}</p>
+      <p className={cn('body-3 z-50 text-white', className)}>{children}</p>
 
       <div className="flex items-center gap-3">
         {/* 수정 아이콘 */}
