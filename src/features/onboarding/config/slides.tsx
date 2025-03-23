@@ -1,4 +1,5 @@
 import { FirstOnboardingContainer } from '../containers/FirstOnboardingContainer';
+import { SecondOnboardingContainer } from '../containers/SecondOnboardingContainer';
 
 export const slides = [
   {
@@ -9,7 +10,7 @@ export const slides = [
   {
     id: 2,
     descriptions: ['QR로 쉽게 공유하고', '블루투스로 쉽게 아카이빙하는'],
-    component: FirstOnboardingContainer,
+    component: SecondOnboardingContainer,
   },
   {
     id: 3,

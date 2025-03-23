@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
-export const Background = (props: HTMLAttributes<HTMLDivElement>) => {
+export const FirstBackground = (props: HTMLAttributes<HTMLDivElement>) => {
   const { className, ...restProps } = props;
 
   return (
@@ -25,6 +25,24 @@ export const Background = (props: HTMLAttributes<HTMLDivElement>) => {
           fillOpacity="0.4"
         />
       </svg>
+      <div>
+        <svg width="407" height="368" viewBox="0 0 407 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="406.64" height="367.105" fill="url(#paint0_linear_6472_1470)" fillOpacity="0.25" />
+          <defs>
+            <linearGradient
+              id="paint0_linear_6472_1470"
+              x1="203.32"
+              y1="47.4399"
+              x2="203.32"
+              y2="367.105"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#2370FF" stopOpacity="0" />
+              <stop offset="1" stopColor="#7023FF" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
     </div>
   );
 };

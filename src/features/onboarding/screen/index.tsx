@@ -11,8 +11,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Button } from '@/shared/ui/button';
 import { Typography } from '@/shared/ui/typography';
 
-import { Background } from '../components/FirstOnboarding/Background';
 import { slides } from '../config/slides';
+import { BackgroundContainer } from '../containers/BackgroundContainer';
 
 export default function OnboardingScreen() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -36,9 +36,9 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <section className="relative mx-auto h-dvh w-full max-w-[600px]">
+    <section className="relative mx-auto h-dvh w-full max-w-[600px] overflow-hidden">
       <div className="absolute z-[-10]">
-        <Background />
+        <BackgroundContainer activeIndex={activeIndex} />
       </div>
       {showOnboarding && (
         <Swiper
