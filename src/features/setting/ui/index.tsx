@@ -21,10 +21,14 @@ const SettingView = () => {
     router.push('/setting/user-quit');
   };
 
+  const handleAlram = () => {
+    router.push('/setting/alram');
+  };
+
   return (
     <List variant="settingItem">
       <Label className="text-body-3 text-gray-400">기타</Label>
-      <SettingItem text="알림 설정" />
+      <SettingItem text="알림 설정" onClick={handleAlram} />
       <SettingItem text="이용 약관" />
       <SettingItem text="개인정보처리약관" />
 
