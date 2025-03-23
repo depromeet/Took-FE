@@ -4,11 +4,13 @@
 import { motion, AnimatePresence, PanInfo, useMotionValue } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
 
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
 interface BottomModalProps {
   isModalOpen: boolean;
   closeModal: () => void;
+  mode: boolean;
   children: ReactNode;
 }
 
@@ -48,7 +50,7 @@ interface BottomModalProps {
  * @returns 드래그 가능한 바텀 모달 컴포넌트
  */
 
-export const BottomModal = ({ isModalOpen, closeModal, children }: BottomModalProps) => {
+export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomModalProps) => {
   const y = useMotionValue(0);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -93,7 +95,10 @@ export const BottomModal = ({ isModalOpen, closeModal, children }: BottomModalPr
             dragElastic={0.1}
             onDragEnd={handleDragEnd}
             style={{ y }}
-            className="fixed bottom-0 left-0 right-0 z-30 mx-auto max-w-[600px] rounded-t-2xl bg-gray-600"
+            className={cn(
+              'fixed bottom-0 left-0 right-0 z-30 mx-auto max-w-[600px] rounded-t-2xl bg-gray-600',
+              mode ? 'z-30' : 'z-30',
+            )}
           >
             <div className={`relative flex w-full flex-col ${spacingStyles({ paddingBottom: 'xl' })}`}>
               <div

@@ -11,7 +11,7 @@ import Appbar from '@/shared/ui/appbar';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import { ModeInput } from '@/shared/ui/bottomModal/modeInput';
+import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
@@ -215,14 +215,14 @@ function CardTabs() {
         </div>
       </div>
       {!mode ? (
-        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
+        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
           <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
           <BottomMenuItem>삭제하기</BottomMenuItem>
         </BottomModal>
       ) : (
-        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode}>
+        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode} mode={mode}>
           <BottomModalTitle>한줄 메모</BottomModalTitle>
-          <ModeInput onClose={closeModal} handleCancelMode={handleCancelMode} />
+          <MemoInput onClose={closeModal} handleCancelMode={handleCancelMode} />
         </BottomModal>
       )}
     </>
