@@ -1,5 +1,5 @@
-import OnboardingScreen from '@/features/onboarding/screen';
+import { LoginFeature } from '@/features/auth/login/ui/LoginFeature';
 
 export default function LoginPage() {
-  return <OnboardingScreen />;
+  return <LoginFeature />;
 }

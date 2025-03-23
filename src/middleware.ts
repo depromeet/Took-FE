@@ -1,5 +1,5 @@
 // middleware.ts
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   // 현재 URL 경로 가져오기
@@ -11,6 +11,7 @@ export function middleware(request: NextRequest) {
     '/login',
     '/api/auth', // 인증 관련 API 경로
     '/api/auth/callback', // 소셜 로그인 콜백 경로
+    '/onboarding',
   ];
 
   // 현재 경로가 public 경로인지 확인
@@ -33,7 +34,7 @@ export function middleware(request: NextRequest) {
 
   // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 로그인 페이지로 리다이렉트
   if (!isPublicPath && (!accessToken || !refreshToken)) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/onboarding', request.url));
   }
 
   return NextResponse.next();
