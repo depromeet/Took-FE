@@ -15,10 +15,8 @@ import { List } from '@/shared/ui/list';
 import { Textarea } from '@/shared/ui/textArea';
 import { Typography } from '@/shared/ui/typography';
 
-import { QUIT_REASONS } from '../config';
+import { QUIT_REASONS, TEXT_AREA_MAX_LENGTH } from '../config';
 import { UserQuitSchema, userQuitSchema } from '../schema';
-
-const TEXT_AREA_MAX_LENGTH = 40;
 
 const UserQuitView = () => {
   const router = useRouter();
@@ -109,8 +107,15 @@ const UserQuitView = () => {
 
   // 직접입력 에러 상태 계산
   const isCustomTextError = isDirty && (customText.length > TEXT_AREA_MAX_LENGTH || customText.length === 0);
+
   // 직접입력 에러 메시지 계산
-  const customTextErrorMsg = isDirty && customText.length === 0 ? '최소 1자 이상 입력해주세요' : undefined;
+  const customTextErrorMsg = isDirty
+    ? customText.length === 0
+      ? '최소 1자 이상 입력해주세요'
+      : customText.length > TEXT_AREA_MAX_LENGTH
+        ? `최대 ${TEXT_AREA_MAX_LENGTH}자까지 입력 가능합니다`
+        : undefined
+    : undefined;
 
   return (
     <>
