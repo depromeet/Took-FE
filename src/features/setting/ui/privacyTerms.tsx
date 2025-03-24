@@ -64,7 +64,7 @@ const TermsItem = () => {
           </li>
           <li>
             회사는 제1항에 따라 본 방침을 개정하는 경우 다음 각 호 하나 이상의 방법으로 공지합니다.
-            <ul className="ml-4 mt-2 list-disc space-y-1">
+            <ul>
               <li>가. 회사가 운영하는 인터넷 홈페이지의 첫 화면의 공지사항란 또는 별도의 창을 통하여 공지하는 방법</li>
               <li>나. 서면·모사전송·전자우편 또는 이와 비슷한 방법으로 이용자에게 공지하는 방법</li>
             </ul>
@@ -158,7 +158,7 @@ const TermsItem = () => {
         <ol>
           <li>
             전자상거래 등에서의 소비자보호에 관한 법률에 따른 보유정보 및 보유기간
-            <ul className="ml-4 mt-2 list-disc space-y-1">
+            <ul>
               <li>가. 계약 또는 청약철회 등에 관한 기록 : 5년</li>
               <li>나. 대금결제 및 재화 등의 공급에 관한 기록 : 5년</li>
               <li>다. 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년</li>
@@ -167,19 +167,19 @@ const TermsItem = () => {
           </li>
           <li>
             통신비밀보호법에 따른 보유정보 및 보유기간
-            <ul className="ml-4 mt-2 list-disc space-y-1">
+            <ul>
               <li>가. 웹사이트 로그 기록 자료 : 3개월</li>
             </ul>
           </li>
           <li>
             전자금융거래법에 따른 보유정보 및 보유기간
-            <ul className="ml-4 mt-2 list-disc space-y-1">
+            <ul>
               <li>가. 전자금융거래에 관한 기록 : 5년</li>
             </ul>
           </li>
           <li>
             위치정보의 보호 및 이용 등에 관한 법률
-            <ul className="ml-4 mt-2 list-disc space-y-1">
+            <ul>
               <li>가. 개인위치정보에 관한 기록 : 6개월</li>
             </ul>
           </li>
