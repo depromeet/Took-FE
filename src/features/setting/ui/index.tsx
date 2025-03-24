@@ -37,10 +37,8 @@ const SettingView = () => {
     <List variant="settingItem">
       <Label className="text-body-3 text-gray-400">기타</Label>
       <SettingItem text="알림 설정" onClick={handleAlram} />
-      <SettingItem text="이용 약관" />
       <SettingItem text="개인정보처리 약관" onClick={handlePrivacyTerms} />
       <SettingItem text="이용 약관" onClick={handleTerms} />
-      <SettingItem text="개인정보처리약관" />
 
       <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
       <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
