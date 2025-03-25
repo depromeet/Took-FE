@@ -3,9 +3,9 @@
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PropsWithChildren } from 'react';
 
-import { ApiErrorBoundaryProvider } from './ApiErrorBoundary';
 import { GlobalErrorBoundaryProvider } from './GlobalErrorBoundary';
 import { QueryClientProvider } from './QueryClientProvider';
+import { ApiErrorBoundaryProvider } from './ApiErrorBoundary';
 
 export const Providers = ({ children }: PropsWithChildren) => {
   return (

@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -15,10 +14,10 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
+import { CardDetailDto } from '../types/cardDetail';
 
 import DomainList from './domain';
 import Hobby from './hobby';
@@ -28,10 +27,13 @@ import RecentNews from './recent';
 import SNS from './sns';
 import { UnderlineTabs } from './underlineTabs';
 
-function CardTabs() {
+interface CardTabsProps {
+  data: CardDetailDto;
+}
+
+function CardTabs({ data }: CardTabsProps) {
   const [activeTab, setActiveTab] = useState<TabId>('domains');
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();

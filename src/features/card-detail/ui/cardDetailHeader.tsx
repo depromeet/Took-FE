@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -15,12 +14,14 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import Tag from '@/shared/ui/tag/tag';
 
 import JOB_CONFIG, { JobType } from '../config/jobs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
+import { CardDetailDto } from '../types/cardDetail';
 
-const CardDetailHeader = () => {
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+interface CardDetailHeaderProps {
+  data: CardDetailDto;
+}
+
+const CardDetailHeader = ({ data }: CardDetailHeaderProps) => {
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
