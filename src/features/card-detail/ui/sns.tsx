@@ -5,15 +5,22 @@ import { spacingStyles } from '@/shared/spacing';
 import SNS_CONFIG, { SnsType } from '../config/sns-config';
 import { SnsDto } from '../types/cardDetail';
 
+import Empty from './empty';
+
 interface SNSProps {
   data: SnsDto[];
 }
 
 function SNS({ data }: SNSProps) {
+  if (data.length === 0) {
+    return <Empty />;
+  }
+
   return (
     /**
      * grid , flex 디자이너와 상의중
      */
+
     <div className={`grid grid-cols-4 justify-items-center gap-8 sm:grid-cols-5 ${spacingStyles({ marginTop: 'ms' })}`}>
       {data.map((sns, i) => {
         // sns.type을 SnsType으로 캐스팅

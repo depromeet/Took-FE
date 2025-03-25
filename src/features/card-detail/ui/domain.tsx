@@ -8,15 +8,14 @@ interface DomainListProps {
 }
 
 function DomainList({ data }: DomainListProps) {
+  if (data.length === 0) {
+    return <Empty />;
+  }
   return (
     <div className={`flex flex-wrap gap-2 ${spacingStyles({ marginTop: 'ms' })}`}>
-      {data.length > 0 ? (
-        data.map((name, i) => {
-          return <Tag key={i} message={name} className="line-clamp-1 bg-opacity-purple-30" />;
-        })
-      ) : (
-        <Empty />
-      )}
+      {data.map((name, i) => {
+        return <Tag key={i} message={name} className="line-clamp-1 bg-opacity-purple-30" />;
+      })}
     </div>
   );
 }

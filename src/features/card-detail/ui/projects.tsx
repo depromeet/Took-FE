@@ -5,11 +5,16 @@ import { spacingStyles } from '@/shared/spacing';
 
 import { ProjectDto } from '../types/cardDetail';
 
+import Empty from './empty';
+
 interface ProjectsProps {
   data: ProjectDto[];
 }
 
 function Projects({ data }: ProjectsProps) {
+  if (data.length === 0) {
+    return <Empty />;
+  }
   return (
     <div className={`grid grid-cols-2 gap-4 ${spacingStyles({ marginTop: 'xl' })}`}>
       {data.map((project, i) => (

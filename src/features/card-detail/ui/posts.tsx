@@ -3,11 +3,16 @@ import PostThumbnail from '@/shared/ui/postThumbnail';
 
 import { ContentItemDto } from '../types/cardDetail';
 
+import Empty from './empty';
+
 interface PostsProps {
   data: ContentItemDto[];
 }
 
 function Posts({ data }: PostsProps) {
+  if (data.length === 0) {
+    return <Empty />;
+  }
   return (
     <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
       {data.map((post, i) => {

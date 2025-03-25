@@ -38,35 +38,35 @@ export const mockCardDetailData: CardDetailDto = {
         link: 'https://github.com/jaeiny',
       },
     ],
-    news: '새로운 프로젝트 공개',
-    hobby: '농구, 코딩, 커피 마시기',
+    news: '',
+    hobby: '',
     content: [
-      {
-        title: 'Spring Boot로 RESTful API 만들기',
-        link: 'https://blog.example.com/posts/123',
-        imageUrl: '/icons/imageIcon.svg',
-        description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
-      },
-      {
-        title: 'Spring Boot로 RESTful API 만들기',
-        link: 'https://blog.example.com/posts/123',
-        imageUrl: '/icons/imageIcon.svg',
-        description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
-      },
+      // {
+      //   title: 'Spring Boot로 RESTful API 만들기',
+      //   link: 'https://blog.example.com/posts/123',
+      //   imageUrl: '/icons/imageIcon.svg',
+      //   description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
+      // },
+      // {
+      //   title: 'Spring Boot로 RESTful API 만들기',
+      //   link: 'https://blog.example.com/posts/123',
+      //   imageUrl: '/icons/imageIcon.svg',
+      //   description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
+      // },
     ],
     project: [
-      {
-        title: 'UI 컴포넌트 라이브러리',
-        link: 'https://github.com/username/project',
-        imageUrl: '/icons/imageIcon.svg',
-        description: 'React와 TypeScript로 만든 UI 컴포넌트 모음',
-      },
-      {
-        title: '개발자 네트워킹 플랫폼',
-        link: 'https://github.com/username/project',
-        imageUrl: '/icons/imageIcon.svg',
-        description: '개발자들이 서로 연결되고 프로젝트를 공유하는 앱',
-      },
+      // {
+      //   title: 'UI 컴포넌트 라이브러리',
+      //   link: 'https://github.com/username/project',
+      //   imageUrl: '/icons/imageIcon.svg',
+      //   description: 'React와 TypeScript로 만든 UI 컴포넌트 모음',
+      // },
+      // {
+      //   title: '개발자 네트워킹 플랫폼',
+      //   link: 'https://github.com/username/project',
+      //   imageUrl: '/icons/imageIcon.svg',
+      //   description: '개발자들이 서로 연결되고 프로젝트를 공유하는 앱',
+      // },
     ],
   },
 };
