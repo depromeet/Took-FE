@@ -66,15 +66,15 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
   return (
     <div
       className={cn(
-        'flex h-auto w-auto flex-col justify-center rounded-2xl bg-gray-800',
-        spacingStyles({ marginX: 'ml', paddingX: 'ml', paddingY: 'ml' }),
+        'flex h-auto w-full cursor-pointer flex-col justify-center rounded-2xl bg-gray-800',
+        spacingStyles({ paddingX: 'ml', paddingY: 'ml' }),
       )}
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <WrappedAvatar src={cardData?.imagePath} alt="f" size="medium" />
           <div className="flex flex-col items-start">
-            <div className="flex w-36 items-center justify-start gap-2 text-white">
+            <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>
               <p className="text-caption-1">{cardData.organization}</p>
             </div>
@@ -83,12 +83,7 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
         </div>
         <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
       </div>
-      <p
-        className={cn(
-          'w-auto text-ellipsis text-body-5 text-white',
-          spacingStyles({ marginTop: 'md', marginBottom: 'lg' }),
-        )}
-      >
+      <p className={cn('text-ellipsis text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>
         {ParseSummary(cardData.summary)}
       </p>
       <div className={cn('flex gap-1', spacingStyles({ marginBottom: 'md' }))}>

@@ -1,8 +1,13 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
+import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
+import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
+import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import Tag from '@/shared/ui/tag/tag';
 
 import { useReceivedCardQuery } from '../model/queries/useReceivedCardQuery';
@@ -12,24 +17,29 @@ import ReceivedCard from './receivedCard';
 export default function ReceivedCardView() {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
   const { data } = useReceivedCardQuery();
+  const folders = ['디프만', 'YAPP', '엘리스랩', '카카오'];
+  const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
 
   return (
-    <main className="overflow-y-auto pb-24">
+    <main className="">
       <header className={cn('h-52 w-auto bg-opacity-white-20', spacingStyles({ marginTop: 'md' }))}></header>
-      <div className={cn('flex items-center gap-2', spacingStyles({ paddingLeft: 'ml', paddingTop: 'md' }))}>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-opacity-white-20">
+      <div className={cn('flex items-center gap-2', spacingStyles({ paddingTop: 'md' }))}>
+        <button
+          onClick={headerRightHandler}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-opacity-white-20"
+        >
           <Image src="/icons/folderIcon.svg" alt="폴더 아이콘" width={18} height={18} />
-        </div>
+        </button>
         <div
           className={cn(
-            'scrollbar-hide flex gap-2 overflow-x-auto whitespace-nowrap',
+            'flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide',
             spacingStyles({ paddingRight: 'ml' }),
           )}
         >
           <Tag size="lg" message="전체보기" className="bg-white text-black" />
-          <Tag size="lg" message="디프만" className={tagStyle} />
-          <Tag size="lg" message="YAPP" className={tagStyle} />
-          <Tag size="lg" message="엘리스랩" className={tagStyle} />
+          {folders.map((folder, index) => {
+            return <Tag key={index} size="lg" message={folder} className={tagStyle} />;
+          })}
         </div>
       </div>
       <div
@@ -46,6 +56,26 @@ export default function ReceivedCardView() {
           <ReceivedCard key={index} cardData={value} />
         ))}
       </div>
+      <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
+        <BottomModalTitle>폴더 설정</BottomModalTitle>
+        <BottomMenuItem
+          onClick={() => console.log('asdf')}
+          update={() => {}}
+          delete={() => {
+            closeModal();
+            toast.success('폴더가 삭제되었어요');
+          }}
+        >
+          디프만
+        </BottomMenuItem>
+        <BottomMenuItem onClick={() => console.log('asdf')} update={() => {}} delete={() => {}}>
+          엘리스랩
+        </BottomMenuItem>
+        <button className={cn('flex gap-3', spacingStyles({ padding: 'ml' }))}>
+          <Image src="/icons/addIcon.svg" alt="추가 아이콘" width={20} height={20} />
+          <p className="text-body-3 text-gray-300">추가하기</p>
+        </button>
+      </BottomModal>
     </main>
   );
 }
