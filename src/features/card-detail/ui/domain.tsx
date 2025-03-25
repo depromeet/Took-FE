@@ -8,7 +8,7 @@ interface DomainListProps {
 }
 
 function DomainList({ data }: DomainListProps) {
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return <Empty />;
   }
   return (

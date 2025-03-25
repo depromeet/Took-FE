@@ -12,7 +12,7 @@ interface SNSProps {
 }
 
 function SNS({ data }: SNSProps) {
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return <Empty />;
   }
 
