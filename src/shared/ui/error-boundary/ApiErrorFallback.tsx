@@ -1,40 +1,39 @@
-// src/shared/ui/error-boundary/ApiErrorFallback.tsx
 'use client';
 
+import { useEffect } from 'react';
 import { FallbackProps } from 'react-error-boundary';
 
-export function ApiErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  // API 에러 상태 코드 추출
-  const statusCode = error.response?.status || '';
-  const isAuthError = statusCode === 401;
+import useApiError from '../../hooks/useApiError';
 
-  return (
-    <div className="flex min-h-[400px] w-full flex-col items-center justify-center p-4 text-center">
-      <h2 className="mb-2 text-xl font-semibold text-red-500">
-        {isAuthError ? '인증이 필요합니다' : '데이터를 불러올 수 없습니다'}
-      </h2>
-      <p className="mb-4 max-w-md text-gray-600">
-        {isAuthError
-          ? '로그인이 필요하거나 세션이 만료되었습니다.'
-          : '서버에 연결할 수 없거나 데이터를 가져오는 중 오류가 발생했습니다.'}
-      </p>
-      <div className="mb-4 max-w-md rounded-lg bg-gray-100 p-3 text-sm text-gray-700">{error.message}</div>
-      <div className="flex gap-4">
-        {isAuthError && (
-          <button
-            onClick={() => {
-              // 로그인 페이지로 이동
-              window.location.href = '/login';
-            }}
-            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-          >
-            로그인 하기
-          </button>
-        )}
-        <button onClick={resetErrorBoundary} className="rounded-md bg-gray-600 px-4 py-2 text-white hover:bg-gray-700">
-          다시 시도
-        </button>
-      </div>
-    </div>
-  );
+import { Error400 } from './error-400';
+import { Error401 } from './error-401';
+import { Error403 } from './error-403';
+import { Error500 } from './error-500';
+import { ErrorDefault } from './error-detault';
+
+export function ApiErrorFallback(props: FallbackProps) {
+  const { error } = props;
+  const { handleError } = useApiError();
+
+  // 에러 발생 시 토스트 메시지 표시
+  useEffect(() => {
+    handleError(error);
+  }, [error, handleError]);
+
+  // API 에러 상태 코드 추출
+  const statusCode = error.status || (error.response && error.response.status);
+
+  // 상태 코드에 따라 적절한 에러 컴포넌트 렌더링
+  switch (statusCode) {
+    case 400:
+      return <Error400 {...props} />;
+    case 401:
+      return <Error401 {...props} />;
+    case 403:
+      return <Error403 {...props} />;
+    case 500:
+      return <Error500 {...props} />;
+    default:
+      return <ErrorDefault {...props} />;
+  }
 }

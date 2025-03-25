@@ -11,7 +11,10 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
       <h2 className="mb-2 text-lg font-semibold">문제가 발생했습니다</h2>
       <p className="mb-4 max-w-md rounded bg-red-50 p-2 text-sm text-red-600">{errorMessage}</p>
       {resetErrorBoundary && (
-        <button onClick={resetErrorBoundary} className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+        <button
+          onClick={resetErrorBoundary}
+          className="w-[200px] rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        >
           다시 시도
         </button>
       )}
