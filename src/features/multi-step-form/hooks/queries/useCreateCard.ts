@@ -6,7 +6,6 @@ import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 import { ApiResponseType } from '@/shared/types';
 
-
 const createCard = async (payload: FormData) => {
   const res = await client.post<ApiResponseType<null>>(`${CLIENT_SIDE_URL}/api/card`, payload);
   return res;
@@ -20,7 +19,7 @@ export const useCreateCard = () => {
     mutationFn: createCard,
     onSuccess: () => {
       toast.success('명함 생성 성공');
-      router.push('/home');
+      router.push('/');
     },
     onError: (error) => {
       toast.error('명함 생성 실패');
