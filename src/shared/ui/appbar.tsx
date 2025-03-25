@@ -10,6 +10,7 @@ type appbarPropsType = {
   onRightClickSecond?: () => void;
   hasBackground?: boolean;
   title?: string;
+  router?: () => void;
 };
 
 function renderLeftIcon({ page, onLeftClick }: Pick<appbarPropsType, 'page' | 'onLeftClick'>) {
@@ -39,12 +40,13 @@ function renderRightIcon({
   page,
   onRightClick,
   onRightClickSecond,
+  router,
 }: appbarPropsType & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   switch (page) {
     case 'main':
       return (
         <button onClick={onRightClick}>
-          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} />
+          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
         </button>
       );
     case 'detail':
@@ -81,7 +83,15 @@ function renderRightIcon({
  *
  * @returns {JSX.Element} - appbar 컴포넌트
  */
-function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond }: appbarPropsType) {
+function Appbar({
+  page,
+  hasBackground,
+  title,
+  onLeftClick,
+  onRightClick,
+  onRightClickSecond,
+  router,
+}: appbarPropsType) {
   return (
     <header
       className={`z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4 ${
@@ -92,7 +102,9 @@ function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRight
 
       {title && <h1 className="flex-1 text-center text-body-3">{title}</h1>}
 
-      <div className="flex flex-1 justify-end">{renderRightIcon({ page, onRightClick, onRightClickSecond })}</div>
+      <div className="flex flex-1 justify-end">
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router })}
+      </div>
     </header>
   );
 }
