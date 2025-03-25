@@ -71,7 +71,7 @@ function renderRightIcon({
   onRightClick,
   onRightClickSecond,
   router,
-}: appbarPropsType & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   switch (page) {
     case 'main':
       return (
