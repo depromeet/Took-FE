@@ -12,6 +12,7 @@ interface CardFormState {
   handleTagClick: (tagMessage: TagValue) => void;
   job: CardJobType;
   setJob: Dispatch<React.SetStateAction<CardJobType>>;
+  resetTagCount: () => void;
 }
 
 export const useCardFormStore = create<CardFormState>((set, get) => ({
@@ -51,6 +52,10 @@ export const useCardFormStore = create<CardFormState>((set, get) => ({
   resetTagArray: () =>
     set({
       tagArray: [],
+      tagCount: 0,
+    }),
+  resetTagCount: () =>
+    set({
       tagCount: 0,
     }),
 }));

@@ -16,8 +16,18 @@ type SecondStepProps = {
 const MIN_TAG_COUNT = 2;
 
 function SecondStep({ handleNextStep }: SecondStepProps) {
-  const setTagArray = useCardFormStore(useShallow((state) => state.setTagArray));
-  const [tagCount, setTagCount] = useCardFormStore(useShallow((state) => [state.tagCount, state.incrementTagCount]));
+  const { setTagArray, resetTagCount } = useCardFormStore(
+    useShallow((state) => ({
+      setTagArray: state.setTagArray,
+      resetTagCount: state.resetTagCount,
+    })),
+  );
+  const tagCount = useCardFormStore(useShallow((state) => state.tagCount));
+
+  const handleReset = () => {
+    setTagArray([]);
+    resetTagCount();
+  };
 
   return (
     <>
@@ -32,14 +42,7 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
       </div>
       <div className="z-100 flex h-auto w-full gap-2">
         {tagCount !== 0 && (
-          <Button
-            className="w-full"
-            variant="prev"
-            onClick={() => {
-              setTagCount(0);
-              setTagArray([]);
-            }}
-          >
+          <Button className="w-full" variant="prev" onClick={handleReset}>
             다시 담기
           </Button>
         )}
