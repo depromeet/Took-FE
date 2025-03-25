@@ -150,7 +150,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
         </form>
         {currentStep !== 2 && (
           <Button className="z-100" disabled={!isStepValid} onClick={handleNextStep}>
-            {currentStep < TOTAL_STEPS ? '다음' : '제출'}
+            {currentStep < TOTAL_STEPS ? '다음' : '명함 완성하기'}
           </Button>
         )}
         <Toaster position="bottom-center" />
