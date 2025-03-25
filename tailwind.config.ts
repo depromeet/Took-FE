@@ -35,6 +35,9 @@ const config: Config = {
           800: 'var(--gray-800)',
           black: 'var(--gray-black)',
         },
+        core: {
+          black: 'var(--core-black)',
+        },
         /**
          * Primary - 변수명은 임시입니다.
          */
