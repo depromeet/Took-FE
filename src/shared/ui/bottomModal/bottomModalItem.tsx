@@ -36,7 +36,7 @@ export const BottomMenuItem = ({
       className={`${spacingStyles({ padding: 'ml' })} flex cursor-pointer items-center justify-between`}
       onClick={onClick}
     >
-      <p className={cn('body-3 z-50 text-white', className)}>{children}</p>
+      <p className={cn('body-3 text-white', className)}>{children}</p>
 
       <div className="flex items-center gap-3">
         {/* 수정 아이콘 */}
