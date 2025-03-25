@@ -6,25 +6,26 @@ import * as React from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
-const buttonVariants = cva('transition-colors disabled:pointer-events-none cursor-pointer', {
-  variants: {
-    variant: {
-      default:
-        'whitespace-nowrap !text-title-4 bg-primary text-gray-white active:bg-primary-active disabled:bg-gray-500 disabled:!text-gray-600',
-      prev: 'whitespace-nowrap !text-title-4 bg-gray-100 text-gray-800 active:bg-gray-300 disabled:bg-gray-500 disabled:text-gray-600',
-      weak: `py-[15px] px-[32px] text-gray-800 flex rounded-sm bg-gray-100 w-full flex items-center justify-center`,
-      none: '',
+const buttonVariants = cva(
+  'whitespace-nowrap !text-title-4 transition-colors disabled:pointer-events-none cursor-pointer',
+  {
+    variants: {
+      variant: {
+        default: 'bg-primary text-gray-white active:bg-primary-active disabled:bg-gray-500 disabled:!text-gray-600',
+        prev: 'bg-gray-100 text-gray-800 active:bg-gray-300 disabled:bg-gray-500 disabled:text-gray-600',
+        weak: `py-[15px] px-[32px] text-gray-800 flex rounded-sm bg-gray-100 w-full flex items-center justify-center`,
+      },
+      size: {
+        default: 'h-[52px] px-8 rounded-md',
+        dialog: 'w-[136px] rounded-sm',
+      },
     },
-    size: {
-      default: 'h-[52px] px-8 rounded-md',
-      dialog: 'w-[136px] rounded-sm',
-      none: '',
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
