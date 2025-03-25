@@ -15,7 +15,7 @@ export const mockCardDetailData: CardDetailDto = {
     region: '게더',
     group: ['디프만', '엘리스랩'],
     introduce: '디프만 web 16기 윤장원입니다!',
-    interestDomain: ['웹 개발', 'UI/UX', '프론트엔드', 'React'],
+    interestDomain: [],
     sns: [
       {
         type: 'INSTAGRAM',
