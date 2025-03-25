@@ -27,6 +27,14 @@ const SettingView = () => {
     router.push('/setting/alram');
   };
 
+  const handlePrivacyTerms = () => {
+    router.push('/setting/privacy-terms');
+  };
+
+  const handleTerms = () => {
+    router.push('/setting/terms');
+  };
+
   const handleRouter = () => {
     router.push('/setting/alram-list');
   };
