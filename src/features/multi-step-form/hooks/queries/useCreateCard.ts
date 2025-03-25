@@ -19,7 +19,7 @@ export const useCreateCard = () => {
     mutationFn: createCard,
     onSuccess: () => {
       toast.success('명함 생성 성공');
-      router.push('/');
+      router.replace('/');
     },
     onError: (error) => {
       toast.error('명함 생성 실패');

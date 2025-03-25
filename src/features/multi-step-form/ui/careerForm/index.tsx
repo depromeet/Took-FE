@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Toaster } from 'sonner';
 import { match } from 'ts-pattern';
 
 import { useCardFormStore } from '@/shared/store/cardFormState';
@@ -152,6 +153,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
             {currentStep < TOTAL_STEPS ? '다음' : '제출'}
           </Button>
         )}
+        <Toaster position="bottom-center" />
       </FormProvider>
     </>
   );
