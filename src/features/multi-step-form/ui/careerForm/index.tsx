@@ -1,15 +1,14 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Toaster } from 'sonner';
 import { match } from 'ts-pattern';
 
 import { Button } from '@/shared/ui/button';
 
-import { CARD_CREATE_INITIAL_VALUES, TOTAL_STEPS } from '../../config';
+import { TOTAL_STEPS } from '../../config';
 import { useCreateCard } from '../../hooks/queries/useCreateCard';
-import { cardCreateSchema, CareerFormData } from '../../schema';
+import { CareerFormData } from '../../schema';
 import { createCareerFormData } from '../../utils';
 
 import { STEP_VALIDATION_FIELDS } from './constants';
@@ -29,11 +28,7 @@ type StepFormViewProps = {
 };
 
 function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
-  const formMethod = useForm<CareerFormData>({
-    resolver: zodResolver(cardCreateSchema),
-    defaultValues: CARD_CREATE_INITIAL_VALUES,
-    mode: 'onChange', // 필드가 변경될 때 검증
-  });
+  const formMethod = useFormContext<CareerFormData>();
 
   const {
     handleSubmit,
@@ -108,7 +103,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   };
 
   return (
-    <FormProvider {...formMethod}>
+    <>
       <form>
         <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} />
       </form>
@@ -118,7 +113,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
         </Button>
       )}
       <Toaster position="bottom-center" />
-    </FormProvider>
+    </>
   );
 }
 

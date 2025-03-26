@@ -1,4 +1,7 @@
+import { UseFormSetValue, UseFormUnregister } from 'react-hook-form';
+
 import { CareerFormData } from '../schema';
+import { STEP_VALIDATION_FIELDS } from '../ui/careerForm/constants';
 
 interface PlatformPattern {
   pattern: RegExp;
@@ -99,4 +102,55 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
   formData.append('previewInfoType', data.previewInfoType ?? '');
 
   return formData;
+};
+
+export const resetStepFields = (
+  step: number,
+  setValue: UseFormSetValue<CareerFormData>,
+  unregister: UseFormUnregister<CareerFormData>,
+  resetTagCount: () => void,
+  tagArray: string[],
+) => {
+  const resetArrayField = (tag: string) => {
+    switch (tag) {
+      case 'sns':
+        setValue('sns', [{ type: '', link: '' }]);
+        break;
+      case 'content':
+        setValue('content', [{ type: 'blog', link: '', title: '', imageUrl: '', description: '' }]);
+        break;
+      case 'project':
+        setValue('project', [{ type: 'project', link: '', title: '', imageUrl: '', description: '' }]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const arrayFields = ['sns', 'project', 'content'];
+
+  switch (step) {
+    case 1:
+      STEP_VALIDATION_FIELDS[step].forEach((field) => {
+        unregister(field);
+      });
+      break;
+
+    case 2:
+      resetTagCount();
+      break;
+
+    case 3:
+      tagArray.forEach((tag) => {
+        if (arrayFields.includes(tag)) {
+          resetArrayField(tag);
+        } else {
+          unregister(tag as keyof CareerFormData);
+        }
+      });
+      break;
+
+    default:
+      break;
+  }
 };
