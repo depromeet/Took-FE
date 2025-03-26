@@ -13,7 +13,6 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
-import Empty from '../components/empty';
 import { CARD_TABS, TabId } from '../config/tabs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
@@ -172,7 +171,7 @@ function CardTabs({ data }: CardTabsProps) {
             </div>
           )}
 
-          {data?.data.news ? (
+          {data?.data.news && (
             <div
               ref={combineRefs('news')}
               id="news"
@@ -181,18 +180,9 @@ function CardTabs({ data }: CardTabsProps) {
               <Typography variant="body-1">최근 소식</Typography>
               <RecentNews data={data.data.news} />
             </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">최근 소식</Typography>
-              <Empty />
-            </div>
           )}
 
-          {data?.data.hobby ? (
+          {data?.data.hobby && (
             <div
               ref={combineRefs('hobby')}
               id="hobby"
@@ -200,15 +190,6 @@ function CardTabs({ data }: CardTabsProps) {
             >
               <Typography variant="body-1">취미</Typography>
               <Hobby data={data.data.hobby} />
-            </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">취미</Typography>
-              <Empty />
             </div>
           )}
 
