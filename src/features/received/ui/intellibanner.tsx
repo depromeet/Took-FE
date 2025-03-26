@@ -17,7 +17,7 @@ export default function Intellibanner() {
   return (
     <header
       style={{
-        backgroundImage: "url('/images/received/banner.png')",
+        backgroundImage: "url('/images/received/banner.webp')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
