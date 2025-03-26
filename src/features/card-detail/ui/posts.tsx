@@ -1,9 +1,8 @@
 import { spacingStyles } from '@/shared/spacing';
 import PostThumbnail from '@/shared/ui/postThumbnail';
 
+import Empty from '../components/empty';
 import { ContentItemDto } from '../types/cardDetail';
-
-import Empty from './empty';
 
 interface PostsProps {
   data: ContentItemDto[];

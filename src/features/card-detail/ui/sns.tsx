@@ -2,10 +2,9 @@ import Image from 'next/image';
 
 import { spacingStyles } from '@/shared/spacing';
 
+import Empty from '../components/empty';
 import SNS_CONFIG, { SnsType } from '../config/sns-config';
 import { SnsDto } from '../types/cardDetail';
-
-import Empty from './empty';
 
 interface SNSProps {
   data: SnsDto[];

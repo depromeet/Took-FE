@@ -14,6 +14,7 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
+import Empty from '../components/empty';
 import { CARD_TABS, TabId } from '../config/tabs-config';
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
@@ -21,7 +22,6 @@ import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
 
 import DomainList from './domain';
-import Empty from './empty';
 import Hobby from './hobby';
 import Posts from './posts';
 import Projects from './projects';

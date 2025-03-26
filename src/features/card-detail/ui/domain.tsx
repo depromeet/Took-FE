@@ -1,7 +1,7 @@
 import { spacingStyles } from '@/shared/spacing';
 import Tag from '@/shared/ui/tag/tag';
 
-import Empty from './empty';
+import Empty from '../components/empty';
 
 interface DomainListProps {
   data: string[];

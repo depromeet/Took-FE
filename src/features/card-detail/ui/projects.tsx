@@ -3,9 +3,8 @@ import Link from 'next/link';
 
 import { spacingStyles } from '@/shared/spacing';
 
+import Empty from '../components/empty';
 import { ProjectDto } from '../types/cardDetail';
-
-import Empty from './empty';
 
 interface ProjectsProps {
   data: ProjectDto[];

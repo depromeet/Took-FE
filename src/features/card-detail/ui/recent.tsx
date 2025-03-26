@@ -1,6 +1,6 @@
 import { spacingStyles } from '@/shared/spacing';
 
-import Empty from './empty';
+import Empty from '../components/empty';
 
 interface RecentNewsProps {
   data: string;
