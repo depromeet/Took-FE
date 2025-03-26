@@ -32,7 +32,6 @@ export const providerEnvConfig = {
       : required('NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL),
     scope: optional('email profile'),
   },
-  // 현재 카카오로 임시 설정
   APPLE: {
     restApiKey: required('NEXT_PUBLIC_APPLE', process.env.NEXT_PUBLIC_APPLE_CLIENT_ID),
     redirectUrl: isProd
@@ -79,11 +78,10 @@ export const getAuthUrl = {
     return `${AUTH_BASE_URLS.GOOGLE}?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}`;
   },
 
-  // 현재 카카오로 임시 설정
   APPLE: () => {
     const { restApiKey } = providerEnvConfig.APPLE;
     const redirectUrl = getRedirectUrl('APPLE');
 
-    return `${AUTH_BASE_URLS.APPLE}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code&scope=name+email&response_mode=form_post`;
+    return `${AUTH_BASE_URLS.APPLE}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code id_token&scope=name email&response_mode=form_post`;
   },
 };

@@ -1,6 +1,7 @@
 import { spacingStyles } from '@/shared/spacing';
 import PostThumbnail from '@/shared/ui/postThumbnail';
 
+import Empty from '../components/empty';
 import { ContentItemDto } from '../types/cardDetail';
 
 interface PostsProps {
@@ -8,6 +9,9 @@ interface PostsProps {
 }
 
 function Posts({ data }: PostsProps) {
+  if (!data || data.length === 0) {
+    return <Empty />;
+  }
   return (
     <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
       {data.map((post, i) => {

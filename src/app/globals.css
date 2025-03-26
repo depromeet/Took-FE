@@ -4,10 +4,11 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #0a0a0a;
+    --foreground: #ededed;
     --white: #ffffff;
     --black: #14151a;
+    --core-black: #0a0a0a;
     /* gray */
     --gray-white: #ffffff;
     --gray-50: #f5f5fc;
@@ -139,13 +140,6 @@
       @media (max-width: 332px) {
         transform: translate(0) rotate(0) !important;
       }
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #0a0a0a;
-      --foreground: #ededed;
     }
   }
 

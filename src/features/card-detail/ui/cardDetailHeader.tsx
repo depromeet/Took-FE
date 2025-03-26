@@ -73,7 +73,7 @@ const CardDetailHeader = () => {
               <span className={`max-w-1/2 truncate ${spacingStyles({ marginRight: 'sm' })}`}>
                 {data?.data.detailJob}
               </span>
-              {data?.data && (
+              {data?.data.organization && (
                 <>
                   <span className="flex-shrink-0 px-1">|</span>
                   <span className={`max-w-1/2 truncate ${spacingStyles({ marginLeft: 'sm' })}`}>
@@ -83,16 +83,19 @@ const CardDetailHeader = () => {
               )}
             </div>
             <p className="body-5 line-clamp-2">{data?.data.summary}</p>
-            <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
-              <Image
-                src="/icons/region.svg"
-                alt="지역"
-                width={16}
-                height={16}
-                className={`${spacingStyles({ marginRight: 'xs' })}`}
-              />
-              <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
-            </div>
+            {data?.data.region && (
+              <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
+                <Image
+                  src="/icons/region.svg"
+                  alt="지역"
+                  width={16}
+                  height={16}
+                  className={`${spacingStyles({ marginRight: 'xs' })}`}
+                />
+                <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
+              </div>
+            )}
+
             {/* 이후 폴더를 map으로 수정 예정 */}
             {!isMyCard && data?.data.group && (
               <div className={`${spacingStyles({ marginTop: 'lg' })} flex items-center`}>

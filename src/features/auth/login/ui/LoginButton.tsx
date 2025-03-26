@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import useDevice from '@/shared/hooks/useDevice';
 import { useSpacing } from '@/shared/spacing';
 import { Typography } from '@/shared/ui/typography';
 
 import { getAuthUrl } from '../config/authConfig';
 import { loginProviderConfig } from '../config/loginProviderConfig';
 import { SocialProvider } from '../types/auth';
+import { sendGoogleLoginMessage } from '../utils/nativeBridge';
 
 interface LoginButtonProps {
   provider: SocialProvider;
@@ -39,10 +41,19 @@ function LoginButton({ provider }: LoginButtonProps) {
   const iconSpacing = useSpacing({ paddingRight: 'xs' });
   const config = loginProviderConfig[provider];
   const authUrl = getAuthUrl[provider]();
+  const { isWebView } = useDevice();
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isWebView && provider === 'GOOGLE') {
+      e.preventDefault();
+      sendGoogleLoginMessage(authUrl);
+    }
+  };
 
   return (
     <Link
       href={authUrl}
+      onClick={handleClick}
       className={`flex w-full items-center justify-center rounded-md ${config.bgColor} px-4 py-[15px] ${config.textColor}`}
     >
       <Image src={config.icon} alt={`${provider} 로그인`} width={20} height={20} className={iconSpacing} />
