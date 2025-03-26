@@ -4,8 +4,9 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 
-import ReceivedCardView from '@/features/received/ui';
+import { useModal } from '@/features/received/model/useModal';
 import ChooseReceivedCardView from '@/features/received/ui/chooseReceivedCardView';
+import ReceivedCardView from '@/features/received/ui/receivedCardView';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
@@ -16,48 +17,57 @@ import { Navbar } from '@/shared/ui/Navigation';
 import Toast from '@/shared/ui/Toast';
 
 function Page() {
-  const [isChooseModalOpen, setIsChooseModalOpen] = useState(false);
-  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
+  // const [isChooseModalOpen, setIsChooseModalOpen] = useState(false);
+  // const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
 
   const [currentView, setCurrentView] = useState<'main' | 'choose'>('main');
 
-  const OpenChooseModal = () => {
-    setIsChooseModalOpen(true);
-  };
-  const OpenSettingModal = () => {
-    setIsSettingModalOpen(true);
-  };
-  const CloseChooseModal = () => {
-    setIsChooseModalOpen(false);
-  };
-  const CloseSettingModal = () => {
-    setIsSettingModalOpen(false);
-  };
+  // const OpenChooseModal = () => {
+  //   setIsChooseModalOpen(true);
+  // };
+  // const OpenSettingModal = () => {
+  //   setIsSettingModalOpen(true);
+  // };
+  // const CloseChooseModal = () => {
+  //   setIsChooseModalOpen(false);
+  // };
+  // const CloseSettingModal = () => {
+  //   setIsSettingModalOpen(false);
+  // };
+
+  const {
+    isChooseModalOpen,
+    isSettingModalOpen,
+    openChooseModal,
+    openSettingModal,
+    closeChooseModal,
+    closeSettingModal,
+  } = useModal();
 
   return (
     <div className="flex h-dvh w-full justify-center">
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
-        <Appbar page="received" onLeftClick={() => setCurrentView('main')} onRightClickSecond={OpenChooseModal} />
+        <Appbar page="received" onLeftClick={() => setCurrentView('main')} onRightClickSecond={openChooseModal} />
         <div className="overflow-y-auto px-5 pb-24 scrollbar-hide">
-          {currentView == 'main' ? <ReceivedCardView /> : <ChooseReceivedCardView openModal={OpenSettingModal} />}
+          {currentView == 'main' ? <ReceivedCardView /> : <ChooseReceivedCardView openModal={openSettingModal} />}
         </div>
-        <BottomModal isModalOpen={isChooseModalOpen} closeModal={CloseChooseModal}>
+        <BottomModal isModalOpen={isChooseModalOpen} closeModal={closeChooseModal}>
           <BottomMenuItem
             onClick={() => {
               setCurrentView('choose');
-              CloseChooseModal();
+              closeChooseModal();
             }}
           >
             명함 선택
           </BottomMenuItem>
         </BottomModal>
-        <BottomModal isModalOpen={isSettingModalOpen} closeModal={CloseSettingModal}>
+        <BottomModal isModalOpen={isSettingModalOpen} closeModal={closeSettingModal}>
           <BottomModalTitle>폴더 설정</BottomModalTitle>
           <BottomMenuItem
             onClick={() => console.log('asdf')}
             update={() => {}}
             delete={() => {
-              CloseSettingModal();
+              closeSettingModal();
               toast.success('폴더가 삭제되었어요');
             }}
           >
