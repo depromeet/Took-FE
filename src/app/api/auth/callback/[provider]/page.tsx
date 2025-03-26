@@ -11,8 +11,10 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
   const router = useRouter();
 
   useEffect(() => {
+    if (params.provider === 'APPLE') return;
+
     const code = searchParams.get('code');
-    // provider : KAKAO | GOOGLE | APPLE
+
     const provider = params.provider.toUpperCase() as SocialProvider;
 
     const processAuth = async () => {
