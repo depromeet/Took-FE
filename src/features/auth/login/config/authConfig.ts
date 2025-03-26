@@ -1,7 +1,7 @@
 // config/authConfig.ts
 
 import { SocialProvider } from '../types/auth';
-import { required, optional } from '../utils/envVaild';
+import { optional, required } from '../utils/envVaild';
 
 /**
  * 인증 관련 기본 URL 설정
@@ -32,12 +32,11 @@ export const providerEnvConfig = {
       : required('NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI_LOCAL),
     scope: optional('email profile'),
   },
-  // 현재 카카오로 임시 설정
   APPLE: {
-    restApiKey: required('NEXT_PUBLIC_KAKAO_REST_API_KEY', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY),
+    restApiKey: required('NEXT_PUBLIC_APPLE', process.env.NEXT_PUBLIC_APPLE_CLIENT_ID),
     redirectUrl: isProd
-      ? required('NEXT_PUBLIC_KAKAO_REDIRECT_URI', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI)
-      : required('NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI_LOCAL),
+      ? required('NEXT_PUBLIC_APPLE_REDIRECT_URI', process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI)
+      : required('NEXT_PUBLIC_APPLE_REDIRECT_URI_LOCAL', process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI_LOCAL),
     scope: optional(''),
   },
 };
@@ -53,7 +52,7 @@ export const getRedirectUrl = (provider: SocialProvider): string => {
       return providerEnvConfig.GOOGLE.redirectUrl;
     // 현재 카카오로 임시 설정
     case 'APPLE':
-      return providerEnvConfig.KAKAO.redirectUrl;
+      return providerEnvConfig.APPLE.redirectUrl;
     default:
       return '';
   }
@@ -79,12 +78,10 @@ export const getAuthUrl = {
     return `${AUTH_BASE_URLS.GOOGLE}?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}`;
   },
 
-  // 현재 카카오로 임시 설정
   APPLE: () => {
-    const { restApiKey } = providerEnvConfig.KAKAO;
-    const redirectUrl = getRedirectUrl('KAKAO');
-    const scope = providerEnvConfig.KAKAO.scope;
+    const { restApiKey } = providerEnvConfig.APPLE;
+    const redirectUrl = getRedirectUrl('APPLE');
 
-    return `${AUTH_BASE_URLS.KAKAO}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code&scope=${scope}`;
+    return `${AUTH_BASE_URLS.APPLE}?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code id_token&scope=name email&response_mode=form_post`;
   },
 };

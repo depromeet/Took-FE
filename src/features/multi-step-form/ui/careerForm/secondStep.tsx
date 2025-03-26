@@ -13,6 +13,8 @@ type SecondStepProps = {
   handleNextStep: () => void;
 };
 
+const MIN_TAG_COUNT = 2;
+
 function SecondStep({ handleNextStep }: SecondStepProps) {
   const setTagArray = useCardFormStore(useShallow((state) => state.setTagArray));
   const [tagCount, setTagCount] = useCardFormStore(useShallow((state) => [state.tagCount, state.incrementTagCount]));
@@ -21,7 +23,7 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
     <>
       <div className="h-[72dvh] w-full items-center justify-start gap-4 overflow-hidden">
         <main className="relative flex h-full w-full flex-col items-center justify-between">
-          <Header title={`명함에 추가할 태그를 \n 선택해 주세요`} />
+          <Header title={`명함에 추가할 태그를 \n 최소 2개 이상 선택해 주세요`} />
           <Ball tagCount={tagCount} />
           <div className="relative h-full w-full">
             <TagBox />
@@ -42,7 +44,7 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
           </Button>
         )}
 
-        <Button className="w-full" disabled={tagCount === 0} onClick={handleNextStep}>
+        <Button className="w-full" disabled={tagCount < MIN_TAG_COUNT} onClick={handleNextStep}>
           다음
         </Button>
       </div>

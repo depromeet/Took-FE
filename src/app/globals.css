@@ -4,10 +4,11 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #0a0a0a;
+    --foreground: #ededed;
     --white: #ffffff;
     --black: #14151a;
+    --core-black: #0a0a0a;
     /* gray */
     --gray-white: #ffffff;
     --gray-50: #f5f5fc;
@@ -67,21 +68,21 @@
     --radius-ml: 20px;
     --radius-lg: 80px;
 
-    .swiper-pagination-bullet {
+    .home-swiper .swiper-pagination-bullet {
       background: var(--gray-600);
     }
 
-    .swiper-pagination-bullet-active {
+    .home-swiper .swiper-pagination-bullet-active {
       background-color: #fff;
     }
 
-    .swiper-slide {
+    .home-swiper .swiper-slide {
       display: flex;
       justify-content: center;
       transition: all 0.5s ease-in-out;
     }
 
-    .swiper-slide-next {
+    .home-swiper .swiper-slide-next {
       display: flex;
       justify-content: center;
       transition: all 0.35s ease-in-out;
@@ -111,7 +112,7 @@
       }
     }
 
-    .swiper-slide-prev {
+    .home-swiper .swiper-slide-prev {
       display: flex;
       justify-content: center;
       transition: all 0.35s ease-in-out;
@@ -139,13 +140,6 @@
       @media (max-width: 332px) {
         transform: translate(0) rotate(0) !important;
       }
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #0a0a0a;
-      --foreground: #ededed;
     }
   }
 

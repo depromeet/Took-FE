@@ -35,6 +35,9 @@ const config: Config = {
           800: 'var(--gray-800)',
           black: 'var(--gray-black)',
         },
+        core: {
+          black: 'var(--core-black)',
+        },
         /**
          * Primary - 변수명은 임시입니다.
          */
@@ -140,6 +143,15 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  animation: {
+    'fade-in': 'fadeIn 1s ease-in-out',
+  },
+  keyframes: {
+    fadeIn: {
+      '0%': { opacity: '0' },
+      '100%': { opacity: '1' },
+    },
+  },
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 };
 export default config;
