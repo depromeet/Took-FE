@@ -9,7 +9,7 @@ export function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps
       <h1 className="mb-4 text-2xl font-bold text-red-600">앗! 문제가 발생했습니다</h1>
       <p className="mb-6 max-w-md text-gray-700">예상하지 못한 오류가 발생했습니다. 불편을 드려 죄송합니다.</p>
       <div className="mb-6 max-w-md rounded-md bg-gray-200 p-4 text-left text-sm text-gray-800">
-        <p className="font-mono">{error.message || '알 수 없는 오류'}</p>
+        <p className="font-mono">{error instanceof Error ? error.message : '알 수 없는 오류'}</p>
       </div>
       {resetErrorBoundary && (
         <button
