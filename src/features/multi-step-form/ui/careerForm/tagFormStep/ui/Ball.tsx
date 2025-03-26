@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 type BallPropsType = {
-  tagCount: number;
+  readonly tagCount: number;
 };
 
 /**

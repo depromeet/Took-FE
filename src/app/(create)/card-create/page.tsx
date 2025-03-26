@@ -1,10 +1,7 @@
 import { CardCreateView } from '@/features/card-create';
 
 function Page() {
-  return (
-    <>
-      <CardCreateView />
-    </>
-  );
+  return <CardCreateView />;
 }
+
 export default Page;

@@ -1,6 +1,8 @@
 'use client';
+import { useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
+import { CareerFormData } from '@/features/multi-step-form/schema';
 import { cn } from '@/shared/lib/utils';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import Tag from '@/shared/ui/tag/tag';
@@ -11,6 +13,7 @@ const MAX_DYNAMIC_TAGS = 4;
 
 function TagBox() {
   const [tagArray, handleTagClick] = useCardFormStore(useShallow((state) => [state.tagArray, state.handleTagClick]));
+  const formMethod = useFormContext<CareerFormData>();
 
   // 선택된 태그의 좌표 이동
   function getTagPositions(position: string, tag: TagConfigItem) {
@@ -64,7 +67,7 @@ function TagBox() {
               tag.className,
               tagArray.includes(tag.value) ? getTagPositions(tag.position, tag) : tag.position,
             )}
-            onClick={() => handleTagClick(tag.value)} // 클릭 시 value 전달
+            onClick={() => handleTagClick(tag.value, formMethod)} // 클릭 시 value 전달
           />
         </div>
       ))}
