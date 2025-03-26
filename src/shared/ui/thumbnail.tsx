@@ -28,19 +28,14 @@ function Thumbnail({ tag, title, description, imageUrl, className }: thumbnailPr
   const config = tagConfig[tag];
 
   return (
-    <div
-      className={clsx(
-        'flex h-[84px] w-[222px] items-center justify-start gap-2 rounded-md bg-opacity-white-20 p-3',
-        className,
-      )}
-    >
+    <div className={clsx('flex h-[84px] w-full items-center gap-2 rounded-md bg-opacity-white-20 p-3', className)}>
       {config.hasImg && <Img size="medium" src={imageUrl} alt="" />}
-      <div className="flex flex-col">
+      <div className="flex w-full max-w-full flex-col overflow-hidden">
         <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
           {tag}
         </div>
-        {config.hasImg && title && <p className="whitespace-pre-line text-body-5 text-white">{title}</p>}
-        {description && <p className="whitespace-pre-line text-caption-1 text-white">{description}</p>}
+        {config.hasImg && title && <p className="truncate text-body-5 text-white">{title}</p>}
+        {description && <p className="truncate text-caption-1 text-white">{description}</p>}
       </div>
     </div>
   );

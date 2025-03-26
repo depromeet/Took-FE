@@ -24,7 +24,7 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
           tag="대표 프로젝트"
           title={previewInfo.project?.title}
           description={previewInfo.project?.link}
-          className="!w-auto truncate !bg-gray-700"
+          className="!bg-gray-700"
         />
       );
     case 'CONTENT':
@@ -34,24 +34,24 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
           title={previewInfo.content?.title}
           description={previewInfo.content?.link}
           imageUrl={previewInfo.content?.imageUrl}
-          className="!w-auto truncate !bg-gray-700"
+          className="!bg-gray-700"
         />
       );
     case 'HOBBY':
-      return <Thumbnail tag="취미" description={previewInfo.hobby} className="!w-auto truncate !bg-gray-700" />;
+      return <Thumbnail tag="취미" description={previewInfo.hobby} className="!bg-gray-700" />;
     case 'SNS':
       return (
         <Thumbnail
           tag="SNS"
           title={previewInfo.sns?.link}
           imageUrl={previewInfo.content?.imageUrl} // sns icon 조건부 렌더링 추후 구현
-          className="!w-auto truncate !bg-gray-700"
+          className="!bg-gray-700"
         />
       );
     case 'NEWS':
-      return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!w-auto truncate !bg-gray-700" />;
+      return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!bg-gray-700" />;
     case 'REGION':
-      return <Thumbnail tag="활동 지역" description={previewInfo.region} className="!w-auto truncate !bg-gray-700" />;
+      return <Thumbnail tag="활동 지역" description={previewInfo.region} className="!bg-gray-700" />;
     default:
       return null;
   }
@@ -61,7 +61,7 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
   return (
     <div
       className={cn(
-        'flex h-auto w-full cursor-pointer flex-col justify-center rounded-2xl bg-gray-800',
+        'flex h-auto w-full max-w-full cursor-pointer flex-col justify-center rounded-2xl bg-gray-800',
         spacingStyles({ paddingX: 'ml', paddingY: 'ml' }),
       )}
     >
@@ -71,9 +71,9 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
           <div className="flex flex-col items-start">
             <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>
-              <p className="text-caption-1">{cardData.organization}</p>
+              <p className="truncate text-caption-1">{cardData.organization}</p>
             </div>
-            <p className="text-body-3 text-white">{cardData.detailJob}</p>
+            <p className="truncate text-body-3 text-white">{cardData.detailJob}</p>
           </div>
         </div>
         {cardData.job === 'DEVELOPER' ? (
