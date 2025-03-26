@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'sonner';
 
 import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
@@ -12,6 +12,7 @@ import Tag from '@/shared/ui/tag/tag';
 
 import { useReceivedCardQuery } from '../model/queries/useReceivedCardQuery';
 
+import Intellibanner from './intellibanner';
 import ReceivedCard from './receivedCard';
 
 export default function ReceivedCardView() {
@@ -22,7 +23,7 @@ export default function ReceivedCardView() {
 
   return (
     <main className="">
-      <header className={cn('h-52 w-auto bg-opacity-white-20', spacingStyles({ marginTop: 'md' }))}></header>
+      <Intellibanner />
       <div className={cn('flex items-center gap-2', spacingStyles({ paddingTop: 'md' }))}>
         <button
           onClick={headerRightHandler}
