@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { spacingStyles } from '@/shared/spacing';
 
+import Empty from '../components/empty';
 import { ProjectDto } from '../types/cardDetail';
 
 interface ProjectsProps {
@@ -10,6 +11,9 @@ interface ProjectsProps {
 }
 
 function Projects({ data }: ProjectsProps) {
+  if (!data || data.length === 0) {
+    return <Empty />;
+  }
   return (
     <div className={`grid grid-cols-2 gap-4 ${spacingStyles({ marginTop: 'xl' })}`}>
       {data.map((project, i) => (
