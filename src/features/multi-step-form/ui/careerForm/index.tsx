@@ -7,11 +7,12 @@ import { match } from 'ts-pattern';
 
 import { Button } from '@/shared/ui/button';
 
-import { CARD_CREATE_INITIAL_VALUES, STEP_VALIDATION_FIELDS, TOTAL_STEPS } from '../../config';
+import { CARD_CREATE_INITIAL_VALUES, TOTAL_STEPS } from '../../config';
 import { useCreateCard } from '../../hooks/queries/useCreateCard';
 import { cardCreateSchema, CareerFormData } from '../../schema';
 import { createCareerFormData } from '../../utils';
 
+import { STEP_VALIDATION_FIELDS } from './constants';
 import FirstStep from './firstStep';
 import FourthStep from './fourthStep';
 import SecondStep from './secondStep';
@@ -38,13 +39,25 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     handleSubmit,
     trigger,
     watch,
+    reset,
     formState: { errors },
   } = formMethod;
 
-  const { mutate: createCardAPI } = useCreateCard();
+  const { mutate: createCardAPI } = useCreateCard(reset);
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {
-    createCardAPI(createCareerFormData(data));
+    const validData = Object.entries(data).filter(([_, value]) => {
+      // 배열인 경우
+      if (Array.isArray(value)) {
+        return value.length > 0;
+      }
+      // 일반 값인 경우
+      return value !== '' && value !== null && value !== undefined;
+    });
+
+    const filteredData = Object.fromEntries(validData) as CareerFormData;
+
+    createCardAPI(createCareerFormData(filteredData));
   };
 
   // watch를 사용하여 현재 스텝의 필드 값들을 가져옵니다.

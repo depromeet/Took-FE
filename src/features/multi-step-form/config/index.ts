@@ -1,7 +1,4 @@
-import { useCardFormStore } from '@/shared/store/cardFormState';
-
 import { CareerFormData } from '../schema';
-import { TagValue } from '../ui/careerForm/tagFormStep/config/config';
 
 export const CAREER_FORM = {
   firstStep: {
@@ -22,16 +19,6 @@ export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 export const TOTAL_STEPS = 4;
 export const MINIMUM_STEP = 1;
 export const MAXIMUM_TAG_ADD = 10;
-
-export const FIELD_TAG_MAPPING: Record<keyof Pick<CareerFormData, TagValue>, TagValue> = {
-  organization: 'organization',
-  sns: 'sns',
-  region: 'region',
-  hobby: 'hobby',
-  news: 'news',
-  content: 'content',
-  project: 'project',
-};
 
 export const CARD_CREATE_INITIAL_VALUES: CareerFormData = {
   profileImage: '',
@@ -68,11 +55,4 @@ export const CARD_CREATE_INITIAL_VALUES: CareerFormData = {
     },
   ],
   previewInfoType: 'PROJECT',
-};
-
-export const STEP_VALIDATION_FIELDS: Record<number, (keyof CareerFormData)[]> = {
-  1: ['profileImage', 'nickname', 'detailJobId', 'interestDomain', 'summary'],
-  2: [],
-  3: useCardFormStore.getState().tagArray,
-  4: [],
 };

@@ -10,7 +10,7 @@ import Header from '@/shared/ui/header';
 import TagBox from './tagFormStep/ui/TagBox';
 
 type SecondStepProps = {
-  handleNextStep: () => void;
+  readonly handleNextStep: () => void;
 };
 
 const MIN_TAG_COUNT = 2;
@@ -22,6 +22,7 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
       resetTagCount: state.resetTagCount,
     })),
   );
+
   const tagCount = useCardFormStore(useShallow((state) => state.tagCount));
 
   const handleReset = () => {

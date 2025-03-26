@@ -12,7 +12,7 @@ const createCard = async (payload: FormData) => {
 };
 
 // 카드 생성 API 호출
-export const useCreateCard = () => {
+export const useCreateCard = (reset: () => void) => {
   const router = useRouter();
 
   return useMutation({
@@ -20,9 +20,12 @@ export const useCreateCard = () => {
     onSuccess: () => {
       toast.success('명함 생성 성공');
       router.replace('/');
+      reset();
     },
     onError: (error) => {
       toast.error('명함 생성 실패');
+      reset();
+      router.replace('/card-create');
       console.error('카드 생성 실패', error);
     },
   });

@@ -81,22 +81,22 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
   if (news) formData.append('news', news);
 
   // 배열 필드: sns
-  if (sns && sns.every((snsItem) => snsItem.link !== '')) {
+  if (sns && sns.every((snsItem) => snsItem.link !== '' && sns.length > 0)) {
     formData.append('sns', JSON.stringify(sns)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: content
-  if (content && content.every((contentItem) => contentItem.link !== '')) {
+  if (content && content.every((contentItem) => contentItem.link !== '' && content.length > 0)) {
     formData.append('content', JSON.stringify(content)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: project
-  if (project && project.every((projectItem) => projectItem.link !== '')) {
+  if (project && project.every((projectItem) => projectItem.link !== '' && project.length > 0)) {
     formData.append('project', JSON.stringify(project)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // previewInfoType
-  formData.append('previewInfoType', data.previewInfoType || '');
+  formData.append('previewInfoType', data.previewInfoType ?? '');
 
   return formData;
 };
