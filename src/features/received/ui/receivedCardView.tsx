@@ -19,7 +19,13 @@ export default function ReceivedCardView() {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
   const { data } = useReceivedCardQuery();
   const folders = ['디프만', 'YAPP', '엘리스랩', '카카오'];
+  // const [selectedFolder, setSelectedFolder] = useState<string>('전체보기'); // 추후 API 연동 후 폴더 필터링 시 추가 로직 구현
+
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
+
+  // const handleFolderSelect = (folder: string) => {
+  //   setSelectedFolder(folder);
+  // };
 
   return (
     <main className="">
@@ -37,7 +43,12 @@ export default function ReceivedCardView() {
             spacingStyles({ paddingRight: 'ml' }),
           )}
         >
-          <Tag size="lg" message="전체보기" className="bg-white text-black" />
+          <Tag
+            size="lg"
+            message="전체보기"
+            className="bg-white text-black"
+            // onClick={() => handleFolderSelect('전체보기')}
+          />
           {folders.map((folder, index) => {
             return <Tag key={index} size="lg" message={folder} className={tagStyle} />;
           })}
