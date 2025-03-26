@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { FallbackProps } from 'react-error-boundary';
 
 export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
@@ -8,7 +7,6 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 
   return (
     <div className="flex h-full flex-col items-center justify-center p-4 text-center">
-      <h2 className="mb-2 text-lg font-semibold">문제가 발생했습니다</h2>
       <p className="mb-4 max-w-md rounded bg-red-50 p-2 text-sm text-red-600">{errorMessage}</p>
       {resetErrorBoundary && (
         <button

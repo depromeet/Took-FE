@@ -1,5 +1,5 @@
 // api/cardQueries.ts
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { MyCardDto } from '@/features/home/types';
@@ -78,12 +78,13 @@ const getMyCard = async (): Promise<MyCardDto> => {
 
 // 카드 상세 정보를 가져오는 쿼리 훅
 export const useCardDetailQuery = (cardId: number) => {
-  const data = useSuspenseQuery({
+  return useQuery({
     queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
     queryFn: () => getCardDetail(cardId),
-  });
 
-  return data;
+    // 이후 Errorboundary를 사용하면 true 설정
+    throwOnError: false,
+  });
 };
 
 // 내 명함 목록 조회

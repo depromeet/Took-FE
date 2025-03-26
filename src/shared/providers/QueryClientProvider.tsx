@@ -2,20 +2,17 @@
 import { isServer, QueryCache, QueryClient, QueryClientProvider as TanstackProvider } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 
-import useApiError from '../hooks/useApiError';
+import handleAxiosError from '../utils/handleAxiosError';
 
-const generateQueryClient = (handleError: (error: unknown) => void) => {
+const generateQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
         throwOnError: true,
       },
-      mutations: {
-        onError: handleError,
-      },
     },
     queryCache: new QueryCache({
-      onError: handleError,
+      onError: (error) => handleAxiosError(error),
     }),
   });
 };
@@ -23,13 +20,12 @@ const generateQueryClient = (handleError: (error: unknown) => void) => {
 let browserQueryClient: QueryClient | undefined = undefined;
 
 export const getQueryClient = () => {
-  const { handleError } = useApiError();
   if (isServer) {
-    return generateQueryClient(handleError);
+    return generateQueryClient();
   }
 
   if (!browserQueryClient) {
-    browserQueryClient = generateQueryClient(handleError);
+    browserQueryClient = generateQueryClient();
   }
 
   return browserQueryClient;
