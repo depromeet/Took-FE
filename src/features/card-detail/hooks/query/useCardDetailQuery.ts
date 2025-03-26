@@ -12,7 +12,7 @@ import { CardDetailDto } from '../../types/cardDetail';
 
 export const CARD_DETAIL_QUERY_KEY = 'cardDetail';
 
-const getCardDetail = async (cardId: string): Promise<CardDetailDto> => {
+const getCardDetail = async (cardId: string, type: string): Promise<CardDetailDto> => {
   const numCardId = Number(cardId);
   // 각 cardId 값에 따라 다른 상태 코드의 에러 테스트
   if (numCardId === 400) {
@@ -61,10 +61,18 @@ const getCardDetail = async (cardId: string): Promise<CardDetailDto> => {
   }
 
   try {
-    const data = await client.get<CardDetailDto>(`${CLIENT_SIDE_URL}/api/card/detail?cardId=${cardId}`);
+    let apiUrl = `${CLIENT_SIDE_URL}/api/card/detail?cardId=${cardId}`;
+
+    // 받은 명함인지 구분
+    if (type === 'receivedcard') {
+      apiUrl = `${CLIENT_SIDE_URL}/api/card/received/detail?cardId=${cardId}`;
+    }
+
+    console.log(apiUrl, type);
+    const data = await client.get<CardDetailDto>(apiUrl);
     return data;
   } catch (err) {
-    // 실제 axios 에러에도 status 필드 추가
+    // Axios 에러 처리
     if (axios.isAxiosError(err) && err.response) {
       (err as any).status = err.response.status;
     }
@@ -78,10 +86,10 @@ const getMyCard = async (): Promise<MyCardDto> => {
 };
 
 // 카드 상세 정보를 가져오는 쿼리 훅
-export const useCardDetailQuery = (cardId: string) => {
+export const useCardDetailQuery = (cardId: string, type: string) => {
   return useQuery({
     queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
-    queryFn: () => getCardDetail(cardId),
+    queryFn: () => getCardDetail(cardId, type),
 
     // 이후 Errorboundary를 사용하면 true 설정
     throwOnError: false,

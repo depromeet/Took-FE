@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 
 import SSRSafeSuspense from '@/shared/components/SSRSafeSuspense';
 
@@ -8,6 +8,8 @@ import CardContent from './cardContent';
 
 function CardDetail() {
   const { cardId } = useParams();
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type');
 
   return (
     /**
@@ -19,7 +21,7 @@ function CardDetail() {
      */
 
     <SSRSafeSuspense fallback={<div className="justify-cente flex h-dvh items-center">로딩중입니다...</div>}>
-      <CardContent cardId={cardId as string} />
+      <CardContent cardId={cardId as string} type={type as string} />
     </SSRSafeSuspense>
   );
 }

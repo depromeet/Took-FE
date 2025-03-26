@@ -9,9 +9,10 @@ import CardTabs from './cardTabs';
 // 별도 컴포넌트로 분리
 interface CardContentProps {
   cardId: string;
+  type: string;
 }
-function CardContent({ cardId }: CardContentProps) {
-  const { data } = useCardDetailQuery(cardId);
+function CardContent({ cardId, type }: CardContentProps) {
+  const { data } = useCardDetailQuery(cardId, type);
 
   return (
     <>
