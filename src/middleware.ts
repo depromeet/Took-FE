@@ -6,12 +6,12 @@ export function middleware(request: NextRequest) {
   // const isFile = request.nextUrl.pathname.match(/\.(.*)$/);
 
   // 인증이 필요하지 않은 경로들
-  const publicPaths = [
-    '/login',
-    '/api/auth', // 인증 관련 API 경로
-    '/api/auth/callback', // 소셜 로그인 콜백 경로
-    '/onboarding',
-  ];
+  // const publicPaths = [
+  //   '/login',
+  //   '/api/auth', // 인증 관련 API 경로
+  //   '/api/auth/callback', // 소셜 로그인 콜백 경로
+  //   '/onboarding',
+  // ];
 
   // // 현재 경로가 public 경로인지 확인
   // const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
@@ -33,9 +33,10 @@ export function middleware(request: NextRequest) {
 
   // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 로그인 페이지로 리다이렉트
   // 임시로 온보딩 페이지로 리다이렉션합니다. 추후 isLogined 와 같은 서버 스펙 나오면 분리예정
-  if (!isPublicPath && (!accessToken || !refreshToken)) {
-    return NextResponse.redirect(new URL('/onboarding', request.url));
-  }
+  // if (!isPublicPath && (!accessToken || !refreshToken)) {
+  //   return NextResponse.redirect(new URL('/onboarding', request.url));
+  // }
+  console.log(request.nextUrl.pathname);
 
   return NextResponse.next();
 }
