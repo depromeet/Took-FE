@@ -18,7 +18,7 @@ function CardDetail() {
      * 추후 errorboundary를 사용한다면 useSuspenseQuery를 사용해서 throwOnError가 작동하게 해야된다.
      */
 
-    <SSRSafeSuspense fallback={<div>로딩중입니다...</div>}>
+    <SSRSafeSuspense fallback={<div className="justify-cente flex h-dvh items-center">로딩중입니다...</div>}>
       <CardContent cardId={Number(cardId)} />
     </SSRSafeSuspense>
   );
