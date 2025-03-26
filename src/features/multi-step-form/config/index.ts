@@ -1,3 +1,5 @@
+import { useCardFormStore } from '@/shared/store/cardFormState';
+
 import { CareerFormData } from '../schema';
 import { TagValue } from '../ui/careerForm/tagFormStep/config/config';
 
@@ -29,4 +31,48 @@ export const FIELD_TAG_MAPPING: Record<keyof Pick<CareerFormData, TagValue>, Tag
   news: 'news',
   content: 'content',
   project: 'project',
+};
+
+export const CARD_CREATE_INITIAL_VALUES: CareerFormData = {
+  profileImage: '',
+  nickname: '',
+  detailJobId: 0,
+  interestDomain: [],
+  summary: '',
+  organization: undefined,
+  sns: [
+    {
+      type: 'blog',
+      link: '',
+    },
+  ],
+  region: undefined,
+  hobby: undefined,
+  news: undefined,
+  content: [
+    {
+      type: 'blog',
+      link: '',
+      title: '',
+      imageUrl: '',
+      description: '',
+    },
+  ],
+  project: [
+    {
+      type: 'project',
+      link: '',
+      title: '',
+      imageUrl: '',
+      description: '',
+    },
+  ],
+  previewInfoType: 'PROJECT',
+};
+
+export const STEP_VALIDATION_FIELDS: Record<number, (keyof CareerFormData)[]> = {
+  1: ['profileImage', 'nickname', 'detailJobId', 'interestDomain', 'summary'],
+  2: [],
+  3: useCardFormStore.getState().tagArray,
+  4: [],
 };

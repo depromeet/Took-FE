@@ -1,11 +1,7 @@
 import { CareerSelectView } from '@/features/new-card';
 
 function Page() {
-  return (
-    <>
-      <CareerSelectView />
-    </>
-  )
+  return <CareerSelectView />;
 }
 
 export default Page;

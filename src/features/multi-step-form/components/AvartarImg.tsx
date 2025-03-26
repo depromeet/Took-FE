@@ -70,7 +70,7 @@ function AvatarImg() {
             }}
           />
           {/* 이미지가 있는 경우에만 src 속성을 전달하고, 없는 경우 기본 이미지를 사용합니다 */}
-          <WrappedAvatar src={avatarSrc || undefined} alt="프로필 이미지" size="large" />
+          <WrappedAvatar src={avatarSrc ?? undefined} alt="프로필 이미지" size="large" />
           <div className="absolute bottom-0 right-0">
             <ImageAdd />
           </div>

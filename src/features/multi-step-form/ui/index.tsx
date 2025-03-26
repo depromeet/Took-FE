@@ -39,7 +39,7 @@ function MultiStepFormView() {
   }, [handleBack]);
 
   return (
-    <div className="flex h-dvh w-full justify-center">
+    <div className="flex min-h-dvh w-full justify-center">
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
         <Appbar page="create" onLeftClick={handleStepBack} />
         <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
