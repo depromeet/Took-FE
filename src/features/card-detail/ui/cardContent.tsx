@@ -8,7 +8,7 @@ import CardTabs from './cardTabs';
 
 // 별도 컴포넌트로 분리
 interface CardContentProps {
-  cardId: number;
+  cardId: string;
 }
 function CardContent({ cardId }: CardContentProps) {
   const { data } = useCardDetailQuery(cardId);

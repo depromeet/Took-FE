@@ -19,7 +19,7 @@ function CardDetail() {
      */
 
     <SSRSafeSuspense fallback={<div className="justify-cente flex h-dvh items-center">로딩중입니다...</div>}>
-      <CardContent cardId={Number(cardId)} />
+      <CardContent cardId={cardId as string} />
     </SSRSafeSuspense>
   );
 }
