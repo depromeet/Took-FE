@@ -24,7 +24,7 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
           tag="대표 프로젝트"
           title={previewInfo.project?.title}
           description={previewInfo.project?.link}
-          className="!w-auto !bg-gray-700"
+          className="!w-auto truncate !bg-gray-700"
         />
       );
     case 'CONTENT':
@@ -34,35 +34,30 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
           title={previewInfo.content?.title}
           description={previewInfo.content?.link}
           imageUrl={previewInfo.content?.imageUrl}
-          className="!w-auto !bg-gray-700"
+          className="!w-auto truncate !bg-gray-700"
         />
       );
     case 'HOBBY':
-      return <Thumbnail tag="취미" description={previewInfo.hobby} className="!w-auto !bg-gray-700" />;
+      return <Thumbnail tag="취미" description={previewInfo.hobby} className="!w-auto truncate !bg-gray-700" />;
     case 'SNS':
       return (
         <Thumbnail
           tag="SNS"
           title={previewInfo.sns?.link}
           imageUrl={previewInfo.content?.imageUrl} // sns icon 조건부 렌더링 추후 구현
-          className="!w-auto !bg-gray-700"
+          className="!w-auto truncate !bg-gray-700"
         />
       );
     case 'NEWS':
-      return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!w-auto !bg-gray-700" />;
+      return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!w-auto truncate !bg-gray-700" />;
     case 'REGION':
-      return <Thumbnail tag="활동 지역" description={previewInfo.region} className="!w-auto !bg-gray-700" />;
+      return <Thumbnail tag="활동 지역" description={previewInfo.region} className="!w-auto truncate !bg-gray-700" />;
     default:
       return null;
   }
 }
 
 export default function ReceivedCard({ cardData }: ReceivedCardProps) {
-  function ParseSummary(summary: string) {
-    const MAX_LENGTH = 22;
-    if (summary.length >= MAX_LENGTH) return summary.substring(0, MAX_LENGTH) + '...';
-    else return summary;
-  }
   return (
     <div
       className={cn(
@@ -81,10 +76,14 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
             <p className="text-body-3 text-white">{cardData.detailJob}</p>
           </div>
         </div>
-        <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+        {cardData.job === 'DEVELOPER' ? (
+          <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+        ) : (
+          <Image src="/icons/designer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+        )}
       </div>
-      <p className={cn('text-ellipsis text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>
-        {ParseSummary(cardData.summary)}
+      <p className={cn('truncate text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>
+        {cardData.summary}
       </p>
       <div className={cn('flex gap-1', spacingStyles({ marginBottom: 'md' }))}>
         {cardData.interestDomain.map((tag, index) => {

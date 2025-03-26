@@ -45,14 +45,17 @@ export default function ChooseReceivedCardView({ openModal }: ChooseReceivedCard
       </div>
       {data.map((value, index) => {
         return (
-          <div key={index} className="flex items-center gap-4">
+          <div key={index} className="flex max-w-full items-center gap-4">
             <ReceivedCheckbox
               checked={checked[index]}
               onCheckedChange={() => {
                 toggleChecked(index);
               }}
             />
-            <ReceivedCard key={index} cardData={value} />
+
+            <div className="min-w-0 flex-1">
+              <ReceivedCard key={index} cardData={value} />
+            </div>
           </div>
         );
       })}

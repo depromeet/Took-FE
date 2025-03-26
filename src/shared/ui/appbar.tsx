@@ -57,6 +57,15 @@ function renderRightIcon({
           <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
+    case 'mypage':
+      if (onRightClick !== undefined) {
+        return (
+          <button onClick={onRightClick}>
+            <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      break;
     case 'received':
       return (
         <div className="flex gap-4">
@@ -88,13 +97,13 @@ function renderRightIcon({
 function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond }: appbarPropsType) {
   return (
     <header
-      className={`z-bar sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4 ${
+      className={`sticky top-0 z-bar flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4 ${
         page === 'detail' && hasBackground ? 'bg-gray-black' : page === 'create' ? 'bg-gray-black' : ''
       }`}
     >
       <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick })}</div>
 
-      {title && <h1 className="flex-1 text-center text-body-3">{title}</h1>}
+      {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
 
       <div className="flex flex-1 justify-end">{renderRightIcon({ page, onRightClick, onRightClickSecond })}</div>
     </header>
