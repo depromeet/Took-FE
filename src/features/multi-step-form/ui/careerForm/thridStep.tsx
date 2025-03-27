@@ -3,7 +3,7 @@
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
-import { CAREER_FORM, FIELD_TAG_MAPPING } from '@/features/multi-step-form/config';
+import { CAREER_FORM } from '@/features/multi-step-form/config';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
@@ -12,6 +12,8 @@ import WrappedInput from '@/shared/ui/Input';
 import EditableCardField from '../../components/EditableCardField';
 import { useEditingStates } from '../../hooks/useEditingStates';
 import { CareerFormData } from '../../schema';
+
+import { FIELD_TAG_MAPPING } from './config';
 
 function ThirdStep() {
   const {
