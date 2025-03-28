@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -24,14 +23,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.redirect(redirectUrl, 302);
     }
 
-    const res = await fetch(`${CLIENT_SIDE_URL}/api/auth/login/APPLE?code=${code.toString()}`, {
+    const res = await fetch(`${CLIENT_SIDE_URL}/api/auth/login/APPLE?code=${code}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    console.log('✅', res, `${CLIENT_SIDE_URL}/api/auth/login/APPLE?code=${code.toString()}`);
+    // console.log('✅', res, `${CLIENT_SIDE_URL}/api/auth/login/APPLE?code=${code}`);
 
     if (res.status === 401) {
       const redirectUrl = new URL('/login', request.url);
