@@ -11,8 +11,6 @@ export default function SocialAuthCallbackPage({ params }: { params: { provider:
   const router = useRouter();
 
   useEffect(() => {
-    if (params.provider === 'APPLE') return;
-
     const code = searchParams.get('code');
 
     const provider = params.provider.toUpperCase() as SocialProvider;
