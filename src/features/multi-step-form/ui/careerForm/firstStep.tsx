@@ -42,15 +42,13 @@ function FirstStep() {
             control={control}
             name="nickname"
             render={({ field }) => (
-              <>
-                <WrappedInput
-                  title="이름"
-                  placeholder="명함에 노출될 이름을 입력해주세요."
-                  errorMsg={errors.nickname?.message}
-                  error={!!errors.nickname?.message}
-                  {...field}
-                />
-              </>
+              <WrappedInput
+                title="이름"
+                placeholder="명함에 노출될 이름을 입력해주세요."
+                errorMsg={errors.nickname?.message}
+                error={!!errors.nickname?.message}
+                {...field}
+              />
             )}
           />
           <Controller
@@ -84,31 +82,27 @@ function FirstStep() {
             control={control}
             name="interestDomain"
             render={({ field }) => (
-              <>
-                <TagInput
-                  title="관심 도메인"
-                  placeholder="어떤 분야에 관심이 있나요?"
-                  errorMsg={errors.interestDomain?.message}
-                  {...field}
-                />
-              </>
+              <TagInput
+                title="관심 도메인"
+                placeholder="어떤 분야에 관심이 있나요?"
+                errorMsg={errors.interestDomain?.message}
+                {...field}
+              />
             )}
           />
           <Controller
             control={control}
             name="summary"
             render={({ field }) => (
-              <>
-                <Textarea
-                  labelTitle="한 줄 소개"
-                  totalNumber={40}
-                  placeholder="본인을 잘 드러낼 수 있는 문장을 작성해 주세요."
-                  size="max"
-                  errorMsg={errors.summary?.message}
-                  error={!!errors.summary?.message}
-                  {...field}
-                />
-              </>
+              <Textarea
+                labelTitle="한 줄 소개"
+                totalNumber={40}
+                placeholder="본인을 잘 드러낼 수 있는 문장을 작성해 주세요."
+                size="max"
+                errorMsg={errors.summary?.message}
+                error={!!errors.summary?.message}
+                {...field}
+              />
             )}
           />
         </div>

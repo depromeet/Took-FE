@@ -24,9 +24,16 @@ function AvatarImg() {
     if (!avatarSrc) {
       // 클라이언트 측에서만 실행되도록 (SSR에서는 window가 없음)
       if (typeof window !== 'undefined') {
-        // 완전한 URL 형식으로 설정 (스키마의 URL 검증을 통과하기 위함)
-        const fullUrl = `${window.location.origin}${AVATAR_IMAGE_PATH}`;
-        setValue('profileImage', fullUrl);
+        // 기본 이미지를 File 객체로 변환
+        fetch(`${window.location.origin}${AVATAR_IMAGE_PATH}`)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const defaultFile = new File([blob], 'default-avatar.png', { type: 'image/png' });
+            setValue('profileImage', defaultFile);
+          })
+          .catch((error) => {
+            console.error('기본 이미지 로드 실패:', error);
+          });
       }
     }
   }, [setValue, avatarSrc]);
@@ -63,7 +70,7 @@ function AvatarImg() {
             }}
           />
           {/* 이미지가 있는 경우에만 src 속성을 전달하고, 없는 경우 기본 이미지를 사용합니다 */}
-          <WrappedAvatar src={avatarSrc || undefined} alt="프로필 이미지" size="large" />
+          <WrappedAvatar src={avatarSrc ?? undefined} alt="프로필 이미지" size="large" />
           <div className="absolute bottom-0 right-0">
             <ImageAdd />
           </div>

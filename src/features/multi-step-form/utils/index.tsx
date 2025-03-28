@@ -1,4 +1,7 @@
+import { UseFormSetValue, UseFormUnregister } from 'react-hook-form';
+
 import { CareerFormData } from '../schema';
+import { STEP_VALIDATION_FIELDS } from '../ui/careerForm/constants';
 
 interface PlatformPattern {
   pattern: RegExp;
@@ -81,22 +84,73 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
   if (news) formData.append('news', news);
 
   // 배열 필드: sns
-  if (sns && sns.every((snsItem) => snsItem.link !== '')) {
+  if (sns && sns.every((snsItem) => snsItem.link !== '' && sns.length > 0)) {
     formData.append('sns', JSON.stringify(sns)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: content
-  if (content && content.every((contentItem) => contentItem.link !== '')) {
+  if (content && content.every((contentItem) => contentItem.link !== '' && content.length > 0)) {
     formData.append('content', JSON.stringify(content)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // 배열 필드: project
-  if (project && project.every((projectItem) => projectItem.link !== '')) {
+  if (project && project.every((projectItem) => projectItem.link !== '' && project.length > 0)) {
     formData.append('project', JSON.stringify(project)); // JSON.stringify로 배열 전체를 문자열로 변환
   }
 
   // previewInfoType
-  formData.append('previewInfoType', data.previewInfoType || '');
+  formData.append('previewInfoType', data.previewInfoType ?? '');
 
   return formData;
+};
+
+export const resetStepFields = (
+  step: number,
+  setValue: UseFormSetValue<CareerFormData>,
+  unregister: UseFormUnregister<CareerFormData>,
+  resetTagCount: () => void,
+  tagArray: string[],
+) => {
+  const resetArrayField = (tag: string) => {
+    switch (tag) {
+      case 'sns':
+        setValue('sns', [{ type: '', link: '' }]);
+        break;
+      case 'content':
+        setValue('content', [{ type: 'blog', link: '', title: '', imageUrl: '', description: '' }]);
+        break;
+      case 'project':
+        setValue('project', [{ type: 'project', link: '', title: '', imageUrl: '', description: '' }]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const arrayFields = ['sns', 'project', 'content'];
+
+  switch (step) {
+    case 1:
+      STEP_VALIDATION_FIELDS[step].forEach((field) => {
+        unregister(field);
+      });
+      break;
+
+    case 2:
+      resetTagCount();
+      break;
+
+    case 3:
+      tagArray.forEach((tag) => {
+        if (arrayFields.includes(tag)) {
+          resetArrayField(tag);
+        } else {
+          unregister(tag as keyof CareerFormData);
+        }
+      });
+      break;
+
+    default:
+      break;
+  }
 };
