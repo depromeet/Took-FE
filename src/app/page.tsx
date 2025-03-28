@@ -12,10 +12,10 @@ import { Navbar } from '@/shared/ui/Navigation';
 export default function Home() {
   return (
     <>
-      <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
+      <div className="relative mx-auto h-dvh w-full max-w-[600px]">
         <HomeBackground className="absolute z-[-10]" />
         <HeaderContainer />
-        <section className="py-10">
+        <section className="pb-[108px] pt-10">
           <CardContainer />
           <ClipboardContainer />
         </section>
