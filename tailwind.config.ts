@@ -141,6 +141,16 @@ const config: Config = {
         lx: '28px',
         '2xl': '48px',
       },
+      zIndex: {
+        tag: '50',
+        modalItem: '50',
+        bar: '100', // Appbar, Navbar
+        modalBackground: '150',
+        bottomSheet: '200',
+        toast: '300',
+        dialog: '500',
+        FAB: '600',
+      },
     },
   },
   animation: {

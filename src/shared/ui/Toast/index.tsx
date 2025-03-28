@@ -6,8 +6,8 @@ import { toast } from 'sonner';
 import { Toaster } from './sonner';
 
 type toastProps = {
-  buttonText: string;
-  message: string;
+  buttonText?: string;
+  message?: string;
 };
 
 /**
@@ -43,7 +43,7 @@ function Toast({ buttonText, message }: toastProps) {
             />
           ),
         }}
-        position="bottom-right"
+        position="bottom-center"
       />
       <button className="text-white" onClick={() => toast.error(message)}>
         {buttonText}

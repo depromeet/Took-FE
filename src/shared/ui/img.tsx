@@ -32,7 +32,7 @@ function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }
   return (
     <div
       className={cn(
-        'relative flex items-center justify-center rounded-md border border-opacity-white-10 bg-opacity-white-20 p-3',
+        'relative flex shrink-0 items-center justify-center rounded-md border border-opacity-white-10 bg-opacity-white-20 p-3',
         container,
       )}
     >
