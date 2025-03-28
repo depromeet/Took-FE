@@ -76,19 +76,19 @@ export const RECEIVED_CARD_MOCK = [
 
 export const FOLDERS_MOCK = [
   {
-    id: 1,
+    id: 0,
     name: '디프만',
   },
   {
-    id: 2,
+    id: 1,
     name: 'YAPP',
   },
   {
-    id: 3,
+    id: 2,
     name: '엘리스랩',
   },
   {
-    id: 4,
+    id: 3,
     name: '카카오',
   },
 ];

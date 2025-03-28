@@ -25,17 +25,22 @@ export default function ReceivedCardView() {
   // const [folders, setFolders] = useState<string[]>(['디프만', 'YAPP', '엘리스랩', '카카오']);
   // const [selectedFolder, setSelectedFolder] = useState<string>('전체보기'); // 추후 API 연동 후 폴더 필터링 시 추가 로직 구현
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
+  const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
 
   const [folderName, setFolderName] = useState<string>(''); // 수정하려는 폴더의 기존 이름
   const [folderIndex, setFolderIndex] = useState<number>(0); // 수정하려는 폴더의 인덱스
-  const [newFolderName, setNewFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
+  const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
+  const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  const { folders, setFolders, updateFolder, deleteFolder } = useFolderStore();
+  const { folders, setFolders, addFolder, updateFolder, deleteFolder } = useFolderStore();
 
   // const handleFolderSelect = (folder: string) => {
   //   setSelectedFolder(folder);
   // };
+  const handleAdd = () => {
+    setIsAdd(true);
+  };
   const handleUpdate = (folder: string) => {
     setFolderName(folder);
     setIsUpdate(true);
@@ -43,22 +48,34 @@ export default function ReceivedCardView() {
   const handleDelete = (folder: string) => {
     deleteFolder(folder);
     closeModal();
-    toast.success('삭제가 완료되었어요.');
+    toast.success('폴더가 삭제되었어요.');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
     setFolderIndex(index);
-    console.log(folderIndex);
     if (e.key == 'Enter') {
-      updateFolder(folderName, newFolderName);
+      e.preventDefault();
+      updateFolder(folderName, updatedFolderName);
       closeModal();
       toast.success('수정이 완료되었어요.');
     }
   };
+  const handleAddKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+      addFolder(newFolderName);
+      closeModal();
+      toast.success('폴더가 추가되었어요.');
+      console.log(folders);
+    }
+  };
 
   useEffect(() => {
-    if (!isModalOpen) setIsUpdate(false);
+    if (!isModalOpen) {
+      setIsUpdate(false);
+      setIsAdd(false);
+    }
   }, [isModalOpen]);
 
   useEffect(() => {
@@ -113,7 +130,17 @@ export default function ReceivedCardView() {
             <input
               defaultValue={folderName}
               className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
-              onKeyDown={handleKeyDown}
+              onKeyDown={handleUpdateKeyDown}
+              onChange={(e) => setUpdatedFolderName(e.target.value)}
+            />
+            <p className="mr-5 self-end text-caption-1 text-gray-400">10/10</p>
+          </>
+        ) : isAdd ? (
+          <>
+            <BottomModalTitle>폴더 추가</BottomModalTitle>
+            <input
+              className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
+              onKeyDown={handleAddKeyDown}
               onChange={(e) => setNewFolderName(e.target.value)}
             />
             <p className="mr-5 self-end text-caption-1 text-gray-400">10/10</p>
@@ -135,7 +162,7 @@ export default function ReceivedCardView() {
                 </BottomMenuItem>
               );
             })}
-            <button className={cn('flex gap-3', spacingStyles({ padding: 'ml' }))}>
+            <button className={cn('flex gap-3', spacingStyles({ padding: 'ml' }))} onClick={handleAdd}>
               <Image src="/icons/addIcon.svg" alt="추가 아이콘" width={20} height={20} />
               <p className="text-body-3 text-gray-300">추가하기</p>
             </button>

@@ -7,6 +7,7 @@ type Folder = {
 type FoldersStore = {
   folders: Folder[];
   setFolders: (folders: Folder[]) => void;
+  addFolder: (folderName: string) => void;
   updateFolder: (folderName: string, newFolderName: string) => void;
   deleteFolder: (folderName: string) => void;
 };
@@ -14,6 +15,13 @@ type FoldersStore = {
 export const useFolderStore = create<FoldersStore>((set) => ({
   folders: [],
   setFolders: (folders) => set({ folders }),
+  addFolder: (folderName) =>
+    set((state) => {
+      const lastId = state.folders.length > 0 ? state.folders[state.folders.length - 1].id : 0;
+      return {
+        folders: [...state.folders, { id: lastId + 1, name: folderName }],
+      };
+    }),
   updateFolder: (folderName, newFolderName) =>
     set((state) => {
       const index = state.folders.findIndex((folder) => folder.name === folderName);
@@ -22,7 +30,7 @@ export const useFolderStore = create<FoldersStore>((set) => ({
         updatedFolders[index] = { ...updatedFolders[index], name: newFolderName };
         return { folders: updatedFolders };
       }
-      return state; // folderName이 없으면 상태 변경 안 함
+      return state;
     }),
   deleteFolder: (folderName) =>
     set((state) => ({
