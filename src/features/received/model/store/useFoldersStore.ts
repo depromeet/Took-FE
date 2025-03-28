@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type Folder = {
+export type Folder = {
   id: number;
   name: string;
 };

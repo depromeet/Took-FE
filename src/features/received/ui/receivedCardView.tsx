@@ -10,19 +10,15 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import Tag from '@/shared/ui/tag/tag';
 
-import { useFoldersQuery } from '../model/queries/useFoldersQuery';
-import { useReceivedCardQuery } from '../model/queries/useReceivedCardQuery';
 import { useFolderStore } from '../model/store/useFoldersStore';
+import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
 
 import Intellibanner from './intellibanner';
 import ReceivedCard from './receivedCard';
 
 export default function ReceivedCardView() {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
-  const { data } = useReceivedCardQuery();
-  const { data: serverFolders } = useFoldersQuery();
 
-  // const [folders, setFolders] = useState<string[]>(['디프만', 'YAPP', '엘리스랩', '카카오']);
   // const [selectedFolder, setSelectedFolder] = useState<string>('전체보기'); // 추후 API 연동 후 폴더 필터링 시 추가 로직 구현
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
@@ -33,11 +29,13 @@ export default function ReceivedCardView() {
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  const { folders, setFolders, addFolder, updateFolder, deleteFolder } = useFolderStore();
+  const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
+  const { receivedCards } = useReceivedCardsStore();
 
   // const handleFolderSelect = (folder: string) => {
   //   setSelectedFolder(folder);
   // };
+
   const handleAdd = () => {
     setIsAdd(true);
   };
@@ -54,6 +52,7 @@ export default function ReceivedCardView() {
   const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
     setFolderIndex(index);
+    console.log(folderIndex);
     if (e.key == 'Enter') {
       e.preventDefault();
       updateFolder(folderName, updatedFolderName);
@@ -77,10 +76,6 @@ export default function ReceivedCardView() {
       setIsAdd(false);
     }
   }, [isModalOpen]);
-
-  useEffect(() => {
-    if (serverFolders) setFolders(serverFolders);
-  }, []);
 
   return (
     <main className="">
@@ -119,7 +114,7 @@ export default function ReceivedCardView() {
         <Image className="cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
       <div className="flex flex-col gap-4">
-        {data.map((value, index) => (
+        {receivedCards.map((value, index) => (
           <ReceivedCard key={index} cardData={value} />
         ))}
       </div>
