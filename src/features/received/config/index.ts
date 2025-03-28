@@ -73,3 +73,22 @@ export const RECEIVED_CARD_MOCK = [
     imagePath: '/images/profile/user1.jpg',
   },
 ];
+
+export const FOLDERS_MOCK = [
+  {
+    id: 1,
+    name: '디프만',
+  },
+  {
+    id: 2,
+    name: 'YAPP',
+  },
+  {
+    id: 3,
+    name: '엘리스랩',
+  },
+  {
+    id: 4,
+    name: '카카오',
+  },
+];
