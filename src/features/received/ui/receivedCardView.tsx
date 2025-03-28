@@ -31,7 +31,7 @@ export default function ReceivedCardView() {
   const [newFolderName, setNewFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  const { folders, setFolders, updateFolder } = useFolderStore();
+  const { folders, setFolders, updateFolder, deleteFolder } = useFolderStore();
 
   // const handleFolderSelect = (folder: string) => {
   //   setSelectedFolder(folder);
@@ -40,6 +40,11 @@ export default function ReceivedCardView() {
     setFolderName(folder);
     setIsUpdate(true);
   };
+  const handleDelete = (folder: string) => {
+    deleteFolder(folder);
+    closeModal();
+    toast.success('삭제가 완료되었어요.');
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
@@ -47,8 +52,8 @@ export default function ReceivedCardView() {
     console.log(folderIndex);
     if (e.key == 'Enter') {
       updateFolder(folderName, newFolderName);
-      toast.success('수정이 완료되었어요.');
       closeModal();
+      toast.success('수정이 완료되었어요.');
     }
   };
 
@@ -123,8 +128,7 @@ export default function ReceivedCardView() {
                   onClick={() => console.log('asdf')}
                   update={() => handleUpdate(folder.name)}
                   delete={() => {
-                    closeModal();
-                    toast.success('폴더가 삭제되었어요');
+                    handleDelete(folder.name);
                   }}
                 >
                   {folder.name}

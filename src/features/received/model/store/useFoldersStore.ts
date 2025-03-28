@@ -8,7 +8,7 @@ type FoldersStore = {
   folders: Folder[];
   setFolders: (folders: Folder[]) => void;
   updateFolder: (folderName: string, newFolderName: string) => void;
-  deleteFolder: (index: number) => void;
+  deleteFolder: (folderName: string) => void;
 };
 
 export const useFolderStore = create<FoldersStore>((set) => ({
@@ -24,8 +24,8 @@ export const useFolderStore = create<FoldersStore>((set) => ({
       }
       return state; // folderName이 없으면 상태 변경 안 함
     }),
-  deleteFolder: (id) =>
+  deleteFolder: (folderName) =>
     set((state) => ({
-      folders: state.folders.filter((folder) => folder.id !== id),
+      folders: state.folders.filter((folder) => folder.name !== folderName),
     })),
 }));
