@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib/utils';
 
 export const ShareTopSvg = () => {
   return (
-    <div className="pt-40px flex w-full items-center justify-center">
+    <div className="flex w-full items-center justify-center pt-[40px]">
       <svg
         className="mt-[54px] h-auto w-full max-w-[340px] md:max-w-[420px]"
         viewBox="0 0 340 354"

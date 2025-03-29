@@ -3,7 +3,7 @@
 import { motion, useAnimation } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
-import { ShareBackground } from '../components/background/ShareBarckground';
+import { ShareBackground } from '../components/background/ShareBackground';
 
 import { ShareCardContentContainer } from './ShareCardContentContainer';
 import { ShareClipboardContainer } from './ShareClipboardContainer';
