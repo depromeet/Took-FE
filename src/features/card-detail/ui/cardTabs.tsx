@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -14,12 +13,11 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
-import Empty from '../components/empty';
 import { CARD_TABS, TabId } from '../config/tabs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
+import { CardDetailDto } from '../types/cardDetail';
 
 import DomainList from './domain';
 import Hobby from './hobby';
@@ -29,10 +27,13 @@ import RecentNews from './recent';
 import SNS from './sns';
 import { UnderlineTabs } from './underlineTabs';
 
-function CardTabs() {
+interface CardTabsProps {
+  data: CardDetailDto;
+}
+
+function CardTabs({ data }: CardTabsProps) {
   const [activeTab, setActiveTab] = useState<TabId>('domains');
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
@@ -170,7 +171,7 @@ function CardTabs() {
             </div>
           )}
 
-          {data?.data.news ? (
+          {data?.data.news && (
             <div
               ref={combineRefs('news')}
               id="news"
@@ -179,18 +180,9 @@ function CardTabs() {
               <Typography variant="body-1">최근 소식</Typography>
               <RecentNews data={data.data.news} />
             </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">최근 소식</Typography>
-              <Empty />
-            </div>
           )}
 
-          {data?.data.hobby ? (
+          {data?.data.hobby && (
             <div
               ref={combineRefs('hobby')}
               id="hobby"
@@ -198,15 +190,6 @@ function CardTabs() {
             >
               <Typography variant="body-1">취미</Typography>
               <Hobby data={data.data.hobby} />
-            </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">취미</Typography>
-              <Empty />
             </div>
           )}
 

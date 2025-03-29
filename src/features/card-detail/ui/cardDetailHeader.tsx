@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -15,12 +14,14 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import Tag from '@/shared/ui/tag/tag';
 
 import JOB_CONFIG, { JobType } from '../config/jobs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
+import { CardDetailDto } from '../types/cardDetail';
 
-const CardDetailHeader = () => {
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+interface CardDetailHeaderProps {
+  data: CardDetailDto;
+}
+
+const CardDetailHeader = ({ data }: CardDetailHeaderProps) => {
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
@@ -44,7 +45,7 @@ const CardDetailHeader = () => {
   return (
     <>
       <div
-        className="card-detail-header w-full bg-cover bg-center pb-[40px]"
+        className="w-full bg-cover bg-center pb-[40px]"
         style={{
           backgroundImage: `url('${currentJob.backgroundImage}')`,
         }}
@@ -58,13 +59,16 @@ const CardDetailHeader = () => {
           >
             <div className="flex w-full items-center justify-between">
               {/* 프로필 이미지 */}
-              <div
-                className={`flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100 ${spacingStyles({ marginBottom: 'ms' })}`}
-              >
-                <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
-              </div>
+              {data?.data.nickname && (
+                <div
+                  className={`flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100 ${spacingStyles({ marginBottom: 'ms' })}`}
+                >
+                  <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
+                </div>
+              )}
+
               {/* 개발자 , 디자이너 아이콘 */}
-              <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />
+              {data?.data.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />}
             </div>
             <p className="title-1 line-clamp-1">{data?.data.nickname}</p>
             <div
