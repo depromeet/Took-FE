@@ -85,7 +85,7 @@
     .home-swiper .swiper-slide-next {
       display: flex;
       justify-content: center;
-      transition: all 0.35s ease-in-out;
+      transition: all 0.5s ease-in-out;
 
       @media (max-width: 452px) {
         transform: translate(-108px, 8px) rotate(3deg) !important;
@@ -115,7 +115,7 @@
     .home-swiper .swiper-slide-prev {
       display: flex;
       justify-content: center;
-      transition: all 0.35s ease-in-out;
+      transition: all 0.5s ease-in-out;
 
       @media (max-width: 452px) {
         transform: translate(108px, 8px) rotate(-3deg) !important;
