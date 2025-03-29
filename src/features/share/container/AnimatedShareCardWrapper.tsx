@@ -41,7 +41,7 @@ function AnimatedShareCardWrapper() {
       {isAnimating && (
         <>
           {/* 전체 배경 오버레이 */}
-          <div className="absolute inset-0 z-[-5] bg-white opacity-10 transition-opacity duration-500" />
+          <div className="absolute inset-0 z-[-5] bg-white opacity-5 transition-opacity duration-500" />
 
           {/* 왼쪽 그라데이션 */}
           <div className="absolute left-0 top-0 z-[-5] h-full w-[18%] bg-gradient-to-r from-white to-transparent opacity-15 transition-opacity duration-500" />
@@ -54,9 +54,9 @@ function AnimatedShareCardWrapper() {
       <motion.div
         className="flex h-full w-full flex-col items-center justify-center"
         initial={{
-          y: -700, // 더 높은 위치에서 시작
+          y: -350, // 더 높은 위치에서 시작
           x: 0,
-          rotate: 30, // 비스듬하게 기울어진 상태에서 시작
+          rotate: 20, // 비스듬하게 기울어진 상태에서 시작
           opacity: 0,
         }}
         animate={controls}
