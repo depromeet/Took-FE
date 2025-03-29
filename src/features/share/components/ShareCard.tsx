@@ -9,24 +9,23 @@ import { Typography } from '@/shared/ui/typography';
 import { DesignerIcon } from '../icons/DesignerIcon';
 import { DeveloperIcon } from '../icons/DeveloperIcon';
 
-import { ShareCardTag } from './ShareCardTag';
 import { DesignerCardBackground } from './background/DesignerCardBackground';
 import { DeveloperCardBackground } from './background/DeveloperCardBackground';
+import { ShareCardTag } from './ShareCardTag';
 
 type WrappedCardProps = PropsWithChildren<
   {
     cardType: JopType;
-    isAnimating: boolean;
   } & HTMLAttributes<HTMLDivElement>
 >;
 
 export const WrappedCard = forwardRef<HTMLDivElement, WrappedCardProps>(
-  ({ cardType, isAnimating, children, className, ...rest }, ref) => {
+  ({ cardType, children, className, ...rest }, ref) => {
     const Background = cardType === 'designer' ? DesignerCardBackground : DeveloperCardBackground;
 
     return (
       <div ref={ref} className={cn('relative h-[394px] w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
-        <Background isAnimating={isAnimating} />
+        <Background />
         <div className="absolute top-0 z-10 p-[24px]">{children}</div>
       </div>
     );

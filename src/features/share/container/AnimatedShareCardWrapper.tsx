@@ -62,7 +62,7 @@ function AnimatedShareCardWrapper() {
         animate={controls}
       >
         <section className="flex h-full w-full flex-col items-center justify-center">
-          <ShareCardContentContainer isAnimating={isAnimating} />
+          <ShareCardContentContainer />
           <div className="h-[46px]">
             <ShareClipboardContainer isAnimating={isAnimating} />
           </div>

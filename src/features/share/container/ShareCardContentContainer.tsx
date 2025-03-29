@@ -11,16 +11,12 @@ import {
 } from '../components/ShareCard';
 import { useCardQuery } from '../hooks/queries/useCardQuery';
 
-type ShareCardContentContainerProps = {
-  isAnimating: boolean;
-};
-
-export const ShareCardContentContainer = ({ isAnimating }: ShareCardContentContainerProps) => {
+export const ShareCardContentContainer = () => {
   const { data } = useCardQuery();
 
   return (
-    <WrappedCard cardType={data.type} style={{ marginBottom: '20px' }} isAnimating={isAnimating}>
-      <ShareCardAvatar src={data.profileImg} alt={`${name}의 프로필 이미지`} />
+    <WrappedCard cardType={data.type} style={{ marginBottom: '20px' }}>
+      <ShareCardAvatar src={data.profileImg} alt={`${data.name}의 프로필 이미지`} />
       <ShareCardName organization={data.organization}>{data.name}</ShareCardName>
       <ShareCardJob jobType={data.type}>{data.job}</ShareCardJob>
       <ShareCardDescription>{data.introduction}</ShareCardDescription>

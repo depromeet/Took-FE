@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@/shared/lib/utils';
 import { Typography } from '@/shared/ui/typography';
 

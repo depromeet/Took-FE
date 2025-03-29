@@ -2,11 +2,7 @@ import { HTMLAttributes } from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
-type DesignerCardBackgroundProps = {
-  isAnimating?: boolean;
-} & HTMLAttributes<HTMLDivElement>;
-
-export const DesignerCardBackground = ({ isAnimating, ...props }: DesignerCardBackgroundProps) => {
+export const DesignerCardBackground = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className="relative" {...props}>
       {/* 애니메이션 중일 때 회색 배경 추가 */}

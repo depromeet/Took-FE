@@ -1,5 +1,3 @@
-import React from 'react';
-
 import AnimatedShareCardWrapper from '@/features/share/container/AnimatedShareCardWrapper';
 
 function Page() {
