@@ -41,7 +41,7 @@ function Page() {
             // 현재는 서버에서 받은 데이터를 렌더링 중이나, 추후 스켈레톤 등의 방안으로 인해 클라이언트 데이터 렌더링으로 변경 예정입니다.
             <ReceivedCardView
               cards={serverReceivedCards}
-              folders={serverFolders}
+              serverFolders={serverFolders}
               setSelectedFolderId={setSelectedFolderId}
             />
           ) : (

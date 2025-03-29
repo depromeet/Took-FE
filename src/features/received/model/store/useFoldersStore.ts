@@ -6,8 +6,8 @@ type FoldersStore = {
   folders: Folder[];
   setFolders: (folders: Folder[]) => void;
   addFolder: (folderName: string) => void;
-  updateFolder: (folderName: string, newFolderName: string) => void;
-  deleteFolder: (folderName: string) => void;
+  updateFolder: (id: number, newFolderName: string) => void;
+  deleteFolder: (id: number) => void;
 };
 
 export const useFolderStore = create<FoldersStore>((set) => ({
@@ -20,9 +20,9 @@ export const useFolderStore = create<FoldersStore>((set) => ({
         folders: [...state.folders, { id: lastId + 1, name: folderName }],
       };
     }),
-  updateFolder: (folderName, newFolderName) =>
+  updateFolder: (id, newFolderName) =>
     set((state) => {
-      const index = state.folders.findIndex((folder) => folder.name === folderName);
+      const index = state.folders.findIndex((folder) => folder.id === id);
       if (index !== -1) {
         const updatedFolders = [...state.folders];
         updatedFolders[index] = { ...updatedFolders[index], name: newFolderName };
@@ -30,8 +30,8 @@ export const useFolderStore = create<FoldersStore>((set) => ({
       }
       return state;
     }),
-  deleteFolder: (folderName) =>
+  deleteFolder: (id) =>
     set((state) => ({
-      folders: state.folders.filter((folder) => folder.name !== folderName),
+      folders: state.folders.filter((folder) => folder.id !== id),
     })),
 }));

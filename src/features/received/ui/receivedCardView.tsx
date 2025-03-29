@@ -12,6 +12,9 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import Tag from '@/shared/ui/tag/tag';
 
+import { useCreateFolder } from '../model/queries/useCreateFolder';
+import { useDeleteFolder } from '../model/queries/useDeleteFolder';
+import { useEditFolder } from '../model/queries/useEditFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
 // import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
 
@@ -20,25 +23,28 @@ import ReceivedCard from './receivedCard';
 
 type ReceivedCardViewProps = {
   cards: Card[];
-  folders: Folder[];
+  serverFolders: Folder[];
   setSelectedFolderId: (id: number | null) => void;
 };
 
-export default function ReceivedCardView({ cards, folders, setSelectedFolderId }: ReceivedCardViewProps) {
+export default function ReceivedCardView({ cards, serverFolders, setSelectedFolderId }: ReceivedCardViewProps) {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
 
   const [folderName, setFolderName] = useState<string>(''); // 수정하려는 폴더의 기존 이름
-  const [folderIndex, setFolderIndex] = useState<number>(0); // 수정하려는 폴더의 인덱스
+  // const [folderIndex, setFolderIndex] = useState<number>(0); // 수정하려는 폴더의 인덱스
   const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  // const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
-  const { addFolder, updateFolder, deleteFolder } = useFolderStore();
+  const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
+  // const { addFolder, updateFolder, deleteFolder } = useFolderStore();
   // const { receivedCards } = useReceivedCardsStore();
+  const { mutate: serverCreateFolder } = useCreateFolder(); // createFolder 함수와 로딩 상태
+  const { mutate: serverEditFolder } = useEditFolder();
+  const { mutate: serverDeleteFolder } = useDeleteFolder();
 
   const handleFolderSelect = (id: number | null) => {
     setSelectedFolderId(id);
@@ -51,19 +57,20 @@ export default function ReceivedCardView({ cards, folders, setSelectedFolderId }
     setFolderName(folder);
     setIsUpdate(true);
   };
-  const handleDelete = (folder: string) => {
-    deleteFolder(folder);
+  const handleDelete = (id: number) => {
+    serverDeleteFolder({ folderId: id });
+    deleteFolder(id);
     closeModal();
     toast.success('폴더가 삭제되었어요.');
   };
 
   const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
-    setFolderIndex(index);
-    console.log(folderIndex);
     if (e.key == 'Enter') {
       e.preventDefault();
-      updateFolder(folderName, updatedFolderName);
+      const folderId = folders[index].id;
+      updateFolder(folderId, updatedFolderName);
+      serverEditFolder({ folderId, name: updatedFolderName });
       closeModal();
       toast.success('수정이 완료되었어요.');
     }
@@ -71,6 +78,7 @@ export default function ReceivedCardView({ cards, folders, setSelectedFolderId }
   const handleAddKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == 'Enter') {
       e.preventDefault();
+      serverCreateFolder(newFolderName);
       addFolder(newFolderName);
       closeModal();
       toast.success('폴더가 추가되었어요.');
@@ -102,7 +110,7 @@ export default function ReceivedCardView({ cards, folders, setSelectedFolderId }
           )}
         >
           <Tag size="lg" message="전체보기" className="bg-white text-black" onClick={() => handleFolderSelect(null)} />
-          {folders.map((folder, index) => {
+          {serverFolders.map((folder, index) => {
             return (
               <Tag
                 key={index}
@@ -159,10 +167,9 @@ export default function ReceivedCardView({ cards, folders, setSelectedFolderId }
               return (
                 <BottomMenuItem
                   key={index}
-                  onClick={() => console.log('asdf')}
                   update={() => handleUpdate(folder.name)}
                   delete={() => {
-                    handleDelete(folder.name);
+                    handleDelete(folder.id);
                   }}
                 >
                   {folder.name}
