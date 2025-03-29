@@ -1,9 +1,7 @@
 import { create } from 'zustand';
 
-export type Folder = {
-  id: number;
-  name: string;
-};
+import { Folder } from '@/entities/folder/types';
+
 type FoldersStore = {
   folders: Folder[];
   setFolders: (folders: Folder[]) => void;
