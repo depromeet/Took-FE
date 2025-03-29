@@ -23,7 +23,7 @@ function AnimatedShareCardWrapper() {
         opacity: 1, // 투명도 최종 상태: 완전히 불투명
         transition: {
           type: 'spring', // 애니메이션 유형: 스프링(탄성) 효과
-          damping: 16, // 감쇠: 낮을수록 더 많이 튕김 (진동 감소 속도)
+          damping: 14, // 감쇠: 낮을수록 더 많이 튕김 (진동 감소 속도)
           stiffness: 70, // 강성: 스프링의 강도, 높을수록 빠르게 목표에 도달
           duration: 2, // 애니메이션 총 지속 시간: 2초
         },
@@ -44,10 +44,10 @@ function AnimatedShareCardWrapper() {
           <div className="absolute inset-0 z-[-5] bg-white opacity-5 transition-opacity duration-500" />
 
           {/* 왼쪽 그라데이션 */}
-          <div className="absolute left-0 top-0 z-[-5] h-full w-[18%] bg-gradient-to-r from-white to-transparent opacity-15 transition-opacity duration-500" />
+          <div className="absolute left-0 top-0 z-[-5] h-full w-[18%] bg-gradient-to-r from-white to-transparent opacity-10 transition-opacity duration-500" />
 
           {/* 오른쪽 그라데이션 */}
-          <div className="absolute right-0 top-0 z-[-5] h-full w-[18%] bg-gradient-to-l from-white to-transparent opacity-15 transition-opacity duration-500" />
+          <div className="absolute right-0 top-0 z-[-5] h-full w-[18%] bg-gradient-to-l from-white to-transparent opacity-10 transition-opacity duration-500" />
         </>
       )}
 
@@ -56,7 +56,7 @@ function AnimatedShareCardWrapper() {
         initial={{
           y: -350, // 더 높은 위치에서 시작
           x: 0,
-          rotate: 20, // 비스듬하게 기울어진 상태에서 시작
+          rotate: 10, // 비스듬하게 기울어진 상태에서 시작
           opacity: 0,
         }}
         animate={controls}
