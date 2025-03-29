@@ -2,20 +2,31 @@ import { useQuery } from '@tanstack/react-query';
 
 import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
+import { CLIENT_SIDE_URL } from '@/shared/constants';
 
-import { RECEIVED_CARD_MOCK } from '../../config';
+const _getReceivedCards = async (folderId: number | null) => {
+  const url =
+    folderId !== null
+      ? `${CLIENT_SIDE_URL}/api/card/receive?folderId=${folderId}`
+      : `${CLIENT_SIDE_URL}/api/card/receive`;
 
-const _getReceivedCards = async () => {
-  const data = await client.get<MyCardDto>('받은명함가져오기API');
-
-  return data;
+  try {
+    const { data } = await client.get<MyCardDto>(url);
+    console.log('서버로부터 받은 데이터 : ', data); // 추후 지우기
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-export const useReceivedCardsQuery = () => {
-  const { data: _ } = useQuery({
-    queryKey: [''],
-    queryFn: () => _getReceivedCards(),
+export const useReceivedCardsQuery = (folderId: number | null) => {
+  const { data, isError } = useQuery({
+    // const { data: _ } = useQuery({
+    queryKey: ['cards'],
+    queryFn: () => _getReceivedCards(folderId),
   });
 
-  return { data: RECEIVED_CARD_MOCK }; // 추후 API 호출을 통해 받은 데이터로 수정
+  return { cards: data?.cards ?? [], isError };
+  // return { data: RECEIVED_CARD_MOCK };
 };

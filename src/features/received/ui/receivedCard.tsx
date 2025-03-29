@@ -67,7 +67,7 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar src={cardData?.imagePath} alt="f" size="medium" />
+          <WrappedAvatar src={cardData?.imagePath} alt="" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>

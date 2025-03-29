@@ -18,8 +18,9 @@ import Toast from '@/shared/ui/Toast';
 function Page() {
   const [currentView, setCurrentView] = useState<'main' | 'choose'>('main');
 
-  const { data: serverReceivedCards } = useReceivedCardsQuery();
-  const { data: serverFolders } = useFoldersQuery();
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
+  const { cards: serverReceivedCards } = useReceivedCardsQuery(selectedFolderId);
+  const { folders: serverFolders } = useFoldersQuery();
 
   const { isChooseModalOpen, openChooseModal, closeChooseModal } = useModal();
 
@@ -27,8 +28,8 @@ function Page() {
   const { setReceivedCards } = useReceivedCardsStore();
 
   useEffect(() => {
-    if (serverFolders) setFolders(serverFolders);
-    if (serverReceivedCards) setReceivedCards(serverReceivedCards);
+    setFolders(serverFolders);
+    setReceivedCards(serverReceivedCards);
   }, []);
 
   return (
@@ -36,7 +37,16 @@ function Page() {
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
         <Appbar page="received" onLeftClick={() => setCurrentView('main')} onRightClickSecond={openChooseModal} />
         <div className="overflow-y-auto px-5 pb-24 scrollbar-hide">
-          {currentView == 'main' ? <ReceivedCardView /> : <ChooseReceivedCardView />}
+          {currentView == 'main' ? (
+            // 현재는 서버에서 받은 데이터를 렌더링 중이나, 추후 스켈레톤 등의 방안으로 인해 클라이언트 데이터 렌더링으로 변경 예정입니다.
+            <ReceivedCardView
+              cards={serverReceivedCards}
+              folders={serverFolders}
+              setSelectedFolderId={setSelectedFolderId}
+            />
+          ) : (
+            <ChooseReceivedCardView />
+          )}
         </div>
         <BottomModal isModalOpen={isChooseModalOpen} closeModal={closeChooseModal}>
           <BottomMenuItem

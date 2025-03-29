@@ -1,23 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { MyCardDto } from '@/features/home/types';
+import { FolderDto } from '@/entities/folder/dto';
 import { client } from '@/shared/apis/client';
+import { CLIENT_SIDE_URL } from '@/shared/constants';
 
-import { FOLDERS_MOCK } from '../../config';
+// import { FOLDERS_MOCK } from '../../config';
 
 export const FOLDER_QUERY_KEY = 'FOLDER_QUERY_KEY';
 
 const _getFolders = async () => {
-  const { data } = await client.get<MyCardDto>(`/api/card/folders`);
-
-  return data;
+  try {
+    const { data } = await client.get<FolderDto>(`${CLIENT_SIDE_URL}/api/card/folders`);
+    console.log('서버로부터 받은 데이터 : ', data); // 추후 지우기
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const useFoldersQuery = () => {
-  const { data: _ } = useQuery({
-    queryKey: [FOLDER_QUERY_KEY], // 추후 수정
+  const { data, isError } = useQuery({
+    // const { data: _ } = useQuery({
+    queryKey: ['folders'], // 추후 수정
     queryFn: _getFolders,
   });
+  return { folders: data?.folders ?? [], isError }; // 추후 API 호출을 통해 받은 데이터로 수정
 
-  return { data: FOLDERS_MOCK };
+  // return { data: FOLDERS_MOCK };
 };

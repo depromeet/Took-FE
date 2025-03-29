@@ -2,7 +2,9 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+import { Folder } from '@/entities/folder/types';
 import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
+import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
@@ -11,15 +13,20 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import Tag from '@/shared/ui/tag/tag';
 
 import { useFolderStore } from '../model/store/useFoldersStore';
-import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
+// import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
 
 import Intellibanner from './intellibanner';
 import ReceivedCard from './receivedCard';
 
-export default function ReceivedCardView() {
+type ReceivedCardViewProps = {
+  cards: Card[];
+  folders: Folder[];
+  setSelectedFolderId: (id: number | null) => void;
+};
+
+export default function ReceivedCardView({ cards, folders, setSelectedFolderId }: ReceivedCardViewProps) {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
 
-  // const [selectedFolder, setSelectedFolder] = useState<string>('전체보기'); // 추후 API 연동 후 폴더 필터링 시 추가 로직 구현
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
 
@@ -29,12 +36,13 @@ export default function ReceivedCardView() {
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
-  const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
-  const { receivedCards } = useReceivedCardsStore();
+  // const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
+  const { addFolder, updateFolder, deleteFolder } = useFolderStore();
+  // const { receivedCards } = useReceivedCardsStore();
 
-  // const handleFolderSelect = (folder: string) => {
-  //   setSelectedFolder(folder);
-  // };
+  const handleFolderSelect = (id: number | null) => {
+    setSelectedFolderId(id);
+  };
 
   const handleAdd = () => {
     setIsAdd(true);
@@ -93,14 +101,17 @@ export default function ReceivedCardView() {
             spacingStyles({ paddingRight: 'ml' }),
           )}
         >
-          <Tag
-            size="lg"
-            message="전체보기"
-            className="bg-white text-black"
-            // onClick={() => handleFolderSelect('전체보기')}
-          />
+          <Tag size="lg" message="전체보기" className="bg-white text-black" onClick={() => handleFolderSelect(null)} />
           {folders.map((folder, index) => {
-            return <Tag key={index} size="lg" message={folder.name} className={tagStyle} />;
+            return (
+              <Tag
+                key={index}
+                size="lg"
+                message={folder.name}
+                className={tagStyle}
+                onClick={() => handleFolderSelect(folder.id)}
+              />
+            );
           })}
         </div>
       </div>
@@ -114,7 +125,8 @@ export default function ReceivedCardView() {
         <Image className="cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
       <div className="flex flex-col gap-4">
-        {receivedCards.map((value, index) => (
+        {/* {receivedCards.map((value, index) => ( */}
+        {cards.map((value, index) => (
           <ReceivedCard key={index} cardData={value} />
         ))}
       </div>
