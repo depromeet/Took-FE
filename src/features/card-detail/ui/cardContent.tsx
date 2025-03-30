@@ -12,11 +12,11 @@ interface CardContentProps {
   type: string;
 }
 function CardContent({ cardId, type }: CardContentProps) {
-  const { data } = useCardDetailQuery(cardId, type);
+  const { data } = useCardDetailQuery(cardId);
 
   return (
     <>
-      <CardDetailHeader data={data as CardDetailDto} />
+      <CardDetailHeader data={data as CardDetailDto} type={type} />
       <CardTabs data={data as CardDetailDto} />
     </>
   );
