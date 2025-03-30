@@ -7,10 +7,6 @@ import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
-import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
-import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
-import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
@@ -19,6 +15,7 @@ import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
 import { CardDetailDto } from '../types/cardDetail';
 
+import BottomSheet from './bottomSheet';
 import DomainList from './domain';
 import Hobby from './hobby';
 import Posts from './posts';
@@ -216,17 +213,13 @@ function CardTabs({ data }: CardTabsProps) {
           )}
         </div>
       </div>
-      {!mode ? (
-        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
-          <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
-          <BottomMenuItem>삭제하기</BottomMenuItem>
-        </BottomModal>
-      ) : (
-        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode} mode={mode}>
-          <BottomModalTitle>한줄 메모</BottomModalTitle>
-          <MemoInput onClose={closeModal} handleCancelMode={handleCancelMode} />
-        </BottomModal>
-      )}
+      <BottomSheet
+        mode={mode}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        handleMode={handleMode}
+        handleCancelMode={handleCancelMode}
+      />
     </>
   );
 }
