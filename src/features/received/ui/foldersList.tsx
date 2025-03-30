@@ -14,10 +14,10 @@ type FoldersListProps = {
 export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
   const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
 
-  const { isLoading } = useFoldersQuery();
+  const { isLoading, isFetching } = useFoldersQuery();
   const { folders } = useFolderStore();
 
-  if (isLoading) return <p>폴더 로딩중이에요...</p>; // 임시 로딩 구현
+  if (isLoading || isFetching) return <p>폴더 로딩중이에요...</p>; // 임시 로딩 구현
   return (
     <div
       className={cn(

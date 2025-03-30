@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
@@ -14,11 +14,13 @@ const _deleteFolder = async (folderId: number) => {
 };
 
 export const useDeleteFolder = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    // mutationFn: (folderId: number) => _deleteFolder(folderId),
     mutationFn: (variables: { folderId: number }) => _deleteFolder(variables.folderId),
     onSuccess: () => {
       console.log('폴더 삭제 성공');
+      queryClient.invalidateQueries({ queryKey: ['folders'] });
     },
     onError: (error) => {
       console.error('폴더 삭제 실패:', error);

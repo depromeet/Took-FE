@@ -17,8 +17,12 @@ import Toast from '@/shared/ui/Toast';
 
 function Page() {
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
-  const { cards: serverReceivedCards, isLoading: isCardsLoading, refetch } = useReceivedCardsQuery(selectedFolderId);
-  const { folders: serverFolders, isLoading: isFoldersLoading } = useFoldersQuery();
+  const {
+    cards: serverReceivedCards,
+    isLoading: isCardsLoading,
+    refetch: cardsRefetch,
+  } = useReceivedCardsQuery(selectedFolderId);
+  const { folders: serverFolders, isLoading: isFoldersLoading, refetch: foldersRefetch } = useFoldersQuery();
 
   const { isChooseModalOpen, openChooseModal, closeChooseModal } = useModal();
 
@@ -36,14 +40,25 @@ function Page() {
 
   useEffect(() => {
     const fetchCards = async () => {
-      const { data } = await refetch();
+      const { data } = await cardsRefetch();
       if (data) {
         setReceivedCards(data.cards);
       }
     };
 
     fetchCards();
-  }, [selectedFolderId, refetch]);
+  }, [selectedFolderId, cardsRefetch]);
+
+  useEffect(() => {
+    const fetchFolders = async () => {
+      const { data } = await foldersRefetch();
+      if (data) {
+        setFolders(data.folders);
+      }
+    };
+
+    fetchFolders();
+  }, [foldersRefetch]);
 
   const router = useRouter();
 

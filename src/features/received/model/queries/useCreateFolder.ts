@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
@@ -16,10 +16,13 @@ const _createFolder = async (folderName: string) => {
 };
 
 export const useCreateFolder = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (folderName: string) => _createFolder(folderName),
     onSuccess: () => {
       console.log('폴더 생성 성공');
+      queryClient.invalidateQueries({ queryKey: ['folders'] });
     },
     onError: (error) => {
       console.error('폴더 생성 실패:', error);
