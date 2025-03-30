@@ -13,8 +13,17 @@ export const mockCardDetailData: CardDetailDto = {
     organization: '디프만',
     summary: '사용자 경험을 중요시하는 프론트엔드 개발자입니다. ',
     region: '게더',
-    group: ['디프만', '엘리스랩'],
-    introduce: '디프만 web 16기 윤장원입니다!',
+    folders: [
+      {
+        id: 1,
+        name: '디프만',
+      },
+      {
+        id: 2,
+        name: '엘리스랩',
+      },
+    ],
+    memo: '디프만 web 16기 윤장원입니다!',
     interestDomain: [],
     sns: [
       {

@@ -29,7 +29,7 @@ export type ProjectDto = {
 };
 
 export type FolderDto = {
-  id: string;
+  id: number;
   name: string;
 };
 
