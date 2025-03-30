@@ -35,7 +35,7 @@ function Toast({ buttonText, message }: toastProps) {
           ),
           error: (
             <Image
-              src="/icons/toast-icon/warningIcon.svg"
+              src="/icons/toast-icon/sonnerIcon.svg"
               className="text-error-medium"
               alt="error-icon"
               width={24}

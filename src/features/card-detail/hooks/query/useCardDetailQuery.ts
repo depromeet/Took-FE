@@ -5,6 +5,7 @@ import axios from 'axios';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
+import { mockCardDetailData } from '../../mocks/myCardDetail';
 import { CardDetailDto } from '../../types/cardDetail';
 
 // API 호출 함수
@@ -35,13 +36,15 @@ const updateReceiveCard = async (cardId: string, memo: string) => {
 
 // 카드 상세 정보를 가져오는 쿼리 훅
 export const useCardDetailQuery = (cardId: string) => {
-  return useQuery({
+  const { data: _ } = useQuery({
     queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
     queryFn: () => getCardDetail(cardId),
 
     // 이후 Errorboundary를 사용하면 true 설정
     throwOnError: false,
   });
+
+  return { data: mockCardDetailData };
 };
 
 // 카드 업데이트를 위한 mutation 훅
