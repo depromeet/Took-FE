@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { MyCardDto, Card } from '@/features/home/types'; // MyCardDto와 Card 가져오기
+import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
