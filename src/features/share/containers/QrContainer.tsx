@@ -23,7 +23,7 @@ const EXAM_PARAMS: Params = {
     'https://https://i.namu.wiki/i/w7GkIKr6Qac-0SCYEn7DdYBpkpZed9FaVNTBFE7aIQvm7p39bo7gs2Pb1ZWfX3dPVd0JmA3oX50T5kl-MU7wfw.webp',
   name: '이재인',
   jobName: 'UX Designer',
-  jobType: 'developer',
+  jobType: 'designer',
   linkUrl: 'https://github.com/JaeIn1',
 };
 
