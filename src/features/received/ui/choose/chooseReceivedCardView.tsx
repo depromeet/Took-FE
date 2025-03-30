@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
@@ -6,12 +7,12 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { ReceivedCheckbox } from '@/shared/ui/Checkbox/receivedCheckbox';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
+import Toast from '@/shared/ui/Toast';
 
-import { useFolderStore } from '../model/store/useFoldersStore';
-import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
-import { useModal } from '../model/useModal';
-
-import ReceivedCard from './receivedCard';
+import { useFolderStore } from '../../model/store/useFoldersStore';
+import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
+import { useModal } from '../../model/useModal';
+import ReceivedCard from '../receivedCard';
 
 export default function ChooseReceivedCardView() {
   const [selectedCardId, setSelectedCardId] = useState<number[]>([]);
@@ -28,6 +29,7 @@ export default function ChooseReceivedCardView() {
 
   const handleDelete = () => {
     deleteCard(selectedCardId);
+    toast.success('명함을 삭제했어요');
   };
 
   return (
@@ -54,7 +56,7 @@ export default function ChooseReceivedCardView() {
           actionText="삭제"
           cancelText="취소"
         >
-          되돌릴 수 없어요.
+          되돌릴 수 없어요
         </CommonDialog>
       </div>
       {receivedCards.map((card, index) => {
@@ -75,12 +77,19 @@ export default function ChooseReceivedCardView() {
         <BottomModalTitle>폴더 설정</BottomModalTitle>
         {folders.map((folder, index) => {
           return (
-            <BottomMenuItem key={index} onClick={() => console.log('asdf')}>
+            <BottomMenuItem
+              key={index}
+              onClick={() => {
+                closeSettingModal();
+                toast.success('폴더 설정이 완료되었어요');
+              }}
+            >
               {folder.name}
             </BottomMenuItem>
           );
         })}
       </BottomModal>
+      <Toast />
     </div>
   );
 }

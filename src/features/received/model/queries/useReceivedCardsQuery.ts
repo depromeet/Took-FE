@@ -21,12 +21,12 @@ const _getReceivedCards = async (folderId: number | null) => {
 };
 
 export const useReceivedCardsQuery = (folderId: number | null) => {
-  const { data, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     // const { data: _ } = useQuery({
     queryKey: ['cards'],
     queryFn: () => _getReceivedCards(folderId),
   });
 
-  return { cards: data?.cards ?? [], isError };
+  return { cards: data?.cards ?? [], isLoading, isError };
   // return { data: RECEIVED_CARD_MOCK };
 };

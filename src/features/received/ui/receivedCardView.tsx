@@ -2,46 +2,38 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { Folder } from '@/entities/folder/types';
 import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
-import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import Tag from '@/shared/ui/tag/tag';
 
 import { useCreateFolder } from '../model/queries/useCreateFolder';
 import { useDeleteFolder } from '../model/queries/useDeleteFolder';
 import { useEditFolder } from '../model/queries/useEditFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
-// import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
 
+import FoldersList from './foldersList';
 import Intellibanner from './intellibanner';
-import ReceivedCard from './receivedCard';
+import ReceivedCardList from './receivedCardList';
 
 type ReceivedCardViewProps = {
-  cards: Card[];
-  serverFolders: Folder[];
+  selectedFolderId: number | null;
   setSelectedFolderId: (id: number | null) => void;
 };
 
-export default function ReceivedCardView({ cards, serverFolders, setSelectedFolderId }: ReceivedCardViewProps) {
-  const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
-
+export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId }: ReceivedCardViewProps) {
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
 
   const [folderName, setFolderName] = useState<string>(''); // 수정하려는 폴더의 기존 이름
-  // const [folderIndex, setFolderIndex] = useState<number>(0); // 수정하려는 폴더의 인덱스
   const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
-  // const { addFolder, updateFolder, deleteFolder } = useFolderStore();
-  // const { receivedCards } = useReceivedCardsStore();
+
   const { mutate: serverCreateFolder } = useCreateFolder(); // createFolder 함수와 로딩 상태
   const { mutate: serverEditFolder } = useEditFolder();
   const { mutate: serverDeleteFolder } = useDeleteFolder();
@@ -66,6 +58,8 @@ export default function ReceivedCardView({ cards, serverFolders, setSelectedFold
 
   const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
+
+    if (e.nativeEvent.isComposing) return;
     if (e.key == 'Enter') {
       e.preventDefault();
       const folderId = folders[index].id;
@@ -76,6 +70,7 @@ export default function ReceivedCardView({ cards, serverFolders, setSelectedFold
     }
   };
   const handleAddKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key == 'Enter') {
       e.preventDefault();
       serverCreateFolder(newFolderName);
@@ -98,30 +93,15 @@ export default function ReceivedCardView({ cards, serverFolders, setSelectedFold
       <Intellibanner />
       <div className={cn('flex items-center gap-2', spacingStyles({ paddingTop: 'md' }))}>
         <button
-          onClick={headerRightHandler}
+          onClick={() => {
+            headerRightHandler();
+            console.log(folders);
+          }}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-opacity-white-20"
         >
           <Image src="/icons/folderIcon.svg" alt="폴더 아이콘" width={18} height={18} />
         </button>
-        <div
-          className={cn(
-            'flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide',
-            spacingStyles({ paddingRight: 'ml' }),
-          )}
-        >
-          <Tag size="lg" message="전체보기" className="bg-white text-black" onClick={() => handleFolderSelect(null)} />
-          {serverFolders.map((folder, index) => {
-            return (
-              <Tag
-                key={index}
-                size="lg"
-                message={folder.name}
-                className={tagStyle}
-                onClick={() => handleFolderSelect(folder.id)}
-              />
-            );
-          })}
-        </div>
+        <FoldersList handleFolderSelect={handleFolderSelect} />
       </div>
       <div
         className={cn(
@@ -132,12 +112,8 @@ export default function ReceivedCardView({ cards, serverFolders, setSelectedFold
         <p>최근 공유 순</p>
         <Image className="cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
-      <div className="flex flex-col gap-4">
-        {/* {receivedCards.map((value, index) => ( */}
-        {cards.map((value, index) => (
-          <ReceivedCard key={index} cardData={value} />
-        ))}
-      </div>
+      <ReceivedCardList selectedFolderId={selectedFolderId} />
+
       <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
         {isUpdate ? (
           <>

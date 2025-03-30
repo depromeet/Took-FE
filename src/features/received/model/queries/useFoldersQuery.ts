@@ -20,12 +20,12 @@ const _getFolders = async () => {
 };
 
 export const useFoldersQuery = () => {
-  const { data, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     // const { data: _ } = useQuery({
     queryKey: ['folders'], // 추후 수정
     queryFn: _getFolders,
   });
-  return { folders: data?.folders ?? [], isError }; // 추후 API 호출을 통해 받은 데이터로 수정
+  return { folders: data?.folders ?? [], isLoading, isError }; // 추후 API 호출을 통해 받은 데이터로 수정
 
   // return { data: FOLDERS_MOCK };
 };
