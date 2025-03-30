@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { client } from '@/shared/apis/client';
 
 import { CARD_MOCK } from '../../mocks';
@@ -14,10 +12,10 @@ const _getCard = async () => {
 };
 
 export const useCardQuery = () => {
-  const { data: _ } = useQuery({
-    queryKey: [MY_CARD_QUERY_KEY],
-    queryFn: () => {},
-  });
+  // const { data: _ } = useQuery({
+  //   queryKey: [MY_CARD_QUERY_KEY],
+  //   queryFn: () => {},
+  // });
 
   return { data: CARD_MOCK };
 };
