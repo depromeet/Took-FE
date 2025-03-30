@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
@@ -9,18 +9,23 @@ import { ReceivedCheckbox } from '@/shared/ui/Checkbox/receivedCheckbox';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 import Toast from '@/shared/ui/Toast';
 
+import { useDeleteReceivedCards } from '../../model/queries/useDeleteReceivedCard';
+import { useMoveCardToFolder } from '../../model/queries/useMoveCardToFolder';
+import { useReceivedCardsQuery } from '../../model/queries/useReceivedCardsQuery';
 import { useFolderStore } from '../../model/store/useFoldersStore';
 import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
 import { useModal } from '../../model/useModal';
 import ReceivedCard from '../receivedCard';
-import { useDeleteReceivedCards } from '../../model/queries/useDeleteReceivedCard';
 
 export default function ChooseReceivedCardView() {
   const [selectedCardIds, setSelectedCardIds] = useState<number[]>([]);
 
   const { folders } = useFolderStore();
-  const { receivedCards, deleteCards } = useReceivedCardsStore();
+  const { receivedCards, setReceivedCards, deleteCards } = useReceivedCardsStore();
   const { mutate: deleteServerCards } = useDeleteReceivedCards();
+  const { mutate: moveToFolder } = useMoveCardToFolder();
+
+  const { cards, isFetching } = useReceivedCardsQuery(null);
 
   const isAnyChecked = selectedCardIds.length > 0;
   const toggleChecked = (id: number) => {
@@ -34,6 +39,21 @@ export default function ChooseReceivedCardView() {
     deleteServerCards({ cardIds: selectedCardIds });
     toast.success('명함을 삭제했어요');
   };
+
+  const handleMoveToFolder = (folderId: number) => {
+    moveToFolder({ folderId: folderId, cardIds: selectedCardIds });
+    closeSettingModal();
+    toast.success('폴더 설정이 완료되었어요');
+  };
+
+  useEffect(() => {
+    if (!isFetching) {
+      setReceivedCards(cards);
+    }
+    console.log('asdfasdfa');
+  }, [isFetching]);
+
+  if (isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
 
   return (
     <div className="flex flex-col gap-4">
@@ -80,13 +100,7 @@ export default function ChooseReceivedCardView() {
         <BottomModalTitle>폴더 설정</BottomModalTitle>
         {folders.map((folder, index) => {
           return (
-            <BottomMenuItem
-              key={index}
-              onClick={() => {
-                closeSettingModal();
-                toast.success('폴더 설정이 완료되었어요');
-              }}
-            >
+            <BottomMenuItem key={index} onClick={() => handleMoveToFolder(folder.id)}>
               {folder.name}
             </BottomMenuItem>
           );

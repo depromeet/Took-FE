@@ -10,10 +10,10 @@ type ReceivedCardListProps = {
 };
 
 export default function ReceivedCardList({ selectedFolderId }: ReceivedCardListProps) {
-  const { isLoading } = useReceivedCardsQuery(selectedFolderId);
+  const { isLoading, isFetching } = useReceivedCardsQuery(selectedFolderId);
   const { receivedCards } = useReceivedCardsStore();
 
-  if (isLoading) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
+  if (isLoading || isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
   return (
     <div className="flex flex-col gap-4">
       {receivedCards.map((value, index) => (

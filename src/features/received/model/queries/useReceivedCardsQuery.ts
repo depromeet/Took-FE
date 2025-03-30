@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
@@ -13,6 +14,7 @@ const _getReceivedCards = async (folderId: number | null) => {
   try {
     const { data } = await client.get<MyCardDto>(url);
     console.log('서버로부터 받은 데이터 : ', data);
+
     return data;
   } catch (error) {
     console.error(error);
@@ -21,10 +23,11 @@ const _getReceivedCards = async (folderId: number | null) => {
 };
 
 export const useReceivedCardsQuery = (folderId: number | null) => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['cards'],
     queryFn: () => _getReceivedCards(folderId),
+    enabled: true,
   });
 
-  return { cards: data?.cards ?? [], isLoading, isError };
+  return { cards: data?.cards ?? [], isLoading, isFetching, isError, refetch };
 };
