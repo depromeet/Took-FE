@@ -16,7 +16,7 @@ const _getCard = async () => {
 export const useCardQuery = () => {
   const { data: _ } = useQuery({
     queryKey: [MY_CARD_QUERY_KEY],
-    queryFn: () => _getCard(),
+    queryFn: () => {},
   });
 
   return { data: CARD_MOCK };
