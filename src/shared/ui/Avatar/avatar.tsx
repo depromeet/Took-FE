@@ -12,6 +12,7 @@ const avatarVariants = cva('rounded-full bg-gray-100', {
       large: 'w-20 h-20',
       medium: 'w-14 h-14',
       small: 'w-[50px] h-[50px]',
+      xsmall: 'w-[42px] h-[42px]',
     },
   },
   defaultVariants: {
@@ -37,12 +38,13 @@ Avatar.displayName = AvatarPrimitive.Root.displayName;
 
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> & { size?: 'large' | 'medium' | 'small' }
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> & { size?: 'large' | 'medium' | 'small' | 'xsmall' }
 >(({ className, src, size = 'large', ...props }, ref) => {
   const imageSize = {
     large: 'w-[46px] h-[46px]',
     medium: 'w-7 h-7',
     small: 'w-7 h-7',
+    xsmall: 'w-6 h-6',
   };
   const isDefaultIcon = src === '/icons/avatarIcon.svg';
 
