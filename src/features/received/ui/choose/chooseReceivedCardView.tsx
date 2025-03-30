@@ -13,22 +13,25 @@ import { useFolderStore } from '../../model/store/useFoldersStore';
 import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
 import { useModal } from '../../model/useModal';
 import ReceivedCard from '../receivedCard';
+import { useDeleteReceivedCards } from '../../model/queries/useDeleteReceivedCard';
 
 export default function ChooseReceivedCardView() {
-  const [selectedCardId, setSelectedCardId] = useState<number[]>([]);
+  const [selectedCardIds, setSelectedCardIds] = useState<number[]>([]);
 
   const { folders } = useFolderStore();
-  const { receivedCards, deleteCard } = useReceivedCardsStore();
+  const { receivedCards, deleteCards } = useReceivedCardsStore();
+  const { mutate: deleteServerCards } = useDeleteReceivedCards();
 
-  const isAnyChecked = selectedCardId.length > 0;
+  const isAnyChecked = selectedCardIds.length > 0;
   const toggleChecked = (id: number) => {
-    setSelectedCardId((prev) => (prev.includes(id) ? prev.filter((cardId) => cardId !== id) : [...prev, id]));
-    console.log(selectedCardId);
+    setSelectedCardIds((prev) => (prev.includes(id) ? prev.filter((cardId) => cardId !== id) : [...prev, id]));
+    console.log(selectedCardIds);
   };
   const { isSettingModalOpen, openSettingModal, closeSettingModal } = useModal();
 
   const handleDelete = () => {
-    deleteCard(selectedCardId);
+    deleteCards(selectedCardIds);
+    deleteServerCards({ cardIds: selectedCardIds });
     toast.success('명함을 삭제했어요');
   };
 
@@ -63,7 +66,7 @@ export default function ChooseReceivedCardView() {
         return (
           <div key={index} className="flex max-w-full items-center gap-4">
             <ReceivedCheckbox
-              checked={selectedCardId.includes(card.id)}
+              checked={selectedCardIds.includes(card.id)}
               onCheckedChange={() => toggleChecked(card.id)}
             />
 
