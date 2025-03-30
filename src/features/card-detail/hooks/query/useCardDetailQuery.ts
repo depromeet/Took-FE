@@ -43,7 +43,7 @@ export const useCardDetailQuery = (cardId: string) => {
     // 이후 Errorboundary를 사용하면 true 설정
     throwOnError: false,
   });
-
+  
   return { data: mockCardDetailData };
 };
 

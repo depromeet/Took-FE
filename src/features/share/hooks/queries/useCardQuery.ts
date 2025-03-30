@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 
 import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
@@ -14,10 +13,10 @@ const _getCard = async () => {
 };
 
 export const useCardQuery = () => {
-  const { data: _ } = useQuery({
-    queryKey: [MY_CARD_QUERY_KEY],
-    queryFn: () => _getCard(),
-  });
+  // const { data: _ } = useQuery({
+  //   queryKey: [MY_CARD_QUERY_KEY],
+  //   queryFn: () => {},
+  // });
 
   return { data: CARD_MOCK };
 };
