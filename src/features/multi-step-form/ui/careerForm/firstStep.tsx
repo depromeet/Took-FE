@@ -46,7 +46,7 @@ function FirstStep() {
             render={({ field }) => (
               <WrappedInput
                 title="이름"
-                placeholder="명함에 노출될 이름을 입력해주세요."
+                placeholder="명함에 노출될 이름을 입력해 주세요."
                 errorMsg={errors.nickname?.message}
                 error={!!errors.nickname?.message}
                 {...field}
@@ -70,7 +70,7 @@ function FirstStep() {
               return (
                 <SearchDropdown
                   title="세부직군"
-                  placeholder="직군을 입력해주세요."
+                  placeholder="직군을 입력해 주세요."
                   errorMsg={errors.detailJobId?.message}
                   options={careerOptions ?? []}
                   value={selectedOptionValue}
