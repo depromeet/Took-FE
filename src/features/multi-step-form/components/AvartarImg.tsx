@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import WrappedAvatar from '@/shared/ui/Avatar';
 import ImageAdd from '@/shared/ui/Avatar/imageAdd';
@@ -10,6 +11,8 @@ import { CareerFormData } from '../schema';
 
 // 기본 아바타 이미지 경로 (상대 경로)
 const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
+// 최대 파일 크기 (5MB)
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 function AvatarImg() {
   const { control, setValue } = useFormContext<CareerFormData>();
@@ -56,6 +59,13 @@ function AvatarImg() {
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) {
+                // 파일 크기 체크
+                if (file.size > MAX_FILE_SIZE) {
+                  toast.error('이미지 파일 크기는 5MB 이하여야 합니다.');
+                  e.target.value = ''; // input 초기화
+                  return;
+                }
+
                 // 폼에는 File 객체를 onChange로 저장
                 onChange(file);
 
