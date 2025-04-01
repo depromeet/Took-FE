@@ -111,13 +111,13 @@ export const CardTags = ({ tags, tagType, ...rest }: CardTagsProps & HTMLAttribu
 };
 
 type CardFooterProps = {
-  footerTitle: string;
+  previewInfo: string;
   title?: string;
   description?: string;
   imageUrl?: string;
 };
 
-export const CardFooter = ({ footerTitle, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
+export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
       <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">
@@ -130,7 +130,7 @@ export const CardFooter = ({ footerTitle, title = '', description = '', imageUrl
             'h-[19px] w-max overflow-hidden rounded-sm bg-[rgba(255,255,255,0.2)] py-[2px] text-[11px] text-white',
           )}
         >
-          {footerTitle}
+          {previewInfo}
         </div>
         <div className="mt-1 flex flex-col">
           <Typography variant="body-5" className="line-clamp-1">
