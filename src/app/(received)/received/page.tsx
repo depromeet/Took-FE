@@ -17,12 +17,8 @@ import Toast from '@/shared/ui/Toast';
 
 function Page() {
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
-  const {
-    cards: serverReceivedCards,
-    isLoading: isCardsLoading,
-    refetch: cardsRefetch,
-  } = useReceivedCardsQuery(selectedFolderId);
-  const { folders: serverFolders, isLoading: isFoldersLoading, refetch: foldersRefetch } = useFoldersQuery();
+  const { cards: serverReceivedCards, isLoading: isCardsLoading } = useReceivedCardsQuery(selectedFolderId);
+  const { folders: serverFolders, isLoading: isFoldersLoading } = useFoldersQuery();
 
   const { isChooseModalOpen, openChooseModal, closeChooseModal } = useModal();
 
@@ -31,34 +27,11 @@ function Page() {
 
   useEffect(() => {
     if (!isFoldersLoading) setFolders(serverFolders);
-    console.log('선택한 폴더 : ', selectedFolderId);
-  }, [isFoldersLoading]);
+  }, [isFoldersLoading, serverFolders, setFolders]);
 
   useEffect(() => {
     if (!isCardsLoading) setReceivedCards(serverReceivedCards);
-  }, [isCardsLoading]);
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      const { data } = await cardsRefetch();
-      if (data) {
-        setReceivedCards(data.cards);
-      }
-    };
-
-    fetchCards();
-  }, [selectedFolderId, cardsRefetch]);
-
-  useEffect(() => {
-    const fetchFolders = async () => {
-      const { data } = await foldersRefetch();
-      if (data) {
-        setFolders(data.folders);
-      }
-    };
-
-    fetchFolders();
-  }, [foldersRefetch]);
+  }, [isCardsLoading, serverReceivedCards, setReceivedCards]);
 
   const router = useRouter();
 

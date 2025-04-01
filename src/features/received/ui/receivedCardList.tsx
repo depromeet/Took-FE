@@ -16,8 +16,8 @@ export default function ReceivedCardList({ selectedFolderId }: ReceivedCardListP
   if (isLoading || isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
   return (
     <div className="flex flex-col gap-4">
-      {receivedCards.map((value, index) => (
-        <ReceivedCard key={index} cardData={value} />
+      {receivedCards.map((value) => (
+        <ReceivedCard key={value.id} cardData={value} />
       ))}
     </div>
   );

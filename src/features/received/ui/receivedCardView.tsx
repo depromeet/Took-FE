@@ -9,9 +9,9 @@ import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 
-import { useCreateFolder } from '../model/queries/useCreateFolder';
-import { useDeleteFolder } from '../model/queries/useDeleteFolder';
-import { useEditFolder } from '../model/queries/useEditFolder';
+import { useCreateFolder } from '../model/mutations/useCreateFolder';
+import { useDeleteFolder } from '../model/mutations/useDeleteFolder';
+import { useEditFolder } from '../model/mutations/useEditFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
 
 import FoldersList from './foldersList';

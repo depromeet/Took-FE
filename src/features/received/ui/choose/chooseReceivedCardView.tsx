@@ -9,8 +9,8 @@ import { ReceivedCheckbox } from '@/shared/ui/Checkbox/receivedCheckbox';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 import Toast from '@/shared/ui/Toast';
 
-import { useDeleteReceivedCards } from '../../model/queries/useDeleteReceivedCard';
-import { useMoveCardToFolder } from '../../model/queries/useMoveCardToFolder';
+import { useDeleteReceivedCards } from '../../model/mutations/useDeleteReceivedCard';
+import { useMoveCardToFolder } from '../../model/mutations/useMoveCardToFolder';
 import { useReceivedCardsQuery } from '../../model/queries/useReceivedCardsQuery';
 import { useFolderStore } from '../../model/store/useFoldersStore';
 import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
@@ -22,7 +22,7 @@ export default function ChooseReceivedCardView() {
 
   const { folders } = useFolderStore();
   const { receivedCards, setReceivedCards, deleteCards } = useReceivedCardsStore();
-  const { mutate: deleteServerCards } = useDeleteReceivedCards();
+  const { mutate: deleteServerCards } = useDeleteReceivedCards(null);
   const { mutate: moveToFolder } = useMoveCardToFolder();
 
   const { cards, isFetching } = useReceivedCardsQuery(null);
@@ -50,7 +50,6 @@ export default function ChooseReceivedCardView() {
     if (!isFetching) {
       setReceivedCards(cards);
     }
-    console.log('asdfasdfa');
   }, [isFetching]);
 
   if (isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
