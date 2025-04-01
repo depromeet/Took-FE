@@ -1,4 +1,4 @@
-const tagStyle = 'absolute z-50 bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
+const tagStyle = 'absolute z-tag bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
 
 export type SelectedTagType = '대표 프로젝트' | '작성한 글' | 'SNS' | '취미' | '최근 소식' | '활동 지역' | '소속 정보';
 export type TagValue = 'project' | 'content' | 'sns' | 'hobby' | 'news' | 'region' | 'organization';

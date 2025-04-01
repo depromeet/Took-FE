@@ -1,7 +1,10 @@
 // MemoInput.tsx
+import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { useUpdateCardMutation, CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
 import { spacingStyles } from '@/shared/spacing';
 
 interface MemoInputProps {
@@ -14,6 +17,9 @@ const MAX_LENGTH = 40;
 
 export const MemoInput = ({ onClose, handleCancelMode }: MemoInputProps) => {
   const [memoText, setMemoText] = useState('');
+  const { cardId } = useParams();
+  const updateCardMutation = useUpdateCardMutation();
+  const queryClient = useQueryClient();
 
   const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -21,7 +27,30 @@ export const MemoInput = ({ onClose, handleCancelMode }: MemoInputProps) => {
       e.stopPropagation();
       onClose();
       handleCancelMode();
-      toast.success('한줄 메모를 등록했어요');
+
+      // 메모 텍스트가 비어있지 않은 경우에만 요청
+      if (memoText.trim()) {
+        updateCardMutation.mutate(
+          { cardId: cardId as string, memo: memoText },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
+              });
+
+              toast.success('한줄 메모를 등록했어요');
+              onClose();
+              handleCancelMode();
+            },
+            onError: (error) => {
+              toast.error('메모 등록에 실패했습니다');
+              console.error(error);
+            },
+          },
+        );
+      } else {
+        toast.error('메모를 입력해주세요');
+      }
     }
   };
 

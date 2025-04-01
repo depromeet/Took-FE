@@ -36,12 +36,12 @@ export const BottomMenuItem = ({
       className={`${spacingStyles({ padding: 'ml' })} flex cursor-pointer items-center justify-between`}
       onClick={onClick}
     >
-      <p className={cn('body-3 z-50 text-white', className)}>{children}</p>
+      <p className={cn('body-3 text-white', className)}>{children}</p>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center">
         {/* 수정 아이콘 */}
         {update !== undefined && (
-          <div onClick={(e) => handleIconClick(e, update)} className="cursor-pointer">
+          <div onClick={(e) => handleIconClick(e, update)} className="mr-[20px] cursor-pointer">
             <Image src="/icons/edit.svg" alt="수정" width={20} height={20} />
           </div>
         )}

@@ -2,7 +2,11 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
+import router from 'next/router';
 import React from 'react';
+
+import { cn } from '../lib/utils';
+import { spacingStyles } from '../spacing';
 
 const appbarVariants = cva(
   'z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
@@ -41,9 +45,14 @@ type AppbarProps = AppbarVariantProps & {
   onRightClickSecond?: () => void;
   title?: string;
   router?: () => void;
+  isBlurred?: boolean;
 };
 
-function renderLeftIcon({ page, onLeftClick }: Pick<AppbarProps, 'page' | 'onLeftClick'>) {
+function renderLeftIcon({
+  page,
+  isBlurred = false,
+  onLeftClick,
+}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'>) {
   switch (page) {
     case 'main':
       return (
@@ -52,6 +61,18 @@ function renderLeftIcon({ page, onLeftClick }: Pick<AppbarProps, 'page' | 'onLef
         </button>
       );
     case 'detail':
+      return (
+        <button
+          onClick={onLeftClick}
+          className={cn(
+            'rounded-full transition-colors duration-200',
+            isBlurred && 'bg-[rgba(255,255,255,0.10)]',
+            spacingStyles({ padding: 'sm' }),
+          )}
+        >
+          <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
     case 'create':
     case 'mypage':
       return (
@@ -60,7 +81,11 @@ function renderLeftIcon({ page, onLeftClick }: Pick<AppbarProps, 'page' | 'onLef
         </button>
       );
     case 'received':
-      return <h1 className="text-title-1 text-white">받은 명함</h1>;
+      return (
+        <button onClick={onLeftClick}>
+          <h1 className="text-title-1 text-white">받은 명함</h1>
+        </button>
+      );
     default:
       return null;
   }
@@ -81,10 +106,26 @@ function renderRightIcon({
       );
     case 'detail':
       return (
-        <button onClick={onRightClick}>
+        <button
+          onClick={onRightClick}
+          className={cn(
+            'rounded-full transition-colors duration-200',
+            isBlurred && 'bg-[rgba(255,255,255,0.10)]',
+            spacingStyles({ padding: 'sm' }),
+          )}
+        >
           <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
+    case 'mypage':
+      if (onRightClick !== undefined) {
+        return (
+          <button onClick={onRightClick}>
+            <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      break;
     case 'received':
       return (
         <div className="flex gap-4">
@@ -116,15 +157,24 @@ function renderRightIcon({
  * @returns {JSX.Element} - appbar 컴포넌트
  */
 
-function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond, router }: AppbarProps) {
+function Appbar({
+  page,
+  hasBackground,
+  title,
+  onLeftClick,
+  onRightClick,
+  onRightClickSecond,
+  router,
+  isBlurred,
+}: AppbarProps) {
   return (
-    <header className={appbarVariants({ page, hasBackground })}>
-      <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick })}</div>
+    <header className={cn(appbarVariants({ page, hasBackground }))}>
+      <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
 
-      {title && <h1 className="flex-1 text-center text-body-3">{title}</h1>}
+      {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
 
       <div className="flex flex-1 justify-end">
-        {renderRightIcon({ page, onRightClick, onRightClickSecond, router })}
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
       </div>
     </header>
   );

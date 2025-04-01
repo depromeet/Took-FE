@@ -10,7 +10,7 @@ import { spacingStyles } from '@/shared/spacing';
 interface BottomModalProps {
   isModalOpen: boolean;
   closeModal: () => void;
-  mode: boolean;
+  mode?: boolean;
   children: ReactNode;
 }
 
@@ -77,7 +77,7 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-20 bg-black"
+            className="absolute inset-0 z-modalBackground bg-black"
             onClick={closeModal}
           />
 
@@ -96,14 +96,12 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
             onDragEnd={handleDragEnd}
             style={{ y }}
             className={cn(
-              'fixed bottom-0 left-0 right-0 z-30 mx-auto max-w-[600px] rounded-t-2xl bg-gray-600',
-              mode ? 'z-30' : 'z-30',
+              'fixed bottom-0 left-0 right-0 z-bottomSheet mx-auto max-w-[600px] rounded-t-2xl bg-gray-600',
+              mode ? 'z-bottomSheet' : 'z-bottomSheet',
             )}
           >
             <div className={`relative flex w-full flex-col ${spacingStyles({ paddingBottom: 'xl' })}`}>
-              <div
-                className={`h-[6px] w-[60px] self-center rounded-full bg-gray-800 ${spacingStyles({ marginTop: 'ms', marginBottom: 'ms' })}`}
-              />
+              <div className="mb-[12px] mt-[10px] h-[6px] w-[60px] self-center rounded-full bg-gray-800" />
 
               {children}
             </div>

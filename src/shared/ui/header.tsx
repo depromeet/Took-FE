@@ -21,7 +21,7 @@ function Header({ title, description, isFourthStep }: headerPropsType) {
   return (
     <header
       className={cn(
-        'relative z-50 flex w-full max-w-[600px] flex-col items-start justify-between gap-3',
+        'z-bar relative flex w-full max-w-[600px] flex-col items-start justify-between gap-3',
         isFourthStep && 'bg-black',
       )}
     >

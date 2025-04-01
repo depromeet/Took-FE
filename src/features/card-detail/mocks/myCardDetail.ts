@@ -13,9 +13,18 @@ export const mockCardDetailData: CardDetailDto = {
     organization: '디프만',
     summary: '사용자 경험을 중요시하는 프론트엔드 개발자입니다. ',
     region: '게더',
-    group: ['디프만', '엘리스랩'],
-    introduce: '디프만 web 16기 윤장원입니다!',
-    interestDomain: ['웹 개발', 'UI/UX', '프론트엔드', 'React'],
+    folders: [
+      {
+        id: 1,
+        name: '디프만',
+      },
+      {
+        id: 2,
+        name: '엘리스랩',
+      },
+    ],
+    memo: '디프만 web 16기 윤장원입니다!',
+    interestDomain: ['이커머스', '금융'],
     sns: [
       {
         type: 'INSTAGRAM',
@@ -38,8 +47,8 @@ export const mockCardDetailData: CardDetailDto = {
         link: 'https://github.com/jaeiny',
       },
     ],
-    news: '새로운 프로젝트 공개',
-    hobby: '농구, 코딩, 커피 마시기',
+    news: '',
+    hobby: '',
     content: [
       {
         title: 'Spring Boot로 RESTful API 만들기',

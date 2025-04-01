@@ -1,29 +1,31 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { useState } from 'react';
-import { Toaster } from 'sonner';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { spacingStyles } from '@/shared/spacing/spacing';
 import Appbar from '@/shared/ui/appbar';
-import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
-import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
-import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import Tag from '@/shared/ui/tag/tag';
+import Toast from '@/shared/ui/Toast';
 
 import JOB_CONFIG, { JobType } from '../config/jobs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
 import { useBottomModal } from '../hooks/useBottomModal';
+import { useScroll } from '../hooks/useScroll';
+import { CardDetailDto } from '../types/cardDetail';
 
-const CardDetailHeader = () => {
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+import BottomSheet from './bottomSheet';
+
+interface CardDetailHeaderProps {
+  data: CardDetailDto;
+  type: string;
+}
+
+const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
+  const isScroll = useScroll();
 
   const handleMode = () => {
     setMode(true);
@@ -33,8 +35,8 @@ const CardDetailHeader = () => {
     setMode(false);
   };
 
-  // isMyCard : 받은 명함 임시적으로 명시
-  const isMyCard = false;
+  // isMyCard : 명함 타입 명시 (내 명함 , 받은 명함)
+  const isMyCard = type === 'mycard' ? true : false;
 
   const userJob = (data?.data?.job as JobType) || 'DEVELOPER';
 
@@ -44,13 +46,13 @@ const CardDetailHeader = () => {
   return (
     <>
       <div
-        className="card-detail-header w-full bg-cover bg-center pb-[40px]"
+        className="w-full bg-cover bg-center pb-[40px]"
         style={{
           backgroundImage: `url('${currentJob.backgroundImage}')`,
         }}
       >
         {/* 카드 상세 헤더 */}
-        <Appbar page="detail" onRightClick={headerRightHandler} onLeftClick={handleBack} />
+        <Appbar page="detail" onRightClick={headerRightHandler} onLeftClick={handleBack} isBlurred={isScroll} />
         {/* 카드 상세 userData */}
         <div className={`flex w-full items-start ${spacingStyles({ marginTop: 'ms' })}`}>
           <div
@@ -58,13 +60,16 @@ const CardDetailHeader = () => {
           >
             <div className="flex w-full items-center justify-between">
               {/* 프로필 이미지 */}
-              <div
-                className={`flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100 ${spacingStyles({ marginBottom: 'ms' })}`}
-              >
-                <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
-              </div>
+              {data?.data?.nickname && (
+                <div
+                  className={`flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100 ${spacingStyles({ marginBottom: 'ms' })}`}
+                >
+                  <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
+                </div>
+              )}
+
               {/* 개발자 , 디자이너 아이콘 */}
-              <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />
+              {data?.data?.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />}
             </div>
             <p className="title-1 line-clamp-1">{data?.data.nickname}</p>
             <div
@@ -73,7 +78,7 @@ const CardDetailHeader = () => {
               <span className={`max-w-1/2 truncate ${spacingStyles({ marginRight: 'sm' })}`}>
                 {data?.data.detailJob}
               </span>
-              {data?.data && (
+              {data?.data.organization && (
                 <>
                   <span className="flex-shrink-0 px-1">|</span>
                   <span className={`max-w-1/2 truncate ${spacingStyles({ marginLeft: 'sm' })}`}>
@@ -83,54 +88,51 @@ const CardDetailHeader = () => {
               )}
             </div>
             <p className="body-5 line-clamp-2">{data?.data.summary}</p>
-            <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
-              <Image
-                src="/icons/region.svg"
-                alt="지역"
-                width={16}
-                height={16}
-                className={`${spacingStyles({ marginRight: 'xs' })}`}
-              />
-              <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
-            </div>
+            {data?.data.region && (
+              <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
+                <Image
+                  src="/icons/region.svg"
+                  alt="지역"
+                  width={16}
+                  height={16}
+                  className={`${spacingStyles({ marginRight: 'xs' })}`}
+                />
+                <p className="line-clamp-1 text-body-5">{data?.data.region}</p>
+              </div>
+            )}
             {/* 이후 폴더를 map으로 수정 예정 */}
-            {!isMyCard && data?.data.group && (
+            {!isMyCard && data?.data.folders && (
               <div className={`${spacingStyles({ marginTop: 'lg' })} flex items-center`}>
-                {data?.data.group.map((e, i) => {
+                {data?.data.folders.map((e, i) => {
                   return (
                     <Tag
                       key={i}
-                      message={e}
+                      message={e.name}
                       className={`${spacingStyles({ marginRight: 'sm' })} bg-opacity-white-20`}
                     />
                   );
                 })}
               </div>
             )}
-
             {/* 한 줄 메모 */}
-            {!isMyCard && data?.data.introduce && (
+            {!isMyCard && data?.data.memo && (
               <div
                 className={`${spacingStyles({ paddingX: 'md', paddingY: 'ms', marginTop: 'md' })} w-full rounded-md bg-opacity-white-20`}
               >
-                <span className="line-clamp-2 text-body-5">{data?.data.introduce}</span>
+                <span className="line-clamp-2 text-body-5">{data?.data.memo}</span>
               </div>
             )}
           </div>
         </div>
       </div>
-      {!mode ? (
-        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
-          <BottomMenuItem onClick={handleMode}>한줄 메모</BottomMenuItem>
-          <BottomMenuItem className="text-error-medium">삭제하기</BottomMenuItem>
-        </BottomModal>
-      ) : (
-        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode} mode={mode}>
-          <BottomModalTitle>한줄 메모</BottomModalTitle>
-          <MemoInput onClose={closeModal} handleCancelMode={handleCancelMode} />
-        </BottomModal>
-      )}
-      <Toaster position="bottom-center" />
+      <BottomSheet
+        mode={mode}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        handleMode={handleMode}
+        handleCancelMode={handleCancelMode}
+      />
+      <Toast />
     </>
   );
 };

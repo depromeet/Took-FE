@@ -1,14 +1,21 @@
 import { PreviewInfoType } from '@/features/home/types';
 
+const DOMAIN_BASE_URL = '/received';
+
+export const ROUTE_PATH = {
+  main: `${DOMAIN_BASE_URL}`,
+  interesting: `${DOMAIN_BASE_URL}/interesting`,
+};
+
 export const RECEIVED_CARD_MOCK = [
   {
     id: 1,
     nickname: '홍길동',
     organization: 'ABC 회사',
-    job: 'DEVELOPER',
-    detailJob: '백엔드 개발자',
-    summary: '백엔드 개발을 좋아하는 개발자입니다',
-    interestDomain: ['웹', '모바일', '클라우드'],
+    job: 'DESIGNER',
+    detailJob: 'UI/UX 디자이너',
+    summary: 'UX에 관심 많은 디자이너입니다.',
+    interestDomain: ['웹', '모바일', 'UX'],
     previewInfoType: 'PROJECT' as PreviewInfoType,
     previewInfo: {
       project: {

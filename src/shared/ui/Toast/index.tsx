@@ -6,8 +6,8 @@ import { toast } from 'sonner';
 import { Toaster } from './sonner';
 
 type toastProps = {
-  buttonText: string;
-  message: string;
+  buttonText?: string;
+  message?: string;
 };
 
 /**
@@ -35,7 +35,7 @@ function Toast({ buttonText, message }: toastProps) {
           ),
           error: (
             <Image
-              src="/icons/toast-icon/warningIcon.svg"
+              src="/icons/toast-icon/sonnerIcon.svg"
               className="text-error-medium"
               alt="error-icon"
               width={24}
@@ -43,7 +43,7 @@ function Toast({ buttonText, message }: toastProps) {
             />
           ),
         }}
-        position="bottom-right"
+        position="bottom-center"
       />
       <button className="text-white" onClick={() => toast.error(message)}>
         {buttonText}
