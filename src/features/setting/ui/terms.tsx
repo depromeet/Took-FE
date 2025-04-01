@@ -20,9 +20,7 @@ const TermsView = () => {
 
 const TermsItem = () => {
   return (
-    <div
-      className={cn(spacingStyles({ paddingBottom: 'lg' }), 'flex w-full flex-col space-y-4 text-body-5 text-gray-50')}
-    >
+    <div className="flex w-full flex-col space-y-4 pb-8 text-body-5 text-gray-50">
       <section>
         <h3 className="font-semibold">제1조 (목적)</h3>
         <p>
