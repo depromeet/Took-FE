@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useReceivedCardsQuery } from '@/features/received/model/queries/useReceivedCardsQuery';
 import { useReceivedCardsStore } from '@/features/received/model/store/useReceivedCardsStore';
@@ -17,7 +17,7 @@ function Page() {
 
   useEffect(() => {
     if (isLoading) setReceivedCards(serverReceivedCards);
-  }, [isLoading, serverReceivedCards]);
+  }, [isLoading, serverReceivedCards, setReceivedCards]);
 
   return (
     <div className="flex h-dvh w-full justify-center">

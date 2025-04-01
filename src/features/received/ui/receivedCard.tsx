@@ -76,7 +76,7 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
             <p className="truncate text-body-3 text-white">{cardData.detailJob}</p>
           </div>
         </div>
-        {cardData.job === 'DEVELOPER' ? (
+        {cardData.job === 'developer' ? (
           <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
         ) : (
           <Image src="/icons/designer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
