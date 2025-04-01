@@ -34,26 +34,28 @@ const AlramView = () => {
   return (
     <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
       <Appbar page="mypage" title="알림 설정" onLeftClick={handleBack} />
-      <section className={cn(spacingStyles({ paddingY: 'md', paddingX: 'ml' }))}>
+      <section className={cn(spacingStyles({ paddingTop: 'md', paddingX: 'ml' }))}>
         <List variant="alramItem">
           <AlarmItem text="전체 알림" onToggle={() => handleToggleAlarm('all')} isAlarmOn={isAlarmOn.all} />
-          <AlarmBoarder />
-          <AlarmItem
-            text="흥미로운 명함 알림"
-            onToggle={() => handleToggleAlarm('interesting')}
-            isAlarmOn={isAlarmOn.interesting}
-          />
-          <AlarmItem
-            text="한 줄 메모 알림"
-            onToggle={() => handleToggleAlarm('oneLineMemo')}
-            isAlarmOn={isAlarmOn.oneLineMemo}
-          />
-          <AlarmItem
-            text="서비스 업데이트 알림"
-            onToggle={() => handleToggleAlarm('serviceUpdate')}
-            isAlarmOn={isAlarmOn.serviceUpdate}
-          />
         </List>
+      </section>
+      <AlarmBoarder />
+      <section className={cn(spacingStyles({ paddingX: 'ml' }))}>
+        <AlarmItem
+          text="흥미로운 명함 알림"
+          onToggle={() => handleToggleAlarm('interesting')}
+          isAlarmOn={isAlarmOn.interesting}
+        />
+        <AlarmItem
+          text="한 줄 메모 알림"
+          onToggle={() => handleToggleAlarm('oneLineMemo')}
+          isAlarmOn={isAlarmOn.oneLineMemo}
+        />
+        <AlarmItem
+          text="서비스 업데이트 알림"
+          onToggle={() => handleToggleAlarm('serviceUpdate')}
+          isAlarmOn={isAlarmOn.serviceUpdate}
+        />
       </section>
     </div>
   );
