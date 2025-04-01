@@ -129,17 +129,11 @@ const customStyles: StylesConfig<SearchOptions, false, GroupBase<SearchOptions>>
   control: (provided, state) => ({
     ...provided,
     backgroundColor: '#202030',
-    borderColor: state.isFocused ? '#ffffff' : '#D1D5DB',
-    border: '1px solid',
-    borderTopColor: '#202030',
-    borderRightColor: '#202030',
-    borderBottomColor: '#202030',
-    borderLeftColor: '#202030',
-    borderRadius: '12px', // rounded-md
-    // 포커스 시 outline, boxShadow 제거
+    border: '1px solid #202030',
+    borderRadius: '12px',
     outline: state.isFocused ? 'none' : undefined,
     boxShadow: state.isFocused ? 'none' : undefined,
-    padding: '0.75rem', // p-3 (12px)
+    padding: '0.75rem',
     '&:hover': {
       borderColor: '#202030',
     },
@@ -168,6 +162,7 @@ const customStyles: StylesConfig<SearchOptions, false, GroupBase<SearchOptions>>
     ...provided,
     backgroundColor: '#41425D', //  메뉴
     marginTop: '8px',
+    borderRadius: '12px',
   }),
   // menuList 스타일을 추가합니다.
   menuList: (provided) => ({
@@ -179,6 +174,7 @@ const customStyles: StylesConfig<SearchOptions, false, GroupBase<SearchOptions>>
     '&::-webkit-scrollbar': {
       display: 'none', // Chrome, Safari, Edge
     },
+    borderRadius: '12px',
   }),
   // placeholder 스타일을 추가합니다.
   placeholder: (provided) => ({
