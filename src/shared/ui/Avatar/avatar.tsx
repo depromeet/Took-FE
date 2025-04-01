@@ -50,7 +50,11 @@ const AvatarImage = React.forwardRef<
     <AvatarPrimitive.Image
       ref={ref}
       src={src}
-      className={cn('aspect-square bg-gray-100', isDefaultIcon ? imageSize[size] : 'h-full w-full', className)}
+      className={cn(
+        'aspect-square bg-gray-100 object-cover',
+        isDefaultIcon ? imageSize[size] : 'h-full w-full',
+        className,
+      )}
       {...props}
     />
   );
