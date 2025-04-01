@@ -1,7 +1,7 @@
 import { UseFormSetValue, UseFormUnregister } from 'react-hook-form';
 
 import { CareerFormData } from '../schema';
-import { STEP_VALIDATION_FIELDS } from '../ui/careerForm/constants';
+import { getStepValidationFields } from '../ui/careerForm/constants';
 
 interface PlatformPattern {
   pattern: RegExp;
@@ -131,7 +131,7 @@ export const resetStepFields = (
 
   switch (step) {
     case 1:
-      STEP_VALIDATION_FIELDS[step].forEach((field) => {
+      getStepValidationFields()[step].forEach((field) => {
         unregister(field);
       });
       break;
