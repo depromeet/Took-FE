@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { cn } from '@/shared/lib/utils';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
@@ -47,7 +47,7 @@ export default function ChooseReceivedCardView() {
     if (!isFetching) {
       setReceivedCards(cards);
     }
-  }, [isFetching]);
+  }, [isFetching, cards, setReceivedCards]);
 
   if (isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
 
