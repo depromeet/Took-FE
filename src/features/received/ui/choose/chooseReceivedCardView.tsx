@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
@@ -22,10 +21,10 @@ export default function ChooseReceivedCardView() {
 
   const { folders } = useFolderStore();
   const { receivedCards, setReceivedCards, deleteCards } = useReceivedCardsStore();
-  const { mutate: deleteServerCards } = useDeleteReceivedCards(null);
+  const { mutate: deleteServerCards } = useDeleteReceivedCards();
   const { mutate: moveToFolder } = useMoveCardToFolder();
 
-  const { cards, isFetching } = useReceivedCardsQuery(null);
+  const { cards, isFetching } = useReceivedCardsQuery();
 
   const isAnyChecked = selectedCardIds.length > 0;
   const toggleChecked = (id: number) => {
@@ -37,13 +36,11 @@ export default function ChooseReceivedCardView() {
   const handleDelete = () => {
     deleteCards(selectedCardIds);
     deleteServerCards({ cardIds: selectedCardIds });
-    toast.success('명함을 삭제했어요');
   };
 
   const handleMoveToFolder = (folderId: number) => {
     moveToFolder({ folderId: folderId, cardIds: selectedCardIds });
     closeSettingModal();
-    toast.success('폴더 설정이 완료되었어요');
   };
 
   useEffect(() => {

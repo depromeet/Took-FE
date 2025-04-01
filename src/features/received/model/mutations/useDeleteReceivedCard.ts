@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
@@ -15,7 +16,7 @@ const _deleteReceivedCards = async (cardIds: number[]) => {
   }
 };
 
-export const useDeleteReceivedCards = (folderId: number | null) => {
+export const useDeleteReceivedCards = (folderId?: number | null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -23,9 +24,11 @@ export const useDeleteReceivedCards = (folderId: number | null) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [CARD_QUERY_KEY, folderId] });
       console.log('받은 명함 삭제 성공');
+      toast.success('명함을 삭제했어요');
     },
     onError: (error) => {
       console.error('받은 명함 삭제 실패:', error);
+      toast.error('삭제에 실패했어요. 다시 시도해주세요.');
     },
   });
 };

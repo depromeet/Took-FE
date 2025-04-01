@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
@@ -22,9 +23,11 @@ export const useMoveCardToFolder = () => {
       _moveCardToFolder(variables.folderId, variables.cardIds),
     onSuccess: () => {
       console.log('받은 명함을 폴더에 저장 성공');
+      toast.success('폴더 설정이 완료되었어요');
     },
     onError: (error) => {
       console.error('받은 명함을 폴더에 저장 실패 :', error);
+      toast.error('폴더 설정이 실패했어요. 다시 시도해주세요.');
     },
   });
 };
