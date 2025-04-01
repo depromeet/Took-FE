@@ -23,7 +23,7 @@ function FourthStep() {
 
   const formState = useCardFormStore((state) => state.tagArray);
   const tagArray = tagConfig.filter((tag) => formState.includes(tag.value));
-  const [selectedTag, setSelectedTag] = useState<SelectedTagType>(tagArray[0].message ?? '대표 프로젝트');
+  const [selectedTag, setSelectedTag] = useState<SelectedTagType>(tagArray[0]?.message ?? '대표 프로젝트');
 
   const [index, setIndex] = useState<number>(0);
 
@@ -44,9 +44,9 @@ function FourthStep() {
           <CardTags tags={['관심 도메인1', '관심 도메인2']} tagType="designer" />
           <section className="h-4" />
           <Thumbnail
-            tag={tagArray[index].message as ThumbnailTag}
-            title={tagArray[index].title}
-            description={tagArray[index].description}
+            tag={(tagArray[index]?.message as ThumbnailTag) ?? '대표 프로젝트'}
+            title={tagArray[index]?.title ?? '대표 프로젝트'}
+            description={tagArray[index]?.description ?? ''}
           />
         </WrappedCard>
         <div className="mt-4 flex min-w-[292px] gap-1 text-body-5 text-gray-500">

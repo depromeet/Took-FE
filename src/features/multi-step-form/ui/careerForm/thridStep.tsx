@@ -96,7 +96,7 @@ function ThirdStep() {
               render={({ field }) => (
                 <WrappedInput
                   title="소속 정보"
-                  placeholder="소속 정보를 입력해주세요."
+                  placeholder="소속 정보를 입력해 주세요."
                   errorMsg={errors.organization?.message}
                   error={!!errors.organization?.message}
                   {...field}
@@ -127,7 +127,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="SNS"
-                      placeholder="SNS 주소를 입력해주세요."
+                      placeholder="SNS 주소를 입력해 주세요."
                       field={field}
                       fields={snsFields}
                       fieldAppend={handleFieldAppend}
@@ -213,7 +213,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="작성한 글"
-                      placeholder="작성한 글을 입력해주세요."
+                      placeholder="작성한 글을 입력해 주세요."
                       field={field}
                       fields={contentsFields}
                       fieldAppend={handleFieldAppend}
@@ -257,7 +257,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="대표 프로젝트"
-                      placeholder="대표 프로젝트를 입력해주세요."
+                      placeholder="대표 프로젝트를 입력해 주세요."
                       field={field}
                       fields={projectFields}
                       fieldAppend={handleAddClick}

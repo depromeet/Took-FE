@@ -78,7 +78,7 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (isComposing || e.nativeEvent.isComposing) return;
 
-      if (e.key === ' ' || e.key === ',' || e.key === 'Tab') {
+      if (e.key === ' ' || e.key === ',') {
         e.preventDefault();
         addTag(inputValue.trim());
       } else if (e.key === 'Backspace' && inputValue === '') {
