@@ -1,6 +1,6 @@
 'use client';
+
 import Image from 'next/image';
-import React from 'react';
 
 import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
