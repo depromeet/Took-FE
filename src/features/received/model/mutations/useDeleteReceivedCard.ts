@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
+import { CARD_QUERY_KEY } from '../queries/useReceivedCardsQuery';
+
 const _deleteReceivedCards = async (cardIds: number[]) => {
   try {
     const response = await client.delete(`${CLIENT_SIDE_URL}/api/card/receive`, { data: { cardIds } });
@@ -13,13 +15,13 @@ const _deleteReceivedCards = async (cardIds: number[]) => {
   }
 };
 
-export const useDeleteReceivedCards = () => {
+export const useDeleteReceivedCards = (folderId: number | null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (variables: { cardIds: number[] }) => _deleteReceivedCards(variables.cardIds),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cards'] });
+      queryClient.invalidateQueries({ queryKey: [CARD_QUERY_KEY, folderId] });
       console.log('받은 명함 삭제 성공');
     },
     onError: (error) => {
