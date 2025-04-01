@@ -15,6 +15,8 @@ import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
 
+const MAX_SUMMARY_LENGTH = 40;
+
 function FirstStep() {
   const {
     control,
@@ -96,7 +98,7 @@ function FirstStep() {
             render={({ field }) => (
               <Textarea
                 labelTitle="한 줄 소개"
-                totalNumber={40}
+                totalNumber={MAX_SUMMARY_LENGTH}
                 placeholder="본인을 잘 드러낼 수 있는 문장을 작성해 주세요."
                 size="max"
                 errorMsg={errors.summary?.message}
