@@ -1,21 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { MyCardDto } from '@/features/home/types';
+import { FolderDto } from '@/entities/folder/dto';
 import { client } from '@/shared/apis/client';
+import { CLIENT_SIDE_URL } from '@/shared/constants';
 
 export const FOLDER_QUERY_KEY = 'FOLDER_QUERY_KEY';
 
 const _getFolders = async () => {
-  const { data } = await client.get<MyCardDto>(`/api/card/folders`);
-
-  return data;
+  try {
+    const { data } = await client.get<FolderDto>(`${CLIENT_SIDE_URL}/api/card/folders`);
+    console.log('서버로부터 받은 데이터 : ', data); // 추후 지우기
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-export const useReceivedCardQuery = () => {
-  const { data } = useQuery({
-    queryKey: [FOLDER_QUERY_KEY], // 추후 수정
+export const useFoldersQuery = () => {
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
+    queryKey: [FOLDER_QUERY_KEY],
     queryFn: _getFolders,
+    enabled: true,
   });
-
-  return { data };
+  return { folders: data?.folders ?? [], isLoading, isFetching, isError, refetch };
 };

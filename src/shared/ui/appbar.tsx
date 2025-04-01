@@ -43,6 +43,7 @@ type AppbarProps = AppbarVariantProps & {
   onRightClick?: () => void;
   onRightClickSecond?: () => void;
   title?: string;
+  router?: () => void;
   isBlurred?: boolean;
 };
 
@@ -93,13 +94,14 @@ function renderRightIcon({
   page,
   onRightClick,
   onRightClickSecond,
+  router,
   isBlurred,
-}: Pick<AppbarProps, 'page' | 'onRightClick' | 'onRightClickSecond' | 'isBlurred'>) {
+}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   switch (page) {
     case 'main':
       return (
         <button onClick={onRightClick}>
-          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} />
+          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
         </button>
       );
     case 'detail':
@@ -155,7 +157,16 @@ function renderRightIcon({
  * @returns {JSX.Element} - appbar 컴포넌트
  */
 
-function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond, isBlurred }: AppbarProps) {
+function Appbar({
+  page,
+  hasBackground,
+  title,
+  onLeftClick,
+  onRightClick,
+  onRightClickSecond,
+  router,
+  isBlurred,
+}: AppbarProps) {
   return (
     <header className={cn(appbarVariants({ page, hasBackground }))}>
       <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
@@ -163,7 +174,7 @@ function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRight
       {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
 
       <div className="flex flex-1 justify-end">
-        {renderRightIcon({ page, onRightClick, onRightClickSecond, isBlurred })}
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
       </div>
     </header>
   );

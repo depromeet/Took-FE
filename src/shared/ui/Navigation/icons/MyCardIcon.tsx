@@ -1,23 +1,15 @@
 type Props = {
-  strokeColor: string;
+  fillColor: string;
 };
 
-export const MyCardIcon = ({ strokeColor }: Props) => {
+export const MyCardIcon = ({ fillColor = '#202030' }: Props) => {
   return (
     <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="2" width="19" height="22" rx="3" fill={fillColor} />
+      <circle cx="14.5" cy="9" r="3" fill="#202030" />
       <path
-        d="M22.1811 6.5H5.81745C4.8133 6.5 3.99927 7.2835 3.99927 8.25V18.75C3.99927 19.7165 4.8133 20.5 5.81745 20.5H22.1811C23.1852 20.5 23.9993 19.7165 23.9993 18.75V8.25C23.9993 7.2835 23.1852 6.5 22.1811 6.5Z"
-        stroke={strokeColor}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M3.99927 11.7501H23.9993"
-        stroke={strokeColor}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M18.7817 19.1927C19.8303 19.1927 20.707 18.2966 20.2098 17.3733C19.8992 16.7965 19.444 16.2724 18.8701 15.831C18.2962 15.3895 17.6148 15.0393 16.865 14.8004C16.1151 14.5614 15.3114 14.4385 14.4998 14.4385C13.6882 14.4385 12.8845 14.5614 12.1346 14.8004C11.3848 15.0393 10.7035 15.3895 10.1296 15.831C9.55564 16.2724 9.10039 16.7965 8.7898 17.3733C8.29266 18.2966 9.16936 19.1927 10.2179 19.1927L14.4998 19.1927H18.7817Z"
+        fill="#202030"
       />
     </svg>
   );
