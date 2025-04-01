@@ -16,7 +16,7 @@ import { Navbar } from '@/shared/ui/Navigation';
 import Toast from '@/shared/ui/Toast';
 
 function Page() {
-  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>();
   const { cards: serverReceivedCards, isLoading: isCardsLoading } = useReceivedCardsQuery(selectedFolderId);
   const { folders: serverFolders, isLoading: isFoldersLoading } = useFoldersQuery();
 
@@ -40,7 +40,7 @@ function Page() {
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
         <Appbar page="received" onRightClickSecond={openChooseModal} />
         <div className="overflow-y-auto px-5 pb-24 scrollbar-hide">
-          <ReceivedCardView selectedFolderId={selectedFolderId} setSelectedFolderId={setSelectedFolderId} />
+          <ReceivedCardView selectedFolderId={selectedFolderId ?? null} setSelectedFolderId={setSelectedFolderId} />
         </div>
         <BottomModal isModalOpen={isChooseModalOpen} closeModal={closeChooseModal}>
           <BottomMenuItem

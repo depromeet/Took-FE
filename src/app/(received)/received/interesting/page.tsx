@@ -12,7 +12,7 @@ import { Navbar } from '@/shared/ui/Navigation';
 function Page() {
   const handleBack = useHistoryBack();
 
-  const { cards: serverReceivedCards, isLoading } = useReceivedCardsQuery(null);
+  const { cards: serverReceivedCards, isLoading } = useReceivedCardsQuery();
   const { setReceivedCards } = useReceivedCardsStore();
 
   useEffect(() => {

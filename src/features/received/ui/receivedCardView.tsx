@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
 import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
 import { cn } from '@/shared/lib/utils';
@@ -38,8 +37,8 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const { mutate: serverEditFolder } = useEditFolder();
   const { mutate: serverDeleteFolder } = useDeleteFolder();
 
-  const handleFolderSelect = (id: number | null) => {
-    setSelectedFolderId(id);
+  const handleFolderSelect = (id?: number | null) => {
+    setSelectedFolderId(id ?? null);
   };
 
   const handleAdd = () => {
@@ -53,7 +52,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     serverDeleteFolder({ folderId: id });
     deleteFolder(id);
     closeModal();
-    toast.success('폴더가 삭제되었어요.');
   };
 
   const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -66,7 +64,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
       updateFolder(folderId, updatedFolderName);
       serverEditFolder({ folderId, name: updatedFolderName });
       closeModal();
-      toast.success('수정이 완료되었어요.');
     }
   };
   const handleAddKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -76,8 +73,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
       serverCreateFolder(newFolderName);
       addFolder(newFolderName);
       closeModal();
-      toast.success('폴더가 추가되었어요.');
-      console.log(folders);
     }
   };
 
@@ -95,7 +90,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         <button
           onClick={() => {
             headerRightHandler();
-            console.log(folders);
           }}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-opacity-white-20"
         >
