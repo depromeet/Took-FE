@@ -14,7 +14,7 @@ export type Card = {
   id: number;
   nickname: string;
   organization: string;
-  job: string;
+  job: JopType;
   detailJob: string;
   summary: string;
   interestDomain: string[];
