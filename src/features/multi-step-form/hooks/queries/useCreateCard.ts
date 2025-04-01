@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
+import { useCardFormStore } from '@/shared/store/cardFormState';
 import { ApiResponseType } from '@/shared/types';
 
 const createCard = async (payload: FormData) => {
@@ -14,6 +15,7 @@ const createCard = async (payload: FormData) => {
 // 카드 생성 API 호출
 export const useCreateCard = (reset: () => void) => {
   const router = useRouter();
+  const resetTagCount = useCardFormStore((state) => state.resetTagCount);
 
   return useMutation({
     mutationFn: createCard,
@@ -21,11 +23,13 @@ export const useCreateCard = (reset: () => void) => {
       toast.success('명함 생성 성공');
       router.replace('/');
       reset();
+      resetTagCount();
     },
     onError: (error) => {
       toast.error('명함 생성 실패');
       reset();
       router.replace('/card-create');
+      resetTagCount();
       console.error('카드 생성 실패', error);
     },
   });
