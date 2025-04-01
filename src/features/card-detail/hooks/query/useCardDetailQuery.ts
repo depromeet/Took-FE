@@ -1,7 +1,7 @@
 // api/cardQueries.ts
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { MyCardDto } from '@/features/home/types';
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 
@@ -9,33 +9,47 @@ import { mockCardDetailData } from '../../mocks/myCardDetail';
 import { CardDetailDto } from '../../types/cardDetail';
 
 // API 호출 함수
-const getCardDetail = async (cardId: number): Promise<CardDetailDto> => {
-  const data = await client.get<CardDetailDto>(`${CLIENT_SIDE_URL}/api/card/detail?cardId=${cardId}`);
-  return data;
+
+export const CARD_DETAIL_QUERY_KEY = 'cardDetail';
+
+const getCardDetail = async (cardId: string): Promise<CardDetailDto> => {
+  try {
+    const baseUrl = `${CLIENT_SIDE_URL}/api/card`;
+    const data = await client.get<CardDetailDto>(`${baseUrl}/detail?cardId=${cardId}`);
+    return data;
+  } catch (err) {
+    // Axios 에러 처리
+    if (axios.isAxiosError(err) && err.response) {
+      (err as any).status = err.response.status;
+    }
+    throw err;
+  }
 };
 
-// 내 명함 목록 조회
-const getMyCard = async (): Promise<MyCardDto> => {
-  const data = await client.get<MyCardDto>(`${CLIENT_SIDE_URL}/api/card/my`);
-  return data;
+const updateReceiveCard = async (cardId: string, memo: string) => {
+  const response = await client.put<any, CardDetailDto>(`${CLIENT_SIDE_URL}/api/card/receive`, {
+    cardId,
+    memo,
+  });
+  return response.data;
 };
 
 // 카드 상세 정보를 가져오는 쿼리 훅
-export const useCardDetailQuery = (cardId: number) => {
+export const useCardDetailQuery = (cardId: string) => {
   const { data: _ } = useQuery({
-    queryKey: ['cardDetail', cardId],
+    queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
     queryFn: () => getCardDetail(cardId),
-  });
 
+    // 이후 Errorboundary를 사용하면 true 설정
+    throwOnError: false,
+  });
+  
   return { data: mockCardDetailData };
 };
 
-// 내 명함 목록 조회
-export const useMyCardQuery = () => {
-  const data = useQuery({
-    queryKey: ['myCard'],
-    queryFn: () => getMyCard(),
+// 카드 업데이트를 위한 mutation 훅
+export const useUpdateCardMutation = () => {
+  return useMutation({
+    mutationFn: ({ cardId, memo }: { cardId: string; memo: string }) => updateReceiveCard(cardId, memo),
   });
-
-  return data;
 };
