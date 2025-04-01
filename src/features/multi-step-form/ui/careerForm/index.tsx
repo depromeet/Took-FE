@@ -4,7 +4,6 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Toaster } from 'sonner';
 import { match } from 'ts-pattern';
 
-import { useCardFormStore } from '@/shared/store/cardFormState';
 import { Button } from '@/shared/ui/button';
 
 import { TOTAL_STEPS } from '../../config';
@@ -85,10 +84,6 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     getStepValidationFields()[currentStep].every((field) => !errors[field]) &&
     validateArrayFields(getStepValidationFields()[currentStep]);
   // 각 스텝에 해당하는 필드만 trigger로 검증 후 다음 단계로 이동
-
-  console.log('STEP_VALIDATION_FIELDS', getStepValidationFields());
-
-  console.log('tagArray', useCardFormStore.getState().tagArray);
 
   const handleNextStep = async () => {
     const fieldsToValidate = getStepValidationFields()[currentStep];
