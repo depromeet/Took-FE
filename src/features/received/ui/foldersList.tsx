@@ -25,7 +25,12 @@ export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
         spacingStyles({ paddingRight: 'ml' }),
       )}
     >
-      <Tag size="lg" message="전체보기" className="bg-white text-black" onClick={() => handleFolderSelect(null)} />
+      <Tag
+        size="lg"
+        message="전체보기"
+        className="cursor-pointer bg-white text-black"
+        onClick={() => handleFolderSelect(null)}
+      />
       {folders.map((folder, index) => {
         return (
           <Tag
