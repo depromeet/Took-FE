@@ -2,7 +2,6 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
-import router from 'next/router';
 import React from 'react';
 
 import { cn } from '../lib/utils';
@@ -96,6 +95,7 @@ function renderRightIcon({
   onRightClick,
   onRightClickSecond,
   router,
+  isBlurred,
 }: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   switch (page) {
     case 'main':
