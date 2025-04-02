@@ -31,9 +31,12 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputPropsType>(
   ({ variant = 'default', error, closeBtn, errorMsg, title, onBlur, closeBtnClick, ...props }, ref) => {
     const { onChange, value: hookValue } = props; // react-hook-form의 Controller로부터 전달받은 props
 
-    const isControlled = hookValue !== undefined;
+    // value 속성이 props에 있는지 확인
+    const isControlled = 'value' in props;
     const [internalValue, setInternalValue] = useState('');
-    const value = isControlled ? hookValue : internalValue;
+
+    // undefined 값을 빈 문자열로 변환
+    const value = isControlled ? (hookValue === undefined ? '' : hookValue) : internalValue;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!isControlled) {
