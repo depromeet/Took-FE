@@ -13,6 +13,7 @@ export type ApiResponse<T> = {
 export type UserDto = {
   id: number;
   name: string;
+  email: string;
 };
 
 export type TokenDto = {
