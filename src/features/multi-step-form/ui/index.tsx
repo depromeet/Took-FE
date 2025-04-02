@@ -59,7 +59,7 @@ function MultiStepFormView() {
         <div
           className={cn(
             'flex w-full max-w-[600px] flex-col bg-gray-black',
-            currentStep === 2 && 'bg-[url(/images/tag/background.png)] bg-cover bg-center',
+            currentStep === 2 && 'bg-[url(/images/tag/background.webp)] bg-cover bg-center',
           )}
         >
           <Appbar hasBackground={currentStep === 2 && false} page="create" onLeftClick={handleStepBack} />
