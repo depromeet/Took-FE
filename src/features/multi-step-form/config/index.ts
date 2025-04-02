@@ -12,8 +12,8 @@ export const CAREER_FORM = {
   },
 };
 
-// 백엔드 - 논의 : 이미지 파일 제한크기
-export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+// 백엔드 - 이미지 파일 제한크기 10MB
+export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 // 스텝 상수
 export const TOTAL_STEPS = 4;
