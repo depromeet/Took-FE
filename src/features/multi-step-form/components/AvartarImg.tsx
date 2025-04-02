@@ -7,12 +7,12 @@ import { toast } from 'sonner';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import ImageAdd from '@/shared/ui/Avatar/imageAdd';
 
+import { MAX_FILE_SIZE } from '../config';
 import { CareerFormData } from '../schema';
 
 // 기본 아바타 이미지 경로 (상대 경로)
 const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
 // 최대 파일 크기 (5MB)
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 function AvatarImg() {
   const { control, setValue } = useFormContext<CareerFormData>();
