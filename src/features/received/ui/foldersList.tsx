@@ -21,7 +21,7 @@ export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
   return (
     <div
       className={cn(
-        'sticky flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide',
+        'sticky -mr-5 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide',
         spacingStyles({ paddingRight: 'ml' }),
       )}
     >
