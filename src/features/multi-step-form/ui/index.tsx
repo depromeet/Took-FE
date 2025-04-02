@@ -56,14 +56,20 @@ function MultiStepFormView() {
   return (
     <FormProvider {...formMethod}>
       <div className="flex min-h-dvh w-full justify-center">
-        <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
-          <Appbar page="create" onLeftClick={handleStepBack} />
+        <div
+          className={cn(
+            'flex w-full max-w-[600px] flex-col bg-gray-black',
+            currentStep === 2 && 'bg-[url(/images/tag/background.png)] bg-cover bg-center',
+          )}
+        >
+          <Appbar hasBackground={currentStep === 2 && false} page="create" onLeftClick={handleStepBack} />
           <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
           <main
             className={cn(
               'flex flex-col gap-4',
-              spacingStyles({ paddingX: 'ml', paddingY: 'lg' }),
-              currentStep === 2 && 'h-[calc(100dvh-52px)] bg-[url(/images/tag/background.png)] bg-cover bg-center',
+              currentStep !== 2
+                ? spacingStyles({ paddingX: 'ml', paddingY: 'lg' })
+                : spacingStyles({ paddingX: 'ml', paddingBottom: 'lg' }),
             )}
           >
             <CareerFormView currentStep={currentStep} onNextStep={handleNextStep} />
