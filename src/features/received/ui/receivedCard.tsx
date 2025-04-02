@@ -58,6 +58,9 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
 }
 
 export default function ReceivedCard({ cardData }: ReceivedCardProps) {
+  const imageUrl = `/${cardData?.imagePath}`;
+
+  console.log(imageUrl);
   return (
     <div
       className={cn(
@@ -67,7 +70,7 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar src={cardData?.imagePath} alt="" size="medium" />
+          <WrappedAvatar src={imageUrl} alt="" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>
@@ -77,9 +80,21 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
           </div>
         </div>
         {cardData.job === 'developer' ? (
-          <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+          <Image
+            src="/icons/developer-icon-white.svg"
+            alt="icon"
+            width={12}
+            height={12}
+            className="mr-1 mt-1 self-start"
+          />
         ) : (
-          <Image src="/icons/designer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+          <Image
+            src="/icons/designer-icon-white.svg"
+            alt="icon"
+            width={12}
+            height={12}
+            className="mr-1 mt-1 self-start"
+          />
         )}
       </div>
       <p className={cn('truncate text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>
