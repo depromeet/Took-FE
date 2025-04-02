@@ -84,7 +84,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   }, [isModalOpen]);
 
   return (
-    <main className="">
+    <main>
       <Intellibanner />
       <div className={cn('flex items-center gap-2', spacingStyles({ paddingTop: 'md' }))}>
         <button
@@ -97,14 +97,9 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         </button>
         <FoldersList handleFolderSelect={handleFolderSelect} />
       </div>
-      <div
-        className={cn(
-          'flex items-center justify-end gap-2 text-caption-1 text-white',
-          spacingStyles({ marginY: 'md', paddingRight: 'ml' }),
-        )}
-      >
-        <p>최근 공유 순</p>
-        <Image className="cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
+      <div className={cn('flex items-center justify-end gap-[2px] text-white', spacingStyles({ marginY: 'md' }))}>
+        <p className="text-caption-1">최근 공유 순</p>
+        <Image className="mx-1 cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
       <ReceivedCardList selectedFolderId={selectedFolderId} />
 

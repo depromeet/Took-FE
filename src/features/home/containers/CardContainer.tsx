@@ -57,7 +57,7 @@ export const CardContainer = () => {
           );
         },
       )}
-      {cards.length <= 3 && (
+      {cards.length < 3 && (
         <SwiperSlide>
           <AddCard />
         </SwiperSlide>
