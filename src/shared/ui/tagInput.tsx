@@ -78,14 +78,22 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (isComposing || e.nativeEvent.isComposing) return;
 
-      if (e.key === ' ' || e.key === ',') {
+      // 스페이스바 감지 방식 개선
+      if (e.key === ' ' || e.key === 'Spacebar' || e.key === ',') {
         e.preventDefault();
-        addTag(inputValue.trim());
+        if (inputValue.trim()) {
+          addTag(inputValue.trim());
+        }
       } else if (e.key === 'Backspace' && inputValue === '') {
-        removeTag(tags[tags.length - 1]);
+        e.preventDefault(); // 백스페이스 이벤트를 명시적으로 처리
+        if (tags.length > 0) {
+          removeTag(tags[tags.length - 1]);
+        }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        addTag(inputValue.trim());
+        if (inputValue.trim()) {
+          addTag(inputValue.trim());
+        }
       }
     };
 

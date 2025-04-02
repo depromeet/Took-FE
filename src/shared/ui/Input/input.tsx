@@ -30,12 +30,15 @@ export type InputBodyProps = React.ComponentProps<'input'> & {
 
 const InputBody = React.forwardRef<HTMLInputElement, InputBodyProps>(
   ({ className, error, variant, type, value, onChange, ...props }, ref) => {
+    // undefined 값을 빈 문자열로 변환
+    const inputValue = value === undefined ? '' : value;
+
     return (
       <input
         type={type}
         className={cn(inputVariants({ variant, error }), className)}
         ref={ref}
-        value={value}
+        value={inputValue}
         onChange={onChange}
         {...props}
       />
