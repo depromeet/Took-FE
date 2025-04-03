@@ -5,7 +5,7 @@ import { ThirdOnboardingContainer } from '../containers/ThirdOnboardingContainer
 export const slides = [
   {
     id: 1,
-    descriptions: ['과한 시작정보는 빼고', '내가 원하는 정보만'],
+    descriptions: ['과한 사적정보는 빼고', '내가 원하는 정보만'],
     component: FirstOnboardingContainer,
   },
   {

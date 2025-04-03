@@ -37,7 +37,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   // isMyCard : 명함 타입 명시 (내 명함 , 받은 명함)
   const isMyCard = type === 'mycard' ? true : false;
 
-  const userJob = (data?.data?.job as JobType) || 'DEVELOPER';
+  const userJob = (data?.data?.job as JobType) || 'developer';
 
   // config에서 해당 직군의 설정 가져오기
   const currentJob = JOB_CONFIG[userJob];
@@ -47,7 +47,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
       <div
         className="w-full bg-cover bg-center pb-[50px]"
         style={{
-          backgroundImage: `url('${currentJob.backgroundImage}')`,
+          backgroundImage: `url('${currentJob?.backgroundImage}')`,
         }}
       >
         {/* 카드 상세 헤더 */}
@@ -66,7 +66,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               )}
 
               {/* 개발자 , 디자이너 아이콘 */}
-              {data?.data?.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />}
+              {data?.data?.job && <Image src={currentJob?.iconPath} alt={currentJob?.iconAlt} width="30" height="30" />}
             </div>
             <p className="line-clamp-1 text-title-1">{data?.data.nickname}</p>
             <div
