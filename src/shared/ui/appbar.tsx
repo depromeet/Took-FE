@@ -127,9 +127,9 @@ function renderRightIcon({
     case 'received':
       return (
         <div className="flex gap-4">
-          <button onClick={onRightClick}>
+          {/* <button onClick={onRightClick}>
             <Image src="/icons/searchIcon.svg" alt="검색 아이콘" width={24} height={24} />
-          </button>
+          </button> */}
           <button onClick={onRightClickSecond ?? (() => {})}>
             <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
           </button>
