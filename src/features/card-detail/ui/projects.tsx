@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
 import Empty from '../components/empty';
@@ -24,7 +25,7 @@ function Projects({ data }: ProjectsProps) {
                 src={project.imageUrl || '/icons/imageIcon-gray.svg'}
                 alt={project.title}
                 fill
-                className="bg-opacity-white-20 p-[35px]"
+                className={cn('bg-opacity-white-20', !project.imageUrl ? 'p-[35px]' : '')}
               />
             </div>
 

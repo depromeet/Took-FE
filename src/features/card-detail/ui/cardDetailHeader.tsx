@@ -12,6 +12,7 @@ import JOB_CONFIG, { JobType } from '../config/jobs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScroll } from '../hooks/useScroll';
 import { CardDetailDto } from '../types/cardDetail';
+import { getImageUrl } from '../utils/getImageUrl';
 
 import BottomSheet from './bottomSheet';
 
@@ -42,6 +43,8 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   // config에서 해당 직군의 설정 가져오기
   const currentJob = JOB_CONFIG[userJob];
 
+  console.log(getImageUrl(data?.data.imagePath));
+
   return (
     <>
       <div
@@ -61,9 +64,16 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               {/* 프로필 이미지 */}
               {data?.data?.nickname && (
                 <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
-                  <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
+                  <Image
+                    src={getImageUrl(data?.data.imagePath)}
+                    alt="프로필 이미지"
+                    width={56}
+                    height={56}
+                    className="rounded-full"
+                  />
                 </div>
               )}
+              {/* /icons/avatarIcon.svg */}
 
               {/* 개발자 , 디자이너 아이콘 */}
               {data?.data?.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />}
