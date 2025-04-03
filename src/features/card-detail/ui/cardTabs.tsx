@@ -8,11 +8,12 @@ import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 
-import { CARD_TABS, TabId } from '../config/tabs-config';
+import { TabId } from '../config/tabs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
 import { CardDetailDto } from '../types/cardDetail';
+import { getFilteredTabs } from '../utils/filteredTabs';
 
 import BottomSheet from './bottomSheet';
 import DomainList from './domain';
@@ -28,6 +29,7 @@ interface CardTabsProps {
 }
 
 function CardTabs({ data }: CardTabsProps) {
+  const filteredTabs = getFilteredTabs(data);
   const [activeTab, setActiveTab] = useState<TabId>('domains');
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
@@ -137,7 +139,7 @@ function CardTabs({ data }: CardTabsProps) {
           </div>
 
           <UnderlineTabs
-            tabs={CARD_TABS}
+            tabs={filteredTabs}
             activeTab={activeTab}
             onChange={handleTabChange}
             className={`rounded-t-2xl border-none ${spacingStyles({ paddingTop: 'sm', paddingX: 'xs' })}`}
