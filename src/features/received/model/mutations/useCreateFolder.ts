@@ -13,7 +13,7 @@ const _createFolder = async (folderName: string) => {
     });
     return response;
   } catch (error) {
-    console.error('폴더 생성 실패 :', error);
+    console.error('폴더 생성 실패:', error);
     throw error;
   }
 };
@@ -24,7 +24,7 @@ export const useCreateFolder = () => {
   return useMutation({
     mutationFn: (folderName: string) => _createFolder(folderName),
     onSuccess: () => {
-      console.log('폴더 생성 성공');
+      // console.log('폴더 생성 성공');
       toast.success('폴더가 추가되었어요.');
 
       queryClient.invalidateQueries({ queryKey: [FOLDER_QUERY_KEY] });

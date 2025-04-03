@@ -14,6 +14,8 @@ import { useReceivedCardsQuery } from '../../model/queries/useReceivedCardsQuery
 import { useFolderStore } from '../../model/store/useFoldersStore';
 import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
 import { useModal } from '../../model/useModal';
+import EmptyCard from '../emptyCard';
+import LottieLoading from '../lottieLoading';
 import ReceivedCard from '../receivedCard';
 
 export default function ChooseReceivedCardView() {
@@ -49,7 +51,7 @@ export default function ChooseReceivedCardView() {
     }
   }, [isFetching, cards, setReceivedCards]);
 
-  if (isFetching) return <p>받은 명함들 로딩중이에요...</p>; // 임시 로딩 구현
+  if (isFetching) return <LottieLoading />; // 임시 로딩 구현
 
   return (
     <div className="flex flex-col gap-4">
@@ -78,20 +80,22 @@ export default function ChooseReceivedCardView() {
           되돌릴 수 없어요
         </CommonDialog>
       </div>
-      {receivedCards.map((card, index) => {
-        return (
+      {receivedCards.length > 0 ? (
+        receivedCards.map((card, index) => (
           <div key={index} className="flex max-w-full items-center gap-4">
             <ReceivedCheckbox
               checked={selectedCardIds.includes(card.id)}
               onCheckedChange={() => toggleChecked(card.id)}
             />
-
             <div className="min-w-0 flex-1">
               <ReceivedCard key={index} cardData={card} />
             </div>
           </div>
-        );
-      })}
+        ))
+      ) : (
+        <EmptyCard />
+      )}
+
       <BottomModal isModalOpen={isSettingModalOpen} closeModal={closeSettingModal}>
         <BottomModalTitle>폴더 설정</BottomModalTitle>
         {folders.map((folder, index) => {

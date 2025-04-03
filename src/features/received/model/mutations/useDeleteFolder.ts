@@ -22,7 +22,7 @@ export const useDeleteFolder = () => {
   return useMutation({
     mutationFn: (variables: { folderId: number }) => _deleteFolder(variables.folderId),
     onSuccess: () => {
-      console.log('폴더 삭제 성공');
+      // console.log('폴더 삭제 성공');
       toast.success('폴더가 삭제되었어요.');
       queryClient.invalidateQueries({ queryKey: [FOLDER_QUERY_KEY] });
     },
