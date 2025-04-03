@@ -1,19 +1,39 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { Toaster } from 'sonner';
 
+import { JobType } from '@/features/card-detail/config/jobs-config';
 import { QrContainer } from '@/features/share/containers/QrContainer';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-export default function Share() {
-  // TODO: 추후 3차 MVP 시 SegmentContainer 도입 필요
+const Share = () => {
+  const searchParams = useSearchParams();
+  const params = {
+    profileImg: searchParams.get('profileImg') || '',
+    name: searchParams.get('name') || '',
+    job: searchParams.get('job') || '',
+    jobType: searchParams.get('jobType') as JobType,
+    url: searchParams.get('url') || '',
+  };
 
   return (
     <>
       <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">
-        {/* <SegmentContainer className="absolute" /> */}
-        <QrContainer />
+        <QrContainer {...params} />
       </div>
       <Toaster position="top-center" />
     </>
+  );
+};
+
+export default function Hoc() {
+  return (
+    <Suspense>
+      <Share />
+    </Suspense>
   );
 }
