@@ -7,7 +7,6 @@ import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { spacingStyles } from '@/shared/spacing/spacing';
 import Appbar from '@/shared/ui/appbar';
 import Tag from '@/shared/ui/tag/tag';
-import Toast from '@/shared/ui/Toast';
 
 import JOB_CONFIG, { JobType } from '../config/jobs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
@@ -46,7 +45,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   return (
     <>
       <div
-        className="w-full bg-cover bg-center pb-[40px]"
+        className="w-full bg-cover bg-center pb-[50px]"
         style={{
           backgroundImage: `url('${currentJob.backgroundImage}')`,
         }}
@@ -58,12 +57,10 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
           <div
             className={`flex w-full flex-col items-start ${spacingStyles({ paddingX: 'md' })} ${isModalOpen ? 'invisible' : 'visible'}`}
           >
-            <div className="flex w-full items-center justify-between">
+            <div className={`flex w-full items-center justify-between ${spacingStyles({ marginBottom: 'ms' })}`}>
               {/* 프로필 이미지 */}
               {data?.data?.nickname && (
-                <div
-                  className={`flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100 ${spacingStyles({ marginBottom: 'ms' })}`}
-                >
+                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
                   <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
                 </div>
               )}
@@ -71,7 +68,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               {/* 개발자 , 디자이너 아이콘 */}
               {data?.data?.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="30" height="30" />}
             </div>
-            <p className="title-1 line-clamp-1">{data?.data.nickname}</p>
+            <p className="line-clamp-1 text-title-1">{data?.data.nickname}</p>
             <div
               className={`${spacingStyles({ marginBottom: 'ms' })} line-clamp-1 flex w-full items-center text-title-3`}
             >
@@ -87,7 +84,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
                 </>
               )}
             </div>
-            <p className="body-5 line-clamp-2">{data?.data.summary}</p>
+            <p className="line-clamp-2 text-body-5">{data?.data.summary}</p>
             {data?.data.region && (
               <div className={`${spacingStyles({ marginTop: 'md' })} flex items-center`}>
                 <Image
@@ -108,7 +105,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
                     <Tag
                       key={i}
                       message={e.name}
-                      className={`${spacingStyles({ marginRight: 'sm' })} bg-opacity-white-20`}
+                      className={`${spacingStyles({ marginRight: 'sm' })} bg-opacity-white-20 text-body-5`}
                     />
                   );
                 })}
@@ -131,8 +128,8 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
         closeModal={closeModal}
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
+        memo={data?.data.memo as string}
       />
-      <Toast />
     </>
   );
 };
