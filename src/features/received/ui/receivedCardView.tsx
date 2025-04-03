@@ -105,10 +105,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     <main>
       <Intellibanner />
       <div
-        className={cn(
-          'sticky top-0 z-10 flex items-center gap-2 bg-gray-black pb-[8px]',
-          spacingStyles({ paddingTop: 'md' }),
-        )}
+        className={cn('sticky top-0 z-10 flex items-center bg-gray-black pb-2', spacingStyles({ paddingTop: 'md' }))}
       >
         <button
           onClick={() => {
@@ -118,6 +115,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         >
           <Image src="/icons/folderIcon.svg" alt="폴더 아이콘" width={18} height={18} />
         </button>
+        <div className="absolute left-8 top-4 z-10 h-10 w-[10px] bg-gradient-to-r from-gray-black to-transparent"></div>
         <FoldersList selectedFolderId={selectedFolderId} handleFolderSelect={handleFolderSelect} />
       </div>
       <div className={cn('flex items-center justify-end gap-[2px] text-white', spacingStyles({ marginY: 'md' }))}>
