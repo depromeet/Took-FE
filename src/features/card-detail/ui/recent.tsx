@@ -1,5 +1,3 @@
-import { spacingStyles } from '@/shared/spacing';
-
 import Empty from '../components/empty';
 
 interface RecentNewsProps {
@@ -12,7 +10,7 @@ function RecentNews({ data }: RecentNewsProps) {
   }
 
   return (
-    <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
+    <div>
       <p className="text-body-3">{data}</p>
     </div>
   );

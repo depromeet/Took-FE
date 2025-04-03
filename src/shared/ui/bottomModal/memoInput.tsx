@@ -1,7 +1,7 @@
 // MemoInput.tsx
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { useUpdateCardMutation, CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
@@ -10,16 +10,21 @@ import { spacingStyles } from '@/shared/spacing';
 interface MemoInputProps {
   onClose: () => void;
   handleCancelMode: () => void;
+  memo: string;
 }
 
 // 한줄 메모 최대 글자 수
 const MAX_LENGTH = 40;
 
-export const MemoInput = ({ onClose, handleCancelMode }: MemoInputProps) => {
+export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) => {
   const [memoText, setMemoText] = useState('');
   const { cardId } = useParams();
   const updateCardMutation = useUpdateCardMutation();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setMemoText(memo);
+  }, [memo]);
 
   const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -61,7 +66,7 @@ export const MemoInput = ({ onClose, handleCancelMode }: MemoInputProps) => {
         inputMode="text"
         value={memoText}
         onChange={(e) => setMemoText(e.target.value)}
-        placeholder="텍스트..."
+        placeholder="한 줄 메모를 작성해주세요"
         className={`mb-4 w-full bg-transparent p-2 text-body-3 text-white placeholder:text-white focus:outline-none ${spacingStyles({ padding: 'ml' })}`}
         maxLength={MAX_LENGTH}
         autoFocus

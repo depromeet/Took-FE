@@ -67,13 +67,13 @@ export const mockCardDetailData: CardDetailDto = {
       {
         title: 'UI 컴포넌트 라이브러리',
         link: 'https://github.com/username/project',
-        imageUrl: '/icons/imageIcon.svg',
+        imageUrl: '/icons/imageIcon-gray.svg',
         description: 'React와 TypeScript로 만든 UI 컴포넌트 모음',
       },
       {
         title: '개발자 네트워킹 플랫폼',
         link: 'https://github.com/username/project',
-        imageUrl: '/icons/imageIcon.svg',
+        imageUrl: '/icons/imageIcon-gray.svg',
         description: '개발자들이 서로 연결되고 프로젝트를 공유하는 앱',
       },
     ],

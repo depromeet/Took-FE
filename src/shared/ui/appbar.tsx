@@ -5,7 +5,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import { cn } from '../lib/utils';
-import { spacingStyles } from '../spacing';
 
 const appbarVariants = cva(
   'z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
@@ -65,9 +64,8 @@ function renderLeftIcon({
         <button
           onClick={onLeftClick}
           className={cn(
-            'rounded-full transition-colors duration-200',
-            isBlurred && 'bg-[rgba(255,255,255,0.10)]',
-            spacingStyles({ padding: 'sm' }),
+            'relative flex items-center justify-center transition-colors duration-200',
+            isBlurred && 'before:absolute before:inset-[-8px] before:rounded-full before:bg-[rgba(255,255,255,0.10)]',
           )}
         >
           <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
@@ -110,9 +108,8 @@ function renderRightIcon({
         <button
           onClick={onRightClick}
           className={cn(
-            'rounded-full transition-colors duration-200',
-            isBlurred && 'bg-[rgba(255,255,255,0.10)]',
-            spacingStyles({ padding: 'sm' }),
+            'relative flex items-center justify-center transition-colors duration-200',
+            isBlurred && 'before:absolute before:inset-[-8px] before:rounded-full before:bg-[rgba(255,255,255,0.10)]',
           )}
         >
           <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
@@ -154,6 +151,7 @@ function renderRightIcon({
  * @property {function} onLeftClick - 왼쪽 버튼 클릭 시 실행할 함수
  * @property {function} onRightClick - 오른쪽 버튼 클릭 시 실행할 함수
  * @property {function} onRightClickSecond - (받은 명함) 두 번째 오른쪽 버튼 클릭 시 실행할 함수
+ * @property {boolean} isBlurred - 아이콘 배경을 블러 처리할지 여부
  *
  * @returns {JSX.Element} - appbar 컴포넌트
  */
