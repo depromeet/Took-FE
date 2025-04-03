@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useBottomModal } from '@/features/card-detail/hooks/useBottomModal';
 import { cn } from '@/shared/lib/utils';
@@ -37,6 +37,8 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const { mutate: serverEditFolder } = useEditFolder();
   const { mutate: serverDeleteFolder } = useDeleteFolder();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const MAX_LENGTH = 10;
 
   const handleFolderSelect = (id?: number | null) => {
@@ -45,10 +47,12 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
 
   const handleAdd = () => {
     setIsAdd(true);
+    inputRef.current?.focus();
   };
   const handleUpdate = (folder: string) => {
     setFolderName(folder);
     setIsUpdate(true);
+    inputRef.current?.focus();
   };
   const handleDelete = (id: number) => {
     serverDeleteFolder({ folderId: id });
@@ -126,6 +130,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
           <>
             <BottomModalTitle>폴더 이름 설정</BottomModalTitle>
             <input
+              ref={inputRef}
               defaultValue={folderName}
               className={cn(
                 'mx-5 h-16 bg-gray-600 outline-none',
@@ -153,6 +158,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
           <>
             <BottomModalTitle>폴더 추가</BottomModalTitle>
             <input
+              ref={inputRef}
               className={cn(
                 'h-16 w-full bg-gray-600 outline-none',
                 spacingStyles({ padding: 'ml' }),
