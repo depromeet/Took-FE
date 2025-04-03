@@ -60,12 +60,11 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
             <div className={`flex w-full items-center justify-between ${spacingStyles({ marginBottom: 'ms' })}`}>
               {/* 프로필 이미지 */}
               {data?.data?.nickname && (
-                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
+                <div className="relative flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
                   <Image
-                    src="/icons/avatarIcon.svg"
+                    src={data?.data.imagePath || '/icons/avatarIcon.png'}
                     alt="프로필 이미지"
-                    width={28}
-                    height={28}
+                    fill
                     className="rounded-full"
                   />
                 </div>
