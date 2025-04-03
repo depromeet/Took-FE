@@ -102,7 +102,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         <Image className="mx-1 cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
       <ReceivedCardList selectedFolderId={selectedFolderId} />
-
       <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
         {isUpdate ? (
           <>
