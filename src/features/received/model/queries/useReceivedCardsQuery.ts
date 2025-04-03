@@ -15,7 +15,6 @@ const _getReceivedCards = async (folderId?: number | null) => {
 
   try {
     const { data } = await client.get<MyCardDto>(url);
-    console.log('서버로부터 받은 데이터 : ', data);
 
     return data;
   } catch (error) {

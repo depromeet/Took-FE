@@ -25,7 +25,7 @@ export const useEditFolder = () => {
   return useMutation({
     mutationFn: (variables: { folderId: number; name: string }) => _editFolder(variables.folderId, variables.name),
     onSuccess: () => {
-      console.log('폴더 수정 성공');
+      // console.log('폴더 수정 성공');
       toast.success('수정이 완료되었어요.');
       queryClient.invalidateQueries({ queryKey: [FOLDER_QUERY_KEY] });
     },

@@ -7,6 +7,8 @@ import Tag from '@/shared/ui/tag/tag';
 import { useFoldersQuery } from '../model/queries/useFoldersQuery';
 import { useFolderStore } from '../model/store/useFoldersStore';
 
+import LottieLoading from './lottieLoading';
+
 type FoldersListProps = {
   handleFolderSelect: (id: number | null) => void;
 };
@@ -17,7 +19,7 @@ export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
   const { isLoading, isFetching } = useFoldersQuery();
   const { folders } = useFolderStore();
 
-  if (isLoading || isFetching) return <p>폴더 로딩중이에요...</p>; // 임시 로딩 구현
+  if (isLoading || isFetching) return <LottieLoading />; // 임시 로딩 구현
   return (
     <div
       className={cn(
