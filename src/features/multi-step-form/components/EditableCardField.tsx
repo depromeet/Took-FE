@@ -88,6 +88,8 @@ const EditableCardField = ({
   // 링크로부터 플랫폼을 추출하여 타이틀로 사용 - link
   const parseLinkToTitle = getPlatformFromUrl(value);
 
+  const platformInputType = targetFieldName === 'content' ? 'BLOG' : 'PROJECT';
+
   // 편집 모드 활성화
   const enableEditing = () => {
     setEditingState(index, true);
@@ -98,28 +100,34 @@ const EditableCardField = ({
     setEditingState(index, false);
   };
 
-  // // 스크래핑 함수
+  // 스크래핑 함수
   const handleScrap = async () => {
     try {
       const { data } = await scapAPI({
         payload: { link: value },
-        type: targetFieldName === 'content' ? 'BLOG' : 'PROJECT',
+        type: platformInputType,
       });
-      const { link, title, imageUrl, description } = data;
+      const { title, imageUrl, description } = data;
+      // 중요: 스크래핑 서버가 반환한 link가 아닌 사용자가 입력한 원본 URL(value)을 계속 사용
 
-      // update로 전체 항목 갱신
+      // 원본 URL 유지하면서 다른 스크래핑 결과만 적용
       updateField(index, {
         ...field, // 기존에 가지고 있던 다른 필드가 있으면 유지
-        link,
+        link: value, // 사용자가 입력한 원본 URL 유지
+        type: platformInputType.toLowerCase(),
         title,
         imageUrl,
         description,
       });
     } catch (error) {
+      // 오류 발생 시에도 플랫폼 타입과 원본 URL 유지
+      const platformType = getPlatformFromUrl(value).toUpperCase();
+
       updateField(index, {
         ...field,
         link: value,
-        title: parseLinkToTitle,
+        type: platformInputType.toLowerCase(),
+        title: platformType !== 'LINK' ? platformType : parseLinkToTitle,
         imageUrl: '',
         description: '',
       });
@@ -133,11 +141,19 @@ const EditableCardField = ({
     const scapingTargetArr = ['content', 'project'];
 
     if (scapingTargetArr.includes(targetFieldName) && value) {
+      // 플랫폼 타입 미리 설정 (스크래핑 과정에서 URL이 변경되어도 원본 플랫폼 인식 유지)
+      updateField(index, {
+        ...field,
+        type: platformInputType.toLowerCase(),
+        link: value,
+      });
+
+      // 스크래핑 실행 - 메타데이터만 가져오고 link는 보존됨
       handleScrap();
     } else {
       updateField(index, {
         ...field,
-        type: parseLinkToTitle.toUpperCase(),
+        type: platformInputType.toLowerCase(),
         link: value,
       });
     }
