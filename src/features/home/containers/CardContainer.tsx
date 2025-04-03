@@ -41,7 +41,7 @@ export const CardContainer = () => {
           return (
             <SwiperSlide key={id} className="home-swiper">
               <WrappedCard cardType={type} style={{ marginBottom: '20px' }}>
-                <CardAvatar src={profileImg} alt={`${name}의 프로필 이미지`} />
+                <CardAvatar src={`/${profileImg}`} alt={`${name}의 프로필 이미지`} />
                 <CardName organization={organization}>{name}</CardName>
                 <CardJob jobType={type}>{job}</CardJob>
                 <CardDescription>{introduction}</CardDescription>

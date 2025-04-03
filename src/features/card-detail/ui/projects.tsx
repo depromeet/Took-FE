@@ -15,16 +15,16 @@ function Projects({ data }: ProjectsProps) {
     return <Empty />;
   }
   return (
-    <div className={`grid grid-cols-2 gap-4 ${spacingStyles({ marginTop: 'xl' })}`}>
+    <div className="grid grid-cols-2 gap-4">
       {data.map((project, i) => (
         <div key={i} className="flex flex-col overflow-hidden rounded-md">
           <Link href={project.link} target="_blank" className="block">
-            <div className="relative h-40 w-full border-[1px] border-opacity-white-20">
+            <div className="relative aspect-[4/3] w-full border-[1px] border-opacity-white-20">
               <Image
-                src={project.imageUrl || '/icons/imageIcon.svg'}
+                src={project.imageUrl || '/icons/imageIcon-gray.svg'}
                 alt={project.title}
                 fill
-                className="object-cover"
+                className="bg-opacity-white-20 p-[35px]"
               />
             </div>
 

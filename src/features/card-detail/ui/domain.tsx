@@ -1,4 +1,3 @@
-import { spacingStyles } from '@/shared/spacing';
 import Tag from '@/shared/ui/tag/tag';
 
 import Empty from '../components/empty';
@@ -12,7 +11,7 @@ function DomainList({ data }: DomainListProps) {
     return <Empty />;
   }
   return (
-    <div className={`flex flex-wrap gap-2 ${spacingStyles({ marginTop: 'ms' })}`}>
+    <div className="flex flex-wrap gap-x-2">
       {data.map((name, i) => {
         return <Tag key={i} message={name} className="line-clamp-1 bg-opacity-purple-30" />;
       })}

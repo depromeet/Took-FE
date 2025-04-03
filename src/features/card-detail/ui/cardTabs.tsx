@@ -7,7 +7,6 @@ import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
-import { Typography } from '@/shared/ui/typography';
 
 import { CARD_TABS, TabId } from '../config/tabs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
@@ -119,7 +118,7 @@ function CardTabs({ data }: CardTabsProps) {
       {/* 인터섹션 관찰 포인트 - 상단 경계를 감지하기 위한 요소 */}
       <div ref={intersectionRef} />
 
-      <div className="relative -top-[20px] w-full rounded-t-2xl bg-gray-black">
+      <div className="relative -top-[18px] mb-[-18px] w-full rounded-t-2xl bg-gray-black">
         {/* sticky 헤더 영역 */}
         <div className="sticky top-0 z-10 w-full">
           {/* Appbar에 트랜지션 효과 추가 */}
@@ -152,7 +151,7 @@ function CardTabs({ data }: CardTabsProps) {
               id="domains"
               className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">관심 도메인</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>관심 도메인</p>
               <DomainList data={data.data.interestDomain} />
             </div>
           )}
@@ -161,9 +160,9 @@ function CardTabs({ data }: CardTabsProps) {
             <div
               ref={combineRefs('sns')}
               id="sns"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">SNS</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>SNS</p>
               <SNS data={data.data.sns} />
             </div>
           )}
@@ -172,9 +171,9 @@ function CardTabs({ data }: CardTabsProps) {
             <div
               ref={combineRefs('news')}
               id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">최근 소식</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>최근 소식</p>
               <RecentNews data={data.data.news} />
             </div>
           )}
@@ -183,9 +182,9 @@ function CardTabs({ data }: CardTabsProps) {
             <div
               ref={combineRefs('hobby')}
               id="hobby"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">취미</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>취미</p>
               <Hobby data={data.data.hobby} />
             </div>
           )}
@@ -194,9 +193,9 @@ function CardTabs({ data }: CardTabsProps) {
             <div
               ref={combineRefs('posts')}
               id="posts"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">작성한 글</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>작성한 글</p>
               <Posts data={data.data.content} />
             </div>
           )}
@@ -205,9 +204,9 @@ function CardTabs({ data }: CardTabsProps) {
             <div
               ref={combineRefs('projects')}
               id="projects"
-              className={`${spacingStyles({ paddingTop: 'xl' })} px-[20px] pb-[77px]`}
+              className={`${spacingStyles({ paddingTop: 'ml' })} px-[20px] pb-[93px]`}
             >
-              <Typography variant="body-1">대표 프로젝트</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>대표 프로젝트</p>
               <Projects data={data.data.project} />
             </div>
           )}
@@ -219,6 +218,7 @@ function CardTabs({ data }: CardTabsProps) {
         closeModal={closeModal}
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
+        memo={data?.data.memo as string}
       />
     </>
   );
