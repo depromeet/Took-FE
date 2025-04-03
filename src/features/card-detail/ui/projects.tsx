@@ -25,7 +25,7 @@ function Projects({ data }: ProjectsProps) {
                 src={project.imageUrl || '/icons/imageIcon-gray.svg'}
                 alt={project.title}
                 fill
-                className={cn('bg-opacity-white-20', !project.imageUrl ? 'p-[35px]' : '')}
+                className={cn('bg-opacity-white-20', project.imageUrl ? '' : 'p-[35px]')}
               />
             </div>
 

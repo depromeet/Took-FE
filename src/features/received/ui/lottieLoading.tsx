@@ -1,8 +1,9 @@
 'use client';
 
-import { cn } from '@/shared/lib/utils';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
+
+import { cn } from '@/shared/lib/utils';
 
 type LottieLoadingProps = {
   className?: string;
@@ -23,7 +24,7 @@ export default function LottieLoading({ className }: LottieLoadingProps) {
 
   return (
     <div className={cn('flex h-full w-full items-center justify-center')}>
-      <Lottie className={cn('h-10 w-10', className)} animationData={lottieJson} loop play />
+      <Lottie className={cn('h-24 w-24', className)} animationData={lottieJson} loop play />
     </div>
   );
 }
