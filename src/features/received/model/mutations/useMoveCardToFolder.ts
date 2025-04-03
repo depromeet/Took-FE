@@ -22,7 +22,6 @@ export const useMoveCardToFolder = () => {
     mutationFn: (variables: { folderId: number; cardIds: number[] }) =>
       _moveCardToFolder(variables.folderId, variables.cardIds),
     onSuccess: () => {
-      console.log('받은 명함을 폴더에 저장 성공');
       toast.success('폴더 설정이 완료되었어요');
     },
     onError: (error) => {
