@@ -58,7 +58,10 @@ export const CardContainer = () => {
             previewInfoType,
           }) => {
             return (
-              <SwiperSlide key={id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <SwiperSlide
+                key={id}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+              >
                 <Typography
                   variant="caption-2"
                   style={{ marginBottom: 12 }}
@@ -88,7 +91,9 @@ export const CardContainer = () => {
           },
         )}
         {cards.length < 3 && (
-          <SwiperSlide>
+          <SwiperSlide
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+          >
             <AddCard />
           </SwiperSlide>
         )}
