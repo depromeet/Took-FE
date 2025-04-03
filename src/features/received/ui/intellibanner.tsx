@@ -24,17 +24,17 @@ export default function Intellibanner() {
       }}
       className={cn(
         'background relative flex h-52 w-auto cursor-pointer flex-col items-start justify-end rounded-2xl',
-        spacingStyles({ marginTop: 'md', paddingX: 'md', paddingBottom: 'ml' }),
+        spacingStyles({ marginTop: 'md', paddingX: 'ml', paddingBottom: 'ml' }),
       )}
       onClick={handleInteresting}
     >
       <div className="flex w-full items-end justify-between">
-        <h3 className="whitespace-pre-line text-title-4 text-white">{`오늘 공유한 명함 중 \n 흥미로운 명함이 있어요!`}</h3>
+        <h3 className="whitespace-pre-line text-title-3 text-white">{`오늘 공유한 명함 중 \n 흥미로운 명함이 있어요!`}</h3>
         <button className="flex h-6 w-6 items-center justify-center">
           <Image src="/icons/rightArrow.svg" alt="화살표 아이콘" width={7.5} height={15} />
         </button>
       </div>
-      <p className="text-caption-1 text-gray-100">나와 같은 공통점을 가진 사람이 있어요</p>
+      <p className="mt-2 text-caption-1 text-gray-100">나와 같은 공통점을 가진 사람이 있어요</p>
     </header>
   );
 }

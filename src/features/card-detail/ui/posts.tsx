@@ -13,7 +13,7 @@ function Posts({ data }: PostsProps) {
     return <Empty />;
   }
   return (
-    <div className={`${spacingStyles({ marginTop: 'ms' })}`}>
+    <div>
       {data.map((post, i) => {
         return (
           <div key={i} className={`${spacingStyles({ marginBottom: 'ms' })}`}>

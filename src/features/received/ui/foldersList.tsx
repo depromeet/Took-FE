@@ -7,17 +7,21 @@ import Tag from '@/shared/ui/tag/tag';
 import { useFoldersQuery } from '../model/queries/useFoldersQuery';
 import { useFolderStore } from '../model/store/useFoldersStore';
 
+import LottieLoading from './lottieLoading';
+
 type FoldersListProps = {
+  selectedFolderId: number | null;
   handleFolderSelect: (id: number | null) => void;
 };
 
-export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
-  const tagStyle = 'bg-opacity-white-20 py-[10px] pb-[10px] text-white cursor-pointer';
+export default function FoldersList({ selectedFolderId, handleFolderSelect }: FoldersListProps) {
+  const tagActiveStyle = 'bg-white text-black';
+  const tagDefaultStyle = 'bg-opacity-white-20 text-white';
 
   const { isLoading, isFetching } = useFoldersQuery();
   const { folders } = useFolderStore();
 
-  if (isLoading || isFetching) return <p>폴더 로딩중이에요...</p>; // 임시 로딩 구현
+  if (isLoading || isFetching) return <LottieLoading />;
   return (
     <div
       className={cn(
@@ -28,7 +32,7 @@ export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
       <Tag
         size="lg"
         message="전체보기"
-        className="cursor-pointer bg-white text-black"
+        className={cn('cursor-pointer', selectedFolderId === null ? tagActiveStyle : tagDefaultStyle)}
         onClick={() => handleFolderSelect(null)}
       />
       {folders.map((folder, index) => {
@@ -37,7 +41,7 @@ export default function FoldersList({ handleFolderSelect }: FoldersListProps) {
             key={index}
             size="lg"
             message={folder.name}
-            className={tagStyle}
+            className={cn('cursor-pointer', selectedFolderId === folder.id ? tagActiveStyle : tagDefaultStyle)}
             onClick={() => handleFolderSelect(folder.id)}
           />
         );

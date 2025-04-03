@@ -77,7 +77,7 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-modalBackground bg-black"
+            className="fixed inset-0 z-modalBackground mx-auto h-full w-full max-w-[600px] bg-black"
             onClick={closeModal}
           />
 

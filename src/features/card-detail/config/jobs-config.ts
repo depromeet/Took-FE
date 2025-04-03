@@ -1,4 +1,4 @@
-export type JobType = 'DEVELOPER' | 'DESIGNER';
+export type JobType = 'developer' | 'designer';
 
 interface JobConfig {
   backgroundImage: string;
@@ -7,12 +7,12 @@ interface JobConfig {
 }
 
 const JOB_CONFIG: Record<JobType, JobConfig> = {
-  DEVELOPER: {
+  developer: {
     backgroundImage: '/images/card-detail/card-detail-develop.png',
     iconPath: '/icons/developer-icon-white.svg',
     iconAlt: '개발자 아이콘',
   },
-  DESIGNER: {
+  designer: {
     backgroundImage: '/images/card-detail/card-detail-design.png',
     iconPath: '/icons/designer-icon-white.svg',
     iconAlt: '디자이너 아이콘',

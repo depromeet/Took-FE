@@ -23,7 +23,7 @@ export const useDeleteReceivedCards = (folderId?: number | null) => {
     mutationFn: (variables: { cardIds: number[] }) => _deleteReceivedCards(variables.cardIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [CARD_QUERY_KEY, folderId] });
-      console.log('받은 명함 삭제 성공');
+      // console.log('받은 명함 삭제 성공');
       toast.success('명함을 삭제했어요');
     },
     onError: (error) => {

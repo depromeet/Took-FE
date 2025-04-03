@@ -11,9 +11,10 @@ import Thumbnail from '@/shared/ui/thumbnail';
 
 type ReceivedCardProps = {
   cardData: Card;
+  onClick?: () => void;
 };
 
-function RenderingThumbnail({ cardData }: ReceivedCardProps) {
+function RenderingThumbnail({ cardData }: { cardData: Card }) {
   const previewInfoType = cardData.previewInfoType;
   const previewInfo = cardData.previewInfo;
 
@@ -57,20 +58,18 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
   }
 }
 
-export default function ReceivedCard({ cardData }: ReceivedCardProps) {
-  const imageUrl = `/${cardData?.imagePath}`;
-
-  console.log(imageUrl);
+export default function ReceivedCard({ cardData, onClick }: ReceivedCardProps) {
   return (
     <div
       className={cn(
         'flex h-auto w-full max-w-full cursor-pointer flex-col justify-center rounded-2xl bg-gray-800',
         spacingStyles({ paddingX: 'ml', paddingY: 'ml' }),
       )}
+      onClick={onClick}
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar src={imageUrl} alt="" size="medium" />
+          <WrappedAvatar src={cardData?.imagePath} alt="" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>

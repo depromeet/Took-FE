@@ -30,8 +30,8 @@ function PostThumbnail({ title, description, link, imageSrc }: PostThumbnailProp
           <Img size="medium" src={imageSrc || '/icons/imageIcon.svg'} alt={title} />
         </div>
         <div className="flex flex-col">
-          <p className="line-clamp-1 text-body-5 text-white">{title}</p>
-          <p className="line-clamp-2 text-caption-1 text-gray-200">{description}</p>
+          <p className="mb-[4ox] line-clamp-1 text-body-5 text-white">{title}</p>
+          <p className="mb-[4ox] line-clamp-2 text-caption-1 text-gray-200">{description}</p>
           <p className="whitespace-pre-line text-caption-2 text-gray-600">{link}</p>
         </div>
       </div>

@@ -9,7 +9,6 @@ export const FOLDER_QUERY_KEY = 'FOLDER_QUERY_KEY';
 const _getFolders = async () => {
   try {
     const { data } = await client.get<FolderDto>(`${CLIENT_SIDE_URL}/api/card/folders`);
-    console.log('서버로부터 받은 데이터 : ', data); // 추후 지우기
     return data;
   } catch (error) {
     console.error(error);
