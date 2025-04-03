@@ -130,11 +130,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
             <input
               ref={inputRef}
               defaultValue={folderName}
-              className={cn(
-                'mx-5 h-16 bg-gray-600 outline-none',
-                spacingStyles({ padding: 'ml' }),
-                updatedFolderName.length > MAX_LENGTH && 'rounded-sm border border-error-medium',
-              )}
+              className={cn('mx-5 h-16 bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleUpdateKeyDown(e, updatedFolderName)}
               onChange={handleUpdateChange}
             />
@@ -157,11 +153,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
             <BottomModalTitle>폴더 추가</BottomModalTitle>
             <input
               ref={inputRef}
-              className={cn(
-                'h-16 w-full bg-gray-600 outline-none',
-                spacingStyles({ padding: 'ml' }),
-                newFolderName.length > MAX_LENGTH && 'rounded-sm border border-error-medium',
-              )}
+              className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleAddKeyDown(e, newFolderName)}
               onChange={handleAddChange}
             />
