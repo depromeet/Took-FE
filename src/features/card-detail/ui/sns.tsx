@@ -38,7 +38,7 @@ function SNS({ data }: SNSProps) {
                 <Image src={snsConfig.iconPath} alt={snsConfig.iconAlt} width={24} height={24} />
               </div>
               <p className="mt-[7px] w-full truncate text-center text-caption-1">
-                {sns.type.substring(0, 1) + sns.type.substring(1).toLowerCase()}
+                {sns.type.substring(0, 1) + sns.type.substring(1).toLowerCase().split('_').join(' ')}
               </p>
             </div>
           </Link>

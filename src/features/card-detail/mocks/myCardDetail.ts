@@ -47,8 +47,8 @@ export const mockCardDetailData: CardDetailDto = {
         link: 'https://github.com/jaeiny',
       },
     ],
-    news: '',
-    hobby: '',
+    news: 'news',
+    hobby: 'hobby',
     content: [
       {
         title: 'Spring Boot로 RESTful API 만들기',
