@@ -8,7 +8,11 @@ const generateQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        throwOnError: true,
+        throwOnError: false,
+        retry: 1,
+      },
+      mutations: {
+        throwOnError: false,
       },
     },
     queryCache: new QueryCache({
