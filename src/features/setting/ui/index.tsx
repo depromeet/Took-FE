@@ -18,7 +18,10 @@ import LogoutDialog from './dialog/logout';
 
 const SettingView = () => {
   const router = useRouter();
+
+  // 로그아웃
   const { logout } = useLogout();
+
   const { getValue } = useCookies();
   const refreshToken = getValue('refreshToken');
 
@@ -26,7 +29,7 @@ const SettingView = () => {
     logout({ refreshToken: refreshToken as string });
   };
 
-  const handleUserQuit = () => {
+  const handleWithdraw = () => {
     router.push('/setting/user-quit');
   };
 
@@ -60,7 +63,7 @@ const SettingView = () => {
 
           <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
           <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
-          <SettingItem text="회원 탈퇴" onClick={handleUserQuit} />
+          <SettingItem text="회원 탈퇴" onClick={handleWithdraw} />
         </List>
       </section>
       <footer>

@@ -2,12 +2,11 @@ import React from 'react';
 
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import LottieLoading from '@/shared/ui/lottieLoading';
 import Tag from '@/shared/ui/tag/tag';
 
 import { useFoldersQuery } from '../model/queries/useFoldersQuery';
 import { useFolderStore } from '../model/store/useFoldersStore';
-
-import LottieLoading from './lottieLoading';
 
 type FoldersListProps = {
   selectedFolderId: number | null;
