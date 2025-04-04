@@ -114,7 +114,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         if (e.target == outside.current) closeSortingModal();
       }}
     >
-      <Intellibanner />
+      {/* <Intellibanner /> */}
       <div
         className={cn('sticky top-0 z-10 flex items-center bg-gray-black pb-2', spacingStyles({ paddingTop: 'md' }))}
       >
