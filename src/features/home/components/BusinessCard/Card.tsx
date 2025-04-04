@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
 
 import { DesignerCardBackground } from '@/features/home/components/BusinessCard/Background/DesignerCardBackground';
@@ -41,7 +40,7 @@ type CardAvatarProps = {
 export const CardAvatar = forwardRef<HTMLImageElement, CardAvatarProps>(({ src, alt, ...rest }, ref) => {
   return (
     <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
-      <Image ref={ref} src={src} alt={alt} width={50} height={50} {...rest} />
+      <img ref={ref} src={src} alt={alt} width={50} height={50} {...rest} />
     </div>
   );
 });
@@ -125,7 +124,7 @@ export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
       <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">
-        <Image src={imageUrl} alt="프로젝트 썸네일" width={60} height={60} style={{ objectFit: 'cover' }} />
+        <img src={imageUrl} alt="프로젝트 썸네일" width={60} height={60} style={{ objectFit: 'cover' }} />
       </div>
       <div>
         <div

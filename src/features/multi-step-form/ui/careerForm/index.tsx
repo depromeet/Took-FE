@@ -44,7 +44,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     const validData = Object.entries(data).filter(([_, value]) => {
       // 배열인 경우
       if (Array.isArray(value)) {
-        return value.length > 0;
+        return value.length > 0 && value.every((item) => item.link && item.link !== '');
       }
       // 일반 값인 경우
       return value !== '' && value !== null && value !== undefined;

@@ -2,8 +2,9 @@ import { CareerFormData } from '../schema';
 
 export const CAREER_FORM = {
   firstStep: {
-    title: '직군을 선택해 주세요',
-    description: '직군에 맞는 템플릿으로 내 명함을 만들 수 있어요!',
+    title: '명함에 들어갈',
+    subTitle: '기본 정보를 입력해주세요',
+    // description: '기본 정보를 입력해주세요',
   },
   thirdStep: {
     title: '나를 더 잘 보여줄 수 있는 ',
@@ -29,7 +30,7 @@ export const CARD_CREATE_INITIAL_VALUES: CareerFormData = {
   organization: undefined,
   sns: [
     {
-      type: 'blog',
+      type: '',
       link: '',
     },
   ],

@@ -13,6 +13,7 @@ import FixedButton from '@/shared/ui/button/fixedButton';
 import { Checkbox } from '@/shared/ui/checkbox';
 import { List } from '@/shared/ui/list';
 import { Textarea } from '@/shared/ui/textArea';
+import Toast from '@/shared/ui/Toast';
 import { Typography } from '@/shared/ui/typography';
 
 import { QUIT_REASONS, TEXT_AREA_MAX_LENGTH } from '../config';
@@ -149,6 +150,7 @@ const UserQuitView = () => {
           onConfirm={handleSubmit(onSubmit)}
         />
       </main>
+      <Toast />
     </div>
   );
 };

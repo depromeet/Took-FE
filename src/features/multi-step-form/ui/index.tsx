@@ -10,6 +10,7 @@ import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import Appbar from '@/shared/ui/appbar';
 import ProgressBar from '@/shared/ui/progressBar';
+import Toast from '@/shared/ui/Toast';
 
 import { CARD_CREATE_INITIAL_VALUES, MINIMUM_STEP, TOTAL_STEPS } from '../config';
 import { cardCreateSchema, CareerFormData } from '../schema';
@@ -26,7 +27,7 @@ function MultiStepFormView() {
   const formMethod = useForm<CareerFormData>({
     resolver: zodResolver(cardCreateSchema),
     defaultValues: CARD_CREATE_INITIAL_VALUES,
-    mode: 'onChange', // 필드가 변경될 때 검증
+    mode: 'onBlur',
   });
 
   const { unregister, setValue } = formMethod;
@@ -81,6 +82,7 @@ function MultiStepFormView() {
           </main>
         </div>
       </div>
+      <Toast />
     </FormProvider>
   );
 }
