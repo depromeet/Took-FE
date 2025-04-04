@@ -10,6 +10,7 @@ import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import Appbar from '@/shared/ui/appbar';
 import ProgressBar from '@/shared/ui/progressBar';
+import Toast from '@/shared/ui/Toast';
 
 import { CARD_CREATE_INITIAL_VALUES, MINIMUM_STEP, TOTAL_STEPS } from '../config';
 import { cardCreateSchema, CareerFormData } from '../schema';
@@ -80,6 +81,7 @@ function MultiStepFormView() {
           </main>
         </div>
       </div>
+      <Toast />
     </FormProvider>
   );
 }
