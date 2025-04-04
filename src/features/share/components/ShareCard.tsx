@@ -4,6 +4,7 @@ import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
 import { JopType } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import Img from '@/shared/ui/img';
 import { Typography } from '@/shared/ui/typography';
 
 import { DesignerIcon } from '../icons/DesignerIcon';
@@ -119,11 +120,17 @@ export type ShareCardFooterProps = {
 
 export const ShareCardFooter = ({ previewInfo, title = '', description = '', imageUrl = '' }: ShareCardFooterProps) => {
   const shouldShowThumbnail = ['대표 프로젝트', '작성한 글', 'SNS'].includes(previewInfo);
+  const isSns = previewInfo === 'SNS';
+
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
       {shouldShowThumbnail && (
-        <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">
-          <Image src={imageUrl} alt="프로젝트 썸네일" width={60} height={60} style={{ objectFit: 'cover' }} />
+        <div className="relative max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-opacity-white-20">
+          {isSns ? (
+            <Image src={imageUrl} alt={`${title} 아이콘`} width={60} height={60} className="object-cover p-2" />
+          ) : (
+            <Img src={imageUrl || '/icons/imageIcon.svg'} alt="프로젝트 썸네일" size="small" />
+          )}
         </div>
       )}
       <div>
@@ -136,10 +143,10 @@ export const ShareCardFooter = ({ previewInfo, title = '', description = '', ima
           {previewInfo}
         </div>
         <div className="mt-1 flex w-full flex-col">
-          <Typography variant="body-5" className="max-w-[180px] truncate">
+          <Typography variant="body-5" className={cn('line-clamp-1', shouldShowThumbnail ? 'max-w-[130px]' : '')}>
             {title}
           </Typography>
-          <Typography variant="caption-2" className="max-w-[120px] truncate">
+          <Typography variant="caption-2" className={cn('line-clamp-1', shouldShowThumbnail ? 'max-w-[130px]' : '')}>
             {description}
           </Typography>
         </div>
