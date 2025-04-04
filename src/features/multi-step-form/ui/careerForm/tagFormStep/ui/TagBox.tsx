@@ -22,34 +22,34 @@ function TagBox() {
     }
 
     if (tagArray[0] === tag.value) {
-      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-56px)]';
-      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-56px)]';
+      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-64px)]';
+      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-64px)]';
       if (position.includes('bottom') && position.includes('right')) {
-        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%+16px)]';
-        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%+16px)]';
+        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%+24px)]';
+        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%+24px)]';
       }
       if (position.includes('bottom') && position.includes('left'))
-        return 'left-[calc(50%-40px)] bottom-[calc(50%+16px)]';
+        return 'left-[calc(50%-40px)] bottom-[calc(50%+24px)]';
     }
     if (tagArray[1] === tag.value) {
-      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-104px)]';
-      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-104px)]';
+      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-108px)]';
+      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-108px)]';
       if (position.includes('bottom') && position.includes('right')) {
-        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%+60px)]';
-        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%+60px)]';
+        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%+68px)]';
+        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%+68px)]';
       }
       if (position.includes('bottom') && position.includes('left'))
-        return 'left-[calc(50%-40px)] bottom-[calc(50%+60px)]';
+        return 'left-[calc(50%-40px)] bottom-[calc(50%+68px)]';
     }
     if (tagArray[2] === tag.value) {
-      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-12px)]';
-      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-12px)]';
+      if (position.includes('top') && position.includes('left')) return 'left-[calc(50%-40px)] top-[calc(50%-20px)]';
+      if (position.includes('top') && position.includes('right')) return 'right-[calc(50%-28px)] top-[calc(50%-20px)]';
       if (position.includes('bottom') && position.includes('right')) {
-        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%-32px)]';
-        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%-32px)]';
+        if (tag.value === 'hobby') return 'right-[calc(50%-28px)] bottom-[calc(50%-20px)]';
+        if (tag.value === 'project') return 'right-[calc(50%-52px)] bottom-[calc(50%-20px)]';
       }
       if (position.includes('bottom') && position.includes('left'))
-        return 'left-[calc(50%-40px)] bottom-[calc(50%-32px)]';
+        return 'left-[calc(50%-40px)] bottom-[calc(50%-20px)]';
     }
     return position;
   }
