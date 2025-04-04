@@ -29,6 +29,7 @@ function RenderingThumbnail({ cardData }: { cardData: Card }) {
           tag="대표 프로젝트"
           title={previewInfo.project?.title}
           description={previewInfo.project?.link}
+          imageUrl={previewInfo.project?.imageUrl}
           className="!bg-gray-700"
         />
       );
