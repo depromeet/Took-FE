@@ -2,6 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 
+import LottieLoading from '@/features/received/ui/lottieLoading';
 import Toast from '@/shared/ui/Toast';
 
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
@@ -17,16 +18,14 @@ function CardDetail() {
 
   const { data, isLoading } = useCardDetailQuery(cardId as string);
 
+  if (isLoading) {
+    return <LottieLoading />;
+  }
+
   return (
     <div className="w-full">
-      {isLoading ? (
-        <div>로딩중입니다.</div>
-      ) : (
-        <>
-          <CardDetailHeader data={data as CardDetailDto} type={type as string} />
-          <CardTabs data={data as CardDetailDto} />
-        </>
-      )}
+      <CardDetailHeader data={data as CardDetailDto} type={type as string} />
+      <CardTabs data={data as CardDetailDto} />
       <Toast />
     </div>
   );

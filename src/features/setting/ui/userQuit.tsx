@@ -1,10 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { Controller, useController, useForm } from 'react-hook-form';
 
+import useCookies from '@/shared/hooks/useCookies';
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
@@ -16,20 +16,33 @@ import { Textarea } from '@/shared/ui/textArea';
 import { Typography } from '@/shared/ui/typography';
 
 import { QUIT_REASONS, TEXT_AREA_MAX_LENGTH } from '../config';
-import { UserQuitSchema, userQuitSchema } from '../schema';
+import useWithdraw from '../hooks/useWithdraw';
+import { UserQuitSchemaType, userQuitSchema } from '../schema';
+
+import WithdrawDialog from './dialog/withdraw';
 
 const UserQuitView = () => {
-  const router = useRouter();
   const handleBack = useHistoryBack();
-  const [customText, setCustomText] = useState(''); // 직접입력 텍스트
   const [isCustomReasonChecked, setIsCustomReasonChecked] = useState(false); // 직접입력 체크박스 상태
-  const [isDirty, setIsDirty] = useState(false); // 텍스트 영역 더티 상태 추적
 
-  const { control, handleSubmit, watch, setValue } = useForm<UserQuitSchema>({
+  // 탈퇴 요청
+  const { withdraw } = useWithdraw();
+  const { getValue } = useCookies();
+  const refreshToken = getValue('refreshToken');
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    resetField,
+    setValue,
+    formState: { errors }, // React Hook Form의 errors 객체 사용
+  } = useForm<UserQuitSchemaType>({
     defaultValues: {
       reasons: [],
+      directMessage: '',
     },
-    resolver: zodResolver<UserQuitSchema>(userQuitSchema),
+    resolver: zodResolver<UserQuitSchemaType>(userQuitSchema),
   });
 
   const { field } = useController({
@@ -38,22 +51,13 @@ const UserQuitView = () => {
   });
 
   const reasons = watch('reasons');
-
-  // 직접입력 텍스트를 reasons 배열에 업데이트하는 함수
-  const updateReasonsWithCustomText = () => {
-    if (!isCustomReasonChecked) return;
-
-    // 표준 이유만 필터링 (QUIT_REASONS에 포함된 항목)
-    const standardReasons = reasons.filter((reason) => QUIT_REASONS.includes(reason));
-
-    if (customText) {
-      // 커스텀 텍스트가 있으면 표준 이유와 함께 설정
-      setValue('reasons', [...standardReasons, customText]);
-    } else {
-      // 커스텀 텍스트가 없으면 표준 이유만 설정
-      setValue('reasons', standardReasons);
-    }
-  };
+  const customText = watch('directMessage') ?? '';
+  const isDisabled =
+    reasons?.length === 0 && customText.length === 0
+      ? true
+      : isCustomReasonChecked && customText.length === 0
+        ? true
+        : false;
 
   // 직접입력 체크박스 상태 변경 시 처리
   const handleCustomReasonCheck = (checked: boolean) => {
@@ -61,31 +65,16 @@ const UserQuitView = () => {
 
     // 체크 해제 시 관련 텍스트 제거 및 상태 초기화
     if (!checked) {
-      setCustomText('');
-      setIsDirty(false);
-
       // reasons 배열에서 QUIT_REASONS에 포함되지 않은 모든 항목 제거 (직접입력 텍스트)
-      const filteredReasons = reasons.filter((reason) => QUIT_REASONS.includes(reason));
+      const filteredReasons = reasons?.filter((reason) => QUIT_REASONS.includes(reason));
       setValue('reasons', filteredReasons);
+      resetField('directMessage');
     }
   };
 
-  // 텍스트 변경 핸들러
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // 처음 입력 시 dirty 상태로 설정
-    if (!isDirty) setIsDirty(true);
-    setCustomText(e.target.value);
-  };
-
-  // customText 또는 isCustomReasonChecked가 변경될 때 reasons 업데이트
-  useEffect(() => {
-    updateReasonsWithCustomText();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customText, isCustomReasonChecked]);
-
   // 체크박스 상태 변경 핸들러 (일반 항목용)
   const handleReasonChange = (reason: string, checked: boolean) => {
-    const currentReasons = [...field.value];
+    const currentReasons = [...(field.value ?? [])];
 
     if (checked) {
       // 체크된 경우 reasons 배열에 추가
@@ -99,75 +88,68 @@ const UserQuitView = () => {
     }
   };
 
-  const onSubmit = (data: UserQuitSchema) => {
-    console.log('제출 데이터:', data);
-    // 제출 시 로그인 페이지로 이동
-    router.replace('/login');
+  const onSubmit = (data: UserQuitSchemaType) => {
+    const { reasons, directMessage } = data;
+    // 탈퇴 요청
+    withdraw({ refreshToken: refreshToken as string, reasons: reasons, directMessage: directMessage });
   };
 
-  // 직접입력 에러 상태 계산
-  const isCustomTextError = isDirty && (customText.length > TEXT_AREA_MAX_LENGTH || customText.length === 0);
-
-  // 직접입력 에러 메시지 계산
-  const customTextErrorMsg = isDirty
-    ? customText.length === 0
-      ? '최소 1자 이상 입력해주세요'
-      : customText.length > TEXT_AREA_MAX_LENGTH
-        ? `최대 ${TEXT_AREA_MAX_LENGTH}자까지 입력 가능합니다`
-        : undefined
-    : undefined;
+  // 에러 메시지는 React Hook Form의 errors 객체에서 가져옴
+  const directMessageError = errors.directMessage?.message;
 
   return (
-    <>
-      <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
-        <Appbar page="mypage" title="회원 탈퇴" onLeftClick={handleBack} />
-        <main className={cn(spacingStyles({ paddingY: 'lg', paddingX: 'ml' }))}>
-          <header className={cn(spacingStyles({ paddingTop: 'lg' }), 'flex w-full flex-col gap-3')}>
-            <Typography as="h1" variant="title-1">
-              탈퇴하는 이유를 선택해주세요
-            </Typography>
-            <Typography as="p" variant="body-3" className="text-gray-400">
-              최소 1개 이상 선택해 주세요
-            </Typography>
-          </header>
-          <section className={cn(spacingStyles({ paddingTop: 'ms', paddingBottom: 'xl' }), 'flex w-full flex-col')}>
-            <List variant="settingItem">
-              {QUIT_REASONS.map((reason) => (
-                <UserQuitItem
-                  key={reason}
-                  title={reason}
-                  checked={reasons.includes(reason)}
-                  onChange={(checked) => handleReasonChange(reason, checked)}
-                />
-              ))}
-              <UserQuitItem title="직접입력" checked={isCustomReasonChecked} onChange={handleCustomReasonCheck} />
-            </List>
+    <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
+      <Appbar page="mypage" title="회원 탈퇴" onLeftClick={handleBack} />
+      <main className={cn(spacingStyles({ paddingY: 'lg', paddingX: 'ml' }))}>
+        <header className={cn(spacingStyles({ paddingTop: 'lg' }), 'flex w-full flex-col gap-3')}>
+          <Typography as="h1" variant="title-1">
+            탈퇴하는 이유를 선택해주세요
+          </Typography>
+          <Typography as="p" variant="body-3" className="text-gray-400">
+            최소 1개 이상 선택해 주세요
+          </Typography>
+        </header>
+        <section className={cn(spacingStyles({ paddingTop: 'ms', paddingBottom: 'xl' }), 'flex w-full flex-col')}>
+          <List variant="settingItem">
+            {QUIT_REASONS.map((reason) => (
+              <UserQuitItem
+                key={reason}
+                title={reason}
+                checked={reasons?.includes(reason) ?? false}
+                onChange={(checked) => handleReasonChange(reason, checked)}
+              />
+            ))}
+            <UserQuitItem title="직접입력" checked={isCustomReasonChecked} onChange={handleCustomReasonCheck} />
+          </List>
 
-            {/* 직접입력이 체크되었을 때만 TextArea 표시 */}
-            {isCustomReasonChecked && (
-              <div className={cn(spacingStyles({ marginTop: 'sm', paddingX: 'xs' }))}>
-                <Textarea
-                  placeholder="탈퇴하는 이유를 자세히 입력해주세요"
-                  value={customText}
-                  onChange={handleTextChange}
-                  size="lg"
-                  error={isCustomTextError}
-                  errorMsg={customTextErrorMsg}
-                  totalNumber={TEXT_AREA_MAX_LENGTH}
-                />
-              </div>
-            )}
-          </section>
+          {/* 직접입력이 체크되었을 때만 TextArea 표시 */}
+          {isCustomReasonChecked && (
+            <Controller
+              control={control}
+              name="directMessage"
+              render={({ field }) => (
+                <div className={cn(spacingStyles({ marginTop: 'sm', paddingX: 'xs' }))}>
+                  <Textarea
+                    {...field}
+                    placeholder="탈퇴하는 이유를 자세히 입력해주세요"
+                    size="lg"
+                    error={!!directMessageError}
+                    errorMsg={directMessageError}
+                    totalNumber={TEXT_AREA_MAX_LENGTH}
+                  />
+                </div>
+              )}
+            />
+          )}
+        </section>
 
-          {/* 고정된 하단 버튼 */}
-          <FixedButton
-            onClick={handleSubmit(onSubmit)}
-            disabled={reasons.length === 0 || (isCustomReasonChecked && customText.length === 0)} // 선택된 이유가 없거나 직접입력이 선택됐는데 내용이 없으면 버튼 비활성화
-            title="탈퇴하기"
-          />
-        </main>
-      </div>
-    </>
+        {/* 고정된 하단 버튼 */}
+        <WithdrawDialog
+          trigger={<FixedButton disabled={isDisabled} title="탈퇴하기" />}
+          onConfirm={handleSubmit(onSubmit)}
+        />
+      </main>
+    </div>
   );
 };
 
