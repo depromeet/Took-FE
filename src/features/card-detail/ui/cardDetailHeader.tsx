@@ -65,7 +65,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
                     src={data?.data.imagePath || '/icons/avatarIcon.png'}
                     alt="프로필 이미지"
                     fill
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                   />
                 </div>
               )}

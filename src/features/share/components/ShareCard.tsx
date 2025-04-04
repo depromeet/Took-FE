@@ -143,10 +143,10 @@ export const ShareCardFooter = ({ previewInfo, title = '', description = '', ima
           {previewInfo}
         </div>
         <div className="mt-1 flex w-full flex-col">
-          <Typography variant="body-5" className="max-w-[120px] truncate">
+          <Typography variant="body-5" className={cn('line-clamp-1', shouldShowThumbnail ? 'max-w-[130px]' : '')}>
             {title}
           </Typography>
-          <Typography variant="caption-2" className="max-w-[120px] truncate">
+          <Typography variant="caption-2" className={cn('line-clamp-1', shouldShowThumbnail ? 'max-w-[130px]' : '')}>
             {description}
           </Typography>
         </div>
