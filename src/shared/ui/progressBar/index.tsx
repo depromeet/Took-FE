@@ -1,5 +1,7 @@
 'use client';
 
+import { cva, type VariantProps } from 'class-variance-authority';
+
 import { cn } from '@/shared/lib/utils';
 import { Progress } from '@/shared/ui/progressBar/progress';
 
@@ -9,6 +11,16 @@ interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
   className?: string;
 }
+
+type ProgressBarVariantProps = VariantProps<typeof progressBarVariants> & ProgressBarProps;
+
+const progressBarVariants = cva('w-full space-y-2', {
+  variants: {
+    page: {
+      cardCreate: 'top-16 z-10 sticky',
+    },
+  },
+});
 
 /** 공통 컴포넌트 - ProgressBar
  * 진행 상태를 시각적으로 표시하는 ProgressBar 컴포넌트입니다.
@@ -28,11 +40,17 @@ interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
  * <ProgressBar currentStep={1} totalSteps={5} color="bg-blue-500" />
  */
 
-export const ProgressBar = ({ currentStep, totalSteps, color = 'bg-primary-normal', className }: ProgressBarProps) => {
+export const ProgressBar = ({
+  currentStep,
+  totalSteps,
+  color = 'bg-primary-normal',
+  page,
+  className,
+}: ProgressBarVariantProps) => {
   // 진행률 계산 (0-100 사이의 값)
   const progressPercentage = Math.round((currentStep / totalSteps) * 100);
   return (
-    <div className="w-full space-y-2">
+    <div className={cn(progressBarVariants({ page }), className)}>
       <Progress value={progressPercentage} color={color} className={cn(className)} />
     </div>
   );

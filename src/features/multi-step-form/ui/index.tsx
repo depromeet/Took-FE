@@ -62,8 +62,12 @@ function MultiStepFormView() {
             currentStep === 2 && 'bg-[url(/images/tag/background.webp)] bg-cover bg-center',
           )}
         >
-          <Appbar hasBackground={currentStep === 2 && false} page="create" onLeftClick={handleStepBack} />
-          <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+          <Appbar
+            hasBackground={currentStep === 2 && false}
+            page={currentStep === 2 ? 'none' : 'create'}
+            onLeftClick={handleStepBack}
+          />
+          <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} page="cardCreate" />
           <main
             className={cn(
               'flex flex-col gap-4',
