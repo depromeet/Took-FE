@@ -60,13 +60,19 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
             <div className={`flex w-full items-center justify-between ${spacingStyles({ marginBottom: 'ms' })}`}>
               {/* 프로필 이미지 */}
               {data?.data?.nickname && (
-                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
-                  <Image src="/icons/avatarIcon.svg" alt="Settings" width="28" height="28" className="rounded-full" />
+                <div className="relative flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
+                  <Image
+                    src={data?.data.imagePath || '/icons/avatarIcon.png'}
+                    alt="프로필 이미지"
+                    fill
+                    className="rounded-full"
+                  />
                 </div>
               )}
+              {/* /icons/avatarIcon.svg */}
 
               {/* 개발자 , 디자이너 아이콘 */}
-              {data?.data?.job && <Image src={currentJob?.iconPath} alt={currentJob?.iconAlt} width="30" height="30" />}
+              {data?.data?.job && <Image src={currentJob?.iconPath} alt={currentJob?.iconAlt} width="28" height="28" />}
             </div>
             <p className="line-clamp-1 text-title-1">{data?.data.nickname}</p>
             <div
@@ -77,7 +83,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               </span>
               {data?.data.organization && (
                 <>
-                  <span className="flex-shrink-0 px-1">|</span>
+                  <div className="h-[18px] w-[2px] bg-white"></div>
                   <span className={`max-w-1/2 truncate ${spacingStyles({ marginLeft: 'sm' })}`}>
                     {data?.data.organization}
                   </span>

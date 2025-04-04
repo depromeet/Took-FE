@@ -49,6 +49,7 @@ export type CardDetailResponse = {
   hobby?: string | undefined;
   content?: ContentItemDto[] | undefined;
   project?: ProjectDto[] | undefined;
+  imagePath?: string;
 };
 
 // 카드 상세 응답 타입
