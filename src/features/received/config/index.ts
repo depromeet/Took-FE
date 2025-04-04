@@ -92,3 +92,5 @@ export const FOLDERS_MOCK = [
     name: '카카오',
   },
 ];
+
+export const SORTING = ['최근 공유 순', '오름차순', '내림차순'];
