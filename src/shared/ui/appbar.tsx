@@ -13,7 +13,8 @@ const appbarVariants = cva(
       page: {
         main: '',
         detail: '',
-        create: '',
+        create: 'bg-gray-black',
+        none: '',
         mypage: 'bg-core-black',
         received: '',
       },
@@ -71,6 +72,7 @@ function renderLeftIcon({
           <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
         </button>
       );
+    case 'none':
     case 'create':
     case 'mypage':
       return (
