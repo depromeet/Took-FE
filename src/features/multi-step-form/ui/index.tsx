@@ -66,8 +66,9 @@ function MultiStepFormView() {
             hasBackground={currentStep === 2 && false}
             page={currentStep === 2 ? 'none' : 'create'}
             onLeftClick={handleStepBack}
+            className="z-bar"
           />
-          <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} page="cardCreate" />
+          <ProgressBar className="z-bar" currentStep={currentStep} totalSteps={TOTAL_STEPS} page="cardCreate" />
           <main
             className={cn(
               'flex flex-col gap-4',
