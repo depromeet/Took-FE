@@ -2,7 +2,6 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 
-import LottieLoading from '@/features/received/ui/lottieLoading';
 import Toast from '@/shared/ui/Toast';
 
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
@@ -16,11 +15,7 @@ function CardDetail() {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
 
-  const { data, isLoading } = useCardDetailQuery(cardId as string);
-
-  if (isLoading) {
-    return <LottieLoading />;
-  }
+  const { data } = useCardDetailQuery(cardId as string);
 
   return (
     <div className="w-full">
