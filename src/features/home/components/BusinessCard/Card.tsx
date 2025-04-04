@@ -21,7 +21,7 @@ type WrappedCardProps = PropsWithChildren<
 
 export const WrappedCard = forwardRef<HTMLDivElement, WrappedCardProps>(
   ({ cardType, children, className, ...rest }, ref) => {
-    const Background = cardType === 'designer' ? DesignerCardBackground : DeveloperCardBackground;
+    const Background = cardType === 'DESIGNER' ? DesignerCardBackground : DeveloperCardBackground;
 
     return (
       <div ref={ref} className={cn('relative h-[394px] w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
@@ -65,7 +65,7 @@ type CardJobProps = {
 };
 
 export const CardJob = ({ jobType, children }: PropsWithChildren<CardJobProps>) => {
-  const Icon = jobType === 'designer' ? DesignerIcon : DeveloperIcon;
+  const Icon = jobType === 'DESIGNER' ? DesignerIcon : DeveloperIcon;
 
   return (
     <div className="mt-[2px] flex items-center gap-1">

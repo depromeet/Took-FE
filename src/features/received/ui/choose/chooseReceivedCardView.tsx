@@ -6,6 +6,7 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { ReceivedCheckbox } from '@/shared/ui/Checkbox/receivedCheckbox';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
+import LottieLoading from '@/shared/ui/lottieLoading';
 import Toast from '@/shared/ui/Toast';
 
 import { useDeleteReceivedCards } from '../../model/mutations/useDeleteReceivedCard';
@@ -15,7 +16,6 @@ import { useFolderStore } from '../../model/store/useFoldersStore';
 import { useReceivedCardsStore } from '../../model/store/useReceivedCardsStore';
 import { useModal } from '../../model/useModal';
 import EmptyCard from '../emptyCard';
-import LottieLoading from '../lottieLoading';
 import ReceivedCard from '../receivedCard';
 
 export default function ChooseReceivedCardView() {
