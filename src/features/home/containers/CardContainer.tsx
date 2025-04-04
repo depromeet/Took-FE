@@ -91,7 +91,7 @@ export const CardContainer = () => {
         <ClipboardContainer
           id={cards[activeTab]?.id}
           name={cards[activeTab]?.nickname}
-          job={cards[activeTab]?.job}
+          job={cards[activeTab]?.detailJob}
           type={cards[activeTab]?.job}
           profileImg={cards[activeTab]?.imagePath}
         />
