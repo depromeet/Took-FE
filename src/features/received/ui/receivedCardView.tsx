@@ -15,7 +15,7 @@ import { useFolderStore } from '../model/store/useFoldersStore';
 import { useModal } from '../model/useModal';
 
 import FoldersList from './foldersList';
-import Intellibanner from './intellibanner';
+// import Intellibanner from './intellibanner';
 import ReceivedCardList from './receivedCardList';
 import SortModal from './sortModal';
 
@@ -42,7 +42,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const { mutate: serverEditFolder } = useEditFolder();
   const { mutate: serverDeleteFolder } = useDeleteFolder();
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const outside = useRef<HTMLInputElement>(null);
 
   const MAX_LENGTH = 10;
@@ -53,12 +52,10 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
 
   const handleAdd = () => {
     setIsAdd(true);
-    inputRef.current?.focus();
   };
   const handleUpdate = (folder: string) => {
     setFolderName(folder);
     setIsUpdate(true);
-    inputRef.current?.focus();
   };
   const handleDelete = (id: number) => {
     serverDeleteFolder({ folderId: id });
@@ -114,7 +111,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         if (e.target == outside.current) closeSortingModal();
       }}
     >
-      <Intellibanner />
+      {/* <Intellibanner /> */}
       <div
         className={cn('sticky top-0 z-10 flex items-center bg-gray-black pb-2', spacingStyles({ paddingTop: 'md' }))}
       >
@@ -152,11 +149,11 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
           <>
             <BottomModalTitle>폴더 이름 설정</BottomModalTitle>
             <input
-              ref={inputRef}
               defaultValue={folderName}
               className={cn('mx-5 h-16 bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleUpdateKeyDown(e, updatedFolderName)}
               onChange={handleUpdateChange}
+              autoFocus
             />
             <div className="items-top mx-5 mt-1 flex justify-between">
               <p
@@ -176,10 +173,10 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
           <>
             <BottomModalTitle>폴더 추가</BottomModalTitle>
             <input
-              ref={inputRef}
               className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleAddKeyDown(e, newFolderName)}
               onChange={handleAddChange}
+              autoFocus
             />
             <div className="items-top mx-5 mt-1 flex justify-between">
               <p className={cn('!text-caption-1 text-error-medium', newFolderName.length <= MAX_LENGTH && 'invisible')}>

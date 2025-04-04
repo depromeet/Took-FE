@@ -31,8 +31,7 @@ export default function SortModal({ isSortingModalOpen, sortingCriteria, setSort
     } else if (sortingCriteria === '내림차순') {
       sorted.sort((a, b) => b.nickname.localeCompare(a.nickname, 'ko-KR'));
     } else {
-      sorted.sort((a, b) => a.nickname.localeCompare(b.nickname, 'ko-KR'));
-      // 추후 받은ㅁ ㅕㅇ함 기준으로 만듦
+      sorted.sort((a, b) => (b.receivedAt ?? '').localeCompare(a.receivedAt ?? '', 'ko-KR')); // 추후 받은ㅁ ㅕㅇ함 기준으로 만듦
     }
 
     setReceivedCards(sorted);

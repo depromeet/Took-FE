@@ -26,7 +26,7 @@ export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => 
   return (
     <>
       <BackgroundContainer jobType={jobType} />
-      <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden">
         <div
           className="flex h-[478px] w-[320px] flex-col items-center justify-end rounded-[24px] px-[30px] pb-10 pt-[28px]"
           style={backgroundStyle}
@@ -42,9 +42,9 @@ export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => 
           </div>
           <QrInfo {...{ profileImg, name, jobName: job, jobType, linkUrl: url }} />
         </div>
-        <Typography className="pt-[24px]" variant="body-5" style={{ color: 'var(--gray-600)' }}>
+        {/* <Typography className="pt-[24px]" variant="body-5" style={{ color: 'var(--gray-600)' }}>
           아래로 스와이프하면 홈 화면으로 돌아갈 수 있어요
-        </Typography>
+        </Typography> */}
       </div>
     </>
   );
