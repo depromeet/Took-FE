@@ -40,7 +40,7 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
     onClose();
     handleCancelMode();
 
-    if (memoText.trim()) {
+    if (memoText?.trim()) {
       updateCardMutation.mutate(
         { cardId: cardId as string, memo: memoText },
         {
@@ -78,7 +78,7 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
 
       <div className={`${spacingStyles({ paddingX: 'ml' })} flex items-center justify-end`}>
         <p className="text-caption-1 text-gray-400">
-          {memoText.length}/{MAX_LENGTH}
+          {memoText?.length}/{MAX_LENGTH}
         </p>
       </div>
       <div className={`${spacingStyles({ paddingX: 'ml', paddingTop: 'ms' })} flex items-center justify-end`}>
@@ -86,7 +86,7 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
           className={cn(
             'w-full rounded-md text-body-5 text-white',
             spacingStyles({ paddingX: 'xl', paddingY: 'ms' }),
-            memoText.trim() ? 'bg-primary-active' : 'bg-gray-500 text-gray-600',
+            memoText?.trim() ? 'bg-primary-active' : 'bg-gray-500 text-gray-600',
           )}
           onClick={submitMemo}
         >
