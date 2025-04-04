@@ -21,7 +21,7 @@ type WrappedCardProps = PropsWithChildren<
 
 export const WrappedCard = forwardRef<HTMLDivElement, WrappedCardProps>(
   ({ cardType, children, className, ...rest }, ref) => {
-    const Background = cardType === 'designer' ? DesignerCardBackground : DeveloperCardBackground;
+    const Background = cardType === 'DESIGNER' ? DesignerCardBackground : DeveloperCardBackground;
 
     return (
       <div ref={ref} className={cn('relative h-[394px] w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
@@ -65,7 +65,7 @@ type CardJobProps = {
 };
 
 export const CardJob = ({ jobType, children }: PropsWithChildren<CardJobProps>) => {
-  const Icon = jobType === 'designer' ? DesignerIcon : DeveloperIcon;
+  const Icon = jobType === 'DESIGNER' ? DesignerIcon : DeveloperIcon;
 
   return (
     <div className="mt-[2px] flex items-center gap-1">
@@ -118,6 +118,10 @@ type CardFooterProps = {
 };
 
 export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
+  console.log('previewInfo : ' + previewInfo);
+  console.log('title : ' + title);
+  console.log('description : ' + description);
+  console.log('imageUrl : ' + imageUrl);
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
       <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">

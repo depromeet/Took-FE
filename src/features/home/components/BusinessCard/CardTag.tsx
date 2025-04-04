@@ -13,12 +13,12 @@ type Props = {
 const cardTagVariants = cva('text-white rounded-full', {
   variants: {
     tagType: {
-      designer: 'bg-primary',
-      developer: 'bg-secondary',
+      DESIGNER: 'bg-primary',
+      DEVELOPER: 'bg-secondary',
     },
   },
   defaultVariants: {
-    tagType: 'designer',
+    tagType: 'DESIGNER',
   },
 });
 

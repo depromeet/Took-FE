@@ -6,7 +6,7 @@ type Props = {
   profileImg: string;
   name: string;
   jobName: string;
-  jobType: 'designer' | 'developer';
+  jobType: 'DESIGNER' | 'DEVELOPER';
   linkUrl: string;
 };
 
