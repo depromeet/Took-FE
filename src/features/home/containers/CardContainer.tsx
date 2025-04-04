@@ -67,7 +67,7 @@ export const CardContainer = () => {
                   style={{ marginBottom: 12 }}
                   onClick={() =>
                     goToSharePage(
-                      `?profileImg=${profileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/share/${id}?type=mycard`,
+                      `?profileImg=${profileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/card-share/${id}?type=mycard`,
                     )
                   }
                 >
