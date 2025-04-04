@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 
+import SNS_CONFIG, { SnsType } from '@/features/card-detail/config/sns-config';
 import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
@@ -18,6 +19,9 @@ function RenderingThumbnail({ cardData }: { cardData: Card }) {
   const previewInfoType = cardData.previewInfoType;
   const previewInfo = cardData.previewInfo;
 
+  const snsType = previewInfo.sns?.type as SnsType | undefined;
+  const snsIconPath = snsType ? SNS_CONFIG[snsType]?.iconPath : undefined;
+
   switch (previewInfoType) {
     case 'PROJECT':
       return (
@@ -25,6 +29,7 @@ function RenderingThumbnail({ cardData }: { cardData: Card }) {
           tag="대표 프로젝트"
           title={previewInfo.project?.title}
           description={previewInfo.project?.link}
+          imageUrl={previewInfo.project?.imageUrl}
           className="!bg-gray-700"
         />
       );
@@ -41,14 +46,7 @@ function RenderingThumbnail({ cardData }: { cardData: Card }) {
     case 'HOBBY':
       return <Thumbnail tag="취미" description={previewInfo.hobby} className="!bg-gray-700" />;
     case 'SNS':
-      return (
-        <Thumbnail
-          tag="SNS"
-          title={previewInfo.sns?.link}
-          imageUrl={previewInfo.content?.imageUrl} // sns icon 조건부 렌더링 추후 구현
-          className="!bg-gray-700"
-        />
-      );
+      return <Thumbnail tag="SNS" title={previewInfo.sns?.link} imageUrl={snsIconPath} className="!bg-gray-700" />;
     case 'NEWS':
       return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!bg-gray-700" />;
     case 'REGION':

@@ -12,6 +12,7 @@ export type MyCardDto = {
 
 export type Card = {
   id: number;
+  receivedAt?: string;
   nickname: string;
   organization: string;
   job: JopType;

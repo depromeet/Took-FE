@@ -39,7 +39,7 @@ function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }
       {isDefaultImage ? (
         <Image src={src} alt={alt} width={image.width} height={image.height} className={opacity} {...props} />
       ) : (
-        <Image src={src} alt={alt} fill className="object-cover" {...props} />
+        <Image src={src} alt={alt} fill className="rounded-md object-cover" {...props} />
       )}
     </div>
   );
