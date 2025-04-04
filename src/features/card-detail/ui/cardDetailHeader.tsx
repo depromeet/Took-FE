@@ -130,6 +130,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
       </div>
       <BottomSheet
         mode={mode}
+        isMyCard={isMyCard}
         isModalOpen={isModalOpen}
         closeModal={closeModal}
         handleMode={handleMode}
