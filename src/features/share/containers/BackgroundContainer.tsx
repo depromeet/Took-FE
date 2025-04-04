@@ -2,7 +2,7 @@ import { Background } from '../components/Background';
 import { DecoAura } from '../components/DecoAura';
 
 type Props = {
-  jobType: 'designer' | 'developer';
+  jobType: 'DESIGNER' | 'DEVELOPER';
 };
 
 export const BackgroundContainer = ({ jobType }: Props) => {
