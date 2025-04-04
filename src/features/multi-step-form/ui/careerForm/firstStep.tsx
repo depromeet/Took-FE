@@ -33,7 +33,7 @@ function FirstStep() {
     <>
       <header className="flex flex-col gap-3">
         <h1 className="text-title-1 text-gray-white">{CAREER_FORM.firstStep.title}</h1>
-        <h3 className="text-body-3 text-gray-400">{CAREER_FORM.firstStep.description}</h3>
+        <h3 className="text-title-1 text-gray-white">{CAREER_FORM.firstStep.subTitle}</h3>
       </header>
       <section className={cn(spacingStyles({ marginTop: 'xl' }))}>
         <div className="flex flex-col gap-4">

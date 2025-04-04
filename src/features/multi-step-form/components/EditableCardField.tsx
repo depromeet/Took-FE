@@ -153,7 +153,7 @@ const EditableCardField = ({
     } else {
       updateField(index, {
         ...field,
-        type: platformInputType.toLowerCase(),
+        type: 'ETC',
         link: value,
       });
     }

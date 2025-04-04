@@ -26,7 +26,7 @@ function MultiStepFormView() {
   const formMethod = useForm<CareerFormData>({
     resolver: zodResolver(cardCreateSchema),
     defaultValues: CARD_CREATE_INITIAL_VALUES,
-    mode: 'onChange', // 필드가 변경될 때 검증
+    mode: 'onBlur',
   });
 
   const { unregister, setValue } = formMethod;
