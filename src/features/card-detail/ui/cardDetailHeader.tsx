@@ -72,7 +72,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               {/* /icons/avatarIcon.svg */}
 
               {/* 개발자 , 디자이너 아이콘 */}
-              {data?.data?.job && <Image src={currentJob.iconPath} alt={currentJob.iconAlt} width="28" height="28" />}
+              {data?.data?.job && <Image src={currentJob?.iconPath} alt={currentJob?.iconAlt} width="28" height="28" />}
             </div>
             <p className="line-clamp-1 text-title-1">{data?.data.nickname}</p>
             <div
