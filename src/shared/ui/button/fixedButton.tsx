@@ -1,7 +1,7 @@
 import { Button } from '../button';
 
 type FixedButtonProps = {
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   title: string;
 };

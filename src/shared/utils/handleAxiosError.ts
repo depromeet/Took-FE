@@ -5,12 +5,12 @@ type StatusHandlersType = Record<number | 'default', (msg?: string) => void>;
 
 // 상태 코드별 처리 핸들러
 const statusHandlers: StatusHandlersType = {
-  400: (msg?: string) => toast.error(msg || '잘못된 요청 형식입니다.'),
-  401: (msg?: string) => toast.error(msg || '로그인 세션이 만료되었습니다. 다시 로그인 해주세요.'),
-  403: (msg?: string) => toast.error(msg || '해당 기능에 대한 권한이 없습니다.'),
-  404: (msg?: string) => toast.error(msg || '요청한 리소스를 찾을 수 없습니다.'),
-  500: (msg?: string) => toast.error(msg || '서버 오류가 발생했습니다.'),
-  default: (msg?: string) => toast.error(msg || '서버에서 알 수 없는 오류가 발생했습니다.'),
+  400: (msg?: string) => toast.error(msg ?? '잘못된 요청 형식입니다.'),
+  401: (msg?: string) => toast.error(msg ?? '로그인 세션이 만료되었습니다. 다시 로그인 해주세요.'),
+  403: (msg?: string) => toast.error(msg ?? '해당 기능에 대한 권한이 없습니다.'),
+  404: (msg?: string) => toast.error(msg ?? '요청한 리소스를 찾을 수 없습니다.'),
+  500: (msg?: string) => toast.error(msg ?? '서버 오류가 발생했습니다.'),
+  default: (msg?: string) => toast.error(msg ?? '서버에서 알 수 없는 오류가 발생했습니다.'),
 };
 
 /**
@@ -27,10 +27,10 @@ export const handleAxiosError = (error: unknown): unknown => {
     if (axiosError.response) {
       const httpStatus = axiosError.response.status;
       const errorResponse = axiosError.response.data as any;
-      const httpMessage = errorResponse.message || axiosError.message;
+      const httpMessage = errorResponse.message ?? axiosError.message;
 
       // 상태 코드에 따른 처리
-      const handler = statusHandlers[httpStatus] || statusHandlers.default;
+      const handler = statusHandlers[httpStatus] ?? statusHandlers.default;
       handler(httpMessage);
     } else if (axiosError.request) {
       // 요청은 보냈지만 응답을 받지 못한 경우

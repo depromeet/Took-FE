@@ -3,23 +3,33 @@
 import { Label } from '@radix-ui/react-label';
 import { useRouter } from 'next/navigation';
 
+import useCookies from '@/shared/hooks/useCookies';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { List, ListItem, ListItemText } from '@/shared/ui/list';
 import { ArrowBtn } from '@/shared/ui/list/wrappedList';
 import { Navbar } from '@/shared/ui/Navigation';
+import Toast from '@/shared/ui/Toast';
+
+import useLogout from '../hooks/useLogout';
 
 import LogoutDialog from './dialog/logout';
 
 const SettingView = () => {
   const router = useRouter();
 
+  // 로그아웃
+  const { logout } = useLogout();
+
+  const { getValue } = useCookies();
+  const refreshToken = getValue('refreshToken');
+
   const handleLogout = () => {
-    router.push('/login');
+    logout({ refreshToken: refreshToken as string });
   };
 
-  const handleUserQuit = () => {
+  const handleWithdraw = () => {
     router.push('/setting/user-quit');
   };
 
@@ -53,12 +63,13 @@ const SettingView = () => {
 
           <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
           <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
-          <SettingItem text="회원 탈퇴" onClick={handleUserQuit} />
+          <SettingItem text="회원 탈퇴" onClick={handleWithdraw} />
         </List>
       </section>
       <footer>
         <Navbar />
       </footer>
+      <Toast />
     </div>
   );
 };

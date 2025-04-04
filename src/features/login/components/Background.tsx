@@ -6,9 +6,17 @@ export const Background = (props: HTMLAttributes<HTMLDivElement>) => {
   const { className, ...restProps } = props;
 
   return (
-    <div className={cn(className, 'relative z-[-1] h-full w-full')} {...restProps}>
-      <div className="bg-[rgba(255,255,255, 0.2)] absolute top-0 h-dvh w-[600px] backdrop-blur-[70px]" />
-      <svg width="479" height="538" viewBox="0 0 479 538" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className={cn(className, 'relative z-[-1] h-full w-full overflow-hidden')} {...restProps}>
+      <div className="bg-[rgba(255,255,255, 0.2)] absolute top-0 h-dvh w-full backdrop-blur-[70px]" />
+      <svg
+        className="max-w-full"
+        width="100%"
+        height="auto"
+        viewBox="0 0 479 538"
+        preserveAspectRatio="xMidYMid meet"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M244.002 116.429C311.817 75.3484 384.783 67.1636 412.302 112.59C454.511 182.269 402.926 267.201 335.11 308.283C267.294 349.364 161.865 361.991 134.347 316.564C106.829 271.137 176.186 157.511 244.002 116.429Z"
           fill="#5A23FF"
@@ -27,9 +35,16 @@ export const Background = (props: HTMLAttributes<HTMLDivElement>) => {
       </svg>
 
       <div className="absolute bottom-0 w-full">
-        <svg width="600" height="319" viewBox="0 0 600 319" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="600" height="319" fill="url(#paint0_linear_6529_1061)" fillOpacity="0.5" />
-          <rect y="123" width="600" height="196" fill="url(#paint1_linear_6529_1061)" />
+        <svg
+          width="100%"
+          height="auto"
+          viewBox="0 0 600 319"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="100%" height="319" fill="url(#paint0_linear_6529_1061)" fillOpacity="0.5" />
+          <rect y="123" width="100%" height="196" fill="url(#paint1_linear_6529_1061)" />
           <defs>
             <linearGradient
               id="paint0_linear_6529_1061"
