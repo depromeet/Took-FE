@@ -18,9 +18,9 @@ function CardDetail() {
   const { data } = useCardDetailQuery(cardId as string);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-y-auto scrollbar-hide">
       <CardDetailHeader data={data as CardDetailDto} type={type as string} />
-      <CardTabs data={data as CardDetailDto} />
+      <CardTabs data={data as CardDetailDto} type={type as string} />
       <Toast />
     </div>
   );

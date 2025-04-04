@@ -26,15 +26,18 @@ import { UnderlineTabs } from './underlineTabs';
 
 interface CardTabsProps {
   data: CardDetailDto;
+  type: string;
 }
 
-function CardTabs({ data }: CardTabsProps) {
+function CardTabs({ data, type }: CardTabsProps) {
   const filteredTabs = getFilteredTabs(data);
   const [activeTab, setActiveTab] = useState<TabId>('domains');
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
+
+  const isMyCard = type === 'mycard' ? true : false;
 
   const handleMode = () => {
     setMode(true);
@@ -215,6 +218,7 @@ function CardTabs({ data }: CardTabsProps) {
         </div>
       </div>
       <BottomSheet
+        isMyCard={isMyCard}
         mode={mode}
         isModalOpen={isModalOpen}
         closeModal={closeModal}

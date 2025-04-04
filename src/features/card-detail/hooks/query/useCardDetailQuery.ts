@@ -35,6 +35,16 @@ const updateReceiveCard = async (cardId: string, memo: string) => {
   return response.data;
 };
 
+// 받은 명함 삭제 API
+const deleteReceivedCard = async (cardId: string) => {
+  const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/card/receive`, {
+    data: {
+      cardIds: [Number(cardId)],
+    },
+  });
+  return data;
+};
+
 // 카드 상세 정보를 가져오는 쿼리 훅
 export const useCardDetailQuery = (cardId: string) => {
   const { isLoggedIn } = useIsLoggedIn();
@@ -52,22 +62,21 @@ export const useUpdateCardMutation = () => {
   });
 };
 
-// export const receiveCard = async (id: string) => {
-//   try {
-//     const response = await client.get<any>(`${CLIENT_SIDE_URL}/api/card/receive?folderId=${id}`);
-//     return response.data;
-//   } catch (err) {
-//     // Axios 에러 처리
-//     if (axios.isAxiosError(err) && err.response) {
-//       (err as any).status = err.response.status;
-//     }
-//     throw err;
-//   }
-// };
+// 받은 명함 삭제를 위한 mutation 훅
+export const useDeleteReceivedCardMutation = () => {
+  return useMutation({
+    mutationFn: (cardId: string) => deleteReceivedCard(cardId),
+  });
+};
 
-// export const useReceiveCard = (id: string) => {
-//   return useQuery({
-//     queryKey: ['receivedCard', id],
-//     queryFn: () => receiveCard(id),
-//   });
-// };
+//내 명함 삭제 API
+const deleteMyCard = async (cardId: string) => {
+  const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/card/${cardId}`);
+  return data;
+};
+
+export const useDeleteMyCardMutation = () => {
+  return useMutation({
+    mutationFn: (cardId: string) => deleteMyCard(cardId),
+  });
+};
