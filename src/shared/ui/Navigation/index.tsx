@@ -28,8 +28,6 @@ export const Navbar = () => {
   const goToReceived = () => router.push(TEMP_RECEIVED_URL);
   const goToSetting = () => router.push(TEMP_SETTING_URL);
 
-  console.log(settingFillColor);
-
   return (
     <section className="fixed bottom-0 z-bar flex h-[80px] w-full max-w-[600px] items-center justify-between rounded-t-[20px] bg-gray-800 px-5">
       <NavItem onClick={goToHome}>
