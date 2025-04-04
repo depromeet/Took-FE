@@ -1,20 +1,34 @@
-import { JopType } from '@/features/home/types';
-
 export const CARD_MOCK = {
-  id: 1,
-  type: 'designer' as JopType,
-  profileImg:
-    'https://i.namu.wiki/i/w7GkIKr6Qac-0SCYEn7DdYBpkpZed9FaVNTBFE7aIQvm7p39bo7gs2Pb1ZWfX3dPVd0JmA3oX50T5kl-MU7wfw.webp',
-  name: '김디퍼',
-  organization: '디프만',
-  job: 'Frontend Developer',
-  introduction: '안녕하세요 저는 무엇을 원하는 디자이너 입니다 이런거를 추구하고 한줄소개 더 추가하세요.',
-  tags: ['React', 'Typescript', 'Next', 'React', 'Typescript', 'Next'],
-  project: {
-    imageUrl:
-      'https://i.namu.wiki/i/w7GkIKr6Qac-0SCYEn7DdYBpkpZed9FaVNTBFE7aIQvm7p39bo7gs2Pb1ZWfX3dPVd0JmA3oX50T5kl-MU7wfw.webp',
-    footerTitle: '대표 프로젝트',
-    title: '안녕하세요. 저는 사실 개발자입니다.',
-    description: '안녕하세요. 저는 네이버 개발자입니다.',
+  data: {
+    id: 1,
+    nickname: '홍길동',
+    organization: 'ABC 회사',
+    job: 'DEVELOPER',
+    detailJob: '백엔드 개발자',
+    summary: '백엔드 개발을 좋아하는 개발자입니다',
+    interestDomain: ['웹', '모바일', '클라우드'],
+    previewInfoType: 'HOBBY',
+    previewInfo: {
+      // project: {
+      //   title: 'Took',
+      //   link: 'https://github.com/username/project',
+      //   imageUrl: '',
+      //   description: 'Spring Boot 기반 명함 관리 서비스',
+      // },
+      // content: {
+      //   title: 'Spring Boot로 RESTful API 만들기',
+      //   link: 'https://blog.example.com/posts/123',
+      //   imageUrl: '/images/thumbnails/post123.jpg',
+      //   description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
+      // },
+      hobby: '등산, 독서',
+      // sns: {
+      //   type: 'LINKEDIN',
+      //   link: 'https://linkedin.com/in/username',
+      // },
+      // news: '최근 블로그 포스팅 시작했습니다',
+      // region: '서울 강남구',
+    },
+    imagePath: '',
   },
 };
