@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 
-import LottieLoading from '@/features/received/ui/lottieLoading';
+import LottieLoading from '@/shared/ui/lottieLoading';
 import Toast from '@/shared/ui/Toast';
 
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';

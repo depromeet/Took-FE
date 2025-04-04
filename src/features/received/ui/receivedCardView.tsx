@@ -12,10 +12,12 @@ import { useCreateFolder } from '../model/mutations/useCreateFolder';
 import { useDeleteFolder } from '../model/mutations/useDeleteFolder';
 import { useEditFolder } from '../model/mutations/useEditFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
+import { useModal } from '../model/useModal';
 
 import FoldersList from './foldersList';
 import Intellibanner from './intellibanner';
 import ReceivedCardList from './receivedCardList';
+import SortModal from './sortModal';
 
 type ReceivedCardViewProps = {
   selectedFolderId: number | null;
@@ -30,7 +32,10 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 
+  const [sortingCriteria, setSortingCriteria] = useState<string>('최근 공유 순');
+
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
+  const { isSortingModalOpen, handleSortingModal, closeSortingModal } = useModal();
   const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
 
   const { mutate: serverCreateFolder } = useCreateFolder(); // createFolder 함수와 로딩 상태
@@ -38,6 +43,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const { mutate: serverDeleteFolder } = useDeleteFolder();
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const outside = useRef<HTMLInputElement>(null);
 
   const MAX_LENGTH = 10;
 
@@ -102,7 +108,12 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   }, [folderName]);
 
   return (
-    <main>
+    <main
+      ref={outside}
+      onClick={(e) => {
+        if (e.target == outside.current) closeSortingModal();
+      }}
+    >
       <Intellibanner />
       <div
         className={cn('sticky top-0 z-10 flex items-center bg-gray-black pb-2', spacingStyles({ paddingTop: 'md' }))}
@@ -118,10 +129,23 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         <div className="absolute left-8 top-4 z-10 h-10 w-[10px] bg-gradient-to-r from-gray-black to-transparent"></div>
         <FoldersList selectedFolderId={selectedFolderId} handleFolderSelect={handleFolderSelect} />
       </div>
-      <div className={cn('flex items-center justify-end gap-[2px] text-white', spacingStyles({ marginY: 'md' }))}>
-        <p className="text-caption-1">최근 공유 순</p>
-        <Image className="mx-1 cursor-pointer" src="/icons/downArrow.svg" alt="화살표 아이콘" width={12} height={12} />
-      </div>
+      <section className="relative" onClick={handleSortingModal}>
+        <div className={cn('flex items-center justify-end gap-[2px] text-white', spacingStyles({ marginY: 'md' }))}>
+          <p className="text-caption-1">{sortingCriteria}</p>
+          <Image
+            className="mx-1 cursor-pointer"
+            src="/icons/downArrow.svg"
+            alt="화살표 아이콘"
+            width={12}
+            height={12}
+          />
+        </div>
+        <SortModal
+          isSortingModalOpen={isSortingModalOpen}
+          sortingCriteria={sortingCriteria}
+          setSortingCriteria={setSortingCriteria}
+        />
+      </section>
       <ReceivedCardList selectedFolderId={selectedFolderId} />
       <BottomModal isModalOpen={isModalOpen} closeModal={closeModal}>
         {isUpdate ? (
@@ -130,11 +154,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
             <input
               ref={inputRef}
               defaultValue={folderName}
-              className={cn(
-                'mx-5 h-16 bg-gray-600 outline-none',
-                spacingStyles({ padding: 'ml' }),
-                updatedFolderName.length > MAX_LENGTH && 'rounded-sm border border-error-medium',
-              )}
+              className={cn('mx-5 h-16 bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleUpdateKeyDown(e, updatedFolderName)}
               onChange={handleUpdateChange}
             />
@@ -157,11 +177,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
             <BottomModalTitle>폴더 추가</BottomModalTitle>
             <input
               ref={inputRef}
-              className={cn(
-                'h-16 w-full bg-gray-600 outline-none',
-                spacingStyles({ padding: 'ml' }),
-                newFolderName.length > MAX_LENGTH && 'rounded-sm border border-error-medium',
-              )}
+              className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
               onKeyDown={(e) => handleAddKeyDown(e, newFolderName)}
               onChange={handleAddChange}
             />

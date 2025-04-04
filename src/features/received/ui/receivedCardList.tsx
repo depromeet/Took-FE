@@ -1,11 +1,12 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
+import LottieLoading from '@/shared/ui/lottieLoading';
+
 import { useReceivedCardsQuery } from '../model/queries/useReceivedCardsQuery';
 import { useReceivedCardsStore } from '../model/store/useReceivedCardsStore';
 
 import EmptyCard from './emptyCard';
-import LottieLoading from './lottieLoading';
 import ReceivedCard from './receivedCard';
 
 type ReceivedCardListProps = {
@@ -25,9 +26,9 @@ export default function ReceivedCardList({ selectedFolderId }: ReceivedCardListP
   if (receivedCards.length == 0) return <EmptyCard />;
   return (
     <div className="flex flex-col gap-4">
-      {receivedCards.map((value) => (
+      {receivedCards.map((value, index) => (
         <ReceivedCard
-          key={value.id}
+          key={index}
           cardData={value}
           onClick={() => {
             handleRouting(value.id);
