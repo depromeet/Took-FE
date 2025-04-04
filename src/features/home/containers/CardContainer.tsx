@@ -42,7 +42,7 @@ export const CardContainer = () => {
         }}
         modules={[Pagination]}
         onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
-        className="home-swiper h-[440px]"
+        className="home-swiper h-[428px]"
       >
         {cards.map(
           ({
@@ -60,7 +60,7 @@ export const CardContainer = () => {
             return (
               <SwiperSlide
                 key={id}
-                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}
               >
                 <WrappedCard cardType={type} style={{ marginBottom: '20px' }} onClick={() => goToDetailPage(id)}>
                   <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
@@ -81,19 +81,19 @@ export const CardContainer = () => {
         )}
         {cards.length < 3 && (
           <SwiperSlide
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}
           >
             <AddCard />
           </SwiperSlide>
         )}
       </Swiper>
-      {cards && cards.length > 0 && (
+      {cards && cards.length > 0 && cards[activeTab] && (
         <ClipboardContainer
-          id={cards[activeTab].id}
-          name={cards[activeTab].nickname}
-          job={cards[activeTab].job}
-          type={cards[activeTab].job}
-          profileImg={cards[activeTab].imagePath}
+          id={cards[activeTab]?.id}
+          name={cards[activeTab]?.nickname}
+          job={cards[activeTab]?.job}
+          type={cards[activeTab]?.job}
+          profileImg={cards[activeTab]?.imagePath}
         />
       )}
     </>
