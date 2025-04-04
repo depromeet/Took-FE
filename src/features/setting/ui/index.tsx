@@ -3,20 +3,27 @@
 import { Label } from '@radix-ui/react-label';
 import { useRouter } from 'next/navigation';
 
+import useCookies from '@/shared/hooks/useCookies';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
 import { List, ListItem, ListItemText } from '@/shared/ui/list';
 import { ArrowBtn } from '@/shared/ui/list/wrappedList';
 import { Navbar } from '@/shared/ui/Navigation';
+import Toast from '@/shared/ui/Toast';
+
+import useLogout from '../hooks/useLogout';
 
 import LogoutDialog from './dialog/logout';
 
 const SettingView = () => {
   const router = useRouter();
+  const { logout } = useLogout();
+  const { getValue } = useCookies();
+  const refreshToken = getValue('refreshToken');
 
   const handleLogout = () => {
-    router.push('/login');
+    logout({ refreshToken: refreshToken as string });
   };
 
   const handleUserQuit = () => {
@@ -59,6 +66,7 @@ const SettingView = () => {
       <footer>
         <Navbar />
       </footer>
+      <Toast />
     </div>
   );
 };
