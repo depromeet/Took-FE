@@ -14,6 +14,8 @@ export function middleware(request: NextRequest) {
     '/onboarding',
   ];
 
+  const sharePaths = ['/card-share', '/card-detail'];
+
   // // 현재 경로가 public 경로인지 확인
   const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
 
@@ -24,6 +26,10 @@ export function middleware(request: NextRequest) {
   // // 문자가 있는지 검사합니다 (예: .css, .js, .png 등).
   // // 로그인 페이지 CSS 깨짐 현상 해결
   if (isFile) {
+    return NextResponse.next();
+  }
+
+  if (sharePaths.some((sharePath) => path === sharePath || path.startsWith(`${sharePath}/`))) {
     return NextResponse.next();
   }
 

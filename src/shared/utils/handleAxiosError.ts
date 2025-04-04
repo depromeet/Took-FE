@@ -41,7 +41,7 @@ export const handleAxiosError = (error: unknown): unknown => {
     }
   } else if (error instanceof Error) {
     // 일반 Error 객체인 경우
-    toast.error(`오류가 발생했습니다: ${error.message}`);
+    toast.error(`${error.message}`);
   } else {
     // 기타 알 수 없는 오류
     toast.error('네트워크 연결 오류 또는 기타 오류가 발생했습니다.');
