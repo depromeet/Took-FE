@@ -51,10 +51,12 @@ export const mockCardDetailData: CardDetailDto = {
     hobby: 'hobby',
     content: [
       {
-        title: 'Spring Boot로 RESTful API 만들기',
-        link: 'https://blog.example.com/posts/123',
+        title:
+          'Spring Boot로 RESTful API 만들기 Spring Boot로 RESTful API 만들기Spring Boot로 RESTful API 만들기Spring Boot로 RESTful API 만들기',
+        link: 'https://blog.example.com/posts/123https://blog.example.com/posts/123https://blog.example.com/posts/123https://blog.example.com/posts/123https://blog.example.com/posts/123',
         imageUrl: '/icons/imageIcon.svg',
-        description: 'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
+        description:
+          'Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.Spring Boot를 이용한 RESTful API 개발 방법을 소개합니다.',
       },
       {
         title: 'Spring Boot로 RESTful API 만들기',

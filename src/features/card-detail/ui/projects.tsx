@@ -20,12 +20,12 @@ function Projects({ data }: ProjectsProps) {
       {data.map((project, i) => (
         <div key={i} className="flex flex-col overflow-hidden rounded-md">
           <Link href={project.link} target="_blank" className="block">
-            <div className="relative aspect-[4/3] w-full border-[1px] border-opacity-white-20">
+            <div className="relative aspect-[4/3] w-full rounded-md border-[1px] border-opacity-white-20">
               <Image
                 src={project.imageUrl || '/icons/imageIcon-gray.svg'}
                 alt={project.title}
                 fill
-                className={cn('bg-opacity-white-20', project.imageUrl ? '' : 'p-[35px]')}
+                className={cn('rounded-md bg-opacity-white-20', project.imageUrl ? '' : 'p-[35px]')}
               />
             </div>
 
