@@ -14,7 +14,7 @@ export default function Home() {
       <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">
         <HomeBackground className="absolute z-[-10]" />
         <HeaderContainer />
-        <section className="pb-[108px] pt-10">
+        <section className="pb-[108px] pt-[24px]">
           <CardContainer />
         </section>
         <Navbar />

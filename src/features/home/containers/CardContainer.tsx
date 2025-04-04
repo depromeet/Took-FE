@@ -27,7 +27,7 @@ export const CardContainer = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const goToDetailPage = (id: number) => {
-    router.push(`/card-detail/${id}`);
+    router.push(`/card-detail/${id}?type=mycard`);
   };
 
   if (!data) return null;
@@ -42,7 +42,7 @@ export const CardContainer = () => {
         }}
         modules={[Pagination]}
         onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
-        className="home-swiper h-[428px]"
+        className="home-swiper h-[420px]"
       >
         {cards.map(
           ({
@@ -51,7 +51,7 @@ export const CardContainer = () => {
             imagePath: profileImg,
             nickname: name,
             organization,
-            job,
+            detailJob,
             summary: introduction,
             interestDomain: tags,
             previewInfo: project,
@@ -62,18 +62,37 @@ export const CardContainer = () => {
                 key={id}
                 style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}
               >
-                <WrappedCard cardType={type} style={{ marginBottom: '20px' }} onClick={() => goToDetailPage(id)}>
-                  <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
-                  <CardName organization={organization}>{name}</CardName>
-                  <CardJob jobType={type}>{job}</CardJob>
-                  <CardDescription>{introduction}</CardDescription>
-                  <CardTags tagType={type} tags={tags} />
-                  <CardFooter
-                    previewInfo={convertPreviewInfo(previewInfoType)}
-                    title={project.project?.title}
-                    description={project.project?.description}
-                    imageUrl={project.project?.imageUrl}
-                  />
+                <WrappedCard
+                  cardType={type}
+                  style={{
+                    marginBottom: '20px',
+                  }}
+                  onClick={() => goToDetailPage(id)}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      height: '100%',
+                    }}
+                  >
+                    <div>
+                      <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
+                      <CardName organization={organization}>{name}</CardName>
+                      <CardJob jobType={type}>{detailJob}</CardJob>
+                      <CardDescription>{introduction}</CardDescription>
+                    </div>
+                    <div>
+                      <CardTags tagType={type} tags={tags} />
+                      <CardFooter
+                        previewInfo={convertPreviewInfo(previewInfoType)}
+                        title={project.project?.title}
+                        description={project.project?.description}
+                        imageUrl={project.project?.imageUrl}
+                      />
+                    </div>
+                  </div>
                 </WrappedCard>
               </SwiperSlide>
             );
