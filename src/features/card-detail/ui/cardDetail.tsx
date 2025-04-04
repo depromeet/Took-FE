@@ -20,7 +20,7 @@ function CardDetail() {
   return (
     <div className="w-full overflow-y-auto scrollbar-hide">
       <CardDetailHeader data={data as CardDetailDto} type={type as string} />
-      <CardTabs data={data as CardDetailDto} />
+      <CardTabs data={data as CardDetailDto} type={type as string} />
       <Toast />
     </div>
   );
