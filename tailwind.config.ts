@@ -144,7 +144,8 @@ const config: Config = {
       zIndex: {
         tag: '50',
         modalItem: '50',
-        bar: '100', // Appbar, Navbar
+        header: '80',
+        bar: '100', // Appbar, Navbar, progressBar
         modalBackground: '150',
         bottomSheet: '200',
         toast: '300',
