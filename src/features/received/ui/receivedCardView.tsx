@@ -15,7 +15,7 @@ import { useFolderStore } from '../model/store/useFoldersStore';
 import { useModal } from '../model/useModal';
 
 import FoldersList from './foldersList';
-import Intellibanner from './intellibanner';
+// import Intellibanner from './intellibanner';
 import ReceivedCardList from './receivedCardList';
 import SortModal from './sortModal';
 
