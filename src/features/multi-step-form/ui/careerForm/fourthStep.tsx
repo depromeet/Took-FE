@@ -38,10 +38,10 @@ function FourthStep() {
       <section className="relative z-50 -mt-1 h-16 bg-gradient-to-b from-[#14141A] to-[rgba(20,20,26,0)]" />
       <main className="flex flex-col items-center justify-center">
         <WrappedCard
-          cardType="designer"
+          cardType="DESIGNER"
           className="-mt-24 flex h-56 flex-col items-start justify-end gap-2 rounded-none rounded-b-md"
         >
-          <CardTags tags={['관심 도메인1', '관심 도메인2']} tagType="designer" />
+          <CardTags tags={['관심 도메인1', '관심 도메인2']} tagType="DESIGNER" />
           <section className="h-4" />
           <Thumbnail
             tag={(tagArray[index]?.message as ThumbnailTag) ?? '대표 프로젝트'}

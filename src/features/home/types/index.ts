@@ -1,4 +1,4 @@
-export type JopType = 'designer' | 'developer';
+export type JopType = 'DESIGNER' | 'DEVELOPER';
 export type PreviewInfoType = 'PROJECT' | 'CONTENT' | 'HOBBY' | 'SNS' | 'NEWS' | 'REGION';
 
 export type MyCardDto = {

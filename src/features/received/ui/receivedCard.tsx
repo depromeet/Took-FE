@@ -78,7 +78,7 @@ export default function ReceivedCard({ cardData, onClick }: ReceivedCardProps) {
             <p className="truncate text-body-3 text-white">{cardData.detailJob}</p>
           </div>
         </div>
-        {cardData.job === 'developer' ? (
+        {cardData.job === 'DEVELOPER' ? (
           <Image
             src="/icons/developer-icon-white.svg"
             alt="icon"

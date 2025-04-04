@@ -74,7 +74,7 @@ export const CardContainer = () => {
                   일단 이걸로 공유 페이지
                 </Typography>
                 <WrappedCard cardType={type} style={{ marginBottom: '20px' }} onClick={() => goToDetailPage(id)}>
-                  <CardAvatar src={`/${profileImg}`} alt={`${name}의 프로필 이미지`} />
+                  <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
                   <CardName organization={organization}>{name}</CardName>
                   <CardJob jobType={type}>{job}</CardJob>
                   <CardDescription>{introduction}</CardDescription>
