@@ -65,6 +65,19 @@ type EditableCardFieldProps = {
  * @returns {JSX.Element} - `EditableCardField` 컴포넌트
  */
 
+const SNS_PLATFORM_TYPE = {
+  LINKEDIN: 'LINKEDIN',
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK',
+  BEHANCE: 'BEHANCE',
+  GITHUB: 'GITHUB',
+  VELOG: 'VELOG',
+  TISTORY: 'TISTORY',
+  BRUNCH: 'BRUNCH',
+  MEDIUM: 'MEDIUM',
+  NAVER_BLOG: 'NAVER_BLOG',
+};
+
 const EditableCardField = ({
   title,
   placeholder,
@@ -151,11 +164,19 @@ const EditableCardField = ({
       // 스크래핑 실행 - 메타데이터만 가져오고 link는 보존됨
       handleScrap();
     } else {
-      updateField(index, {
-        ...field,
-        type: platformInputType.toLowerCase(),
-        link: value,
-      });
+      if (targetFieldName === 'sns') {
+        updateField(index, {
+          ...field,
+          type: SNS_PLATFORM_TYPE[parseLinkToTitle as keyof typeof SNS_PLATFORM_TYPE] ?? 'ETC',
+          link: value,
+        });
+      } else {
+        updateField(index, {
+          ...field,
+          type: platformInputType.toLowerCase(),
+          link: value,
+        });
+      }
     }
 
     disableEditing();
