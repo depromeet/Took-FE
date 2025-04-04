@@ -67,7 +67,7 @@ export const CardContainer = () => {
                   style={{ marginBottom: 12 }}
                   onClick={() =>
                     goToSharePage(
-                      `?profileImg=${profileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/share/${id}?type=mycard`,
+                      `?profileImg=${profileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/card-share/${id}`,
                     )
                   }
                 >
@@ -98,7 +98,7 @@ export const CardContainer = () => {
           </SwiperSlide>
         )}
       </Swiper>
-      {cards && (
+      {cards && cards.length > 0 && (
         <div className="mx-auto mt-[30px] flex h-[40px] w-[252px] items-center justify-center gap-1 rounded-full bg-[rgba(255,255,255,0.1)] px-[14px]">
           <Typography variant="body-4">위로 스와이프해서 명함을 공유 해주세요</Typography>
         </div>

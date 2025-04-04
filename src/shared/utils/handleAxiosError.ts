@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { deleteCookie } from 'cookies-next';
 import { toast } from 'sonner';
 
 type StatusHandlersType = Record<number | 'default', (msg?: string) => void>;
@@ -25,6 +26,15 @@ export const handleAxiosError = (error: unknown): unknown => {
     const axiosError = error as AxiosError;
 
     if (axiosError.response) {
+      if (axiosError.response.status === 401) {
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+
+        window.location.reload();
+
+        return;
+      }
+
       const httpStatus = axiosError.response.status;
       const errorResponse = axiosError.response.data as any;
       const httpMessage = errorResponse.message ?? axiosError.message;
