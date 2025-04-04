@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { CardTags, WrappedCard } from '@/features/home/components/BusinessCard/Card';
@@ -19,7 +19,7 @@ const LAST_NUMBER = 7;
 const HEADER_TITLE = `썸네일 명함에 대표로\n 보여줄 정보를 1개 선택해 주세요`;
 
 function FourthStep() {
-  const { control } = useFormContext<CareerFormData>();
+  const { control, setValue } = useFormContext<CareerFormData>();
 
   const formState = useCardFormStore((state) => state.tagArray);
   const tagArray = tagConfig.filter((tag) => formState.includes(tag.value));
@@ -31,6 +31,12 @@ function FourthStep() {
     setSelectedTag(tagMessage);
     setIndex(tagArray.findIndex((tag) => tag.message === tagMessage));
   }
+
+  // previewInfoType 초기 값 설정
+
+  useEffect(() => {
+    setValue('previewInfoType', tagArray[index]?.value.toUpperCase() as CareerFormData['previewInfoType']);
+  }, [index, setValue, tagArray]);
 
   return (
     <>
