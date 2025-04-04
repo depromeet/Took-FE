@@ -27,7 +27,7 @@ function Thumbnail({ tag, title, description, imageUrl, className }: thumbnailPr
   const config = tagConfig[tag];
 
   return (
-    <div className={cn('flex w-full items-center gap-2 rounded-md bg-opacity-white-20 p-3', className)}>
+    <div className={cn('flex h-[84px] w-[228px] items-center gap-2 rounded-md bg-opacity-white-20 p-3', className)}>
       {config.hasImg && <Img size="medium" src={imageUrl} alt="" />}
       <div className="flex w-full max-w-full flex-col overflow-hidden">
         <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
