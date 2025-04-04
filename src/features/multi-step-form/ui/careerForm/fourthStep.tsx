@@ -35,7 +35,7 @@ function FourthStep() {
   // previewInfoType 초기 값 설정
 
   useEffect(() => {
-    setValue('previewInfoType', tagArray[index].value.toUpperCase() as CareerFormData['previewInfoType']);
+    setValue('previewInfoType', tagArray[index]?.value.toUpperCase() as CareerFormData['previewInfoType']);
   }, [index, setValue, tagArray]);
 
   return (
