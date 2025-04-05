@@ -78,8 +78,6 @@ export const ShareCardContentContainer = ({ cardData }: ShareCardContentContaine
 
   const previewContent = getPreviewContent();
 
-  console.log('previewContent : ' + previewContent.title, previewContent.imageUrl, previewContent.description);
-
   return (
     <WrappedCard cardType={cardData?.job as JopType} style={{ marginBottom: '20px' }}>
       <ShareCardAvatar

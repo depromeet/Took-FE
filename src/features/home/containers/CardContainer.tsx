@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import SNS_CONFIG from '@/features/card-detail/config/sns-config';
+import { PreviewInfo } from '@/features/share/types';
+
 import { AddCard } from '../components/BusinessCard/AddCard';
 import {
   CardAvatar,
@@ -34,6 +37,58 @@ export const CardContainer = () => {
 
   const { cards } = data;
 
+  const getPreviewContent = (previewInfoType: string, project: PreviewInfo) => {
+    switch (previewInfoType) {
+      case 'PROJECT':
+        return project.project
+          ? {
+              title: project.project.title,
+              description: project.project.description,
+              imageUrl: project.project.imageUrl,
+            }
+          : {};
+      case 'CONTENT':
+        return project.content
+          ? {
+              title: project.content?.title,
+              description: project.content?.description,
+              imageUrl: project.content?.imageUrl,
+            }
+          : {};
+      case 'SNS':
+        return project.sns
+          ? {
+              title: project.sns.type,
+              description: project.sns.link,
+              imageUrl: SNS_CONFIG[project.sns.type as keyof typeof SNS_CONFIG]?.iconPath || '/icons/imageIcon.svg',
+            }
+          : {};
+      case 'HOBBY':
+        return project.hobby
+          ? {
+              title: project.hobby,
+              description: '',
+            }
+          : {};
+      case 'NEWS':
+        return project.news
+          ? {
+              title: project.news,
+              description: '',
+            }
+          : {};
+      case 'REGION':
+        return project.region
+          ? {
+              title: project.region,
+              description: '',
+            }
+          : {};
+      default:
+        return {};
+    }
+  };
+
   return (
     <>
       <Swiper
@@ -57,6 +112,7 @@ export const CardContainer = () => {
             previewInfo: project,
             previewInfoType,
           }) => {
+            const previewContent = getPreviewContent(previewInfoType, project);
             return (
               <SwiperSlide
                 key={id}
@@ -78,7 +134,10 @@ export const CardContainer = () => {
                     }}
                   >
                     <div>
-                      <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
+                      <CardAvatar
+                        src={profileImg || '/icon/default-image-s.svg'}
+                        alt={`${name}의 프로필 이미지`}
+                      />
                       <CardName organization={organization}>{name}</CardName>
                       <CardJob jobType={type}>{detailJob}</CardJob>
                       <CardDescription>{introduction}</CardDescription>
@@ -87,9 +146,9 @@ export const CardContainer = () => {
                       <CardTags tagType={type} tags={tags} />
                       <CardFooter
                         previewInfo={convertPreviewInfo(previewInfoType)}
-                        title={project.project?.title}
-                        description={project.project?.description}
-                        imageUrl={project.project?.imageUrl}
+                        title={previewContent.title}
+                        description={previewContent.description}
+                        imageUrl={previewContent.imageUrl}
                       />
                     </div>
                   </div>
