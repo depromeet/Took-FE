@@ -8,7 +8,7 @@ type Props = {
 
 export const Background = ({ jobType, className, ...restProps }: Props) => {
   return (
-    <div className={cn(className, 'relative z-[-1] h-full w-full bg-white')} {...restProps}>
+    <div className={cn(className, 'relative z-[-1] h-full w-full overflow-hidden bg-white')} {...restProps}>
       <div className="bg-[rgba(255,255,255, 0.2)] absolute top-0 h-dvh w-full backdrop-blur-[80px]" />
       <svg
         className="absolute left-[-50%] top-[-32%] z-[-1]"
