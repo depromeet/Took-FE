@@ -127,9 +127,16 @@ export const ShareCardFooter = ({ previewInfo, title = '', description = '', ima
       {shouldShowThumbnail && (
         <div className="relative max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-opacity-white-20">
           {isSns ? (
-            <Image src={imageUrl} alt={`${title} 아이콘`} width={60} height={60} className="object-cover p-2" />
+            <Image src={imageUrl} alt={`${title} 아이콘`} fill className="object-cover" />
           ) : (
-            <Img src={imageUrl || '/icons/imageIcon.svg'} alt="프로젝트 썸네일" size="small" />
+            <div className="flex h-full w-full items-center justify-center">
+              <Img
+                src={imageUrl || '/icons/imageIcon.svg'}
+                alt="프로젝트 썸네일"
+                size="small"
+                className="h-full w-full border-0 p-0"
+              />
+            </div>
           )}
         </div>
       )}

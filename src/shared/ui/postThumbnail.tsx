@@ -32,7 +32,7 @@ function PostThumbnail({ title, description, link, imageSrc }: PostThumbnailProp
         <div className="flex flex-col">
           <p className="mb-[4ox] max-w-[210px] truncate text-body-5 text-white">{title}</p>
           <p className="mb-[4ox] max-w-[210px] truncate text-caption-1 text-gray-200">{description}</p>
-          <p className="max-w-[210px] truncate whitespace-pre-line text-caption-2 text-gray-600">{link}</p>
+          <p className="max-w-[210px] truncate text-caption-2 text-gray-600">{link}</p>
         </div>
       </div>
     </a>
