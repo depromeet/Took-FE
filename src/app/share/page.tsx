@@ -12,13 +12,16 @@ import 'swiper/css/pagination';
 
 const Share = () => {
   const searchParams = useSearchParams();
+  const decodingUrl = decodeURIComponent(searchParams.get('profileImg') || '');
   const params = {
-    profileImg: searchParams.get('profileImg') || '',
+    profileImg: decodingUrl,
     name: searchParams.get('name') || '',
     job: searchParams.get('job') || '',
     jobType: searchParams.get('jobType') as JobType,
     url: searchParams.get('url') || '',
   };
+
+  console.log('decodingUrl : ', decodingUrl);
 
   return (
     <>

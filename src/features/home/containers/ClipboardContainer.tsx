@@ -21,16 +21,18 @@ export const ClipboardContainer = ({ id, name, job, type, profileImg }: Props) =
     router.push(`/share${query}`);
   };
 
+  const encodingProfileImg = encodeURIComponent(profileImg);
+
   return (
     <>
       <div className="mt-[16px] flex w-full items-center justify-center">
         <button
           className="bg flex h-[40px] w-[252px] items-center justify-center gap-1 rounded-full bg-primary"
-          onClick={() =>
+          onClick={() => {
             goToSharePage(
-              `?profileImg=${profileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/card-share/${id}`,
-            )
-          }
+              `?profileImg=${encodingProfileImg}&name=${name}&job=${job}&jobType=${type}&url=https://www.even-took.com/card-share/${id}`,
+            );
+          }}
         >
           <CopyLinkIcon />
           <Typography variant="body-4">내 명함 공유하기</Typography>
