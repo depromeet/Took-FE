@@ -6,6 +6,7 @@ import { DeveloperCardBackground } from '@/features/home/components/BusinessCard
 import { JopType } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import Img from '@/shared/ui/img';
 
 import { Typography } from '../../../../shared/ui/typography';
 import { DesignerIcon } from '../icons/DesignerIcon';
@@ -118,15 +119,26 @@ type CardFooterProps = {
 };
 
 export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
-  console.log('previewInfo : ' + previewInfo);
-  console.log('title : ' + title);
-  console.log('description : ' + description);
-  console.log('imageUrl : ' + imageUrl);
+  const shouldShowThumbnail = ['대표 프로젝트', '작성한 글', 'SNS'].includes(previewInfo);
+  const isSns = previewInfo === 'SNS';
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
-      <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">
-        <Image src={imageUrl} alt="프로젝트 썸네일" width={60} height={60} style={{ objectFit: 'cover' }} />
-      </div>
+      {shouldShowThumbnail && (
+        <div className="relative max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-opacity-white-20">
+          {isSns ? (
+            <Image src={imageUrl} alt={`${title} 아이콘`} fill className="object-cover" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <Img
+                src={imageUrl || '/icons/imageIcon.svg'}
+                alt="프로젝트 썸네일"
+                size="small"
+                className="h-full w-full border-0 p-0"
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div>
         <div
           className={cn(
