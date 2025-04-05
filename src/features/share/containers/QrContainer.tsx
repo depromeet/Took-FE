@@ -17,8 +17,6 @@ type Params = {
 };
 
 export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => {
-  console.log(url);
-
   const backgroundStyle = {
     backgroundColor: jobType === 'DEVELOPER' ? 'rgba(12, 109, 255, 0.4)' : 'rgba(92, 45, 255, 0.4)',
   };
