@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { forwardRef, HTMLAttributes, PropsWithChildren, useState } from 'react';
+import { forwardRef, HTMLAttributes, PropsWithChildren, useEffect, useState } from 'react';
 
 import { DesignerCardBackground } from '@/features/home/components/BusinessCard/Background/DesignerCardBackground';
 import { DeveloperCardBackground } from '@/features/home/components/BusinessCard/Background/DeveloperCardBackground';
@@ -42,19 +42,23 @@ type CardAvatarProps = {
 } & HTMLAttributes<HTMLImageElement>;
 
 export const CardAvatar = forwardRef<HTMLImageElement, CardAvatarProps>(({ src, alt, ...rest }, ref) => {
-  const [image, setImage] = useState(src || '/icon/default-image-s.svg');
+  const [imageSrc, setImageSrc] = useState(src || '/icon/default-image-s.svg');
+
+  useEffect(() => {
+    setImageSrc(src || '/icon/default-image-s.svg');
+  }, [src]);
 
   return (
     <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
       <Image
         ref={ref}
-        src={image}
+        src={imageSrc}
         alt={alt}
         width={50}
         height={50}
         {...rest}
         onError={() => {
-          setImage('/icon/default-image-s.svg');
+          setImageSrc('/icon/default-image-s.svg');
         }}
       />
     </div>

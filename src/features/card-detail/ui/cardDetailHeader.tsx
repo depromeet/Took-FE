@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { spacingStyles } from '@/shared/spacing/spacing';
@@ -27,6 +27,10 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   const isScroll = useScroll();
 
   const [imageSrc, setImageSrc] = useState(data?.data?.imagePath || '/icon/default-image-s.svg');
+
+  useEffect(() => {
+    setImageSrc(data?.data?.imagePath || '/icon/default-image-s.svg');
+  }, [data?.data?.imagePath]);
 
   const handleMode = () => {
     setMode(true);
@@ -68,7 +72,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
                     alt="프로필 이미지"
                     fill
                     className="rounded-full object-cover"
-                    onError={() => setImageSrc('/icons/avatarIcon.png')}
+                    onError={() => setImageSrc('/icon/default-image-s.svg')}
                   />
                 </div>
               )}
