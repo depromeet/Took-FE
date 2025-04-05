@@ -134,7 +134,10 @@ export const CardContainer = () => {
                     }}
                   >
                     <div>
-                      <CardAvatar src={`${profileImg}`} alt={`${name}의 프로필 이미지`} />
+                      <CardAvatar
+                        src={profileImg || '/icon/default-image-s.svg'}
+                        alt={`${name}의 프로필 이미지`}
+                      />
                       <CardName organization={organization}>{name}</CardName>
                       <CardJob jobType={type}>{detailJob}</CardJob>
                       <CardDescription>{introduction}</CardDescription>
