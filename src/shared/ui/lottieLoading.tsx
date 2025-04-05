@@ -24,7 +24,7 @@ export default function LottieLoading({ className }: LottieLoadingProps) {
 
   return (
     <div className={cn('flex h-full w-full items-center justify-center')}>
-      <Lottie className={cn('h-24 w-24', className)} animationData={lottieJson} loop play />
+      <Lottie className={cn('h-12 w-12', className)} animationData={lottieJson} loop play />
     </div>
   );
 }
