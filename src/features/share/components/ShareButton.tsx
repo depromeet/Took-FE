@@ -15,8 +15,7 @@ export const ShareButton = ({ profileImg, name, jobName, linkUrl }: Props) => {
 
   const shareData = {
     image: profileImg,
-    title: name,
-    text: jobName,
+    title: `${jobName} ${name}`,
     url: linkUrl,
   };
 
