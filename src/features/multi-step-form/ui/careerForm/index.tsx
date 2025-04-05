@@ -1,7 +1,6 @@
 'use client';
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { Toaster } from 'sonner';
 import { match } from 'ts-pattern';
 
 import { Button } from '@/shared/ui/button';
@@ -112,7 +111,6 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
           {currentStep < TOTAL_STEPS ? '다음' : '명함 완성하기'}
         </Button>
       )}
-      <Toaster position="bottom-center" />
     </>
   );
 }
