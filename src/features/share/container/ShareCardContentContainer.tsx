@@ -1,7 +1,7 @@
 'use client';
 
+import SNS_CONFIG from '@/features/card-detail/config/sns-config';
 import { Card, JopType, PreviewInfoType } from '@/features/home/types';
-import { PreviewInfo } from '@/features/share/types';
 
 import {
   WrappedCard,
@@ -12,6 +12,7 @@ import {
   ShareCardTags,
   ShareCardFooter,
 } from '../components/ShareCard';
+import { PreviewInfo } from '../types';
 
 type ShareCardContentContainerProps = {
   cardData: Card;
@@ -46,6 +47,7 @@ export const ShareCardContentContainer = ({ cardData }: ShareCardContentContaine
           ? {
               title: previewInfo.sns.type,
               description: previewInfo.sns.link,
+              imageUrl: SNS_CONFIG[previewInfo.sns.type as keyof typeof SNS_CONFIG]?.iconPath || '/icons/imageIcon.svg',
             }
           : {};
       case 'HOBBY':
@@ -75,6 +77,8 @@ export const ShareCardContentContainer = ({ cardData }: ShareCardContentContaine
   };
 
   const previewContent = getPreviewContent();
+
+  console.log('previewContent : ' + previewContent.title, previewContent.imageUrl, previewContent.description);
 
   return (
     <WrappedCard cardType={cardData?.job as JopType} style={{ marginBottom: '20px' }}>

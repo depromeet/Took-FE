@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -26,6 +26,7 @@ function AnimatedShareCardWrapper() {
   const setFromSharedCard = useShareStore((state) => state.setFromSharedCard);
   const { mutate: saveCard } = useSaveCard();
   const { isLoggedIn } = useIsLoggedIn();
+  const router = useRouter();
 
   const cardData = data?.data;
 
@@ -71,6 +72,10 @@ function AnimatedShareCardWrapper() {
     });
   };
 
+  const handleMoveToDetail = () => {
+    router.push(`/card-detail/${id}?type=receivedcard`);
+  };
+
   return (
     <>
       <div className="relative h-full w-full">
@@ -99,7 +104,7 @@ function AnimatedShareCardWrapper() {
           }}
           animate={controls}
         >
-          <section className="flex flex-col items-center justify-center">
+          <section className="flex flex-col items-center justify-center" onClick={handleMoveToDetail}>
             <ShareCardContentContainer cardData={cardData as Card} />
             <div className="h-[46px]">
               <OpenShareCardDetailContainer isAnimating={isAnimating} cardData={cardData as Card} />

@@ -23,7 +23,7 @@ export const ClipboardContainer = ({ id, name, job, type, profileImg }: Props) =
 
   return (
     <>
-      <div className="mt-6 flex w-full items-center justify-center">
+      <div className="mt-[16px] flex w-full items-center justify-center">
         <button
           className="bg flex h-[40px] w-[252px] items-center justify-center gap-1 rounded-full bg-primary"
           onClick={() =>
