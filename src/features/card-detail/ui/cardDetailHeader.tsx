@@ -26,6 +26,8 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   const handleBack = useHistoryBack();
   const isScroll = useScroll();
 
+  const [imageSrc, setImageSrc] = useState(data?.data?.imagePath || '/icon/default-image-s.svg');
+
   const handleMode = () => {
     setMode(true);
   };
@@ -62,10 +64,11 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
               {data?.data?.nickname && (
                 <div className="relative flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-100">
                   <Image
-                    src={data?.data.imagePath || '/icons/avatarIcon.png'}
+                    src={imageSrc}
                     alt="프로필 이미지"
                     fill
                     className="rounded-full object-cover"
+                    onError={() => setImageSrc('/icons/avatarIcon.png')}
                   />
                 </div>
               )}

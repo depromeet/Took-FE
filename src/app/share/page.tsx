@@ -21,8 +21,6 @@ const Share = () => {
     url: searchParams.get('url') || '',
   };
 
-  console.log('decodingUrl : ', decodingUrl);
-
   return (
     <>
       <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">

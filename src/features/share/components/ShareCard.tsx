@@ -1,5 +1,7 @@
+'use client';
+
 import Image from 'next/image';
-import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
+import { forwardRef, HTMLAttributes, PropsWithChildren, useState } from 'react';
 
 import { JopType } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
@@ -40,9 +42,19 @@ type ShareCardAvatarProps = {
 } & HTMLAttributes<HTMLImageElement>;
 
 export const ShareCardAvatar = forwardRef<HTMLImageElement, ShareCardAvatarProps>(({ src, alt, ...rest }, ref) => {
+  const [image, setImage] = useState(src || '/icon/default-image-s.svg');
+
   return (
     <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
-      <Image ref={ref} src={src} alt={alt} width={50} height={50} {...rest} />
+      <Image
+        ref={ref}
+        src={image}
+        alt={alt}
+        width={50}
+        height={50}
+        {...rest}
+        onError={() => setImage('/icon/default-image-s.svg')}
+      />
     </div>
   );
 });
