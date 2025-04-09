@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import SNS_CONFIG from '@/features/card-detail/config/sns-config';
-import { PreviewInfo } from '@/features/share/types';
+import { convertPreviewInfo } from '@/features/share/utils/convertPreviewType';
+import { getPreviewContentByType } from '@/features/share/utils/getPreviewContent';
 
 import { AddCard } from '../components/BusinessCard/AddCard';
 import {
@@ -19,7 +19,6 @@ import {
   WrappedCard,
 } from '../components/BusinessCard/Card';
 import { useCardQuery } from '../hooks/queries/useCardQuery';
-import { PreviewInfoType } from '../types';
 
 import { ClipboardContainer } from './ClipboardContainer';
 
@@ -36,58 +35,6 @@ export const CardContainer = () => {
   if (!data) return null;
 
   const { cards } = data;
-
-  const getPreviewContent = (previewInfoType: string, project: PreviewInfo) => {
-    switch (previewInfoType) {
-      case 'PROJECT':
-        return project.project
-          ? {
-              title: project.project.title,
-              description: project.project.description,
-              imageUrl: project.project.imageUrl,
-            }
-          : {};
-      case 'CONTENT':
-        return project.content
-          ? {
-              title: project.content?.title,
-              description: project.content?.description,
-              imageUrl: project.content?.imageUrl,
-            }
-          : {};
-      case 'SNS':
-        return project.sns
-          ? {
-              title: project.sns.type,
-              description: project.sns.link,
-              imageUrl: SNS_CONFIG[project.sns.type as keyof typeof SNS_CONFIG]?.iconPath || '/icons/imageIcon.svg',
-            }
-          : {};
-      case 'HOBBY':
-        return project.hobby
-          ? {
-              title: project.hobby,
-              description: '',
-            }
-          : {};
-      case 'NEWS':
-        return project.news
-          ? {
-              title: project.news,
-              description: '',
-            }
-          : {};
-      case 'REGION':
-        return project.region
-          ? {
-              title: project.region,
-              description: '',
-            }
-          : {};
-      default:
-        return {};
-    }
-  };
 
   return (
     <>
@@ -112,7 +59,7 @@ export const CardContainer = () => {
             previewInfo: project,
             previewInfoType,
           }) => {
-            const previewContent = getPreviewContent(previewInfoType, project);
+            const previewContent = getPreviewContentByType(project, previewInfoType);
             return (
               <SwiperSlide
                 key={id}
@@ -176,15 +123,4 @@ export const CardContainer = () => {
       )}
     </>
   );
-};
-
-const convertPreviewInfo = (previewInfo: PreviewInfoType) => {
-  return {
-    PROJECT: '대표 프로젝트',
-    CONTENT: '작성한 글',
-    HOBBY: '취미',
-    SNS: 'SNS',
-    NEWS: '최근 소식',
-    REGION: '활동 지역',
-  }[previewInfo];
 };
