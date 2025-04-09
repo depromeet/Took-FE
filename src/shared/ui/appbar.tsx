@@ -7,7 +7,7 @@ import React from 'react';
 import { cn } from '../lib/utils';
 
 const appbarVariants = cva(
-  'z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
+  'sticky z-bar top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
   {
     variants: {
       page: {
