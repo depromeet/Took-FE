@@ -24,12 +24,14 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
   const updateCardMutation = useUpdateCardMutation();
   const queryClient = useQueryClient();
 
+  const isDisabled = updateCardMutation.isPending;
+
   useEffect(() => {
     setMemoText(memo);
   }, [memo]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isDisabled) {
       e.preventDefault();
       e.stopPropagation();
       submitMemo();
@@ -37,29 +39,31 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
   };
 
   const submitMemo = () => {
-    onClose();
-    handleCancelMode();
-
-    if (memoText?.trim()) {
-      updateCardMutation.mutate(
-        { cardId: cardId as string, memo: memoText },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
-            });
-            toast.success('한줄 메모를 등록했어요');
-            onClose();
-            handleCancelMode();
-          },
-          onError: (error) => {
-            handleAxiosError(error);
-          },
-        },
-      );
-    } else {
-      toast.error('메모를 입력해주세요');
+    if (isDisabled || !memoText?.trim()) {
+      if (!memoText?.trim()) {
+        toast.error('메모를 입력해주세요');
+      }
+      return;
     }
+
+    // API 요청 시작
+    updateCardMutation.mutate(
+      { cardId: cardId as string, memo: memoText },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [CARD_DETAIL_QUERY_KEY, cardId],
+          });
+          toast.success('한줄 메모를 등록했어요');
+          // API 요청 성공 후 모달 닫기
+          onClose();
+          handleCancelMode();
+        },
+        onError: (error) => {
+          handleAxiosError(error);
+        },
+      },
+    );
   };
 
   return (
@@ -74,6 +78,7 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
         maxLength={MAX_LENGTH}
         autoFocus
         onKeyDown={handleKeyDown}
+        disabled={isDisabled}
       />
 
       <div className={`${spacingStyles({ paddingX: 'ml' })} flex items-center justify-end`}>
@@ -89,6 +94,7 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
             memoText?.trim() ? 'bg-primary-active' : 'bg-gray-500 text-gray-600',
           )}
           onClick={submitMemo}
+          disabled={isDisabled}
         >
           완료
         </button>
