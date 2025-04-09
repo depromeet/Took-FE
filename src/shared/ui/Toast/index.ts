@@ -1,1 +1,1 @@
-export type MarginValue = '20px' | '95px';
+export type MarginValue = 'detail' | 'receive';

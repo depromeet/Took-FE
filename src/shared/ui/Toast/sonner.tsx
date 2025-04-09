@@ -11,13 +11,13 @@ type ToasterProps = React.ComponentProps<typeof Sonner> & {
   bottomMargin?: MarginValue;
 };
 
-const Toaster = ({ bottomMargin = '20px', ...props }: ToasterProps) => {
+const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
 
   // 미리 정의된 마진 클래스 맵
   const marginClasses: Record<MarginValue, string> = {
-    '20px': 'mb-[20px]',
-    '95px': 'mb-[95px]',
+    detail: 'mb-[20px]',
+    receive: 'mb-[95px]',
   };
 
   // 기본 토스트 클래스

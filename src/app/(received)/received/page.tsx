@@ -53,7 +53,7 @@ function Page() {
           </BottomMenuItem>
         </BottomModal>
         <Navbar />
-        <Toast bottomMargin="95px" />
+        <Toast bottomMargin="receive" />
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ function CardDetail() {
     <div className="w-full overflow-y-auto scrollbar-hide">
       <CardDetailHeader data={data as CardDetailDto} type={type as string} />
       <CardTabs data={data as CardDetailDto} type={type as string} />
-      <Toast bottomMargin="20px" />
+      <Toast bottomMargin="detail" />
     </div>
   );
 }

@@ -22,7 +22,7 @@ type ToastProps = {
   bottomMargin?: MarginValue;
 };
 
-function Toast({ bottomMargin = '20px' }: ToastProps) {
+function Toast({ bottomMargin = 'detail' }: ToastProps) {
   return (
     <>
       <Toaster
