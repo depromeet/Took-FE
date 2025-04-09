@@ -7,6 +7,7 @@ import { spacingStyles } from '@/shared/spacing';
 import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
 import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
+import { Button } from '@/shared/ui/button';
 
 import { useCreateFolder } from '../model/mutations/useCreateFolder';
 import { useDeleteFolder } from '../model/mutations/useDeleteFolder';
@@ -71,22 +72,33 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     setNewFolderName(e.target.value);
   };
 
-  const handleUpdateKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, updatedFolderName: string) => {
+  const handleUpdateKeyDown = (updatedFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
     const index = folders.findIndex((folder) => folder.name === folderName);
 
-    if (e.nativeEvent.isComposing) return;
-    if (e.key == 'Enter' && updatedFolderName.length <= MAX_LENGTH) {
-      e.preventDefault();
+    if (e?.nativeEvent.isComposing) return;
+    if (e?.key == 'Enter' && updatedFolderName.length <= MAX_LENGTH) {
+      e?.preventDefault();
+      const folderId = folders[index].id;
+      updateFolder(folderId, updatedFolderName);
+      serverEditFolder({ folderId, name: updatedFolderName });
+      closeModal();
+    }
+    if (e === undefined && updatedFolderName.length <= MAX_LENGTH) {
       const folderId = folders[index].id;
       updateFolder(folderId, updatedFolderName);
       serverEditFolder({ folderId, name: updatedFolderName });
       closeModal();
     }
   };
-  const handleAddKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, newFolderName: string) => {
-    if (e.nativeEvent.isComposing) return;
-    if (e.key == 'Enter' && newFolderName.length <= MAX_LENGTH) {
-      e.preventDefault();
+  const handleAddKeyDown = (newFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e?.nativeEvent.isComposing) return;
+    if (e?.key == 'Enter' && newFolderName.length <= MAX_LENGTH) {
+      e?.preventDefault();
+      serverCreateFolder(newFolderName);
+      addFolder(newFolderName);
+      closeModal();
+    }
+    if (e === undefined && newFolderName.length <= MAX_LENGTH) {
       serverCreateFolder(newFolderName);
       addFolder(newFolderName);
       closeModal();
@@ -151,7 +163,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
             <input
               defaultValue={folderName}
               className={cn('mx-5 h-16 bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
-              onKeyDown={(e) => handleUpdateKeyDown(e, updatedFolderName)}
+              onKeyDown={(e) => handleUpdateKeyDown(updatedFolderName, e)}
               onChange={handleUpdateChange}
               autoFocus
             />
@@ -164,17 +176,23 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
               >
                 최대 10자까지 입력 가능해요
               </p>
-              <p className="self-end text-caption-1 text-gray-400">
+              <p className="mb-3 self-end text-caption-1 text-gray-400">
                 {updatedFolderName.length}/{MAX_LENGTH}
               </p>
             </div>
+            <Button
+              className={cn(spacingStyles({ marginX: 'ml' }))}
+              onClick={() => handleUpdateKeyDown(updatedFolderName)}
+            >
+              다음
+            </Button>
           </>
         ) : isAdd ? (
           <>
             <BottomModalTitle>폴더 추가</BottomModalTitle>
             <input
               className={cn('h-16 w-full bg-gray-600 outline-none', spacingStyles({ padding: 'ml' }))}
-              onKeyDown={(e) => handleAddKeyDown(e, newFolderName)}
+              onKeyDown={(e) => handleAddKeyDown(newFolderName, e)}
               onChange={handleAddChange}
               autoFocus
             />
@@ -182,10 +200,13 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
               <p className={cn('!text-caption-1 text-error-medium', newFolderName.length <= MAX_LENGTH && 'invisible')}>
                 최대 10자까지 입력 가능해요
               </p>
-              <p className="mr-5 self-end text-caption-1 text-gray-400">
+              <p className="mb-3 self-end text-caption-1 text-gray-400">
                 {newFolderName.length}/{MAX_LENGTH}
               </p>
             </div>
+            <Button className={cn(spacingStyles({ marginX: 'ml' }))} onClick={() => handleAddKeyDown(newFolderName)}>
+              다음
+            </Button>
           </>
         ) : (
           <>
