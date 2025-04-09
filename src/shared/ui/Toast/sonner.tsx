@@ -3,19 +3,39 @@
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner } from 'sonner';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+import { cn } from '@/shared/lib/utils';
 
-const Toaster = ({ ...props }: ToasterProps) => {
+import { MarginValue } from '.';
+
+type ToasterProps = React.ComponentProps<typeof Sonner> & {
+  bottomMargin?: MarginValue;
+};
+
+const Toaster = ({ bottomMargin = '20px', ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
+
+  // 미리 정의된 마진 클래스 맵
+  const marginClasses: Record<MarginValue, string> = {
+    '20px': 'mb-[20px]',
+    '95px': 'mb-[95px]',
+  };
+
+  // 기본 토스트 클래스
+  const baseToastClass = cn(
+    'group toast flex justify-center items-center max-w-fit',
+    'group-[.toaster]:bg-gray-600 group-[.toaster]:text-gray-white group-[.toaster]:text-body-4',
+    'group-[.toaster]:rounded-full group-[.toaster]:border-none',
+    'group-[.toaster]:fixed group-[.toaster]:left-1/2 group-[.toaster]:transform group-[.toaster]:-translate-x-1/2',
+    marginClasses[bottomMargin], // 미리 정의된 클래스 사용
+  );
 
   return (
     <Sonner
       theme={theme as ToasterProps['theme']}
-      className="toaster group"
+      className={cn('toaster group')}
       toastOptions={{
         classNames: {
-          toast:
-            'group toast flex justify-center items-center max-w-fit group-[.toaster]:bg-gray-600 group-[.toaster]:text-gray-white group-[.toaster]:text-body-4 group-[.toaster]:rounded-full group-[.toaster]:border-none group-[.toaster]:m-auto group-[.toaster]:mb-20',
+          toast: baseToastClass,
           description: 'group-[.toast]:text-gray-white',
         },
       }}

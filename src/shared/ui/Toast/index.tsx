@@ -4,6 +4,8 @@ import Image from 'next/image';
 
 import { Toaster } from './sonner';
 
+import { MarginValue } from '.';
+
 /**
  * 공통 컴포넌트 - sonner(toast)
  *
@@ -15,7 +17,12 @@ import { Toaster } from './sonner';
  * @returns {JSX.Element} - Toaster 컴포넌트
  *
  */
-function Toast() {
+
+type ToastProps = {
+  bottomMargin?: MarginValue;
+};
+
+function Toast({ bottomMargin = '20px' }: ToastProps) {
   return (
     <>
       <Toaster
@@ -40,6 +47,7 @@ function Toast() {
           ),
         }}
         position="bottom-center"
+        bottomMargin={bottomMargin}
       />
     </>
   );
