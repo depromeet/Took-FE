@@ -5,7 +5,7 @@ import { Toaster as Sonner } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 
-import { MarginValue } from '.';
+import { MarginValue } from './types';
 
 type ToasterProps = React.ComponentProps<typeof Sonner> & {
   bottomMargin?: MarginValue;

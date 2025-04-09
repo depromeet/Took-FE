@@ -3,8 +3,7 @@
 import Image from 'next/image';
 
 import { Toaster } from './sonner';
-
-import { MarginValue } from '.';
+import { MarginValue } from './types';
 
 /**
  * 공통 컴포넌트 - sonner(toast)
