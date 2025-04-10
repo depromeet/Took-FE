@@ -4,7 +4,8 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useUpdateCardMutation, CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
+import { useUpdateCardMutation } from '@/features/card-detail/hooks/mutation/useMemoMutation';
+import { CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import handleAxiosError from '@/shared/utils/handleAxiosError';

@@ -1,5 +1,5 @@
 // api/cardQueries.ts
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { client } from '@/shared/apis/client';
@@ -27,24 +27,6 @@ const getCardDetail = async (cardId: string, isLoggedIn: boolean): Promise<CardD
   }
 };
 
-const updateReceiveCard = async (cardId: string, memo: string) => {
-  const response = await client.put<any, CardDetailDto>(`${CLIENT_SIDE_URL}/api/card/receive`, {
-    cardId,
-    memo,
-  });
-  return response.data;
-};
-
-// 받은 명함 삭제 API
-const deleteReceivedCard = async (cardId: string) => {
-  const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/card/receive`, {
-    data: {
-      cardIds: [Number(cardId)],
-    },
-  });
-  return data;
-};
-
 // 카드 상세 정보를 가져오는 쿼리 훅
 export const useCardDetailQuery = (cardId: string) => {
   const { isLoggedIn } = useIsLoggedIn();
@@ -52,31 +34,5 @@ export const useCardDetailQuery = (cardId: string) => {
   return useQuery({
     queryKey: [CARD_DETAIL_QUERY_KEY, cardId, isLoggedIn],
     queryFn: () => getCardDetail(cardId, isLoggedIn),
-  });
-};
-
-// 카드 업데이트를 위한 mutation 훅
-export const useUpdateCardMutation = () => {
-  return useMutation({
-    mutationFn: ({ cardId, memo }: { cardId: string; memo: string }) => updateReceiveCard(cardId, memo),
-  });
-};
-
-// 받은 명함 삭제를 위한 mutation 훅
-export const useDeleteReceivedCardMutation = () => {
-  return useMutation({
-    mutationFn: (cardId: string) => deleteReceivedCard(cardId),
-  });
-};
-
-//내 명함 삭제 API
-const deleteMyCard = async (cardId: string) => {
-  const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/card/${cardId}`);
-  return data;
-};
-
-export const useDeleteMyCardMutation = () => {
-  return useMutation({
-    mutationFn: (cardId: string) => deleteMyCard(cardId),
   });
 };
