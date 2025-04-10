@@ -12,7 +12,12 @@ type UseUpdateFolderProps = {
 
 const MAX_LENGTH = 10;
 
-export const useUpdateFolder = ({ isSubmittingRef, folderName, setFolderName, closeModal }: UseUpdateFolderProps) => {
+export const useUpdateFolderModal = ({
+  isSubmittingRef,
+  folderName,
+  setFolderName,
+  closeModal,
+}: UseUpdateFolderProps) => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
   const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
 

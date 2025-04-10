@@ -9,7 +9,7 @@ type UseAddFolderProps = {
 };
 const MAX_LENGTH = 10;
 
-export const useAddFolder = ({ isSubmittingRef, closeModal }: UseAddFolderProps) => {
+export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderProps) => {
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
   const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
 
