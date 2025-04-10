@@ -9,11 +9,11 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { Button } from '@/shared/ui/button';
 
-import { useDeleteFolder } from '../model/mutations/useDeleteFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
-import { useAddFolder } from '../model/useAddFolder';
+import { useAddFolderModal } from '../model/useAddFolderModal';
+import { useDeleteFolderModal } from '../model/useDeleteFolderModal';
 import { useModal } from '../model/useModal';
-import { useUpdateFolder } from '../model/useUpdateFolder';
+import { useUpdateFolderModal } from '../model/useUpdateFolderModal';
 
 import FoldersList from './foldersList';
 // import Intellibanner from './intellibanner';
@@ -26,61 +26,48 @@ type ReceivedCardViewProps = {
 };
 
 export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId }: ReceivedCardViewProps) {
-  // const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
-
   const [folderName, setFolderName] = useState<string>(''); // 수정하려는 폴더의 기존 이름
-  // const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
-
   const [sortingCriteria, setSortingCriteria] = useState<string>('최근 공유 순');
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const { isSortingModalOpen, handleSortingModal, closeSortingModal } = useModal();
-  const { folders, deleteFolder } = useFolderStore();
-
-  const { mutate: serverDeleteFolder } = useDeleteFolder();
+  const { folders } = useFolderStore();
 
   const outside = useRef<HTMLInputElement>(null);
   const isSubmittingRef = useRef(false);
+
+  const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddKeyDown } = useAddFolderModal({
+    isSubmittingRef,
+    closeModal,
+  });
+
+  const {
+    isUpdate,
+    setIsUpdate,
+    updatedFolderName,
+    setUpdatedFolderName,
+    handleUpdate,
+    handleUpdateChange,
+    handleUpdateKeyDown,
+  } = useUpdateFolderModal({
+    isSubmittingRef,
+    folderName,
+    setFolderName,
+    closeModal,
+  });
+
+  const { handleDelete } = useDeleteFolderModal(() => closeModal());
 
   const MAX_LENGTH = 10;
 
   const handleFolderSelect = (id?: number | null) => {
     setSelectedFolderId(id ?? null);
   };
-  // const handleUpdate = (folder: string) => {
-  //   setFolderName(folder);
-  //   setIsUpdate(true);
-  // };
-  const handleDelete = (id: number) => {
-    serverDeleteFolder({ folderId: id });
-    deleteFolder(id);
-    closeModal();
-  };
 
-  // const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUpdatedFolderName(e.target.value);
-  // };
-
-  // const handleUpdateKeyDown = (updatedFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e?.nativeEvent.isComposing) return;
-  //   if (e?.key !== 'Enter') return;
-  //   if (isSubmittingRef.current) return;
-
-  //   e.preventDefault();
-
-  //   isSubmittingRef.current = true;
-
-  //   const index = folders.findIndex((folder) => folder.name === folderName);
-  //   if (index === -1) return;
-
-  //   const folderId = folders[index].id;
-  //   updateFolder(folderId, updatedFolderName);
-  //   serverEditFolder({ folderId, name: updatedFolderName });
+  // const handleDelete = (id: number) => {
+  //   serverDeleteFolder({ folderId: id });
+  //   deleteFolder(id);
   //   closeModal();
-
-  //   setTimeout(() => {
-  //     isSubmittingRef.current = false;
-  //   }, 500);
   // };
 
   useEffect(() => {
@@ -94,25 +81,6 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     setUpdatedFolderName(folderName);
   }, [folderName]);
 
-  const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddKeyDown } = useAddFolder({
-    isSubmittingRef,
-    closeModal,
-  });
-
-  const {
-    isUpdate,
-    setIsUpdate,
-    updatedFolderName,
-    setUpdatedFolderName,
-    handleUpdate,
-    handleUpdateChange,
-    handleUpdateKeyDown,
-  } = useUpdateFolder({
-    isSubmittingRef,
-    folderName,
-    setFolderName,
-    closeModal,
-  });
   return (
     <main
       ref={outside}
