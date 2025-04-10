@@ -170,7 +170,7 @@ function Appbar({
   className,
 }: AppbarProps) {
   return (
-    <header className={cn(className, appbarVariants({ page, hasBackground }))}>
+    <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
       <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
       {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
       <div className="flex flex-1 justify-end">
