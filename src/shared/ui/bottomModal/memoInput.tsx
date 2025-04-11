@@ -8,7 +8,6 @@ import { useUpdateCardMutation } from '@/features/card-detail/hooks/mutation/use
 import { CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
-import handleAxiosError from '@/shared/utils/handleAxiosError';
 
 interface MemoInputProps {
   onClose: () => void;

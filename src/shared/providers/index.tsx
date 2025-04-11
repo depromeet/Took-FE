@@ -3,8 +3,8 @@
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PropsWithChildren } from 'react';
 
-import { QueryClientProvider } from './QueryClientProvider';
 import { GlobalErrorBoundaryProvider } from './GlobalErrorBoundary';
+import { QueryClientProvider } from './QueryClientProvider';
 
 export const Providers = ({ children }: PropsWithChildren) => {
   return (
