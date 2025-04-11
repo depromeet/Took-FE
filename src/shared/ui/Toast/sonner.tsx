@@ -23,7 +23,7 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
   // 기본 토스트 클래스
   // 임시적으로 max-w-[200px] 설정 -> 추후 번경 사항
   const baseToastClass = cn(
-    'group toast flex flex-row items-center justify-center gap-2 !w-fit',
+    'group toast flex flex-row items-center justify-center gap-2',
     'group-[.toaster]:bg-gray-600 group-[.toaster]:text-gray-white group-[.toaster]:text-body-4',
     'group-[.toaster]:rounded-full group-[.toaster]:border-none',
     'group-[.toaster]:fixed group-[.toaster]:left-1/2 group-[.toaster]:transform group-[.toaster]:-translate-x-1/2',
@@ -34,15 +34,14 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps['theme']}
       className={cn('toaster group')}
-      style={
-        {
-          '--width': '100%',
-        } as React.CSSProperties
-      }
+      style={{ '--width': '100%' } as React.CSSProperties}
       toastOptions={{
         classNames: {
           toast: baseToastClass,
           description: 'group-[.toast]:text-gray-white',
+        },
+        style: {
+          width: 'max-content',
         },
       }}
       {...props}
