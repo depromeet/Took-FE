@@ -106,7 +106,7 @@ export default function ChooseReceivedCardView() {
           );
         })}
       </BottomModal>
-      <Toast />
+      <Toast bottomMargin="receive" />
     </div>
   );
 }

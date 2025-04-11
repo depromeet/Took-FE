@@ -1,6 +1,5 @@
 'use client';
 
-import SNS_CONFIG from '@/features/card-detail/config/sns-config';
 import { Card, JopType, PreviewInfoType } from '@/features/home/types';
 
 import {
@@ -13,6 +12,8 @@ import {
   ShareCardFooter,
 } from '../components/ShareCard';
 import { PreviewInfo } from '../types';
+import { convertPreviewInfo } from '../utils/convertPreviewType';
+import { getPreviewContentByType } from '../utils/getPreviewContent';
 
 type ShareCardContentContainerProps = {
   cardData: Card;
@@ -25,55 +26,7 @@ export const ShareCardContentContainer = ({ cardData }: ShareCardContentContaine
     const previewInfo = cardData.previewInfo as PreviewInfo;
     const type = cardData.previewInfoType.toUpperCase();
 
-    switch (type) {
-      case 'PROJECT':
-        return previewInfo.project
-          ? {
-              title: previewInfo.project.title,
-              description: previewInfo.project.description,
-              imageUrl: previewInfo.project.imageUrl,
-            }
-          : {};
-      case 'CONTENT':
-        return previewInfo.content
-          ? {
-              title: previewInfo.content.title,
-              description: previewInfo.content.description,
-              imageUrl: previewInfo.content.imageUrl,
-            }
-          : {};
-      case 'SNS':
-        return previewInfo.sns
-          ? {
-              title: previewInfo.sns.type,
-              description: previewInfo.sns.link,
-              imageUrl: SNS_CONFIG[previewInfo.sns.type as keyof typeof SNS_CONFIG]?.iconPath || '/icons/imageIcon.svg',
-            }
-          : {};
-      case 'HOBBY':
-        return previewInfo.hobby
-          ? {
-              title: previewInfo.hobby,
-              description: '',
-            }
-          : {};
-      case 'NEWS':
-        return previewInfo.news
-          ? {
-              title: previewInfo.news,
-              description: '',
-            }
-          : {};
-      case 'REGION':
-        return previewInfo.region
-          ? {
-              title: previewInfo.region,
-              description: '',
-            }
-          : {};
-      default:
-        return {};
-    }
+    return getPreviewContentByType(previewInfo, type);
   };
 
   const previewContent = getPreviewContent();
@@ -96,15 +49,4 @@ export const ShareCardContentContainer = ({ cardData }: ShareCardContentContaine
       />
     </WrappedCard>
   );
-};
-
-const convertPreviewInfo = (previewInfo: PreviewInfoType) => {
-  return {
-    PROJECT: '대표 프로젝트',
-    CONTENT: '작성한 글',
-    HOBBY: '취미',
-    SNS: 'SNS',
-    NEWS: '최근 소식',
-    REGION: '활동 지역',
-  }[previewInfo];
 };

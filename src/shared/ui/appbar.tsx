@@ -7,7 +7,7 @@ import React from 'react';
 import { cn } from '../lib/utils';
 
 const appbarVariants = cva(
-  'z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
+  'sticky z-bar top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
   {
     variants: {
       page: {
@@ -170,7 +170,7 @@ function Appbar({
   className,
 }: AppbarProps) {
   return (
-    <header className={cn(className, appbarVariants({ page, hasBackground }))}>
+    <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
       <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
       {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
       <div className="flex flex-1 justify-end">
