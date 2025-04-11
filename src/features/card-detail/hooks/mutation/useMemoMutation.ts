@@ -15,6 +15,7 @@ const updateReceiveCard = async (cardId: string, memo: string) => {
     return response.data;
   } catch (err) {
     handleAxiosError(err);
+    throw err;
   }
 };
 

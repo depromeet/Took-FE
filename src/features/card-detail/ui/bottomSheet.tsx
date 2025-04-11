@@ -43,9 +43,6 @@ function BottomSheet({
             router.push('/');
           }, 700);
         },
-        onError: (error) => {
-          toast.error(error.message);
-        },
       });
     } else {
       deleteReceivedCardMutation.mutate(cardId as string, {
@@ -55,9 +52,6 @@ function BottomSheet({
           setTimeout(() => {
             router.push('/received');
           }, 700);
-        },
-        onError: (error) => {
-          toast.error(error.message);
         },
       });
     }
