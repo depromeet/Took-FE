@@ -39,7 +39,6 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
           '--width': '100%',
         } as React.CSSProperties
       }
-      duration={1000000}
       toastOptions={{
         classNames: {
           toast: baseToastClass,
