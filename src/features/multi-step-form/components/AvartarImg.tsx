@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { sendImagePickerMessage } from '@/features/auth/login/utils/nativeBridge';
+import useDevice from '@/shared/hooks/useDevice';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import ImageAdd from '@/shared/ui/Avatar/imageAdd';
 
@@ -17,9 +19,38 @@ const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
 function AvatarImg() {
   const { control, setValue } = useFormContext<CareerFormData>();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { isWebView } = useDevice();
 
   // 미리보기용 state (string | null)
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
+
+  // 웹뷰로부터 이미지 데이터를 받기 위한 메시지 리스너
+  useEffect(() => {
+    if (isWebView && typeof window !== 'undefined') {
+      const handleMessage = async (event: MessageEvent) => {
+        try {
+          if (typeof event.data === 'string' && event.data.startsWith('data:image')) {
+            // 이미지 데이터 URL을 받아서 처리
+            setAvatarSrc(event.data);
+
+            // 데이터 URL에서 파일 객체 생성
+            const response = await fetch(event.data);
+            const blob = await response.blob();
+            const { mime, ext } = getMimeAndExt(event.data);
+            const file = new File([blob], `profile.${ext}`, { type: mime });
+            setValue('profileImage', file);
+          }
+        } catch (error) {
+          console.error('메시지 처리 중 오류:', error);
+        }
+      };
+
+      window.addEventListener('message', handleMessage);
+      return () => {
+        window.removeEventListener('message', handleMessage);
+      };
+    }
+  }, [isWebView, setValue]);
 
   // 컴포넌트 마운트 시 기본 이미지 URL을 폼에 설정
   useEffect(() => {
@@ -42,7 +73,18 @@ function AvatarImg() {
   }, [setValue, avatarSrc]);
 
   const handleClick = () => {
-    fileInputRef.current?.click();
+    if (isWebView) {
+      // 네이티브 이미지 선택 다이얼로그 표시
+      const actionChoice = window.confirm('이미지 선택 방법을 선택하세요.\n확인: 카메라로 찍기, 취소: 갤러리에서 선택');
+      if (actionChoice) {
+        sendImagePickerMessage('camera');
+      } else {
+        sendImagePickerMessage('library');
+      }
+    } else {
+      // 웹에서는 기존 방식으로 파일 선택
+      fileInputRef.current?.click();
+    }
   };
 
   return (
@@ -91,3 +133,22 @@ function AvatarImg() {
 }
 
 export default AvatarImg;
+
+// 이렇게 수정하면 다양한 이미지 형식 지원 가능
+const getMimeAndExt = (dataUrl: string) => {
+  // data:image/png;base64,... 또는 data:image/jpeg;base64,... 등에서 MIME 타입 추출
+  const mimeMatch = dataUrl.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);/);
+  const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+
+  // MIME 타입에 따른 확장자 결정
+  const extMap: { [key: string]: string } = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/gif': 'gif',
+    'image/webp': 'webp',
+    'image/svg+xml': 'svg',
+  };
+
+  const ext = extMap[mime] || 'jpg';
+  return { mime, ext };
+};
