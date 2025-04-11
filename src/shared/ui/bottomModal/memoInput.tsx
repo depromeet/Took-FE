@@ -4,10 +4,10 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useUpdateCardMutation, CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
+import { useUpdateCardMutation } from '@/features/card-detail/hooks/mutation/useMemoMutation';
+import { CARD_DETAIL_QUERY_KEY } from '@/features/card-detail/hooks/query/useCardDetailQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
-import handleAxiosError from '@/shared/utils/handleAxiosError';
 
 interface MemoInputProps {
   onClose: () => void;
@@ -58,9 +58,6 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
           // API 요청 성공 후 모달 닫기
           onClose();
           handleCancelMode();
-        },
-        onError: (error) => {
-          handleAxiosError(error);
         },
       },
     );

@@ -7,7 +7,7 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 
-import { useDeleteMyCardMutation, useDeleteReceivedCardMutation } from '../hooks/query/useCardDetailQuery';
+import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks/mutation/useCardDeleteMutation';
 
 type BottomSheetProps = {
   mode: boolean;
@@ -43,9 +43,6 @@ function BottomSheet({
             router.push('/');
           }, 700);
         },
-        onError: (error) => {
-          toast.error(error.message);
-        },
       });
     } else {
       deleteReceivedCardMutation.mutate(cardId as string, {
@@ -55,9 +52,6 @@ function BottomSheet({
           setTimeout(() => {
             router.push('/received');
           }, 700);
-        },
-        onError: (error) => {
-          toast.error(error.message);
         },
       });
     }
