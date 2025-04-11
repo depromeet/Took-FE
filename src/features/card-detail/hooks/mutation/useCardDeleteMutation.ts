@@ -24,7 +24,7 @@ export const useDeleteMyCardMutation = () => {
 // 받은 명함 삭제 API
 const deleteReceivedCard = async (cardId: string) => {
   try {
-    const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/car/receive`, {
+    const data = await client.delete<any>(`${CLIENT_SIDE_URL}/api/card/receive`, {
       data: {
         cardIds: [Number(cardId)],
       },
