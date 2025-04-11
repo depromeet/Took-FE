@@ -34,5 +34,6 @@ export const useCardDetailQuery = (cardId: string) => {
   return useQuery({
     queryKey: [CARD_DETAIL_QUERY_KEY, cardId, isLoggedIn],
     queryFn: () => getCardDetail(cardId, isLoggedIn),
+    throwOnError: true,
   });
 };
