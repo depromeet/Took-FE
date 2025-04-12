@@ -30,8 +30,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       },
     });
 
-    // console.log('✅', res, `${CLIENT_SIDE_URL}/api/auth/login/APPLE?code=${code}`);
-
     if (res.status === 401) {
       const redirectUrl = new URL('/login', request.url);
       redirectUrl.searchParams.set('login-failed', 'true');
@@ -44,11 +42,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const data = (await res.json()) as { data: AuthDto };
-    const {
-      data: {
-        data: { token },
-      },
-    } = data.data;
+
+    const token = data.data.token;
     const { accessToken, refreshToken } = token;
 
     cookie.set('accessToken', accessToken);

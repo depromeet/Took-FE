@@ -3,11 +3,10 @@ export type SocialProvider = 'KAKAO' | 'GOOGLE' | 'APPLE';
 
 // POST - api/auth/login/{oauthType}
 
-export type ApiResponse<T> = {
+export type ApiResponse = {
   status: string;
   message: string;
   timestamp: string;
-  data: T;
 };
 
 export type UserDto = {
@@ -21,13 +20,11 @@ export type TokenDto = {
 };
 
 export type AuthResponseDto = {
-  data: {
-    token: TokenDto;
-    user: UserDto;
-  };
+  token: TokenDto;
+  user: UserDto;
 };
 
-export type AuthDto = ApiResponse<AuthResponseDto>;
+export type AuthDto = ApiResponse & AuthResponseDto;
 
 // GET - api/auth/{oauthType}
 export type RedirectDto = {
