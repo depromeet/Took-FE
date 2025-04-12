@@ -1,10 +1,11 @@
 // 네이티브 메시지 타입 정의
-export type NativeMessageType = 'GOOGLE_LOGIN';
+export type NativeMessageType = 'GOOGLE_LOGIN' | 'IMAGE_PICKER';
 
+// 네이티브 메시지 인터페이스 정의
 export interface NativeMessage {
   type: NativeMessageType;
   url?: string;
-  data?: any;
+  source?: 'camera' | 'library'; // 카메라 또는 갤러리 선택
 }
 
 // 네이티브 메시지 전송 함수
@@ -18,6 +19,14 @@ export const sendMessageToNative = (message: NativeMessage) => {
 export const sendGoogleLoginMessage = (url: string) => {
   sendMessageToNative({
     type: 'GOOGLE_LOGIN',
-    url
+    url,
+  });
+};
+
+// 이미지 선택 메시지 전송 헬퍼 함수
+export const sendImagePickerMessage = (source: 'camera' | 'library') => {
+  sendMessageToNative({
+    type: 'IMAGE_PICKER',
+    source,
   });
 };
