@@ -94,3 +94,5 @@ export const FOLDERS_MOCK = [
 ];
 
 export const SORTING = ['최근 공유 순', '오름차순', '내림차순'];
+
+export const MAX_FOLDER_NAME_LENGTH = 10;
