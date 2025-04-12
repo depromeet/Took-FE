@@ -1,6 +1,5 @@
 'use client';
 
-import { useTheme } from 'next-themes';
 import { Toaster as Sonner } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
@@ -12,8 +11,6 @@ type ToasterProps = React.ComponentProps<typeof Sonner> & {
 };
 
 const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
-
   // 미리 정의된 마진 클래스 맵
   const marginClasses: Record<MarginValue, string> = {
     detail: 'mb-[20px]',
@@ -32,13 +29,12 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
       className={cn('toaster group')}
       style={{ '--width': '100%' } as React.CSSProperties}
       toastOptions={{
         classNames: {
           toast: baseToastClass,
-          description: 'group-[.toast]:text-gray-white',
+          description: 'group-[.toast]:text-white',
         },
         style: {
           width: 'max-content',
