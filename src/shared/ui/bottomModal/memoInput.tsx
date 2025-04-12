@@ -59,6 +59,9 @@ export const MemoInput = ({ onClose, handleCancelMode, memo }: MemoInputProps) =
           onClose();
           handleCancelMode();
         },
+        onError: (error) => {
+          throw error;
+        },
       },
     );
   };
