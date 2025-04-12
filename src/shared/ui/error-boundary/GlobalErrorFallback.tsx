@@ -1,11 +1,10 @@
-// src/shared/ui/error-boundary/GlobalErrorFallback.tsx
 'use client';
 
 import Image from 'next/image';
 import { FallbackProps } from 'react-error-boundary';
 
 export function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  const message = error.response.message;
+  const message = error.response?.message || '일시적인 오류가 발생했어요';
   return (
     <div className="flex h-dvh items-center justify-center">
       <div className="flex flex-col items-center">
