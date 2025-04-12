@@ -9,11 +9,11 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { Button } from '@/shared/ui/button';
 
-import { useCreateFolder } from '../model/mutations/useCreateFolder';
-import { useDeleteFolder } from '../model/mutations/useDeleteFolder';
-import { useEditFolder } from '../model/mutations/useEditFolder';
 import { useFolderStore } from '../model/store/useFoldersStore';
+import { useAddFolderModal } from '../model/useAddFolderModal';
+import { useDeleteFolderModal } from '../model/useDeleteFolderModal';
 import { useModal } from '../model/useModal';
+import { useUpdateFolderModal } from '../model/useUpdateFolderModal';
 
 import FoldersList from './foldersList';
 // import Intellibanner from './intellibanner';
@@ -26,24 +26,37 @@ type ReceivedCardViewProps = {
 };
 
 export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId }: ReceivedCardViewProps) {
-  const [isUpdate, setIsUpdate] = useState<boolean>(false); // 수정 버튼 누름 여부
-  const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
-
   const [folderName, setFolderName] = useState<string>(''); // 수정하려는 폴더의 기존 이름
-  const [newFolderName, setNewFolderName] = useState<string>(''); // 수정하려는 폴더의 새로운 이름
-  const [updatedFolderName, setUpdatedFolderName] = useState<string>(folderName); // 수정하려는 폴더의 새로운 이름
-
   const [sortingCriteria, setSortingCriteria] = useState<string>('최근 공유 순');
 
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const { isSortingModalOpen, handleSortingModal, closeSortingModal } = useModal();
-  const { folders, addFolder, updateFolder, deleteFolder } = useFolderStore();
-
-  const { mutate: serverCreateFolder } = useCreateFolder(); // createFolder 함수와 로딩 상태
-  const { mutate: serverEditFolder } = useEditFolder();
-  const { mutate: serverDeleteFolder } = useDeleteFolder();
+  const { folders } = useFolderStore();
 
   const outside = useRef<HTMLInputElement>(null);
+  const isSubmittingRef = useRef(false);
+
+  const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddKeyDown } = useAddFolderModal({
+    isSubmittingRef,
+    closeModal,
+  });
+
+  const {
+    isUpdate,
+    setIsUpdate,
+    updatedFolderName,
+    setUpdatedFolderName,
+    handleUpdate,
+    handleUpdateChange,
+    handleUpdateKeyDown,
+  } = useUpdateFolderModal({
+    isSubmittingRef,
+    folderName,
+    setFolderName,
+    closeModal,
+  });
+
+  const { handleDelete } = useDeleteFolderModal(() => closeModal());
 
   const MAX_LENGTH = 10;
 
@@ -51,59 +64,11 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     setSelectedFolderId(id ?? null);
   };
 
-  const handleAdd = () => {
-    setIsAdd(true);
-  };
-  const handleUpdate = (folder: string) => {
-    setFolderName(folder);
-    setIsUpdate(true);
-  };
-  const handleDelete = (id: number) => {
-    serverDeleteFolder({ folderId: id });
-    deleteFolder(id);
-    closeModal();
-  };
-
-  const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedFolderName(e.target.value);
-  };
-
-  const handleAddChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewFolderName(e.target.value);
-  };
-
-  const handleUpdateKeyDown = (updatedFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
-    const index = folders.findIndex((folder) => folder.name === folderName);
-
-    if (e?.nativeEvent.isComposing) return;
-    if (e?.key == 'Enter' && updatedFolderName.length <= MAX_LENGTH) {
-      e?.preventDefault();
-      const folderId = folders[index].id;
-      updateFolder(folderId, updatedFolderName);
-      serverEditFolder({ folderId, name: updatedFolderName });
-      closeModal();
-    }
-    if (e === undefined && updatedFolderName.length <= MAX_LENGTH) {
-      const folderId = folders[index].id;
-      updateFolder(folderId, updatedFolderName);
-      serverEditFolder({ folderId, name: updatedFolderName });
-      closeModal();
-    }
-  };
-  const handleAddKeyDown = (newFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e?.nativeEvent.isComposing) return;
-    if (e?.key == 'Enter' && newFolderName.length <= MAX_LENGTH) {
-      e?.preventDefault();
-      serverCreateFolder(newFolderName);
-      addFolder(newFolderName);
-      closeModal();
-    }
-    if (e === undefined && newFolderName.length <= MAX_LENGTH) {
-      serverCreateFolder(newFolderName);
-      addFolder(newFolderName);
-      closeModal();
-    }
-  };
+  // const handleDelete = (id: number) => {
+  //   serverDeleteFolder({ folderId: id });
+  //   deleteFolder(id);
+  //   closeModal();
+  // };
 
   useEffect(() => {
     if (!isModalOpen) {
