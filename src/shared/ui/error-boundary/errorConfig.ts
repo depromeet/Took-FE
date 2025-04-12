@@ -18,7 +18,7 @@ export const DEFAULT_ERROR_CONFIG: ErrorConfig = {
 // 에러 코드별 설정
 export const ERROR_CONFIGS: Record<number, ErrorConfig> = {
   400: {
-    message: '잘못된 요청입니다',
+    message: '요청이 올바르지 않아요',
     buttonText: '이전 페이지로',
     buttonAction: () => window.history.back(),
   },
@@ -28,12 +28,12 @@ export const ERROR_CONFIGS: Record<number, ErrorConfig> = {
     buttonAction: () => (window.location.href = '/login'),
   },
   403: {
-    message: '접근 권한이 없습니다',
+    message: '접근 권한이 없어요',
     buttonText: '홈으로 이동',
     buttonAction: () => (window.location.href = '/'),
   },
   500: {
-    message: '서버 오류가 발생했습니다',
+    message: '일시적인 오류가 발생했어요',
     buttonText: '다시 시도하기',
     buttonAction: () => window.location.reload(),
   },
