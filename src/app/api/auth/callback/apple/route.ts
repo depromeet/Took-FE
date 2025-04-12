@@ -3,8 +3,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { parse } from 'querystring';
 
-import { AuthDto } from '@/features/auth/login/types/auth';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
+
+type AuthResponseDto = {
+  token: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const cookie = cookies();
@@ -41,7 +47,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: `서버 요청 실패` }, { status: res.status });
     }
 
-    const data = (await res.json()) as { data: AuthDto };
+    const data = (await res.json()) as { data: AuthResponseDto };
 
     const token = data.data.token;
     const { accessToken, refreshToken } = token;
