@@ -5,7 +5,7 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { ErrorFallback } from '../ui/error-boundary/errorFallback';
+import { ErrorFallback } from '../ui/error-boundary/ErrorFallback';
 
 export const ApiErrorBoundaryProvider = ({ children }: PropsWithChildren) => {
   return (
