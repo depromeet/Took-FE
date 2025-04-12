@@ -1,4 +1,5 @@
 import { MutableRefObject, useState } from 'react';
+import { toast } from 'sonner';
 
 import { MAX_FOLDER_NAME_LENGTH } from '../config';
 
@@ -39,6 +40,12 @@ export const useUpdateFolderModal = ({
     if (index === -1) return;
 
     if (updatedFolderName.length > MAX_FOLDER_NAME_LENGTH) return;
+
+    if (!updatedFolderName.trim()) {
+      toast.error('폴더 이름을 입력해주세요.');
+      isSubmittingRef.current = false;
+      return;
+    }
 
     isSubmittingRef.current = true;
 

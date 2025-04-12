@@ -1,4 +1,5 @@
 import { MutableRefObject, useState } from 'react';
+import { toast } from 'sonner';
 
 import { MAX_FOLDER_NAME_LENGTH } from '../config';
 
@@ -29,11 +30,17 @@ export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderP
 
     isSubmittingRef.current = true;
 
-    if (newFolderName.length <= MAX_FOLDER_NAME_LENGTH) {
-      serverCreateFolder(newFolderName);
-      addFolder(newFolderName);
-      closeModal();
+    if (!newFolderName.trim()) {
+      toast.error('폴더 이름을 입력해주세요.');
+      isSubmittingRef.current = false;
+      return;
     }
+
+    if (newFolderName.length > MAX_FOLDER_NAME_LENGTH) return;
+
+    serverCreateFolder(newFolderName);
+    addFolder(newFolderName);
+    closeModal();
 
     setTimeout(() => {
       isSubmittingRef.current = false;
