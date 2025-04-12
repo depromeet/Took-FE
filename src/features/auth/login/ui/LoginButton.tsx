@@ -44,12 +44,6 @@ function LoginButton({ provider }: LoginButtonProps) {
   const { isWebView } = useDevice();
 
   const handleClick = (e: React.MouseEvent) => {
-    // TODO: 애플 로그인 기능 적용 시 제거될 코드
-    if (provider === 'APPLE') {
-      alert('아직 준비중인 기능입니다.');
-      return;
-    }
-
     if (isWebView && provider === 'GOOGLE') {
       e.preventDefault();
       sendGoogleLoginMessage(authUrl);

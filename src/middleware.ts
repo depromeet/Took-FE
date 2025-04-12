@@ -8,10 +8,12 @@ export function middleware(request: NextRequest) {
 
   // 인증이 필요하지 않은 경로들
   const publicPaths = [
-    '/login',
+    '/login', // 로그인 페이지
     '/api/auth', // 인증 관련 API 경로
     '/api/auth/callback', // 소셜 로그인 콜백 경로
-    '/onboarding',
+    '/onboarding', // 온보딩 페이지
+    '/setting/privacy-terms', // 개인정보 처리 방침
+    '/setting/terms', // 이용약관
   ];
 
   const sharePaths = ['/card-share', '/card-detail'];
