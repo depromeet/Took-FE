@@ -14,12 +14,12 @@ import { CareerFormData } from '../schema';
 
 // 기본 아바타 이미지 경로 (상대 경로)
 const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
-// 최대 파일 크기 (5MB)
 
 function AvatarImg() {
   const { control, setValue } = useFormContext<CareerFormData>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isWebView } = useDevice();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 미리보기용 state (string | null)
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
@@ -72,19 +72,14 @@ function AvatarImg() {
     }
   }, [setValue, avatarSrc]);
 
-  const handleClick = () => {
+  const handleImageSelection = (type: 'camera' | 'library') => {
     if (isWebView) {
-      // 네이티브 이미지 선택 다이얼로그 표시
-      const actionChoice = window.confirm('이미지 선택 방법을 선택하세요.\n확인: 카메라로 찍기, 취소: 갤러리에서 선택');
-      if (actionChoice) {
-        sendImagePickerMessage('camera');
-      } else {
-        sendImagePickerMessage('library');
-      }
+      sendImagePickerMessage(type);
     } else {
-      // 웹에서는 기존 방식으로 파일 선택
       fileInputRef.current?.click();
     }
+    sendImagePickerMessage(type);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -92,40 +87,64 @@ function AvatarImg() {
       control={control}
       name="profileImage"
       render={({ field: { onChange } }) => (
-        <div className="relative inline-block cursor-pointer" onClick={handleClick}>
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                // 파일 크기 체크
-                if (file.size > MAX_FILE_SIZE) {
-                  toast.error('이미지 파일 크기는 5MB 이하여야 합니다.');
-                  e.target.value = ''; // input 초기화
-                  return;
-                }
-
-                // 폼에는 File 객체를 onChange로 저장
-                onChange(file);
-
-                // 미리보기용 Data URL 생성
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                  const result = reader.result as string;
-                  setAvatarSrc(result);
-                };
-                reader.readAsDataURL(file);
+        <div className="relative inline-block">
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              if (isWebView) {
+                setIsDropdownOpen(!isDropdownOpen);
+              } else {
+                fileInputRef.current?.click();
               }
             }}
-          />
-          {/* 이미지가 있는 경우에만 src 속성을 전달하고, 없는 경우 기본 이미지를 사용합니다 */}
-          <WrappedAvatar src={avatarSrc ?? undefined} alt="프로필 이미지" size="large" />
-          <div className="absolute bottom-0 right-0">
-            <ImageAdd />
+          >
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  if (file.size > MAX_FILE_SIZE) {
+                    toast.error('이미지 파일 크기는 10MB 이하여야 합니다.');
+                    e.target.value = '';
+                    return;
+                  }
+                  onChange(file);
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    const result = reader.result as string;
+                    setAvatarSrc(result);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+            <WrappedAvatar src={avatarSrc ?? undefined} alt="프로필 이미지" size="large" />
+            <div className="absolute bottom-0 right-0">
+              <ImageAdd />
+            </div>
           </div>
+
+          {isWebView && isDropdownOpen && (
+            <div className="absolute left-0 top-full z-10 mt-2 w-48 rounded-md bg-white shadow-lg">
+              <div className="py-1">
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleImageSelection('camera')}
+                >
+                  카메라로 찍기
+                </button>
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleImageSelection('library')}
+                >
+                  갤러리에서 선택
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     />
