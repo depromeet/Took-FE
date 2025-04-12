@@ -1,5 +1,5 @@
 import CardDetail from '@/features/card-detail/ui/cardDetail';
-import { ErrorFallback } from '@/shared/ui/error-boundary/errorFallback';
+import { ErrorFallback } from '@/shared/ui/error-boundary/ErrorFallback';
 import ErrorHandlingWrapper from '@/shared/ui/error-boundary/errorHandlingWrapper';
 
 function Page() {
