@@ -9,6 +9,7 @@ import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
 import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { Button } from '@/shared/ui/button';
 
+import { MAX_FOLDER_NAME_LENGTH } from '../config';
 import { useFolderStore } from '../model/store/useFoldersStore';
 import { useAddFolderModal } from '../model/useAddFolderModal';
 import { useDeleteFolderModal } from '../model/useDeleteFolderModal';
@@ -36,10 +37,11 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const outside = useRef<HTMLInputElement>(null);
   const isSubmittingRef = useRef(false);
 
-  const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddKeyDown } = useAddFolderModal({
-    isSubmittingRef,
-    closeModal,
-  });
+  const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddClick, handleAddKeyDown } =
+    useAddFolderModal({
+      isSubmittingRef,
+      closeModal,
+    });
 
   const {
     isUpdate,
@@ -48,6 +50,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
     setUpdatedFolderName,
     handleUpdate,
     handleUpdateChange,
+    handleUpdateClick,
     handleUpdateKeyDown,
   } = useUpdateFolderModal({
     isSubmittingRef,
@@ -58,17 +61,9 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
 
   const { handleDelete } = useDeleteFolderModal(() => closeModal());
 
-  const MAX_LENGTH = 10;
-
   const handleFolderSelect = (id?: number | null) => {
     setSelectedFolderId(id ?? null);
   };
-
-  // const handleDelete = (id: number) => {
-  //   serverDeleteFolder({ folderId: id });
-  //   deleteFolder(id);
-  //   closeModal();
-  // };
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -136,18 +131,18 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
               <p
                 className={cn(
                   '!text-caption-1 text-error-medium',
-                  updatedFolderName.length <= MAX_LENGTH && 'invisible',
+                  updatedFolderName.length <= MAX_FOLDER_NAME_LENGTH && 'invisible',
                 )}
               >
                 최대 10자까지 입력 가능해요
               </p>
               <p className="mb-3 self-end text-caption-1 text-gray-400">
-                {updatedFolderName.length}/{MAX_LENGTH}
+                {updatedFolderName.length}/{MAX_FOLDER_NAME_LENGTH}
               </p>
             </div>
             <Button
               className={cn(spacingStyles({ marginX: 'ml' }))}
-              onClick={() => handleUpdateKeyDown(updatedFolderName)}
+              onClick={() => handleUpdateClick(updatedFolderName)}
             >
               다음
             </Button>
@@ -162,14 +157,19 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
               autoFocus
             />
             <div className="items-top mx-5 mt-1 flex justify-between">
-              <p className={cn('!text-caption-1 text-error-medium', newFolderName.length <= MAX_LENGTH && 'invisible')}>
+              <p
+                className={cn(
+                  '!text-caption-1 text-error-medium',
+                  newFolderName.length <= MAX_FOLDER_NAME_LENGTH && 'invisible',
+                )}
+              >
                 최대 10자까지 입력 가능해요
               </p>
               <p className="mb-3 self-end text-caption-1 text-gray-400">
-                {newFolderName.length}/{MAX_LENGTH}
+                {newFolderName.length}/{MAX_FOLDER_NAME_LENGTH}
               </p>
             </div>
-            <Button className={cn(spacingStyles({ marginX: 'ml' }))} onClick={() => handleAddKeyDown(newFolderName)}>
+            <Button className={cn(spacingStyles({ marginX: 'ml' }))} onClick={() => handleAddClick(newFolderName)}>
               다음
             </Button>
           </>
