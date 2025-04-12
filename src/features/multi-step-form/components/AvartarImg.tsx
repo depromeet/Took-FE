@@ -78,7 +78,6 @@ function AvatarImg() {
     } else {
       fileInputRef.current?.click();
     }
-    sendImagePickerMessage(type);
     setIsDropdownOpen(false);
   };
 
