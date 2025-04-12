@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { isServer, QueryCache, QueryClient, QueryClientProvider as TanstackProvider } from '@tanstack/react-query';
+import { isServer, MutationCache, QueryClient, QueryClientProvider as TanstackProvider } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 
 import handleAxiosError from '../utils/handleAxiosError';
@@ -8,14 +8,11 @@ const generateQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        throwOnError: false,
         retry: 1,
       },
-      mutations: {
-        throwOnError: false,
-      },
+      mutations: {},
     },
-    queryCache: new QueryCache({
+    mutationCache: new MutationCache({
       onError: (error) => handleAxiosError(error),
     }),
   });
