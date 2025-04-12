@@ -43,6 +43,9 @@ function BottomSheet({
             router.push('/');
           }, 700);
         },
+        onError(err) {
+          throw err;
+        },
       });
     } else {
       deleteReceivedCardMutation.mutate(cardId as string, {
@@ -52,6 +55,9 @@ function BottomSheet({
           setTimeout(() => {
             router.push('/received');
           }, 700);
+        },
+        onError(err) {
+          throw err;
         },
       });
     }
