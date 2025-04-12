@@ -29,8 +29,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 미로그인 시 접속 가능한 URL
   if (sharePaths.some((sharePath) => path === sharePath || path.startsWith(`${sharePath}/`))) {
-    return NextResponse.next();
+    // 미로그인 시 접속 가능한 URL + 토큰이 없다면 (토큰 만료일 경우)
+    if (!accessToken || !refreshToken) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    } else {
+      return NextResponse.next();
+    }
   }
 
   // // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
@@ -40,6 +46,7 @@ export function middleware(request: NextRequest) {
 
   // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 로그인 페이지로 리다이렉트
   // 임시로 온보딩 페이지로 리다이렉션합니다. 추후 isLogined 와 같은 서버 스펙 나오면 분리예정
+  // 추가 고려사항
   if (!isPublicPath && (!accessToken || !refreshToken)) {
     return NextResponse.redirect(new URL('/onboarding', request.url));
   }
