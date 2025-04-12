@@ -1,4 +1,5 @@
 import { MutableRefObject, useState } from 'react';
+import { toast } from 'sonner';
 
 import { MAX_FOLDER_NAME_LENGTH } from '../config';
 
@@ -23,23 +24,38 @@ export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderP
   const handleAddChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewFolderName(e.target.value);
   };
-  const handleAddKeyDown = (newFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e?.nativeEvent.isComposing) return;
-    if (e?.key !== 'Enter') return;
+
+  const submitAddFolder = (newFolderName: string) => {
     if (isSubmittingRef.current) return;
 
-    e.preventDefault();
     isSubmittingRef.current = true;
 
-    if (newFolderName.length <= MAX_FOLDER_NAME_LENGTH) {
-      serverCreateFolder(newFolderName);
-      addFolder(newFolderName);
-      closeModal();
+    if (!newFolderName.trim()) {
+      toast.error('폴더 이름을 입력해주세요.');
+      isSubmittingRef.current = false;
+      return;
     }
+
+    if (newFolderName.length > MAX_FOLDER_NAME_LENGTH) return;
+
+    serverCreateFolder(newFolderName);
+    addFolder(newFolderName);
+    closeModal();
 
     setTimeout(() => {
       isSubmittingRef.current = false;
     }, 500);
+  };
+
+  const handleAddClick = (newFolderName: string) => {
+    submitAddFolder(newFolderName);
+  };
+  const handleAddKeyDown = (newFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e?.nativeEvent.isComposing) return;
+    if (e?.key !== 'Enter') return;
+
+    e.preventDefault();
+    submitAddFolder(newFolderName);
   };
   return {
     isAdd,
@@ -47,6 +63,7 @@ export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderP
     newFolderName,
     handleAdd,
     handleAddChange,
+    handleAddClick,
     handleAddKeyDown,
   };
 };

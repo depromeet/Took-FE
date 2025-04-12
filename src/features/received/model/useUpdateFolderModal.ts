@@ -1,4 +1,5 @@
 import { MutableRefObject, useState } from 'react';
+import { toast } from 'sonner';
 
 import { MAX_FOLDER_NAME_LENGTH } from '../config';
 
@@ -31,28 +32,43 @@ export const useUpdateFolderModal = ({
   const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedFolderName(e.target.value);
   };
-  const handleUpdateKeyDown = (updatedFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e?.nativeEvent.isComposing) return;
-    if (e?.key !== 'Enter') return;
+
+  const submitUpdateFolder = (updatedFolderName: string) => {
     if (isSubmittingRef.current) return;
-
-    e.preventDefault();
-
-    isSubmittingRef.current = true;
 
     const index = folders.findIndex((folder) => folder.name === folderName);
     if (index === -1) return;
 
-    if (updatedFolderName.length <= MAX_FOLDER_NAME_LENGTH) {
-      const folderId = folders[index].id;
-      updateFolder(folderId, updatedFolderName);
-      serverEditFolder({ folderId, name: updatedFolderName });
-      closeModal();
+    if (updatedFolderName.length > MAX_FOLDER_NAME_LENGTH) return;
+
+    if (!updatedFolderName.trim()) {
+      toast.error('폴더 이름을 입력해주세요.');
+      isSubmittingRef.current = false;
+      return;
     }
+
+    isSubmittingRef.current = true;
+
+    const folderId = folders[index].id;
+    updateFolder(folderId, updatedFolderName);
+    serverEditFolder({ folderId, name: updatedFolderName });
+    closeModal();
 
     setTimeout(() => {
       isSubmittingRef.current = false;
     }, 500);
+  };
+
+  const handleUpdateClick = (updatedFolderName: string) => {
+    submitUpdateFolder(updatedFolderName);
+  };
+
+  const handleUpdateKeyDown = (updatedFolderName: string, e?: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e?.nativeEvent.isComposing) return;
+    if (e?.key !== 'Enter') return;
+
+    e.preventDefault();
+    submitUpdateFolder(updatedFolderName);
   };
   return {
     isUpdate,
@@ -61,6 +77,7 @@ export const useUpdateFolderModal = ({
     setUpdatedFolderName,
     handleUpdate,
     handleUpdateChange,
+    handleUpdateClick,
     handleUpdateKeyDown,
   };
 };
