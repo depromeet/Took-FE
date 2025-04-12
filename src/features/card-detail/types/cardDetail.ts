@@ -28,6 +28,11 @@ export type ProjectDto = {
   description: string;
 };
 
+export type FolderDto = {
+  id: number;
+  name: string;
+};
+
 // 명함 상세 정보 타입
 export type CardDetailResponse = {
   nickname: string;
@@ -36,14 +41,15 @@ export type CardDetailResponse = {
   organization: string;
   summary: string;
   region: string;
-  group?: string[];
-  introduce?: string;
+  folders?: FolderDto[];
+  memo?: string;
   interestDomain?: string[] | undefined;
   sns?: SnsDto[] | undefined;
   news?: string | undefined;
   hobby?: string | undefined;
   content?: ContentItemDto[] | undefined;
   project?: ProjectDto[] | undefined;
+  imagePath?: string;
 };
 
 // 카드 상세 응답 타입

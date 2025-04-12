@@ -1,7 +1,8 @@
 'use client';
-import Image from 'next/image';
-import React from 'react';
 
+import Image from 'next/image';
+
+import SNS_CONFIG, { SnsType } from '@/features/card-detail/config/sns-config';
 import { Card } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
@@ -11,11 +12,15 @@ import Thumbnail from '@/shared/ui/thumbnail';
 
 type ReceivedCardProps = {
   cardData: Card;
+  onClick?: () => void;
 };
 
-function RenderingThumbnail({ cardData }: ReceivedCardProps) {
+function RenderingThumbnail({ cardData }: { cardData: Card }) {
   const previewInfoType = cardData.previewInfoType;
   const previewInfo = cardData.previewInfo;
+
+  const snsType = previewInfo.sns?.type as SnsType | undefined;
+  const snsIconPath = snsType ? SNS_CONFIG[snsType]?.iconPath : undefined;
 
   switch (previewInfoType) {
     case 'PROJECT':
@@ -24,6 +29,7 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
           tag="대표 프로젝트"
           title={previewInfo.project?.title}
           description={previewInfo.project?.link}
+          imageUrl={previewInfo.project?.imageUrl}
           className="!bg-gray-700"
         />
       );
@@ -40,14 +46,7 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
     case 'HOBBY':
       return <Thumbnail tag="취미" description={previewInfo.hobby} className="!bg-gray-700" />;
     case 'SNS':
-      return (
-        <Thumbnail
-          tag="SNS"
-          title={previewInfo.sns?.link}
-          imageUrl={previewInfo.content?.imageUrl} // sns icon 조건부 렌더링 추후 구현
-          className="!bg-gray-700"
-        />
-      );
+      return <Thumbnail tag="SNS" title={previewInfo.sns?.link} imageUrl={snsIconPath} className="!bg-gray-700" />;
     case 'NEWS':
       return <Thumbnail tag="최근 소식" description={previewInfo.news} className="!bg-gray-700" />;
     case 'REGION':
@@ -57,17 +56,18 @@ function RenderingThumbnail({ cardData }: ReceivedCardProps) {
   }
 }
 
-export default function ReceivedCard({ cardData }: ReceivedCardProps) {
+export default function ReceivedCard({ cardData, onClick }: ReceivedCardProps) {
   return (
     <div
       className={cn(
         'flex h-auto w-full max-w-full cursor-pointer flex-col justify-center rounded-2xl bg-gray-800',
         spacingStyles({ paddingX: 'ml', paddingY: 'ml' }),
       )}
+      onClick={onClick}
     >
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
-          <WrappedAvatar src={cardData?.imagePath} alt="f" size="medium" />
+          <WrappedAvatar src={cardData?.imagePath} alt="" size="medium" />
           <div className="flex flex-col items-start">
             <div className="flex items-center justify-start gap-2 text-white">
               <p className="text-title-2">{cardData.nickname}</p>
@@ -77,9 +77,21 @@ export default function ReceivedCard({ cardData }: ReceivedCardProps) {
           </div>
         </div>
         {cardData.job === 'DEVELOPER' ? (
-          <Image src="/icons/developer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+          <Image
+            src="/icons/developer-icon-white.svg"
+            alt="icon"
+            width={12}
+            height={12}
+            className="mr-1 mt-1 self-start"
+          />
         ) : (
-          <Image src="/icons/designer-icon-white.svg" alt="icon" width={16} height={16} className="self-start" />
+          <Image
+            src="/icons/designer-icon-white.svg"
+            alt="icon"
+            width={12}
+            height={12}
+            className="mr-1 mt-1 self-start"
+          />
         )}
       </div>
       <p className={cn('truncate text-body-5 text-white', spacingStyles({ marginTop: 'md', marginBottom: 'lg' }))}>

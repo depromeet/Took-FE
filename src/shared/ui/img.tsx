@@ -6,6 +6,7 @@ type ImagePropsType = {
   size: 'large' | 'medium' | 'small';
   src?: string;
   alt?: string;
+  className?: string;
 };
 
 const sizeVariants = {
@@ -21,11 +22,12 @@ const sizeVariants = {
  * <Img size="large" src="/images/sample.png" alt="이미지" />
  *
  * @param {'large' | 'medium' | 'small'} size - 컴포넌트 크기
+ * @param {string} className - 추가 클래스명
  *
  * @returns {JSX.Element} - 이미지 컴포넌트
  */
 
-function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }: ImagePropsType) {
+function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', className, ...props }: ImagePropsType) {
   const { container, image, opacity } = sizeVariants[size];
   const isDefaultImage = src == '/icons/imageIcon.svg';
 
@@ -34,12 +36,13 @@ function Img({ size, src = '/icons/imageIcon.svg', alt = '이미지', ...props }
       className={cn(
         'relative flex shrink-0 items-center justify-center rounded-md border border-opacity-white-10 bg-opacity-white-20 p-3',
         container,
+        className,
       )}
     >
       {isDefaultImage ? (
         <Image src={src} alt={alt} width={image.width} height={image.height} className={opacity} {...props} />
       ) : (
-        <Image src={src} alt={alt} fill className="object-cover" {...props} />
+        <Image src={src} alt={alt} fill className="rounded-md object-cover" {...props} />
       )}
     </div>
   );

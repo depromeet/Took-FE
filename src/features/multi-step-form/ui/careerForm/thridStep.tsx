@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
@@ -20,6 +21,12 @@ function ThirdStep() {
     control,
     formState: { errors },
   } = useFormContext<CareerFormData>();
+
+  // 로컬 상태로 selectedTags를 관리
+  const [localSelectedTags, setLocalSelectedTags] = useState<string[]>([]);
+
+  // secondStep에서 선택한 태그를 가져옴
+  const selectedTags = useCardFormStore(useShallow((state) => state.tagArray));
 
   const {
     fields: contentsFields,
@@ -75,8 +82,50 @@ function ThirdStep() {
     addEditingState: addProjectEditingState,
   } = useEditingStates(projectFields);
 
-  // secondStep에서 선택한 태그를 가져옴
-  const selectedTags = useCardFormStore(useShallow((state) => state.tagArray));
+  // selectedTags가 변경될 때마다 로컬 상태 업데이트
+  useEffect(() => {
+    setLocalSelectedTags(selectedTags);
+
+    // 선택되지 않은 필드 초기화
+    if (!selectedTags.includes(FIELD_TAG_MAPPING.content) && contentsFields.length > 0) {
+      // content 필드 초기화
+      contentRemove(Array.from({ length: contentsFields.length }, (_, i) => i));
+    }
+
+    if (!selectedTags.includes(FIELD_TAG_MAPPING.project) && projectFields.length > 0) {
+      // project 필드 초기화
+      projectRemove(Array.from({ length: projectFields.length }, (_, i) => i));
+    }
+
+    if (!selectedTags.includes(FIELD_TAG_MAPPING.sns) && snsFields.length > 0) {
+      // sns 필드 초기화
+      snsRemove(Array.from({ length: snsFields.length }, (_, i) => i));
+    }
+
+    // 선택된 필드에 항목이 없으면 기본값 추가
+    if (selectedTags.includes(FIELD_TAG_MAPPING.content) && contentsFields.length === 0) {
+      contentAppend({ type: 'blog', link: '', title: '', imageUrl: '', description: '' });
+    }
+
+    if (selectedTags.includes(FIELD_TAG_MAPPING.project) && projectFields.length === 0) {
+      projectAppend({ type: 'project', link: '', title: '', imageUrl: '', description: '' });
+    }
+
+    if (selectedTags.includes(FIELD_TAG_MAPPING.sns) && snsFields.length === 0) {
+      snsAppend({ type: '', link: '' });
+    }
+  }, [
+    selectedTags,
+    contentAppend,
+    contentRemove,
+    projectAppend,
+    projectRemove,
+    snsAppend,
+    snsRemove,
+    contentsFields.length,
+    projectFields.length,
+    snsFields.length,
+  ]);
 
   return (
     <>
@@ -89,14 +138,14 @@ function ThirdStep() {
       </header>
       <section className={cn(spacingStyles({ marginTop: 'xl' }))}>
         <div className="flex flex-col gap-4">
-          {selectedTags.includes(FIELD_TAG_MAPPING.organization) && (
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.organization) && (
             <Controller
               control={control}
               name="organization"
               render={({ field }) => (
                 <WrappedInput
                   title="소속 정보"
-                  placeholder="소속 정보를 입력해주세요."
+                  placeholder="소속 정보를 입력해 주세요."
                   errorMsg={errors.organization?.message}
                   error={!!errors.organization?.message}
                   {...field}
@@ -105,7 +154,7 @@ function ThirdStep() {
             />
           )}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.sns) &&
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.sns) &&
             snsFields.map((field, idx) => (
               <Controller
                 key={field.id}
@@ -127,7 +176,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="SNS"
-                      placeholder="SNS 주소를 입력해주세요."
+                      placeholder="SNS 주소를 입력해 주세요."
                       field={field}
                       fields={snsFields}
                       fieldAppend={handleFieldAppend}
@@ -144,7 +193,7 @@ function ThirdStep() {
               />
             ))}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.region) && (
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.region) && (
             <Controller
               control={control}
               name="region"
@@ -160,7 +209,7 @@ function ThirdStep() {
             />
           )}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.hobby) && (
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.hobby) && (
             <Controller
               control={control}
               name="hobby"
@@ -176,7 +225,7 @@ function ThirdStep() {
             />
           )}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.news) && (
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.news) && (
             <Controller
               control={control}
               name="news"
@@ -192,7 +241,7 @@ function ThirdStep() {
             />
           )}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.content) &&
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.content) &&
             contentsFields.map((field, idx) => (
               <Controller
                 key={field.id}
@@ -213,7 +262,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="작성한 글"
-                      placeholder="작성한 글을 입력해주세요."
+                      placeholder="작성한 글의 링크를 입력해주세요."
                       field={field}
                       fields={contentsFields}
                       fieldAppend={handleFieldAppend}
@@ -230,7 +279,7 @@ function ThirdStep() {
               />
             ))}
 
-          {selectedTags.includes(FIELD_TAG_MAPPING.project) &&
+          {localSelectedTags.includes(FIELD_TAG_MAPPING.project) &&
             projectFields.map((field, idx) => (
               <Controller
                 key={field.id}
@@ -257,7 +306,7 @@ function ThirdStep() {
                     <EditableCardField
                       index={idx}
                       title="대표 프로젝트"
-                      placeholder="대표 프로젝트를 입력해주세요."
+                      placeholder="대표 프로젝트의 링크를 입력해주세요."
                       field={field}
                       fields={projectFields}
                       fieldAppend={handleAddClick}

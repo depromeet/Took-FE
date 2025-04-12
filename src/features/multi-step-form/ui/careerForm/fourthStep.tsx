@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { CardTags, WrappedCard } from '@/features/home/components/BusinessCard/Card';
@@ -19,11 +19,11 @@ const LAST_NUMBER = 7;
 const HEADER_TITLE = `썸네일 명함에 대표로\n 보여줄 정보를 1개 선택해 주세요`;
 
 function FourthStep() {
-  const { control } = useFormContext<CareerFormData>();
+  const { control, setValue } = useFormContext<CareerFormData>();
 
   const formState = useCardFormStore((state) => state.tagArray);
   const tagArray = tagConfig.filter((tag) => formState.includes(tag.value));
-  const [selectedTag, setSelectedTag] = useState<SelectedTagType>(tagArray[0].message ?? '대표 프로젝트');
+  const [selectedTag, setSelectedTag] = useState<SelectedTagType>(tagArray[0]?.message ?? '대표 프로젝트');
 
   const [index, setIndex] = useState<number>(0);
 
@@ -32,21 +32,27 @@ function FourthStep() {
     setIndex(tagArray.findIndex((tag) => tag.message === tagMessage));
   }
 
+  // previewInfoType 초기 값 설정
+
+  useEffect(() => {
+    setValue('previewInfoType', tagArray[index]?.value.toUpperCase() as CareerFormData['previewInfoType']);
+  }, [index, setValue, tagArray]);
+
   return (
     <>
       <Header title={HEADER_TITLE} isFourthStep={true} />
       <section className="relative z-50 -mt-1 h-16 bg-gradient-to-b from-[#14141A] to-[rgba(20,20,26,0)]" />
       <main className="flex flex-col items-center justify-center">
         <WrappedCard
-          cardType="designer"
+          cardType="DESIGNER"
           className="-mt-24 flex h-56 flex-col items-start justify-end gap-2 rounded-none rounded-b-md"
         >
-          <CardTags tags={['관심 도메인1', '관심 도메인2']} tagType="designer" />
+          <CardTags tags={['관심 도메인1', '관심 도메인2']} tagType="DESIGNER" />
           <section className="h-4" />
           <Thumbnail
-            tag={tagArray[index].message as ThumbnailTag}
-            title={tagArray[index].title}
-            description={tagArray[index].description}
+            tag={(tagArray[index]?.message as ThumbnailTag) ?? '대표 프로젝트'}
+            title={tagArray[index]?.title ?? '대표 프로젝트'}
+            description={tagArray[index]?.description ?? ''}
           />
         </WrappedCard>
         <div className="mt-4 flex min-w-[292px] gap-1 text-body-5 text-gray-500">

@@ -4,14 +4,17 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
 import React from 'react';
 
+import { cn } from '../lib/utils';
+
 const appbarVariants = cva(
-  'z-100 sticky top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
+  'sticky z-bar top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
   {
     variants: {
       page: {
         main: '',
         detail: '',
         create: 'bg-gray-black',
+        none: '',
         mypage: 'bg-core-black',
         received: '',
       },
@@ -40,9 +43,16 @@ type AppbarProps = AppbarVariantProps & {
   onRightClick?: () => void;
   onRightClickSecond?: () => void;
   title?: string;
+  router?: () => void;
+  isBlurred?: boolean;
+  className?: string;
 };
 
-function renderLeftIcon({ page, onLeftClick }: Pick<AppbarProps, 'page' | 'onLeftClick'>) {
+function renderLeftIcon({
+  page,
+  isBlurred = false,
+  onLeftClick,
+}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'>) {
   switch (page) {
     case 'main':
       return (
@@ -51,6 +61,18 @@ function renderLeftIcon({ page, onLeftClick }: Pick<AppbarProps, 'page' | 'onLef
         </button>
       );
     case 'detail':
+      return (
+        <button
+          onClick={onLeftClick}
+          className={cn(
+            'relative flex items-center justify-center transition-colors duration-200',
+            isBlurred && 'before:absolute before:inset-[-8px] before:rounded-full before:bg-[rgba(255,255,255,0.10)]',
+          )}
+        >
+          <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
+    case 'none':
     case 'create':
     case 'mypage':
       return (
@@ -73,17 +95,25 @@ function renderRightIcon({
   page,
   onRightClick,
   onRightClickSecond,
-}: Pick<AppbarProps, 'page' | 'onRightClick' | 'onRightClickSecond'>) {
+  router,
+  isBlurred,
+}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   switch (page) {
     case 'main':
       return (
         <button onClick={onRightClick}>
-          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} />
+          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
         </button>
       );
     case 'detail':
       return (
-        <button onClick={onRightClick}>
+        <button
+          onClick={onRightClick}
+          className={cn(
+            'relative flex items-center justify-center transition-colors duration-200',
+            isBlurred && 'before:absolute before:inset-[-8px] before:rounded-full before:bg-[rgba(255,255,255,0.10)]',
+          )}
+        >
           <Image src="/icons/menuIcon-white.svg" alt="메뉴 아이콘" width={24} height={24} />
         </button>
       );
@@ -99,9 +129,9 @@ function renderRightIcon({
     case 'received':
       return (
         <div className="flex gap-4">
-          <button onClick={onRightClick}>
+          {/* <button onClick={onRightClick}>
             <Image src="/icons/searchIcon.svg" alt="검색 아이콘" width={24} height={24} />
-          </button>
+          </button> */}
           <button onClick={onRightClickSecond ?? (() => {})}>
             <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
           </button>
@@ -123,18 +153,29 @@ function renderRightIcon({
  * @property {function} onLeftClick - 왼쪽 버튼 클릭 시 실행할 함수
  * @property {function} onRightClick - 오른쪽 버튼 클릭 시 실행할 함수
  * @property {function} onRightClickSecond - (받은 명함) 두 번째 오른쪽 버튼 클릭 시 실행할 함수
+ * @property {boolean} isBlurred - 아이콘 배경을 블러 처리할지 여부
  *
  * @returns {JSX.Element} - appbar 컴포넌트
  */
 
-function Appbar({ page, hasBackground, title, onLeftClick, onRightClick, onRightClickSecond }: AppbarProps) {
+function Appbar({
+  page,
+  hasBackground,
+  title,
+  onLeftClick,
+  onRightClick,
+  onRightClickSecond,
+  router,
+  isBlurred,
+  className,
+}: AppbarProps) {
   return (
-    <header className={appbarVariants({ page, hasBackground })}>
-      <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick })}</div>
-
+    <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
+      <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
       {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
-
-      <div className="flex flex-1 justify-end">{renderRightIcon({ page, onRightClick, onRightClickSecond })}</div>
+      <div className="flex flex-1 justify-end">
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
+      </div>
     </header>
   );
 }

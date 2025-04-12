@@ -1,4 +1,4 @@
-export type JopType = 'designer' | 'developer';
+export type JopType = 'DESIGNER' | 'DEVELOPER';
 export type PreviewInfoType = 'PROJECT' | 'CONTENT' | 'HOBBY' | 'SNS' | 'NEWS' | 'REGION';
 
 export type MyCardDto = {
@@ -12,9 +12,10 @@ export type MyCardDto = {
 
 export type Card = {
   id: number;
+  receivedAt?: string;
   nickname: string;
   organization: string;
-  job: string;
+  job: JopType;
   detailJob: string;
   summary: string;
   interestDomain: string[];

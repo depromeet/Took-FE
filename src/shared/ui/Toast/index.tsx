@@ -1,25 +1,27 @@
 'use client';
 
 import Image from 'next/image';
-import { toast } from 'sonner';
 
 import { Toaster } from './sonner';
-
-type toastProps = {
-  buttonText?: string;
-  message?: string;
-};
+import { MarginValue } from './types';
 
 /**
  * 공통 컴포넌트 - sonner(toast)
  *
  * 사용 방법 :
- * @example <Toast buttonText={buttonText} message={message} />
+ * @example
+ * 토스트 띄울 함수에 toast.success(message) || toast.error(message)
+ * <Toast />
  *
  * @returns {JSX.Element} - Toaster 컴포넌트
  *
  */
-function Toast({ buttonText, message }: toastProps) {
+
+type ToastProps = {
+  bottomMargin?: MarginValue;
+};
+
+function Toast({ bottomMargin = 'detail' }: ToastProps) {
   return (
     <>
       <Toaster
@@ -35,7 +37,7 @@ function Toast({ buttonText, message }: toastProps) {
           ),
           error: (
             <Image
-              src="/icons/toast-icon/warningIcon.svg"
+              src="/icons/toast-icon/sonnerIcon.svg"
               className="text-error-medium"
               alt="error-icon"
               width={24}
@@ -44,10 +46,8 @@ function Toast({ buttonText, message }: toastProps) {
           ),
         }}
         position="bottom-center"
+        bottomMargin={bottomMargin}
       />
-      <button className="text-white" onClick={() => toast.error(message)}>
-        {buttonText}
-      </button>
     </>
   );
 }

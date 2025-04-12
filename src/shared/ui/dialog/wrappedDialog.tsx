@@ -34,10 +34,15 @@ export const WrappedDialog = ({ title, children, trigger, footer, className, onC
     onClose?.();
   };
 
+  // 자동 포커스 방지를 위한 이벤트 핸들러
+  const handleOpenAutoFocus = (e: Event) => {
+    e.preventDefault();
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className={cn('w-[320px] bg-gray-600', className)}>
+      <DialogContent className={cn('w-[320px] bg-gray-600', className)} onOpenAutoFocus={handleOpenAutoFocus}>
         <DialogHeader className="flex items-center justify-center">
           <DialogTitle className="text-title-3 text-gray-white">{title}</DialogTitle>
         </DialogHeader>

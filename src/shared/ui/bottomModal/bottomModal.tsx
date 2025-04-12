@@ -77,7 +77,7 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0 }}
-            className="z-modalBackground absolute inset-0 bg-black"
+            className="fixed inset-0 z-modalBackground mx-auto h-full w-full max-w-[600px] bg-black"
             onClick={closeModal}
           />
 
@@ -96,14 +96,12 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
             onDragEnd={handleDragEnd}
             style={{ y }}
             className={cn(
-              'z-bottomSheet fixed bottom-0 left-0 right-0 mx-auto max-w-[600px] rounded-t-2xl bg-gray-600',
+              'fixed bottom-0 left-0 right-0 z-bottomSheet mx-auto max-w-[600px] rounded-t-2xl bg-gray-600',
               mode ? 'z-bottomSheet' : 'z-bottomSheet',
             )}
           >
             <div className={`relative flex w-full flex-col ${spacingStyles({ paddingBottom: 'xl' })}`}>
-              <div
-                className={`h-[6px] w-[60px] self-center rounded-full bg-gray-800 ${spacingStyles({ marginTop: 'ms', marginBottom: 'ms' })}`}
-              />
+              <div className="mb-[12px] mt-[10px] h-[6px] w-[60px] self-center rounded-full bg-gray-800" />
 
               {children}
             </div>

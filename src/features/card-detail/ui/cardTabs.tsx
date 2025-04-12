@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -8,19 +7,15 @@ import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import Appbar from '@/shared/ui/appbar';
-import { BottomModal } from '@/shared/ui/bottomModal/bottomModal';
-import { BottomMenuItem } from '@/shared/ui/bottomModal/bottomModalItem';
-import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
-import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
-import { Typography } from '@/shared/ui/typography';
 
-import Empty from '../components/empty';
-import { CARD_TABS, TabId } from '../config/tabs-config';
-import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
+import { TabId } from '../config/tabs-config';
 import { useBottomModal } from '../hooks/useBottomModal';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import useTabsActive from '../hooks/useTabsActive';
+import { CardDetailDto } from '../types/cardDetail';
+import { getFilteredTabs } from '../utils/filteredTabs';
 
+import BottomSheet from './bottomSheet';
 import DomainList from './domain';
 import Hobby from './hobby';
 import Posts from './posts';
@@ -29,13 +24,20 @@ import RecentNews from './recent';
 import SNS from './sns';
 import { UnderlineTabs } from './underlineTabs';
 
-function CardTabs() {
+interface CardTabsProps {
+  data: CardDetailDto;
+  type: string;
+}
+
+function CardTabs({ data, type }: CardTabsProps) {
+  const filteredTabs = getFilteredTabs(data);
   const [activeTab, setActiveTab] = useState<TabId>('domains');
-  const { cardId } = useParams();
-  const { data } = useCardDetailQuery(Number(cardId));
+
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
+
+  const isMyCard = type === 'mycard' ? true : false;
 
   const handleMode = () => {
     setMode(true);
@@ -121,7 +123,7 @@ function CardTabs() {
       {/* 인터섹션 관찰 포인트 - 상단 경계를 감지하기 위한 요소 */}
       <div ref={intersectionRef} />
 
-      <div className="relative -top-[20px] w-full rounded-t-2xl bg-gray-black">
+      <div className="relative -top-[18px] mb-[-18px] w-full rounded-t-2xl bg-gray-black">
         {/* sticky 헤더 영역 */}
         <div className="sticky top-0 z-10 w-full">
           {/* Appbar에 트랜지션 효과 추가 */}
@@ -140,7 +142,7 @@ function CardTabs() {
           </div>
 
           <UnderlineTabs
-            tabs={CARD_TABS}
+            tabs={filteredTabs}
             activeTab={activeTab}
             onChange={handleTabChange}
             className={`rounded-t-2xl border-none ${spacingStyles({ paddingTop: 'sm', paddingX: 'xs' })}`}
@@ -154,7 +156,7 @@ function CardTabs() {
               id="domains"
               className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">관심 도메인</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>관심 도메인</p>
               <DomainList data={data.data.interestDomain} />
             </div>
           )}
@@ -163,50 +165,32 @@ function CardTabs() {
             <div
               ref={combineRefs('sns')}
               id="sns"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">SNS</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>SNS</p>
               <SNS data={data.data.sns} />
             </div>
           )}
 
-          {data?.data.news ? (
+          {data?.data.news && (
             <div
               ref={combineRefs('news')}
               id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">최근 소식</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>최근 소식</p>
               <RecentNews data={data.data.news} />
-            </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">최근 소식</Typography>
-              <Empty />
             </div>
           )}
 
-          {data?.data.hobby ? (
+          {data?.data.hobby && (
             <div
               ref={combineRefs('hobby')}
               id="hobby"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">취미</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>취미</p>
               <Hobby data={data.data.hobby} />
-            </div>
-          ) : (
-            <div
-              ref={combineRefs('news')}
-              id="news"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
-            >
-              <Typography variant="body-1">취미</Typography>
-              <Empty />
             </div>
           )}
 
@@ -214,9 +198,9 @@ function CardTabs() {
             <div
               ref={combineRefs('posts')}
               id="posts"
-              className={`${spacingStyles({ paddingY: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
+              className={`${spacingStyles({ paddingTop: 'ml', paddingBottom: 'xl' })} border-b-[4px] border-gray-800 px-[20px]`}
             >
-              <Typography variant="body-1">작성한 글</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>작성한 글</p>
               <Posts data={data.data.content} />
             </div>
           )}
@@ -225,25 +209,23 @@ function CardTabs() {
             <div
               ref={combineRefs('projects')}
               id="projects"
-              className={`${spacingStyles({ paddingTop: 'xl' })} px-[20px] pb-[77px]`}
+              className={`${spacingStyles({ paddingTop: 'ml' })} px-[20px] pb-[93px]`}
             >
-              <Typography variant="body-1">대표 프로젝트</Typography>
+              <p className={`text-body-1 ${spacingStyles({ paddingBottom: 'ms' })}`}>대표 프로젝트</p>
               <Projects data={data.data.project} />
             </div>
           )}
         </div>
       </div>
-      {!mode ? (
-        <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
-          <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
-          <BottomMenuItem>삭제하기</BottomMenuItem>
-        </BottomModal>
-      ) : (
-        <BottomModal isModalOpen={isModalOpen} closeModal={handleCancelMode} mode={mode}>
-          <BottomModalTitle>한줄 메모</BottomModalTitle>
-          <MemoInput onClose={closeModal} handleCancelMode={handleCancelMode} />
-        </BottomModal>
-      )}
+      <BottomSheet
+        isMyCard={isMyCard}
+        mode={mode}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        handleMode={handleMode}
+        handleCancelMode={handleCancelMode}
+        memo={data?.data.memo as string}
+      />
     </>
   );
 }

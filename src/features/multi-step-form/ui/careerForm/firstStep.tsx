@@ -15,6 +15,8 @@ import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
 
+const MAX_SUMMARY_LENGTH = 40;
+
 function FirstStep() {
   const {
     control,
@@ -31,7 +33,7 @@ function FirstStep() {
     <>
       <header className="flex flex-col gap-3">
         <h1 className="text-title-1 text-gray-white">{CAREER_FORM.firstStep.title}</h1>
-        <h3 className="text-body-3 text-gray-400">{CAREER_FORM.firstStep.description}</h3>
+        <h3 className="text-title-1 text-gray-white">{CAREER_FORM.firstStep.subTitle}</h3>
       </header>
       <section className={cn(spacingStyles({ marginTop: 'xl' }))}>
         <div className="flex flex-col gap-4">
@@ -44,7 +46,7 @@ function FirstStep() {
             render={({ field }) => (
               <WrappedInput
                 title="이름"
-                placeholder="명함에 노출될 이름을 입력해주세요."
+                placeholder="명함에 노출될 이름을 입력해 주세요."
                 errorMsg={errors.nickname?.message}
                 error={!!errors.nickname?.message}
                 {...field}
@@ -68,7 +70,7 @@ function FirstStep() {
               return (
                 <SearchDropdown
                   title="세부직군"
-                  placeholder="직군을 입력해주세요."
+                  placeholder="직군을 입력해 주세요."
                   errorMsg={errors.detailJobId?.message}
                   options={careerOptions ?? []}
                   value={selectedOptionValue}
@@ -96,7 +98,7 @@ function FirstStep() {
             render={({ field }) => (
               <Textarea
                 labelTitle="한 줄 소개"
-                totalNumber={40}
+                totalNumber={MAX_SUMMARY_LENGTH}
                 placeholder="본인을 잘 드러낼 수 있는 문장을 작성해 주세요."
                 size="max"
                 errorMsg={errors.summary?.message}

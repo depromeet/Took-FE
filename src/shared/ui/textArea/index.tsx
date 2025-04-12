@@ -48,6 +48,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<'tex
           ref={ref}
           placeholder={placeholder}
           maxLength={totalNumber}
+          value={value}
           {...props}
         />
 

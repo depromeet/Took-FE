@@ -10,6 +10,7 @@ import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import Appbar from '@/shared/ui/appbar';
 import ProgressBar from '@/shared/ui/progressBar';
+import Toast from '@/shared/ui/Toast';
 
 import { CARD_CREATE_INITIAL_VALUES, MINIMUM_STEP, TOTAL_STEPS } from '../config';
 import { cardCreateSchema, CareerFormData } from '../schema';
@@ -26,7 +27,7 @@ function MultiStepFormView() {
   const formMethod = useForm<CareerFormData>({
     resolver: zodResolver(cardCreateSchema),
     defaultValues: CARD_CREATE_INITIAL_VALUES,
-    mode: 'onChange', // 필드가 변경될 때 검증
+    mode: 'onBlur',
   });
 
   const { unregister, setValue } = formMethod;
@@ -56,20 +57,32 @@ function MultiStepFormView() {
   return (
     <FormProvider {...formMethod}>
       <div className="flex min-h-dvh w-full justify-center">
-        <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
-          <Appbar page="create" onLeftClick={handleStepBack} />
-          <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+        <div
+          className={cn(
+            'flex w-full max-w-[600px] flex-col bg-gray-black',
+            currentStep === 2 && 'bg-[url(/images/tag/background.webp)] bg-cover bg-center',
+          )}
+        >
+          <Appbar
+            hasBackground={currentStep === 2 && false}
+            page={currentStep === 2 ? 'none' : 'create'}
+            onLeftClick={handleStepBack}
+            className="z-bar"
+          />
+          <ProgressBar className="z-bar" currentStep={currentStep} totalSteps={TOTAL_STEPS} page="cardCreate" />
           <main
             className={cn(
               'flex flex-col gap-4',
-              spacingStyles({ paddingX: 'ml', paddingY: 'lg' }),
-              currentStep === 2 && 'h-[calc(100dvh-52px)] bg-[url(/images/tag/background.png)] bg-cover bg-center',
+              currentStep !== 2
+                ? spacingStyles({ paddingX: 'ml', paddingY: 'lg' })
+                : spacingStyles({ paddingX: 'ml', paddingBottom: 'lg' }),
             )}
           >
             <CareerFormView currentStep={currentStep} onNextStep={handleNextStep} />
           </main>
         </div>
       </div>
+      <Toast />
     </FormProvider>
   );
 }

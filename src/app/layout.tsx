@@ -1,14 +1,14 @@
+import { generateMetaDataSEO } from '@/shared/components/seo/generateMetaData';
 import { pretendard } from '@/shared/lib/font';
 import { Providers } from '@/shared/providers';
 
-import type { Metadata, Viewport } from 'next';
+import type { Viewport } from 'next';
 
 import './globals.css';
 
-export const metadata: Metadata = {
-  title: 'Took',
-  description: 'Took name service',
-};
+export async function generateMetadata() {
+  return generateMetaDataSEO();
+}
 
 export const viewport: Viewport = {
   width: 'device-width',

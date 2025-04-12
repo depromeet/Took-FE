@@ -8,7 +8,7 @@ import { TookLogo } from '../components/TookLogo';
 
 export const LoginBackgroundContainer = () => {
   return (
-    <div className="absolute top-0 h-dvh w-full">
+    <div className="absolute top-0 h-dvh w-full overflow-hidden">
       <Background className="absolute top-0" />
       <div className="absolute top-0 w-full">
         <div className="relative top-[360px] flex items-center justify-center">
@@ -22,7 +22,7 @@ export const LoginBackgroundContainer = () => {
           <TookLogo className="absolute top-[-160px]" />
         </div>
       </div>
-      <div className="absolute top-0 z-10 h-[180px] w-[600px] bg-gradient-to-b from-[#0f0f13] to-transparent" />
+      <div className="absolute top-0 z-10 h-[180px] w-full bg-gradient-to-b from-[#0f0f13] to-transparent" />
     </div>
   );
 };

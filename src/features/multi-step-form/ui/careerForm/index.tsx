@@ -1,7 +1,6 @@
 'use client';
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { Toaster } from 'sonner';
 import { match } from 'ts-pattern';
 
 import { Button } from '@/shared/ui/button';
@@ -11,7 +10,7 @@ import { useCreateCard } from '../../hooks/queries/useCreateCard';
 import { CareerFormData } from '../../schema';
 import { createCareerFormData } from '../../utils';
 
-import { STEP_VALIDATION_FIELDS } from './constants';
+import { getStepValidationFields } from './constants';
 import FirstStep from './firstStep';
 import FourthStep from './fourthStep';
 import SecondStep from './secondStep';
@@ -44,7 +43,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     const validData = Object.entries(data).filter(([_, value]) => {
       // 배열인 경우
       if (Array.isArray(value)) {
-        return value.length > 0;
+        return value.length > 0 && value.every((item) => item.link && item.link !== '');
       }
       // 일반 값인 경우
       return value !== '' && value !== null && value !== undefined;
@@ -56,7 +55,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   };
 
   // watch를 사용하여 현재 스텝의 필드 값들을 가져옵니다.
-  const watchedValues = watch(STEP_VALIDATION_FIELDS[currentStep]);
+  const watchedValues = watch(getStepValidationFields()[currentStep]);
 
   // 모든 필드가 채워졌는지(빈 문자열이 아닌지) 체크
   const isFilled = watchedValues.every((value) => value !== undefined && value.toString().trim() !== '');
@@ -81,12 +80,12 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
 
   const isStepValid =
     isFilled &&
-    STEP_VALIDATION_FIELDS[currentStep].every((field) => !errors[field]) &&
-    validateArrayFields(STEP_VALIDATION_FIELDS[currentStep]);
+    getStepValidationFields()[currentStep].every((field) => !errors[field]) &&
+    validateArrayFields(getStepValidationFields()[currentStep]);
   // 각 스텝에 해당하는 필드만 trigger로 검증 후 다음 단계로 이동
 
   const handleNextStep = async () => {
-    const fieldsToValidate = STEP_VALIDATION_FIELDS[currentStep];
+    const fieldsToValidate = getStepValidationFields()[currentStep];
 
     if (!fieldsToValidate) return;
 
@@ -112,7 +111,6 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
           {currentStep < TOTAL_STEPS ? '다음' : '명함 완성하기'}
         </Button>
       )}
-      <Toaster position="bottom-center" />
     </>
   );
 }

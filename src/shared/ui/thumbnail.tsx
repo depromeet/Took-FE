@@ -1,6 +1,7 @@
-import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 import { tagConfig, ThumbnailTag } from '../config';
+import { cn } from '../lib/utils';
 
 import Img from './img';
 
@@ -26,16 +27,31 @@ type thumbnailPropsType = {
 
 function Thumbnail({ tag, title, description, imageUrl, className }: thumbnailPropsType) {
   const config = tagConfig[tag];
+  const pathname = usePathname();
+  const isCardCreatePage = pathname === '/card-create/new-card/multi-step-form';
 
   return (
-    <div className={clsx('flex h-[84px] w-full items-center gap-2 rounded-md bg-opacity-white-20 p-3', className)}>
+    <div
+      className={cn(
+        'flex h-[84px] w-auto min-w-[222px] items-center gap-2 rounded-md bg-opacity-white-20 p-3',
+        className,
+      )}
+    >
       {config.hasImg && <Img size="medium" src={imageUrl} alt="" />}
       <div className="flex w-full max-w-full flex-col overflow-hidden">
         <div className="mb-1 flex h-5 w-fit items-center justify-center rounded-[4px] bg-opacity-white-20 px-1 pr-1 text-caption-2 text-white">
           {tag}
         </div>
-        {config.hasImg && title && <p className="truncate text-body-5 text-white">{title}</p>}
-        {description && <p className="truncate text-caption-1 text-white">{description}</p>}
+        {config.hasImg && title && <p className="w-full truncate text-body-5 text-white">{title}</p>}
+        {description && (
+          <p
+            className={`w-full truncate text-caption-1 text-white ${
+              isCardCreatePage ? 'whitespace-pre-line' : 'whitespace-nowrap'
+            }`}
+          >
+            {description}
+          </p>
+        )}
       </div>
     </div>
   );

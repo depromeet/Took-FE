@@ -1,8 +1,8 @@
 // middleware.ts
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // 현재 URL 경로 가져오기
   const path = request.nextUrl.pathname;
   const isFile = request.nextUrl.pathname.match(/\.(.*)$/);
 
@@ -14,20 +14,26 @@ export function middleware(request: NextRequest) {
     '/onboarding',
   ];
 
-  // 현재 경로가 public 경로인지 확인
+  const sharePaths = ['/card-share', '/card-detail'];
+
+  // // 현재 경로가 public 경로인지 확인
   const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
 
-  // 토큰 확인
-  const accessToken = request.cookies.get('accessToken');
-  const refreshToken = request.cookies.get('refreshToken');
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('accessToken');
+  const refreshToken = cookieStore.get('refreshToken');
 
-  // 문자가 있는지 검사합니다 (예: .css, .js, .png 등).
-  // 로그인 페이지 CSS 깨짐 현상 해결
+  // // 문자가 있는지 검사합니다 (예: .css, .js, .png 등).
+  // // 로그인 페이지 CSS 깨짐 현상 해결
   if (isFile) {
     return NextResponse.next();
   }
 
-  // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
+  if (sharePaths.some((sharePath) => path === sharePath || path.startsWith(`${sharePath}/`))) {
+    return NextResponse.next();
+  }
+
+  // // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
   if (isPublicPath && accessToken && refreshToken) {
     return NextResponse.redirect(new URL('/', request.url));
   }

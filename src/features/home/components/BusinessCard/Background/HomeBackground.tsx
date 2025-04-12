@@ -29,6 +29,30 @@ export const HomeBackground = (props: HTMLAttributes<HTMLDivElement>) => {
           fillOpacity="0.6"
         />
       </svg>
+
+      <svg
+        className="absolute bottom-0"
+        width="600"
+        height="319"
+        viewBox="0 0 600 319"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="600" height="319" fill="url(#paint0_linear_2559_11289)" fillOpacity="0.5" />
+        <defs>
+          <linearGradient
+            id="paint0_linear_2559_11289"
+            x1="300"
+            y1="41.2234"
+            x2="300"
+            y2="319"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#2370FF" stopOpacity="0" />
+            <stop offset="1" stopColor="#7023FF" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   );
 };

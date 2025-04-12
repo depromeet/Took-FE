@@ -73,3 +73,24 @@ export const RECEIVED_CARD_MOCK = [
     imagePath: '/images/profile/user1.jpg',
   },
 ];
+
+export const FOLDERS_MOCK = [
+  {
+    id: 0,
+    name: '디프만',
+  },
+  {
+    id: 1,
+    name: 'YAPP',
+  },
+  {
+    id: 2,
+    name: '엘리스랩',
+  },
+  {
+    id: 3,
+    name: '카카오',
+  },
+];
+
+export const SORTING = ['최근 공유 순', '오름차순', '내림차순'];

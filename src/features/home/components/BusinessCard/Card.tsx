@@ -1,11 +1,14 @@
+'use client';
+
 import Image from 'next/image';
-import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react';
+import { forwardRef, HTMLAttributes, PropsWithChildren, useEffect, useState } from 'react';
 
 import { DesignerCardBackground } from '@/features/home/components/BusinessCard/Background/DesignerCardBackground';
 import { DeveloperCardBackground } from '@/features/home/components/BusinessCard/Background/DeveloperCardBackground';
 import { JopType } from '@/features/home/types';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
+import Img from '@/shared/ui/img';
 
 import { Typography } from '../../../../shared/ui/typography';
 import { DesignerIcon } from '../icons/DesignerIcon';
@@ -21,12 +24,12 @@ type WrappedCardProps = PropsWithChildren<
 
 export const WrappedCard = forwardRef<HTMLDivElement, WrappedCardProps>(
   ({ cardType, children, className, ...rest }, ref) => {
-    const Background = cardType === 'designer' ? DesignerCardBackground : DeveloperCardBackground;
+    const Background = cardType === 'DESIGNER' ? DesignerCardBackground : DeveloperCardBackground;
 
     return (
       <div ref={ref} className={cn('relative h-[394px] w-[270px] overflow-hidden rounded-2xl', className)} {...rest}>
         <Background />
-        <div className="absolute top-0 z-10 p-[24px]">{children}</div>
+        <div className="absolute top-0 z-10 h-full w-full p-[24px]">{children}</div>
       </div>
     );
   },
@@ -39,9 +42,25 @@ type CardAvatarProps = {
 } & HTMLAttributes<HTMLImageElement>;
 
 export const CardAvatar = forwardRef<HTMLImageElement, CardAvatarProps>(({ src, alt, ...rest }, ref) => {
+  const [imageSrc, setImageSrc] = useState(src || '/icon/default-image-s.svg');
+
+  useEffect(() => {
+    setImageSrc(src || '/icon/default-image-s.svg');
+  }, [src]);
+
   return (
     <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
-      <Image ref={ref} src={src} alt={alt} width={50} height={50} {...rest} />
+      <Image
+        ref={ref}
+        src={imageSrc}
+        alt={alt}
+        width={50}
+        height={50}
+        {...rest}
+        onError={() => {
+          setImageSrc('/icon/default-image-s.svg');
+        }}
+      />
     </div>
   );
 });
@@ -65,7 +84,7 @@ type CardJobProps = {
 };
 
 export const CardJob = ({ jobType, children }: PropsWithChildren<CardJobProps>) => {
-  const Icon = jobType === 'designer' ? DesignerIcon : DeveloperIcon;
+  const Icon = jobType === 'DESIGNER' ? DesignerIcon : DeveloperIcon;
 
   return (
     <div className="mt-[2px] flex items-center gap-1">
@@ -111,18 +130,33 @@ export const CardTags = ({ tags, tagType, ...rest }: CardTagsProps & HTMLAttribu
 };
 
 type CardFooterProps = {
-  footerTitle: string;
+  previewInfo: string;
   title?: string;
   description?: string;
   imageUrl?: string;
 };
 
-export const CardFooter = ({ footerTitle, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
+export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl = '' }: CardFooterProps) => {
+  const shouldShowThumbnail = ['대표 프로젝트', '작성한 글', 'SNS'].includes(previewInfo);
+  const isSns = previewInfo === 'SNS';
   return (
     <div className="mt-[14px] flex gap-2 rounded-md bg-[rgba(255,255,255,0.2)] p-[12px]">
-      <div className="max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-white opacity-20">
-        <Image src={imageUrl} alt="프로젝트 썸네일" width={60} height={60} style={{ objectFit: 'cover' }} />
-      </div>
+      {shouldShowThumbnail && (
+        <div className="relative max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-opacity-white-20">
+          {isSns ? (
+            <Image src={imageUrl} alt={`${title} 아이콘`} fill className="object-cover" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <Img
+                src={imageUrl || '/icons/imageIcon.svg'}
+                alt="프로젝트 썸네일"
+                size="small"
+                className="h-full w-full border-0 p-0"
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div>
         <div
           className={cn(
@@ -130,7 +164,7 @@ export const CardFooter = ({ footerTitle, title = '', description = '', imageUrl
             'h-[19px] w-max overflow-hidden rounded-sm bg-[rgba(255,255,255,0.2)] py-[2px] text-[11px] text-white',
           )}
         >
-          {footerTitle}
+          {previewInfo}
         </div>
         <div className="mt-1 flex flex-col">
           <Typography variant="body-5" className="line-clamp-1">

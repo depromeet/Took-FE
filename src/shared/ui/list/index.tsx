@@ -6,12 +6,13 @@ import React from 'react';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 
-const listItemVariants = cva(`flex items-center rounded-md  w-full cursor-pointer`, {
+const listItemVariants = cva(`flex rounded-md w-full cursor-pointer`, {
   variants: {
     variant: {
-      createCardItem: `bg-gray-800 active:bg-gray-700 ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })}`,
-      settingItem: `active:bg-gray-700 ${spacingStyles({ paddingY: 'ms' })}`,
-      alramItem: `${spacingStyles({ paddingY: 'ms' })}`,
+      createCardItem: `items-center bg-gray-800 active:bg-gray-700 ${spacingStyles({ paddingY: 'ml', paddingX: 'md' })}`,
+      settingItem: `items-center active:bg-gray-700 ${spacingStyles({ paddingY: 'ms' })}`,
+      alramItem: `${spacingStyles({ paddingY: 'ms' })} items-center`,
+      alarmList: 'py-[14px]',
     },
   },
   defaultVariants: {
@@ -68,6 +69,7 @@ const listVariants = cva(`flex flex-col`, {
       createCardItem: 'gap-4',
       settingItem: '',
       alramItem: '',
+      alarmList: '',
     },
   },
   defaultVariants: {

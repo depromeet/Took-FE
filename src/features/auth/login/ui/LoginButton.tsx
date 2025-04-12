@@ -44,11 +44,30 @@ function LoginButton({ provider }: LoginButtonProps) {
   const { isWebView } = useDevice();
 
   const handleClick = (e: React.MouseEvent) => {
+    // TODO: 애플 로그인 기능 적용 시 제거될 코드
+    if (provider === 'APPLE') {
+      alert('아직 준비중인 기능입니다.');
+      return;
+    }
+
     if (isWebView && provider === 'GOOGLE') {
       e.preventDefault();
       sendGoogleLoginMessage(authUrl);
     }
   };
+
+  // TODO: 애플 로그인 기능 적용 시 제거될 코드
+  if (provider === 'APPLE') {
+    return (
+      <div
+        onClick={handleClick}
+        className={`flex w-full items-center justify-center rounded-md ${config.bgColor} px-4 py-[15px] ${config.textColor}`}
+      >
+        <Image src={config.icon} alt={`${provider} 로그인`} width={20} height={20} className={iconSpacing} />
+        <Typography variant="body-4">{config.text}</Typography>
+      </div>
+    );
+  }
 
   return (
     <Link

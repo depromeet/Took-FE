@@ -12,7 +12,7 @@ const AUTH_BASE_URLS = {
   APPLE: 'https://appleid.apple.com/auth/authorize',
 };
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NEXT_PUBLIC_STAGE === 'production';
 
 /**
  * 각 소셜 로그인 제공자별 환경 변수 설정
