@@ -35,6 +35,7 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
         classNames: {
           toast: baseToastClass,
           description: 'group-[.toast]:text-white',
+          content: 'text-white',
         },
         style: {
           width: 'max-content',
