@@ -1,5 +1,7 @@
 import { MutableRefObject, useState } from 'react';
 
+import { MAX_FOLDER_NAME_LENGTH } from '../config';
+
 import { useCreateFolder } from './mutations/useCreateFolder';
 import { useFolderStore } from './store/useFoldersStore';
 
@@ -7,7 +9,6 @@ type UseAddFolderProps = {
   isSubmittingRef: MutableRefObject<boolean>;
   closeModal: () => void;
 };
-const MAX_LENGTH = 10;
 
 export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderProps) => {
   const [isAdd, setIsAdd] = useState<boolean>(false); // 추가하기 버튼 누름 여부
@@ -30,7 +31,7 @@ export const useAddFolderModal = ({ isSubmittingRef, closeModal }: UseAddFolderP
     e.preventDefault();
     isSubmittingRef.current = true;
 
-    if (newFolderName.length <= MAX_LENGTH) {
+    if (newFolderName.length <= MAX_FOLDER_NAME_LENGTH) {
       serverCreateFolder(newFolderName);
       addFolder(newFolderName);
       closeModal();

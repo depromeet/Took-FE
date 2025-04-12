@@ -1,5 +1,7 @@
 import { MutableRefObject, useState } from 'react';
 
+import { MAX_FOLDER_NAME_LENGTH } from '../config';
+
 import { useEditFolder } from './mutations/useEditFolder';
 import { useFolderStore } from './store/useFoldersStore';
 
@@ -9,8 +11,6 @@ type UseUpdateFolderProps = {
   setFolderName: React.Dispatch<React.SetStateAction<string>>;
   closeModal: () => void;
 };
-
-const MAX_LENGTH = 10;
 
 export const useUpdateFolderModal = ({
   isSubmittingRef,
@@ -43,7 +43,7 @@ export const useUpdateFolderModal = ({
     const index = folders.findIndex((folder) => folder.name === folderName);
     if (index === -1) return;
 
-    if (updatedFolderName.length <= MAX_LENGTH) {
+    if (updatedFolderName.length <= MAX_FOLDER_NAME_LENGTH) {
       const folderId = folders[index].id;
       updateFolder(folderId, updatedFolderName);
       serverEditFolder({ folderId, name: updatedFolderName });
