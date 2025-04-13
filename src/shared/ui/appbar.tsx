@@ -18,6 +18,7 @@ const appbarVariants = cva(
         mypage: 'bg-core-black',
         received: '',
         interest: '',
+        notes: '',
       },
       hasBackground: {
         true: 'bg-gray-black',
@@ -94,7 +95,12 @@ function renderLeftIcon({
           <h1 className="text-title-1 text-white">받은 명함</h1>
         </button>
       );
-
+    case 'notes':
+      return (
+        <button onClick={onLeftClick}>
+          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
     default:
       return null;
   }
@@ -147,7 +153,9 @@ function renderRightIcon({
         </div>
       );
     case 'interest':
+    case 'notes':
       return null;
+
     default:
       return null;
   }
