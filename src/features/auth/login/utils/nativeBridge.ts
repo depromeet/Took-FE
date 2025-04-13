@@ -15,9 +15,6 @@ export const sendMessageToNative = (message: NativeMessage) => {
   }
 };
 
-/**
- * 앱에 구글 로그인 요청을 전송하는 함수
- */
 export function sendGoogleLoginMessage() {
   try {
     // 앱으로 메시지 전송
