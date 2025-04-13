@@ -14,6 +14,7 @@ export function middleware(request: NextRequest) {
     '/onboarding', // 온보딩 페이지
     '/setting/privacy-terms', // 개인정보 처리 방침
     '/setting/terms', // 이용약관
+    '/setting/user-quit', // 회원 탈퇴
   ];
 
   const sharePaths = ['/card-share', '/card-detail'];
