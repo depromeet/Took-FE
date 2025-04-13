@@ -50,6 +50,19 @@ function LoginButton({ provider }: LoginButtonProps) {
     }
   };
 
+  // 웹뷰에서 구글 로그인 버튼은 div로 렌더링
+  if (isWebView && provider === 'GOOGLE') {
+    return (
+      <div
+        onClick={() => sendGoogleLoginMessage()}
+        className={`flex w-full items-center justify-center rounded-md ${config.bgColor} px-4 py-[15px] ${config.textColor} cursor-pointer`}
+      >
+        <Image src={config.icon} alt={`${provider} 로그인`} width={20} height={20} className={iconSpacing} />
+        <Typography variant="body-4">{config.text}</Typography>
+      </div>
+    );
+  }
+
   return (
     <Link
       href={authUrl}
