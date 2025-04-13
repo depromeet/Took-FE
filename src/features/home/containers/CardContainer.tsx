@@ -50,7 +50,7 @@ export const CardContainer = () => {
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any, activeTab: number) => {
     if (info.offset.y < -200) {
       // 공유 페이지 이동
-      controls.start({ y: -600, opacity: 0, transition: { duration: 0.4 } });
+      controls.start({ y: -600, transition: { duration: 0.4 } });
       setTimeout(() => {
         goToSharePage(cards, activeTab);
       }, 300);
