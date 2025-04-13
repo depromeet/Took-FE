@@ -151,6 +151,7 @@ const config: Config = {
         toast: '300',
         dialog: '500',
         FAB: '600',
+        swiperCard: '1000',
       },
     },
   },
