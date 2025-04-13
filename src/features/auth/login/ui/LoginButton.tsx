@@ -46,7 +46,7 @@ function LoginButton({ provider }: LoginButtonProps) {
   const handleClick = (e: React.MouseEvent) => {
     if (isWebView && provider === 'GOOGLE') {
       e.preventDefault();
-      sendGoogleLoginMessage(authUrl);
+      sendGoogleLoginMessage();
     }
   };
 
