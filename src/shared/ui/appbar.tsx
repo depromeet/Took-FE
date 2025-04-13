@@ -17,6 +17,7 @@ const appbarVariants = cva(
         none: '',
         mypage: 'bg-core-black',
         received: '',
+        interest: '',
       },
       hasBackground: {
         true: 'bg-gray-black',
@@ -80,12 +81,20 @@ function renderLeftIcon({
           <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
         </button>
       );
+    case 'interest':
+      return (
+        <button onClick={onLeftClick}>
+          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+        </button>
+      );
+
     case 'received':
       return (
         <button onClick={onLeftClick}>
           <h1 className="text-title-1 text-white">받은 명함</h1>
         </button>
       );
+
     default:
       return null;
   }
@@ -137,6 +146,8 @@ function renderRightIcon({
           </button>
         </div>
       );
+    case 'interest':
+      return null;
     default:
       return null;
   }
@@ -147,7 +158,7 @@ function renderRightIcon({
  * 사용 예시 :
  * @example <Appbar page="pageName" onLeftClick={leftClickHandler} onRightClick={rightClickHandler} />
  *
- * @property {string} page - 어떤 페이지인지 나타냅니다 ('main' | 'detail' | 'create' | 'mypage' | 'received')
+ * @property {string} page - 어떤 페이지인지 나타냅니다 ('main' | 'detail' | 'create' | 'mypage' | 'received' | 'interest)
  * @property {boolean} hasBackground - 배경색 유무를 지정합니다
  * @property {string} title - 중앙에 표시할 제목
  * @property {function} onLeftClick - 왼쪽 버튼 클릭 시 실행할 함수

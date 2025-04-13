@@ -1,24 +1,22 @@
-// src/shared/ui/error-boundary/GlobalErrorFallback.tsx
 'use client';
 
+import Image from 'next/image';
 import { FallbackProps } from 'react-error-boundary';
 
 export function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
+  const message = error.response?.message || '일시적인 오류가 발생했어요';
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-100 p-4 text-center">
-      <h1 className="mb-4 text-2xl font-bold text-red-600">앗! 문제가 발생했습니다</h1>
-      <p className="mb-6 max-w-md text-gray-700">예상하지 못한 오류가 발생했습니다. 불편을 드려 죄송합니다.</p>
-      <div className="mb-6 max-w-md rounded-md bg-gray-200 p-4 text-left text-sm text-gray-800">
-        <p className="font-mono">{error instanceof Error ? error.message : '알 수 없는 오류'}</p>
-      </div>
-      {resetErrorBoundary && (
+    <div className="flex h-dvh items-center justify-center">
+      <div className="flex flex-col items-center">
+        <Image src="/icons/error.svg" alt="에러 아이콘" width={100} height={100} className="mb-[6px]" />
+        <span className="mb-[12px] text-body-3 font-medium">{message || '알 수 없는 오류가 발생했습니다'}</span>
         <button
           onClick={resetErrorBoundary}
-          className="rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
+          className="rounded-md bg-primary-active px-[24px] py-[10px] text-body-5 text-white"
         >
-          다시 시도
+          다시 시도하기
         </button>
-      )}
+      </div>
     </div>
   );
 }
