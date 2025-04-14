@@ -18,10 +18,9 @@ import BottomSheet from './bottomSheet';
 interface CardDetailHeaderProps {
   data: CardDetailDto;
   type: string;
-  myCardCount: number;
 }
 
-const CardDetailHeader = ({ data, type, myCardCount }: CardDetailHeaderProps) => {
+const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
@@ -145,7 +144,6 @@ const CardDetailHeader = ({ data, type, myCardCount }: CardDetailHeaderProps) =>
         handleCancelMode={handleCancelMode}
         memo={data?.data.memo as string}
         isPrimary={data?.data.isPrimary}
-        myCardCount={myCardCount}
       />
     </>
   );

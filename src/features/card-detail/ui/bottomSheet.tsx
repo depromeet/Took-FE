@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -9,6 +10,8 @@ import CommonDialog from '@/shared/ui/dialog/commonDialog';
 
 import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks/mutation/useCardDeleteMutation';
 import { useCardPriamaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
+import { CARD_DETAIL_QUERY_KEY } from '../hooks/query/useCardDetailQuery';
+import { MY_CARD_QUERY_KEY } from '../hooks/query/useCardQuery';
 
 type BottomSheetProps = {
   mode: boolean;
@@ -16,7 +19,6 @@ type BottomSheetProps = {
   isModalOpen: boolean;
   memo: string;
   isPrimary: boolean;
-  myCardCount: number;
   closeModal: () => void;
   handleMode: () => void;
   handleCancelMode: () => void;
@@ -28,7 +30,6 @@ function BottomSheet({
   isModalOpen,
   memo,
   isPrimary,
-  myCardCount,
   closeModal,
   handleMode,
   handleCancelMode,
@@ -38,6 +39,7 @@ function BottomSheet({
   const deleteReceivedCardMutation = useDeleteReceivedCardMutation();
   const deleteMyCardMutation = useDeleteMyCardMutation();
   const cardPrimaryMutation = useCardPriamaryMutation();
+  const queryClient = useQueryClient();
 
   const handleDelete = () => {
     if (isMyCard) {
@@ -75,16 +77,10 @@ function BottomSheet({
       { cardId: Number(cardId) },
       {
         onSuccess: () => {
-          if (isPrimary) {
-            if (myCardCount === 1) {
-              toast.error('최소 한 개의 대표 명함이 필요합니다');
-            } else {
-              toast.success('대표 명함 설정이 해제되었습니다');
-            }
-          } else {
-            toast.success('대표 명함으로 설정되었습니다');
-          }
-          closeModal(); // 모달 닫기
+          queryClient.invalidateQueries({ queryKey: [CARD_DETAIL_QUERY_KEY, cardId] });
+          queryClient.invalidateQueries({ queryKey: [MY_CARD_QUERY_KEY] });
+          toast.success('대표 명함으로 설정되었습니다');
+          closeModal();
         },
         onError: (error) => {
           toast.error(error?.message || '대표 명함 설정 중 오류가 발생했습니다');
@@ -99,10 +95,9 @@ function BottomSheet({
         <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
           {isMyCard ? (
             <>
-              <BottomMenuItem onClick={handlePrimaryCard}>
-                {isPrimary ? '대표 명함 해제하기' : '대표 명함 설정하기'}
-              </BottomMenuItem>
-              <BottomMenuItem onClick={handleMode}>명함 수정하기</BottomMenuItem>
+              {!isPrimary && <BottomMenuItem onClick={handlePrimaryCard}>대표 명함 설정하기</BottomMenuItem>}
+
+              <BottomMenuItem>명함 수정하기</BottomMenuItem>
             </>
           ) : (
             <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
