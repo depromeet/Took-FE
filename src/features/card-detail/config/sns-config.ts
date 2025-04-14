@@ -65,7 +65,7 @@ const SNS_CONFIG: Record<SnsType, SnsConfig> = {
   },
 
   ETC: {
-    iconPath: '/icons/design-icon-white.svg',
+    iconPath: '/icons/designer-icon-white.svg',
     iconAlt: '기타 SNS',
   },
 };
