@@ -9,7 +9,9 @@ import { Button } from '@/shared/ui/button';
 import Header from '@/shared/ui/header';
 
 import { Ball } from './tagFormStep/ui/Ball';
-import TagBox from './tagFormStep/ui/TagBox';
+// import MotionTagBox from './tagFormStep/ui/MotionTagBox';
+// import TagBox from './tagFormStep/ui/TagBox';
+import TmpTagBox from './tagFormStep/ui/TmpTagBox';
 
 type SecondStepProps = {
   readonly handleNextStep: () => void;
@@ -66,7 +68,9 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
             )}
           />
           <div className="relative h-full w-full">
-            <TagBox />
+            {/* <TagBox /> */}
+            {/* <MotionTagBox /> */}
+            <TmpTagBox />
           </div>
         </main>
       </div>
