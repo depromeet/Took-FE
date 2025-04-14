@@ -12,7 +12,7 @@ type SearchCardViewProps = {
 };
 
 export default function SearchCardView({ searchValue, isSearched }: SearchCardViewProps) {
-  const [hasLatest, setHasLatest] = useState(false);
+  const [hasLatest, setHasLatest] = useState(false); // 최근검색어 유무
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

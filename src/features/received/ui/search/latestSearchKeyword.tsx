@@ -23,28 +23,15 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
   const [latestSearchKeywords, setLatestSearchKeywords] = useState<LatestType[]>([]);
 
   useEffect(() => {
-    const updateFromStorage = () => {
-      const latestRaw = localStorage.getItem('latest');
-      if (latestRaw) {
-        try {
-          const parsed = JSON.parse(latestRaw) as LatestType[];
-          setLatestSearchKeywords(parsed);
-        } catch (e) {
-          console.error('최근 검색어 파싱 실패:', e);
-        }
+    const latestRaw = localStorage.getItem('latest');
+    if (latestRaw) {
+      try {
+        const parsed = JSON.parse(latestRaw) as LatestType[];
+        setLatestSearchKeywords(parsed);
+      } catch (e) {
+        console.error('최근 검색어 파싱 실패:', e);
       }
-    };
-
-    // mount될 때 최초 1회 실행
-    updateFromStorage();
-
-    // 이벤트 리스너 등록
-    window.addEventListener('latest', updateFromStorage);
-
-    // 언마운트 시 제거
-    return () => {
-      window.removeEventListener('latest', updateFromStorage);
-    };
+    }
   }, []);
 
   const handleDeleteKeyword = (keywordToDelete: string) => {
@@ -54,7 +41,6 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
     const filtered = existing.filter((entry) => entry.keyword !== keywordToDelete);
 
     localStorage.setItem('latest', JSON.stringify(filtered));
-    window.dispatchEvent(new Event('latestSearchUpdated')); // 화면 다시 렌더링되게
     setLatestSearchKeywords(latestSearchKeywords.filter((entry) => entry.keyword !== keywordToDelete));
   };
 

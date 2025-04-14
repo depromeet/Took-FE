@@ -43,17 +43,11 @@ function Page() {
 
     const storageKey = 'latest'; // 추후 상수파일로 옮겨놓기
 
-    // 기존 검색어 불러오기
     const existing = JSON.parse(localStorage.getItem(storageKey) || '[]') as SearchKeywordType[];
-
-    // 중복 제거 (같은 keyword 있는 거 제거)
     const filtered = existing.filter((entry) => entry.keyword !== keyword);
     const updated = [newKeyword, ...filtered].slice(0, 10);
 
     localStorage.setItem(storageKey, JSON.stringify(updated));
-
-    window.dispatchEvent(new Event('latestSearchUpdated'));
-
     setIsSearched(true);
   }
 
@@ -65,6 +59,9 @@ function Page() {
     saveSearchKeyword(searchValue);
   };
 
+  const handleInputClick = () => {
+    setIsSearched(false);
+  };
   return (
     <div className="flex h-dvh w-full justify-center">
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
@@ -74,7 +71,7 @@ function Page() {
           onRightClick={() => saveSearchKeyword(searchValue)}
           onSearchChange={handleSearchChange}
           onKeyDown={(e) => handleSetSearchKeywordKeyDown(e)}
-          onInputClick={() => setIsSearched(false)}
+          onInputClick={handleInputClick}
         />
         <div className="overflow-y-auto px-5 pb-24 pt-4 scrollbar-hide">
           <SearchCardView searchValue={searchValue} isSearched={isSearched} />
