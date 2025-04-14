@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import ReceivedCardList from '../receivedCardList';
 
@@ -8,10 +8,17 @@ import LatestSearchKeyword from './latestSearchKeyword';
 
 type SearchCardViewProps = {
   searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
   isSearched: boolean;
+  setIsSearched: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function SearchCardView({ searchValue, isSearched }: SearchCardViewProps) {
+export default function SearchCardView({
+  searchValue,
+  setSearchValue,
+  isSearched,
+  setIsSearched,
+}: SearchCardViewProps) {
   const [hasLatest, setHasLatest] = useState(false); // 최근검색어 유무
 
   useEffect(() => {
@@ -23,7 +30,9 @@ export default function SearchCardView({ searchValue, isSearched }: SearchCardVi
 
   return (
     <>
-      {hasLatest && !isSearched && <LatestSearchKeyword searchValue={searchValue} />}
+      {hasLatest && !isSearched && (
+        <LatestSearchKeyword setIsSearched={setIsSearched} searchValue={searchValue} setSearchValue={setSearchValue} />
+      )}
       <ReceivedCardList selectedFolderId={null} searchValue={searchValue} />
     </>
   );

@@ -69,9 +69,6 @@ function Tag({
 
   return (
     <span onClick={onClick} className={cn(tagStyles({ size }), className)}>
-      {/* <Typography variant={size === 'lg' ? 'body-5' : size === 'md' ? 'body-5' : 'caption-1'}>
-        {highlightText(message, searchValue ?? '')}
-      </Typography> */}
       <p className={cn(size === 'lg' ? 'text-body-5' : size === 'md' ? 'text-body-5' : 'text-caption-1')}>
         {highlightText(message, searchValue ?? '')}
       </p>

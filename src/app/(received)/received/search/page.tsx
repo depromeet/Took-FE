@@ -67,6 +67,7 @@ function Page() {
       <div className="flex w-full max-w-[600px] flex-col bg-gray-black">
         <Appbar
           page="search"
+          searchValue={searchValue}
           onLeftClick={handleBack}
           onRightClick={() => saveSearchKeyword(searchValue)}
           onSearchChange={handleSearchChange}
@@ -74,7 +75,12 @@ function Page() {
           onInputClick={handleInputClick}
         />
         <div className="overflow-y-auto px-5 pb-24 pt-4 scrollbar-hide">
-          <SearchCardView searchValue={searchValue} isSearched={isSearched} />
+          <SearchCardView
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            isSearched={isSearched}
+            setIsSearched={setIsSearched}
+          />
         </div>
         <Toast />
       </div>

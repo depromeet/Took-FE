@@ -1,12 +1,10 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { highlightTextBold } from '@/shared/lib/highlightText';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
-
-// import { LATEST_SEARCH_KEYWORDS_MOCK } from '../../config';
 
 type LatestType = {
   createdAt: string;
@@ -14,12 +12,12 @@ type LatestType = {
 };
 
 type LatestSearchKeywordProps = {
+  setIsSearched: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 };
 
-export default function LatestSearchKeyword({ searchValue }: LatestSearchKeywordProps) {
-  // const latest_search_keywords = LATEST_SEARCH_KEYWORDS_MOCK;
-
+export default function LatestSearchKeyword({ setIsSearched, searchValue, setSearchValue }: LatestSearchKeywordProps) {
   const [latestSearchKeywords, setLatestSearchKeywords] = useState<LatestType[]>([]);
 
   useEffect(() => {
@@ -59,6 +57,11 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
     })
     .slice(0, 3);
 
+  const handleClick = (keyword: string) => {
+    setIsSearched(true);
+    setSearchValue(keyword);
+  };
+
   return (
     <div className={cn('h-auto w-full')}>
       {searchValue === '' && (
@@ -74,6 +77,7 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
           <div
             key={index}
             className={cn('flex cursor-pointer items-center justify-between gap-3', spacingStyles({ paddingY: 'ml' }))}
+            onClick={() => handleClick(value.keyword)}
           >
             <Image src="/icons/clockIcon.svg" alt="시계 아이콘" width={16} height={16} />
             <p className="w-full text-body-5 text-white">{highlightTextBold(value.keyword, searchValue ?? '')}</p>
