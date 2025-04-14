@@ -50,6 +50,7 @@ export type CardDetailResponse = {
   content?: ContentItemDto[] | undefined;
   project?: ProjectDto[] | undefined;
   imagePath?: string;
+  isPrimary: boolean;
 };
 
 // 카드 상세 응답 타입

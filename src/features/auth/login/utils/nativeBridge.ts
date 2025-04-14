@@ -15,13 +15,18 @@ export const sendMessageToNative = (message: NativeMessage) => {
   }
 };
 
-// 구글 로그인 메시지 전송 헬퍼 함수
-export const sendGoogleLoginMessage = (url: string) => {
-  sendMessageToNative({
-    type: 'GOOGLE_LOGIN',
-    url,
-  });
-};
+export function sendGoogleLoginMessage() {
+  try {
+    // 앱으로 메시지 전송
+    window.ReactNativeWebView?.postMessage(
+      JSON.stringify({
+        type: 'GOOGLE_LOGIN',
+      }),
+    );
+  } catch (error) {
+    console.error('네이티브 브릿지 메시지 전송 실패:', error);
+  }
+}
 
 // 이미지 선택 메시지 전송 헬퍼 함수
 export const sendImagePickerMessage = (source: 'camera' | 'library') => {
