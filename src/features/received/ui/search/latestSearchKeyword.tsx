@@ -64,15 +64,26 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
     localStorage.removeItem('latest');
     setLatestSearchKeywords([]);
   };
+
+  const lowerSearch = searchValue.toLowerCase().trim();
+  const filteredSearchKeyword = latestSearchKeywords
+    .filter((keyword) => {
+      const textTarget = keyword.keyword;
+      return textTarget.toLowerCase().includes(lowerSearch);
+    })
+    .slice(0, 3);
+
   return (
     <div className={cn('h-auto w-full')}>
-      <header className={cn('flex items-center justify-between', spacingStyles({ marginBottom: 'md' }))}>
-        <p className="text-caption-1 text-gray-300">최근 검색어</p>
-        <button className="cursor-pointer text-caption-1 font-bold text-white" onClick={handleDeleteAllKeyword}>
-          전체 삭제
-        </button>
-      </header>
-      {latestSearchKeywords.map((value, index) => {
+      {searchValue === '' && (
+        <header className={cn('flex items-center justify-between', spacingStyles({ marginBottom: 'md' }))}>
+          <p className="text-caption-1 text-gray-300">최근 검색어</p>
+          <button className="cursor-pointer text-caption-1 font-bold text-white" onClick={handleDeleteAllKeyword}>
+            전체 삭제
+          </button>
+        </header>
+      )}
+      {(searchValue ? filteredSearchKeyword : latestSearchKeywords).map((value, index) => {
         return (
           <div
             key={index}
@@ -91,6 +102,7 @@ export default function LatestSearchKeyword({ searchValue }: LatestSearchKeyword
           </div>
         );
       })}
+      <section className="-mx-5 mb-4 h-[2px] bg-gray-800" />
     </div>
   );
 }

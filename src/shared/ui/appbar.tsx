@@ -46,6 +46,7 @@ type AppbarProps = AppbarVariantProps & {
   onRightClick?: () => void;
   onRightClickSecond?: () => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onInputClick?: () => void;
   title?: string;
   router?: () => void;
   isBlurred?: boolean;
@@ -195,6 +196,7 @@ function Appbar({
   searchValue,
   onSearchChange,
   onKeyDown,
+  onInputClick,
 }: AppbarProps) {
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
@@ -210,6 +212,7 @@ function Appbar({
           value={searchValue}
           onChange={onSearchChange}
           onKeyDown={onKeyDown}
+          onClick={onInputClick}
         />
       )}
       <div className="flex justify-end">

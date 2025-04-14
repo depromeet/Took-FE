@@ -29,6 +29,7 @@ function Page() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
+    if (e.target.value === '') setIsSearched(false);
   };
 
   function saveSearchKeyword(keyword: string) {
@@ -73,6 +74,7 @@ function Page() {
           onRightClick={() => saveSearchKeyword(searchValue)}
           onSearchChange={handleSearchChange}
           onKeyDown={(e) => handleSetSearchKeywordKeyDown(e)}
+          onInputClick={() => setIsSearched(false)}
         />
         <div className="overflow-y-auto px-5 pb-24 pt-4 scrollbar-hide">
           <SearchCardView searchValue={searchValue} isSearched={isSearched} />
