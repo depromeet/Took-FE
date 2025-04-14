@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 import LottieLoading from '@/shared/ui/lottieLoading';
@@ -18,10 +18,10 @@ export default function ReceivedCardList({ selectedFolderId, searchValue = '' }:
   const { isLoading, isFetching } = useReceivedCardsQuery(selectedFolderId);
   const { receivedCards } = useReceivedCardsStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   const lowerSearch = searchValue.toLowerCase().trim();
   const filteredCards = receivedCards.filter((card) => {
-    // 카드의 주요 문자열 필드를 모두 검사
     const textTargets = [
       card.nickname,
       card.organization,
@@ -39,7 +39,6 @@ export default function ReceivedCardList({ selectedFolderId, searchValue = '' }:
       card.previewInfo?.region,
       card.previewInfo?.sns?.type,
     ];
-    // undefined 체크 후 소문자로 바꿔서 비교
     return textTargets.some((field) => field?.toLowerCase().includes(lowerSearch));
   });
 
@@ -49,6 +48,8 @@ export default function ReceivedCardList({ selectedFolderId, searchValue = '' }:
 
   if (isLoading || isFetching) return <LottieLoading />;
   if (receivedCards.length == 0) return <EmptyCard />;
+  if (!searchValue.trim() && pathname == '/received/search') return null; // 추후 스켈레톤 UI 추가 예정
+
   return (
     <div className="flex flex-col gap-4">
       {(searchValue ? filteredCards : receivedCards).map((value, index) => (
