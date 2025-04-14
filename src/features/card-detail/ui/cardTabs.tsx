@@ -27,9 +27,10 @@ import { UnderlineTabs } from './underlineTabs';
 interface CardTabsProps {
   data: CardDetailDto;
   type: string;
+  myCardCount: number;
 }
 
-function CardTabs({ data, type }: CardTabsProps) {
+function CardTabs({ data, type, myCardCount }: CardTabsProps) {
   const filteredTabs = getFilteredTabs(data);
   const [activeTab, setActiveTab] = useState<TabId>('domains');
 
@@ -225,6 +226,8 @@ function CardTabs({ data, type }: CardTabsProps) {
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
         memo={data?.data.memo as string}
+        isPrimary={data?.data.isPrimary}
+        myCardCount={myCardCount}
       />
     </>
   );

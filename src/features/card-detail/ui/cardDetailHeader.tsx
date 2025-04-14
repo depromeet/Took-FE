@@ -18,9 +18,10 @@ import BottomSheet from './bottomSheet';
 interface CardDetailHeaderProps {
   data: CardDetailDto;
   type: string;
+  myCardCount: number;
 }
 
-const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
+const CardDetailHeader = ({ data, type, myCardCount }: CardDetailHeaderProps) => {
   const { isModalOpen, headerRightHandler, closeModal } = useBottomModal();
   const [mode, setMode] = useState(false);
   const handleBack = useHistoryBack();
@@ -30,7 +31,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
 
   useEffect(() => {
     setImageSrc(data?.data?.imagePath || '/icon/default-image-s.svg');
-  }, [data?.data?.imagePath]);
+  }, [data?.data?.imagePath, data?.data?.isPrimary]);
 
   const handleMode = () => {
     setMode(true);
@@ -143,6 +144,8 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
         memo={data?.data.memo as string}
+        isPrimary={data?.data.isPrimary}
+        myCardCount={myCardCount}
       />
     </>
   );

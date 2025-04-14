@@ -8,12 +8,15 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 
 import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks/mutation/useCardDeleteMutation';
+import { useCardPriamaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
 
 type BottomSheetProps = {
   mode: boolean;
   isMyCard: boolean;
   isModalOpen: boolean;
   memo: string;
+  isPrimary: boolean;
+  myCardCount: number;
   closeModal: () => void;
   handleMode: () => void;
   handleCancelMode: () => void;
@@ -24,6 +27,8 @@ function BottomSheet({
   isMyCard,
   isModalOpen,
   memo,
+  isPrimary,
+  myCardCount,
   closeModal,
   handleMode,
   handleCancelMode,
@@ -32,6 +37,7 @@ function BottomSheet({
   const router = useRouter();
   const deleteReceivedCardMutation = useDeleteReceivedCardMutation();
   const deleteMyCardMutation = useDeleteMyCardMutation();
+  const cardPrimaryMutation = useCardPriamaryMutation();
 
   const handleDelete = () => {
     if (isMyCard) {
@@ -63,11 +69,44 @@ function BottomSheet({
     }
   };
 
+  // 대표 명함 설정/해제 처리 함수
+  const handlePrimaryCard = () => {
+    cardPrimaryMutation.mutate(
+      { cardId: Number(cardId) },
+      {
+        onSuccess: () => {
+          if (isPrimary) {
+            if (myCardCount === 1) {
+              toast.error('최소 한 개의 대표 명함이 필요합니다');
+            } else {
+              toast.success('대표 명함 설정이 해제되었습니다');
+            }
+          } else {
+            toast.success('대표 명함으로 설정되었습니다');
+          }
+          closeModal(); // 모달 닫기
+        },
+        onError: (error) => {
+          toast.error(error?.message || '대표 명함 설정 중 오류가 발생했습니다');
+        },
+      },
+    );
+  };
+
   return (
     <>
       {!mode ? (
         <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
-          {isMyCard ? <></> : <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>}
+          {isMyCard ? (
+            <>
+              <BottomMenuItem onClick={handlePrimaryCard}>
+                {isPrimary ? '대표 명함 해제하기' : '대표 명함 설정하기'}
+              </BottomMenuItem>
+              <BottomMenuItem onClick={handleMode}>명함 수정하기</BottomMenuItem>
+            </>
+          ) : (
+            <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
+          )}
 
           {/* 삭제 다이얼로그와 트리거 함께 사용 */}
           <CommonDialog
