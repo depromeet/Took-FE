@@ -9,7 +9,7 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 
 import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks/mutation/useCardDeleteMutation';
-import { useCardPriamaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
+import { useCardPrimaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
 import { CARD_DETAIL_QUERY_KEY } from '../hooks/query/useCardDetailQuery';
 import { MY_CARD_QUERY_KEY } from '../hooks/query/useCardQuery';
 
@@ -38,7 +38,7 @@ function BottomSheet({
   const router = useRouter();
   const deleteReceivedCardMutation = useDeleteReceivedCardMutation();
   const deleteMyCardMutation = useDeleteMyCardMutation();
-  const cardPrimaryMutation = useCardPriamaryMutation();
+  const cardPrimaryMutation = useCardPrimaryMutation();
   const queryClient = useQueryClient();
 
   const handleDelete = () => {

@@ -10,7 +10,7 @@ const updatePrimaryCard = async (cardId: number) => {
 };
 
 // 카드 업데이트를 위한 mutation 훅
-export const useCardPriamaryMutation = () => {
+export const useCardPrimaryMutation = () => {
   return useMutation({
     mutationFn: ({ cardId }: { cardId: number }) => updatePrimaryCard(cardId),
   });
