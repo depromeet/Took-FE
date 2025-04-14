@@ -19,14 +19,14 @@ function CardNotesMemoMain() {
   const [currentMemo, setCurrentMemo] = useState('');
   const filteredCards = data?.data.cards ? data.data.cards.filter((card) => selectedCardIds.includes(card.id)) : [];
 
-  // useCallback을 사용하여 함수 참조 안정화
+  // 스와이퍼 변경 시 id값 변경
   const handleActiveCardChange = useCallback(
     (cardId: number) => {
       setActiveCardId(cardId);
       setCurrentMemo(memos[cardId] || '');
     },
     [memos],
-  ); // memos를 의존성으로 추가
+  );
 
   // 메모 입력 핸들러
   const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +66,7 @@ function CardNotesMemoMain() {
       }));
 
     console.log('저장할 메모 목록:', memosToSave);
+    localStorage.removeItem('card-selection-storage');
     toast.success('메모가 저장되었습니다.');
   };
 
@@ -75,7 +76,7 @@ function CardNotesMemoMain() {
       const firstCardId = filteredCards[0].id;
       setActiveCardId(firstCardId);
     }
-  }, [filteredCards, activeCardId]);
+  }, []);
 
   return (
     <div className="mt-[12px]">

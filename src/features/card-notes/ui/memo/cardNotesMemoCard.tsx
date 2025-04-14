@@ -9,8 +9,6 @@ import 'swiper/css/pagination';
 
 import { PreviewInfo } from '@/features/share/types';
 
-import { Card, JopType, PreviewInfoType } from '../../types';
-import { getPreviewContentByType } from '../../utils/getPreviewContent';
 import {
   WrappedCard,
   ShareCardAvatar,
@@ -20,7 +18,9 @@ import {
   ShareCardTags,
   ShareCardFooter,
 } from '../../components/Card';
+import { Card, JopType, PreviewInfoType } from '../../types';
 import { convertPreviewInfo } from '../../utils/convertPreviewType';
+import { getPreviewContentByType } from '../../utils/getPreviewContent';
 
 type CardNotesCardProps = {
   cards: Card[];
@@ -29,7 +29,7 @@ type CardNotesCardProps = {
 };
 
 function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [_, setActiveIndex] = useState(0);
 
   const getPreviewContent = (card: Card) => {
     if (!card?.previewInfo || !card?.previewInfoType) return {};

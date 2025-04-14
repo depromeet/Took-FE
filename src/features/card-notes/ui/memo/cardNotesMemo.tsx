@@ -5,7 +5,7 @@ function CardNotesMemo() {
   return (
     <div className="flex w-full flex-col">
       <CardNotesMemoHeader />
-      <div className={'h-[calc(100dvh-64px)] overflow-y-auto scrollbar-hide'}>
+      <div className="h-[calc(100dvh-64px)] overflow-y-auto scrollbar-hide">
         <CardNotesMemoMain />
       </div>
     </div>

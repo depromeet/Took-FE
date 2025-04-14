@@ -23,6 +23,7 @@ export const useSelectCardStore = create<SelectCardState>()(
             : [...state.selectedCardIds, id],
         })),
     }),
+
     {
       name: 'card-selection-storage', // 로컬 스토리지 키 이름
     },
