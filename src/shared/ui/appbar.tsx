@@ -45,6 +45,7 @@ type AppbarProps = AppbarVariantProps & {
   onLeftClick?: () => void;
   onRightClick?: () => void;
   onRightClickSecond?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   title?: string;
   router?: () => void;
   isBlurred?: boolean;
@@ -193,6 +194,7 @@ function Appbar({
   className,
   searchValue,
   onSearchChange,
+  onKeyDown,
 }: AppbarProps) {
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
@@ -207,6 +209,7 @@ function Appbar({
           placeholder="검색어를 입력하세요"
           value={searchValue}
           onChange={onSearchChange}
+          onKeyDown={onKeyDown}
         />
       )}
       <div className="flex justify-end">
