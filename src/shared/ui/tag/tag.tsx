@@ -4,9 +4,8 @@ import { cva } from 'class-variance-authority';
 import Image from 'next/image';
 import React from 'react';
 
+import { highlightText } from '@/shared/lib/highlightText';
 import { cn } from '@/shared/lib/utils';
-
-import { Typography } from '../typography';
 
 type TagSize = 'sm' | 'md' | 'lg' | 'create-input';
 
@@ -16,6 +15,7 @@ interface TagProps {
   onClose?: () => void;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLSpanElement>) => void; // 추가
+  searchValue?: string;
 }
 
 /** 공통 컴포넌트 - tag
@@ -38,7 +38,14 @@ interface TagProps {
  * <Tag message="큰 태그" size="lg" onClose={handleCloseBtn} />
  */
 
-function Tag({ message, size = 'md', onClose, onClick, className = 'bg-opacity-white-20' }: TagProps) {
+function Tag({
+  message,
+  size = 'md',
+  onClose,
+  onClick,
+  className = 'bg-opacity-white-20',
+  searchValue = '',
+}: TagProps) {
   const tagStyles = cva('inline-flex items-center rounded-full', {
     variants: {
       size: {
@@ -62,7 +69,12 @@ function Tag({ message, size = 'md', onClose, onClick, className = 'bg-opacity-w
 
   return (
     <span onClick={onClick} className={cn(tagStyles({ size }), className)}>
-      <Typography variant={size === 'lg' ? 'body-5' : size === 'md' ? 'body-5' : 'caption-1'}>{message}</Typography>
+      {/* <Typography variant={size === 'lg' ? 'body-5' : size === 'md' ? 'body-5' : 'caption-1'}>
+        {highlightText(message, searchValue ?? '')}
+      </Typography> */}
+      <p className={cn(size === 'lg' ? 'text-body-5' : size === 'md' ? 'text-body-5' : 'text-caption-1')}>
+        {highlightText(message, searchValue ?? '')}
+      </p>
       {onClose && (
         <button
           type="button"

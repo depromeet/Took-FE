@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import SNS_CONFIG, { SnsType } from '@/features/card-detail/config/sns-config';
 import { Card } from '@/features/home/types';
+import { highlightText } from '@/shared/lib/highlightText';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedAvatar from '@/shared/ui/Avatar';
@@ -15,24 +16,6 @@ type ReceivedCardProps = {
   onClick?: () => void;
   searchValue?: string;
 };
-
-function highlightText(text: string | undefined, keyword: string) {
-  // if (!text) return null;
-  if (!keyword.trim()) return text;
-
-  const regex = new RegExp(`(${keyword})`, 'gi'); // 대소문자 구분 없이
-  const parts = text?.split(regex);
-
-  return parts?.map((part, index) =>
-    part.toLowerCase() === keyword.toLowerCase() ? (
-      <span key={index} className="text-secondary">
-        {part}
-      </span>
-    ) : (
-      part
-    ),
-  );
-}
 
 type RenderingThumbnailProps = {
   cardData: Card;
@@ -141,7 +124,15 @@ export default function ReceivedCard({ cardData, onClick, searchValue = '' }: Re
       </p>
       <div className={cn('flex gap-1', spacingStyles({ marginBottom: 'md' }))}>
         {cardData.interestDomain.map((tag, index) => {
-          return <Tag key={index} size="sm" message={tag} className="bg-opacity-white-10 text-white" />;
+          return (
+            <Tag
+              key={index}
+              size="sm"
+              message={tag}
+              className="bg-opacity-white-10 text-white"
+              searchValue={searchValue}
+            />
+          );
         })}
       </div>
       <RenderingThumbnail cardData={cardData} searchValue={searchValue} />
