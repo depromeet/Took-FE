@@ -76,6 +76,14 @@
       background-color: #fff;
     }
 
+    .memo-swiper .swiper-pagination-bullet {
+      background: var(--gray-600);
+    }
+
+    .memo-swiper .swiper-pagination-bullet-active {
+      background-color: #fff;
+    }
+
     body {
       color: var(--foreground);
       background: var(--background);
