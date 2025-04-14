@@ -77,5 +77,8 @@ export const mockCardDetailData: CardDetailDto = {
         description: '개발자들이 서로 연결되고 프로젝트를 공유하는 앱',
       },
     ],
+    imagePath:
+      'https://even-took.s3.ap-northeast-2.amazonaws.com/develop/profile/4a78189e-1033-4a4c-89ba-24cad7021d0f_KakaoTalk_Photo_2024-10-29-11-13-30.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250414T013733Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIASE5KRLTQY4E7PPOW%2F20250414%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=6ea23ac822ee430d16ab284df7eb0b2cde3347534d0528bcf456f540b404fc55',
+    isPrimary: true,
   },
 };
