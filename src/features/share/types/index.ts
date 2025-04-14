@@ -19,6 +19,7 @@ export type Card = {
   previewInfoType: PreviewInfoType;
   previewInfo: PreviewInfo;
   imagePath: string;
+  isPrimary: boolean;
 };
 
 export type PreviewInfo = {

@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -8,12 +9,16 @@ import { MemoInput } from '@/shared/ui/bottomModal/memoInput';
 import CommonDialog from '@/shared/ui/dialog/commonDialog';
 
 import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks/mutation/useCardDeleteMutation';
+import { useCardPrimaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
+import { CARD_DETAIL_QUERY_KEY } from '../hooks/query/useCardDetailQuery';
+import { MY_CARD_QUERY_KEY } from '../hooks/query/useCardQuery';
 
 type BottomSheetProps = {
   mode: boolean;
   isMyCard: boolean;
   isModalOpen: boolean;
   memo: string;
+  isPrimary: boolean;
   closeModal: () => void;
   handleMode: () => void;
   handleCancelMode: () => void;
@@ -24,6 +29,7 @@ function BottomSheet({
   isMyCard,
   isModalOpen,
   memo,
+  isPrimary,
   closeModal,
   handleMode,
   handleCancelMode,
@@ -32,6 +38,8 @@ function BottomSheet({
   const router = useRouter();
   const deleteReceivedCardMutation = useDeleteReceivedCardMutation();
   const deleteMyCardMutation = useDeleteMyCardMutation();
+  const cardPrimaryMutation = useCardPrimaryMutation();
+  const queryClient = useQueryClient();
 
   const handleDelete = () => {
     if (isMyCard) {
@@ -63,11 +71,37 @@ function BottomSheet({
     }
   };
 
+  // 대표 명함 설정/해제 처리 함수
+  const handlePrimaryCard = () => {
+    cardPrimaryMutation.mutate(
+      { cardId: Number(cardId) },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: [CARD_DETAIL_QUERY_KEY, cardId] });
+          queryClient.invalidateQueries({ queryKey: [MY_CARD_QUERY_KEY] });
+          toast.success('대표 명함으로 설정되었습니다');
+          closeModal();
+        },
+        onError: (error) => {
+          toast.error(error?.message || '대표 명함 설정 중 오류가 발생했습니다');
+        },
+      },
+    );
+  };
+
   return (
     <>
       {!mode ? (
         <BottomModal isModalOpen={isModalOpen} closeModal={closeModal} mode={mode}>
-          {isMyCard ? <></> : <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>}
+          {isMyCard ? (
+            <>
+              {!isPrimary && <BottomMenuItem onClick={handlePrimaryCard}>대표 명함 설정하기</BottomMenuItem>}
+
+              <BottomMenuItem>명함 수정하기</BottomMenuItem>
+            </>
+          ) : (
+            <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>
+          )}
 
           {/* 삭제 다이얼로그와 트리거 함께 사용 */}
           <CommonDialog

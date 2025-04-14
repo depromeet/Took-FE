@@ -30,7 +30,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
 
   useEffect(() => {
     setImageSrc(data?.data?.imagePath || '/icon/default-image-s.svg');
-  }, [data?.data?.imagePath]);
+  }, [data?.data?.imagePath, data?.data?.isPrimary]);
 
   const handleMode = () => {
     setMode(true);
@@ -143,6 +143,7 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
         memo={data?.data.memo as string}
+        isPrimary={data?.data.isPrimary}
       />
     </>
   );

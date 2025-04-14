@@ -225,6 +225,7 @@ function CardTabs({ data, type }: CardTabsProps) {
         handleMode={handleMode}
         handleCancelMode={handleCancelMode}
         memo={data?.data.memo as string}
+        isPrimary={data?.data.isPrimary}
       />
     </>
   );
