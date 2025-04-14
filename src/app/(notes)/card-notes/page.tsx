@@ -1,6 +1,4 @@
-import React from 'react';
-
-import CardNotes from '@/features/card-notes/ui/cardNotes';
+import CardNotes from '@/features/card-notes/ui/select/cardNotes';
 
 function Page() {
   return (
