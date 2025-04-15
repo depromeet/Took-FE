@@ -75,6 +75,7 @@ export const CardContainer = () => {
             id,
             job: type,
             imagePath: profileImg,
+            isPrimary,
             nickname: name,
             organization,
             detailJob,
@@ -119,6 +120,11 @@ export const CardContainer = () => {
                         height: '100%',
                       }}
                     >
+                      {isPrimary && (
+                        <div className="absolute right-[23px] top-[24px] rounded-full bg-[rgba(255,255,255,0.2)]">
+                          <p className="px-[8px] py-[3px] text-caption-1">대표</p>
+                        </div>
+                      )}
                       <div>
                         <CardAvatar
                           src={profileImg || '/icon/default-image-s.svg'}

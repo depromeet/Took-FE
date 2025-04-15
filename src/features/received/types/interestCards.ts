@@ -1,13 +1,8 @@
 export type JopType = 'DESIGNER' | 'DEVELOPER';
 export type PreviewInfoType = 'PROJECT' | 'CONTENT' | 'HOBBY' | 'SNS' | 'NEWS' | 'REGION';
 
-export type MyCardDto = {
-  status: string;
-  message: string;
-  timestamp: string;
-  data: {
-    cards: Card[];
-  };
+export type InterestCardsDto = {
+  cards: Card[];
 };
 
 export type Card = {
@@ -22,7 +17,7 @@ export type Card = {
   previewInfoType: PreviewInfoType;
   previewInfo: PreviewInfo;
   imagePath: string;
-  isPrimary: boolean;
+  isPramary?: boolean;
 };
 
 type PreviewInfo = {
