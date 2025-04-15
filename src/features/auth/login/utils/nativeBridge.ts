@@ -18,11 +18,9 @@ export const sendMessageToNative = (message: NativeMessage) => {
 export function sendGoogleLoginMessage() {
   try {
     // 앱으로 메시지 전송
-    window.ReactNativeWebView?.postMessage(
-      JSON.stringify({
-        type: 'GOOGLE_LOGIN',
-      }),
-    );
+    sendMessageToNative({
+      type: 'GOOGLE_LOGIN',
+    });
   } catch (error) {
     console.error('네이티브 브릿지 메시지 전송 실패:', error);
   }
