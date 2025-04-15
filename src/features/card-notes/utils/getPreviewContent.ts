@@ -1,6 +1,5 @@
 import SNS_CONFIG from '@/features/card-detail/config/sns-config';
-
-import { PreviewInfo } from '../types';
+import { PreviewInfo } from '@/features/share/types';
 
 // 미리보기 정보 변환을 처리하는 함수 분리
 export const getPreviewContentByType = (previewInfo: PreviewInfo, type: string) => {
