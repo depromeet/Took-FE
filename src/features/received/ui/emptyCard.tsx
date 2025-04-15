@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 type EmptyCardProps = {
-  message: string;
+  message?: string;
 };
 
 export default function EmptyCard({ message = '받은 명함이 없어요.' }: EmptyCardProps) {
