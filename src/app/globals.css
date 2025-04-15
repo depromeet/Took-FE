@@ -76,12 +76,42 @@
       background-color: #fff;
     }
 
+    /* 푸시 알림 메모 스와이프 */
     .memo-swiper .swiper-pagination-bullet {
       background: var(--gray-600);
     }
 
     .memo-swiper .swiper-pagination-bullet-active {
       background-color: #fff;
+    }
+
+    .memo-swiper {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .memo-swiper .swiper-slide svg {
+      will-change: transform; /* 변형 힌트 */
+      shape-rendering: crispEdges; /* SVG 선명도 */
+    }
+
+    .memo-swiper .swiper-slide {
+      transition: all 0.2s ease-out; /* 부드러운 전환 효과 */
+    }
+
+    .memo-swiper .swiper-slide-prev,
+    .memo-swiper .swiper-slide-next {
+      backdrop-filter: blur(57px);
+    }
+
+    .memo-swiper .swiper-slide-prev {
+      opacity: 1;
+      transform: translateX(-10%) rotate(-2.5deg);
+    }
+
+    .memo-swiper .swiper-slide-next {
+      opacity: 1;
+      transform: translateX(10%) rotate(2.5deg);
     }
 
     body {
