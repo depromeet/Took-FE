@@ -30,6 +30,7 @@ type CardNotesCardProps = {
 
 function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardProps) {
   const [_, setActiveIndex] = useState(0);
+  const isSingleCard = cards.length === 1;
 
   const getPreviewContent = (card: Card) => {
     if (!card?.previewInfo || !card?.previewInfoType) return {};
@@ -67,12 +68,13 @@ function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardP
       onSlideChange={handleSlideChange}
       pagination={{
         dynamicBullets: true,
+        enabled: !isSingleCard,
       }}
       navigation={false}
-      slidesPerView={1.3}
-      spaceBetween={24}
+      slidesPerView={isSingleCard ? 1 : 1.3}
+      spaceBetween={isSingleCard ? 0 : 24}
       centeredSlides={true}
-      className="memo-swiper custom-swiper-edge-peek h-[420px]"
+      className="memo-swiper h-[420px]"
     >
       {cards.map((card) => {
         const previewContent = getPreviewContent(card);
@@ -80,7 +82,12 @@ function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardP
         return (
           <SwiperSlide
             key={card.id}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'start',
+            }}
           >
             <WrappedCard cardType={card?.job as JopType} className="relative mb-[20px]">
               <div className="flex h-full cursor-pointer flex-col justify-between">
