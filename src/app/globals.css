@@ -90,11 +90,6 @@
       padding-right: 16px;
     }
 
-    .memo-swiper .swiper-slide svg {
-      will-change: transform; /* 변형 힌트 */
-      shape-rendering: crispEdges; /* SVG 선명도 */
-    }
-
     .memo-swiper .swiper-slide {
       transition: all 0.2s ease-out; /* 부드러운 전환 효과 */
     }
