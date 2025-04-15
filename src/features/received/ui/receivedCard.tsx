@@ -3,13 +3,14 @@
 import Image from 'next/image';
 
 import SNS_CONFIG, { SnsType } from '@/features/card-detail/config/sns-config';
-import { Card } from '@/features/home/types';
 import { highlightText } from '@/shared/lib/highlightText';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import Tag from '@/shared/ui/tag/tag';
 import Thumbnail from '@/shared/ui/thumbnail';
+
+import { Card } from '../types/interestCards';
 
 type ReceivedCardProps = {
   cardData: Card;
