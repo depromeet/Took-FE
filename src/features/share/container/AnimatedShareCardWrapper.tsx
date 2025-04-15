@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { sendMessageToNative } from '@/features/auth/login/utils/nativeBridge';
 import useDevice from '@/shared/hooks/useDevice';
 import { useIsLoggedIn } from '@/shared/hooks/useIsLoggedIn';
 import Toast from '@/shared/ui/Toast';
@@ -33,49 +32,40 @@ function AnimatedShareCardWrapper() {
 
   const { isWebView, isMobileDevice, isIOS, isAndroid } = useDevice();
 
-  // 웹뷰일 경우 네이티브 앱에서 저장 처리를 위한 딥링크 전송
-  const urlScheme = isWebView ? 'took://' : 'https://www.took.com/';
-
   useEffect(() => {
     // 명함 공유 페이지에서 접근했음을 표시
     setFromSharedCard(true);
 
-    // 웹뷰에서 열렸을 때
-    if (isWebView && isLoggedIn) {
-      sendMessageToNative({
-        type: 'SHARE_CARD_DEEP_LINK',
-        url: `took://card-share/${id}`,
-        data: {
-          cardId: id as string,
-          type: 'receivedcard',
-          shouldSave: true,
-        },
-      });
+    // 모바일 기기에서 브라우저로 열었을 때 (웹뷰가 아닌 상태)
+    if (isMobileDevice && !isWebView) {
+      // 앱으로 딥링크 시도
+      const startTime = new Date().getTime();
+      window.location.href = `took://card-share/${id}`;
 
+      // 로그인된 경우에만 명함 저장 처리
       if (isLoggedIn) {
         handleSaveCard();
       }
-    }
-    // 모바일 기기에서 브라우저로 열었을 때 (웹뷰가 아닌 상태)
-    else if (isMobileDevice && !isWebView) {
-      // 앱으로 딥링크 시도
-      window.location.href = `took://card-share/${id}`;
 
       // 앱이 없는 경우 앱스토어로 리다이렉트(2초 후)
       const timeout = setTimeout(() => {
-        if (isIOS) {
-          // TODO: 앱스토어 링크 수정 필요
-          window.location.href = 'https://apps.apple.com/app/id앱스토어ID'; // 앱스토어 링크
-        } else if (isAndroid) {
-          // TODO: 플레이스토어 링크 수정 필요
-          window.location.href = 'https://play.google.com/store/apps/details?id=com.evenway2025.took'; // 플레이스토어 링크
+        // 현재 페이지가 아직 활성화되어 있으면 앱이 열리지 않은 것으로 간주
+        const currentTime = new Date().getTime();
+        if (currentTime - startTime > 1500) {
+          if (isIOS) {
+            // TODO: 앱스토어 링크 수정 필요
+            window.location.href = 'https://apps.apple.com/app/id앱스토어ID'; // 앱스토어 링크
+          } else if (isAndroid) {
+            // TODO: 플레이스토어 링크 수정 필요
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.evenway2025.took'; // 플레이스토어 링크
+          }
         }
       }, 2000);
 
       return () => clearTimeout(timeout);
     }
-    // 웹에서 접근한 경우 직접 저장
-    else if (isLoggedIn) {
+    // 웹에서 접근한 경우 로그인되어 있으면 직접 저장
+    else if (isLoggedIn && !isWebView && !isMobileDevice) {
       handleSaveCard();
     }
 
@@ -113,7 +103,28 @@ function AnimatedShareCardWrapper() {
   };
 
   const handleMoveToDetail = () => {
-    router.push(`${urlScheme}/card-detail/${id}?type=receivedcard`);
+    // 모바일 기기에서는 항상 앱으로 딥링크 시도
+    if (isMobileDevice) {
+      const startTime = new Date().getTime();
+      window.location.href = `took://card-detail/${id}?type=receivedcard`;
+
+      // 앱이 없는 경우 앱스토어로 리다이렉트(2초 후)
+      setTimeout(() => {
+        const currentTime = new Date().getTime();
+        if (currentTime - startTime > 1500) {
+          if (isIOS) {
+            // TODO: 앱스토어 링크 수정 필요
+            window.location.href = 'https://apps.apple.com/app/id앱스토어ID';
+          } else if (isAndroid) {
+            // TODO: 플레이스토어 링크 수정 필요
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.evenway2025.took';
+          }
+        }
+      }, 2000);
+    } else {
+      // 웹에서는 직접 페이지로 이동
+      router.push(`/card-detail/${id}?type=receivedcard`);
+    }
   };
 
   return (
