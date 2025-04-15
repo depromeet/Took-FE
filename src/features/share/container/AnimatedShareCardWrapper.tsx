@@ -5,6 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+import { sendMessageToNative } from '@/features/auth/login/utils/nativeBridge';
+import useDevice from '@/shared/hooks/useDevice';
 import { useIsLoggedIn } from '@/shared/hooks/useIsLoggedIn';
 import Toast from '@/shared/ui/Toast';
 import handleAxiosError from '@/shared/utils/handleAxiosError';
@@ -27,19 +29,40 @@ function AnimatedShareCardWrapper() {
   const { mutate: saveCard } = useSaveCard();
   const { isLoggedIn } = useIsLoggedIn();
   const router = useRouter();
-
   const cardData = data?.data;
+
+  const { isWebView } = useDevice();
+
+  // 웹뷰일 경우 네이티브 앱에서 저장 처리를 위한 딥링크 전송
+  const urlScheme = isWebView ? 'took://' : 'https://www.took.com/';
 
   useEffect(() => {
     // 명함 공유 페이지에서 접근했음을 표시
     setFromSharedCard(true);
 
-    // 로그인한 사용자만 명함을 저장
-    if (isLoggedIn) {
+    // 웹뷰일 경우 네이티브 앱에서 저장 처리를 위한 딥링크 전송
+    if (isWebView && isLoggedIn) {
+      sendMessageToNative({
+        type: 'SHARE_CARD_DEEP_LINK',
+        url: `took://card-share/${id}`,
+        data: {
+          cardId: id as string,
+          type: 'receivedcard',
+          shouldSave: true, // 저장이 필요함을 표시
+        },
+      });
+
+      if (isLoggedIn) {
+        handleSaveCard();
+      }
+    }
+
+    // 웹에서 접근한 경우 직접 저장
+    else if (isLoggedIn) {
       handleSaveCard();
     }
 
-    // 페이지 로드 시 애니메이션 시작
+    // 애니메이션은 웹뷰/웹 모두 실행
     controls
       .start({
         y: 0,
@@ -57,7 +80,7 @@ function AnimatedShareCardWrapper() {
       .then(() => {
         setIsAnimating(false);
       });
-  }, [controls, setFromSharedCard, isLoggedIn]);
+  }, [controls, setFromSharedCard, isLoggedIn, isWebView, id]);
 
   const handleSaveCard = () => {
     if (!id) return;
@@ -73,7 +96,7 @@ function AnimatedShareCardWrapper() {
   };
 
   const handleMoveToDetail = () => {
-    router.push(`/card-detail/${id}?type=receivedcard`);
+    router.push(`${urlScheme}/card-detail/${id}?type=receivedcard`);
   };
 
   return (
