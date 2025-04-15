@@ -1,11 +1,16 @@
 // 네이티브 메시지 타입 정의
-export type NativeMessageType = 'GOOGLE_LOGIN' | 'IMAGE_PICKER';
+export type NativeMessageType = 'GOOGLE_LOGIN' | 'IMAGE_PICKER' | 'SHARE_CARD_DEEP_LINK';
 
 // 네이티브 메시지 인터페이스 정의
 export interface NativeMessage {
   type: NativeMessageType;
   url?: string;
   source?: 'camera' | 'library'; // 카메라 또는 갤러리 선택
+  data?: {
+    cardId: string;
+    type: 'receivedcard';
+    shouldSave: boolean;
+  };
 }
 
 // 네이티브 메시지 전송 함수
