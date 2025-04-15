@@ -17,7 +17,9 @@ function CardNotesMemoMain() {
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const [memos, setMemos] = useState<Record<number, string>>({});
   const [currentMemo, setCurrentMemo] = useState('');
-  const filteredCards = data?.data.cards ? data.data.cards.filter((card) => selectedCardIds.includes(card.id)) : [];
+
+  const cardNotes = data?.cards;
+  const filteredCards = cardNotes ? cardNotes?.filter((card) => selectedCardIds.includes(card.id)) : [];
 
   // 스와이퍼 변경 시 id값 변경
   const handleActiveCardChange = useCallback(

@@ -2,15 +2,20 @@
 
 import { useRouter } from 'next/navigation';
 
+import EmptyCard from '@/features/received/ui/emptyCard';
+import LottieLoading from '@/shared/ui/lottieLoading';
+
 import { useCardQuery } from '../../hooks/queries/useCardQuery';
 import { useSelectCardStore } from '../../store/selectCardStore';
 
 import CardNotesCard from './cardNotesCard';
 
 function CardNotesMain() {
-  const { data } = useCardQuery();
+  const { data, isLoading } = useCardQuery();
   const { selectedCardIds, toggleCardId } = useSelectCardStore();
   const router = useRouter();
+
+  const cardNotes = data?.cards;
 
   return (
     <div>
@@ -21,15 +26,17 @@ function CardNotesMain() {
         </p>
       </div>
 
-      <div className="relative flex items-center justify-center">
-        {data?.data.cards && data.data.cards.length > 0 ? (
-          <CardNotesCard cards={data.data.cards} toggleCardSelection={toggleCardId} selectedCards={selectedCardIds} />
-        ) : (
-          <div className="flex h-[300px] items-center justify-center">
-            <p className="text-gray-medium">명함이 없습니다</p>
-          </div>
-        )}
-      </div>
+      {isLoading ? (
+        <LottieLoading />
+      ) : (
+        <div className="relative flex items-center justify-center">
+          {cardNotes && cardNotes?.length > 0 ? (
+            <CardNotesCard cards={cardNotes} toggleCardSelection={toggleCardId} selectedCards={selectedCardIds} />
+          ) : (
+            <EmptyCard />
+          )}
+        </div>
+      )}
 
       <div className="absolute bottom-0 left-0 flex w-full items-center justify-center px-[20px] pb-[18px] pt-[8px]">
         <button

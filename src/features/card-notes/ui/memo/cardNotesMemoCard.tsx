@@ -69,7 +69,10 @@ function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardP
         dynamicBullets: true,
       }}
       navigation={false}
-      className="memo-swiper h-[420px]"
+      slidesPerView={1.3}
+      spaceBetween={24}
+      centeredSlides={true}
+      className="memo-swiper custom-swiper-edge-peek h-[420px]"
     >
       {cards.map((card) => {
         const previewContent = getPreviewContent(card);

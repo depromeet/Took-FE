@@ -48,6 +48,13 @@ function CardNotesCard({ cards, toggleCardSelection, selectedCards }: CardNotesC
         dynamicBullets: true,
       }}
       navigation={false}
+      slidesPerView={1.3}
+      spaceBetween={24}
+      centeredSlides={true}
+      roundLengths={true} // 픽셀 경계 반올림
+      preventInteractionOnTransition={true}
+      speed={300} // 속도 조정으로 렌더링 최적화
+      watchSlidesProgress={true} // 슬라이드 진행상황 모니터링
       className="memo-swiper h-[420px]"
     >
       {cards.map((card) => {
@@ -57,7 +64,13 @@ function CardNotesCard({ cards, toggleCardSelection, selectedCards }: CardNotesC
         return (
           <SwiperSlide
             key={card.id}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'start',
+              zIndex: 40,
+            }}
           >
             <WrappedCard cardType={card?.job as JopType} className="relative mb-[20px]">
               <div
