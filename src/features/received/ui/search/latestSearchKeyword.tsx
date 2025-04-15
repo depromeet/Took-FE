@@ -86,7 +86,10 @@ export default function LatestSearchKeyword({ setIsSearched, searchValue, setSea
               alt="삭제 아이콘"
               width={20}
               height={20}
-              onClick={() => handleDeleteKeyword(value.keyword)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteKeyword(value.keyword);
+              }}
               className={cn(searchValue !== '' && 'hidden')}
             />
           </div>
