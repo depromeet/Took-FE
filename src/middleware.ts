@@ -12,12 +12,11 @@ export function middleware(request: NextRequest) {
     '/api/auth', // 인증 관련 API 경로
     '/api/auth/callback', // 소셜 로그인 콜백 경로
     '/onboarding', // 온보딩 페이지
-    '/setting/privacy-terms', // 개인정보 처리 방침
-    '/setting/terms', // 이용약관
-    '/setting/user-quit', // 회원 탈퇴
   ];
 
   const sharePaths = ['/card-share', '/card-detail'];
+
+  const settingPublicPaths = ['/setting/privacy-terms', '/setting/terms', '/setting/user-quit'];
 
   // // 현재 경로가 public 경로인지 확인
   const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
@@ -32,8 +31,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 미로그인 시 접속 가능한 URL
+  // 설정페이지중 토큰 없이 접근 가능
+  if (settingPublicPaths) {
+    return NextResponse.next();
+  }
+
   if (sharePaths.some((sharePath) => path === sharePath || path.startsWith(`${sharePath}/`))) {
+    // 미로그인 시 접속 가능한 URL
     // 미로그인 시 접속 가능한 URL + 토큰이 없다면 (토큰 만료일 경우)
     if (!accessToken || !refreshToken) {
       return NextResponse.redirect(new URL('/login', request.url));
