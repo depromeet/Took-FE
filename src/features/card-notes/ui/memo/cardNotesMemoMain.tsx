@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 
+import EmptyCard from '@/features/received/ui/emptyCard';
 import WrappedInput from '@/shared/ui/Input';
 
 import { useCardMemosMutation } from '../../hooks/mutation/useCardMemosMutation';
@@ -111,9 +112,7 @@ function CardNotesMemoMain() {
             key="card-swiper" // 키 추가
           />
         ) : (
-          <div className="flex h-[300px] items-center justify-center">
-            <p className="text-gray-medium">선택된 명함이 없습니다</p>
-          </div>
+          <EmptyCard message="선택한 명함이 없습니다" />
         )}
       </div>
 
@@ -123,6 +122,7 @@ function CardNotesMemoMain() {
           placeholder="상대방에 대해 기록하고 싶은 한 줄 메모를 남겨주세요"
           value={currentMemo}
           onChange={handleMemoChange}
+          className="placeholder-focus-white"
         />
       </div>
 

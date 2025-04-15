@@ -109,6 +109,10 @@
       transform: translateX(10%) rotate(2.5deg);
     }
 
+    .placeholder-focus-white:focus::placeholder {
+      color: white;
+    }
+
     body {
       color: var(--foreground);
       background: var(--background);
