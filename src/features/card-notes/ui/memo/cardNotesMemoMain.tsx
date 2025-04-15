@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 
 import WrappedInput from '@/shared/ui/Input';
 
+import { useCardMemosMutation } from '../../hooks/mutation/useCardMemosMutation';
 import { useCardQuery } from '../../hooks/queries/useCardQuery';
 import { useSelectCardStore } from '../../store/selectCardStore';
 
@@ -13,10 +15,13 @@ import CardNotesMemoCard from './cardNotesMemoCard';
 function CardNotesMemoMain() {
   const { data } = useCardQuery();
   const { selectedCardIds } = useSelectCardStore();
+  const cardMemosMutation = useCardMemosMutation();
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const [memos, setMemos] = useState<Record<number, string>>({});
   const [currentMemo, setCurrentMemo] = useState('');
+
+  const router = useRouter();
 
   const cardNotes = data?.cards;
   const filteredCards = cardNotes ? cardNotes?.filter((card) => selectedCardIds.includes(card.id)) : [];
@@ -67,9 +72,23 @@ function CardNotesMemoMain() {
         memo,
       }));
 
-    console.log('저장할 메모 목록:', memosToSave);
-    localStorage.removeItem('card-selection-storage');
-    toast.success('메모가 저장되었습니다.');
+    const requestData = {
+      cardMemos: memosToSave,
+    };
+
+    cardMemosMutation.mutate(requestData, {
+      onSuccess: () => {
+        localStorage.removeItem('card-selection-storage');
+        toast.success('메모가 저장되었습니다.');
+        setTimeout(() => {
+          router.push('/received');
+        }, 700);
+      },
+      onError: (error) => {
+        console.error('메모 저장 실패:', error);
+        toast.error('메모 저장에 실패했습니다.');
+      },
+    });
   };
 
   // 카드 배열이 변경될 때만 초기 카드 ID 설정
@@ -105,16 +124,6 @@ function CardNotesMemoMain() {
           value={currentMemo}
           onChange={handleMemoChange}
         />
-
-        {/* 현재 메모 상태 표시 (디버깅용, 실제 서비스에서는 제거) */}
-        <div className="mt-2 text-xs text-gray-500">
-          {activeCardId && (
-            <p>
-              현재 카드 ID: {activeCardId}, 작성된 메모 수:{' '}
-              {Object.keys(memos).filter((key) => memos[parseInt(key)].trim() !== '').length}/{filteredCards.length}
-            </p>
-          )}
-        </div>
       </div>
 
       {/* 하단 버튼 */}
