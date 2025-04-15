@@ -31,7 +31,6 @@ export default function ChooseReceivedCardView() {
   const isAnyChecked = selectedCardIds.length > 0;
   const toggleChecked = (id: number) => {
     setSelectedCardIds((prev) => (prev.includes(id) ? prev.filter((cardId) => cardId !== id) : [...prev, id]));
-    console.log(selectedCardIds);
   };
   const { isSettingModalOpen, openSettingModal, closeSettingModal } = useModal();
 

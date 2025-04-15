@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { cn } from '../lib/utils';
+import { spacingStyles } from '../spacing';
 
 const appbarVariants = cva(
   'sticky z-bar top-0 flex h-16 min-h-16 w-full max-w-[600px] items-center justify-between px-4',
@@ -19,6 +20,7 @@ const appbarVariants = cva(
         received: '',
         interest: '',
         notes: '',
+        search: '',
       },
       hasBackground: {
         true: 'bg-gray-black',
@@ -44,10 +46,15 @@ type AppbarProps = AppbarVariantProps & {
   onLeftClick?: () => void;
   onRightClick?: () => void;
   onRightClickSecond?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onInputClick?: () => void;
   title?: string;
   router?: () => void;
   isBlurred?: boolean;
   className?: string;
+
+  searchValue?: string;
+  onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function renderLeftIcon({
@@ -77,6 +84,7 @@ function renderLeftIcon({
     case 'none':
     case 'create':
     case 'mypage':
+    case 'search':
       return (
         <button onClick={onLeftClick}>
           <Image src="/icons/leftArrow-white.svg" alt="이전 아이콘" width={24} height={24} />
@@ -144,13 +152,19 @@ function renderRightIcon({
     case 'received':
       return (
         <div className="flex gap-4">
-          {/* <button onClick={onRightClick}>
+          <button onClick={onRightClick}>
             <Image src="/icons/searchIcon.svg" alt="검색 아이콘" width={24} height={24} />
-          </button> */}
+          </button>
           <button onClick={onRightClickSecond ?? (() => {})}>
             <Image src="/icons/menuIcon.svg" alt="메뉴 아이콘" width={24} height={24} />
           </button>
         </div>
+      );
+    case 'search':
+      return (
+        <button onClick={onRightClick}>
+          <Image src="/icons/searchIcon-white.svg" alt="검색 아이콘" width={24} height={24} />
+        </button>
       );
     case 'interest':
     case 'notes':
@@ -187,12 +201,29 @@ function Appbar({
   router,
   isBlurred,
   className,
+  searchValue,
+  onSearchChange,
+  onKeyDown,
+  onInputClick,
 }: AppbarProps) {
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
-      <div className="flex flex-1">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
-      {title && <h1 className="flex-1 text-center text-body-3 text-white">{title}</h1>}
-      <div className="flex flex-1 justify-end">
+      <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
+      {title && <h1 className="self-center text-center text-body-3 text-white">{title}</h1>}
+      {page === 'search' && (
+        <input
+          className={cn(
+            'h-9 w-full self-center rounded-sm bg-gray-800 !text-body-5 text-white outline-none placeholder:!text-body-5 placeholder:text-gray-500',
+            spacingStyles({ marginX: 'ms', padding: 'ms' }),
+          )}
+          placeholder="검색어를 입력하세요"
+          value={searchValue}
+          onChange={onSearchChange}
+          onKeyDown={onKeyDown}
+          onClick={onInputClick}
+        />
+      )}
+      <div className="flex justify-end">
         {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
       </div>
     </header>

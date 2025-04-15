@@ -12,28 +12,35 @@ export function middleware(request: NextRequest) {
     '/api/auth', // 인증 관련 API 경로
     '/api/auth/callback', // 소셜 로그인 콜백 경로
     '/onboarding', // 온보딩 페이지
-    '/setting/privacy-terms', // 개인정보 처리 방침
-    '/setting/terms', // 이용약관
-    '/setting/user-quit', // 회원 탈퇴
   ];
 
   const sharePaths = ['/card-share', '/card-detail'];
 
-  // // 현재 경로가 public 경로인지 확인
+  const settingPublicPaths = ['/setting/privacy-terms', '/setting/terms', '/setting/user-quit'];
+
+  // 현재 경로가 public 경로인지 확인
   const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
+  // 설정 페이지 중 public 경로인지 확인 추가
+  const isSettingPublicPath = settingPublicPaths.some(
+    (settingPath) => path === settingPath || path.startsWith(`${settingPath}/`),
+  );
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
   const refreshToken = cookieStore.get('refreshToken');
 
-  // // 문자가 있는지 검사합니다 (예: .css, .js, .png 등).
-  // // 로그인 페이지 CSS 깨짐 현상 해결
+  // 파일 요청은 통과
   if (isFile) {
     return NextResponse.next();
   }
 
-  // 미로그인 시 접속 가능한 URL
+  // 설정페이지 중 토큰 없이 접근 가능한 페이지 체크
+  if (isSettingPublicPath) {
+    return NextResponse.next();
+  }
+
   if (sharePaths.some((sharePath) => path === sharePath || path.startsWith(`${sharePath}/`))) {
+    // 미로그인 시 접속 가능한 URL
     // 미로그인 시 접속 가능한 URL + 토큰이 없다면 (토큰 만료일 경우)
     if (!accessToken || !refreshToken) {
       return NextResponse.redirect(new URL('/login', request.url));
@@ -42,12 +49,12 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
+  // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
   if (isPublicPath && accessToken && refreshToken) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 로그인 페이지로 리다이렉트
+  // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 온보딩 페이지로 리다이렉트
   // 임시로 온보딩 페이지로 리다이렉션합니다. 추후 isLogined 와 같은 서버 스펙 나오면 분리예정
   // 추가 고려사항
   if (!isPublicPath && (!accessToken || !refreshToken)) {

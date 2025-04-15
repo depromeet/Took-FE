@@ -7,6 +7,28 @@ export const ROUTE_PATH = {
   interesting: `${DOMAIN_BASE_URL}/interesting`,
 };
 
+export const SORTING = ['최근 공유 순', '오름차순', '내림차순'];
+
+export const MAX_FOLDER_NAME_LENGTH = 10;
+
+export const LATEST_SEARCH_KEYWORDS_MOCK = [
+  {
+    id: 1,
+    createdAt: '2025-04-14 10:30:00',
+    keyword: '최근 검색어1',
+  },
+  {
+    id: 2,
+    createdAt: '2025-04-13 23:30:00',
+    keyword: '최근 검색어2',
+  },
+  {
+    id: 3,
+    createdAt: '2025-04-15 10:30:00',
+    keyword: '최근 검색어3',
+  },
+];
+
 export const RECEIVED_CARD_MOCK = [
   {
     id: 1,
@@ -92,7 +114,3 @@ export const FOLDERS_MOCK = [
     name: '카카오',
   },
 ];
-
-export const SORTING = ['최근 공유 순', '오름차순', '내림차순'];
-
-export const MAX_FOLDER_NAME_LENGTH = 10;

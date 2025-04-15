@@ -1,4 +1,5 @@
 import { usePathname } from 'next/navigation';
+import React from 'react';
 
 import { tagConfig, ThumbnailTag } from '../config';
 import { cn } from '../lib/utils';
@@ -7,8 +8,8 @@ import Img from './img';
 
 type thumbnailPropsType = {
   tag: ThumbnailTag;
-  title?: string; // '대표 프로젝트', '작성한 글', 'SNS'
-  description?: string; // SNS를 제외한 전 tag
+  title?: string | React.ReactNode; // '대표 프로젝트', '작성한 글', 'SNS'
+  description?: string | React.ReactNode; // SNS를 제외한 전 tag
   imageUrl?: string;
   className?: string;
 };
