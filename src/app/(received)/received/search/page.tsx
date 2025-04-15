@@ -57,6 +57,7 @@ function Page() {
 
     e.preventDefault();
     saveSearchKeyword(searchValue);
+    e.currentTarget.blur();
   };
 
   const handleInputClick = () => {

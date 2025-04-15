@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { convertPreviewInfo } from '@/features/share/utils/convertPreviewType';
 import { getPreviewContentByType } from '@/features/share/utils/getPreviewContent';
+import { cn } from '@/shared/lib/utils';
 
 import { AddCard } from '../components/BusinessCard/AddCard';
 import {
@@ -22,7 +23,7 @@ import {
 import { useCardQuery } from '../hooks/queries/useCardQuery';
 import { Card } from '../types';
 
-import { ClipboardContainer } from './ClipboardContainer';
+// import { ClipboardContainer } from './ClipboardContainer';
 
 export const CardContainer = () => {
   const router = useRouter();
@@ -53,7 +54,7 @@ export const CardContainer = () => {
       controls.start({ y: -600, transition: { duration: 0.4 } });
       setTimeout(() => {
         goToSharePage(cards, activeTab);
-      }, 300);
+      }, 200);
     } else {
       // 원위치 복귀
       controls.start({ y: 0, transition: { type: 'spring', stiffness: 300, damping: 25 } });
@@ -158,7 +159,7 @@ export const CardContainer = () => {
           </SwiperSlide>
         )}
       </Swiper>
-      {cards && cards.length > 0 && cards[activeTab] && (
+      {/* {cards && cards.length > 0 && cards[activeTab] && (
         <ClipboardContainer
           id={cards[activeTab]?.id}
           name={cards[activeTab]?.nickname}
@@ -166,6 +167,20 @@ export const CardContainer = () => {
           type={cards[activeTab]?.job}
           profileImg={cards[activeTab]?.imagePath}
         />
+      )} */}
+
+      {cards && cards.length > 0 && cards[activeTab] && (
+        <div className="mt-8 flex w-full items-center justify-center">
+          <p
+            className={cn(
+              'w-fit cursor-pointer rounded-[40px] bg-opacity-white-20 px-[14px] py-[6px] text-white',
+              cards[activeTab]?.job === 'DESIGNER' ? 'bg-opacity-purple-30' : 'bg-opacity-blue-40',
+              'text-gray text-body-4 !font-semibold',
+            )}
+          >
+            위로 스와이프해서 명함을 공유 해주세요
+          </p>
+        </div>
       )}
     </>
   );
