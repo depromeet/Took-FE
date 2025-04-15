@@ -38,14 +38,14 @@ function AnimatedShareCardWrapper() {
 
     // 모바일 기기에서 브라우저로 열었을 때 (웹뷰가 아닌 상태)
     if (isMobileDevice && !isWebView) {
-      // 앱으로 딥링크 시도
+      // 앱으로 딥링크 시도 (저장 파라미터 추가)
       const startTime = new Date().getTime();
-      window.location.href = `took://card-share/${id}`;
 
-      // 로그인된 경우에만 명함 저장 처리
-      if (isLoggedIn) {
-        handleSaveCard();
-      }
+      window.location.href = `took://card-share/${id}?save=true`;
+
+      // if (isLoggedIn) {
+      //   handleSaveCard();
+      // }
 
       // 앱이 없는 경우 앱스토어로 리다이렉트(2초 후)
       const timeout = setTimeout(() => {
@@ -106,7 +106,7 @@ function AnimatedShareCardWrapper() {
     // 모바일 기기에서는 항상 앱으로 딥링크 시도
     if (isMobileDevice) {
       const startTime = new Date().getTime();
-      window.location.href = `took://card-detail/${id}?type=receivedcard`;
+      window.location.href = `took://card-detail/${id}?type=receivedcard&save=true`;
 
       // 앱이 없는 경우 앱스토어로 리다이렉트(2초 후)
       setTimeout(() => {
