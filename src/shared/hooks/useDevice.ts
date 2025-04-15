@@ -52,7 +52,35 @@ const useDevice = () => {
   const { width: windowWidth } = useWindowSize();
   const isMobile = !!windowWidth && windowWidth < MAX_MOBILE_SIZE;
 
-  return { isWebView, isMobile };
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+  const [isAndroid, setIsAndroid] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userAgent = navigator.userAgent;
+
+      // 모바일 기기 확인
+      const mobileDevice = /iPhone|iPad|iPod|Android/i.test(userAgent);
+      setIsMobileDevice(mobileDevice);
+
+      // iOS 확인
+      const ios = /iPhone|iPad|iPod/i.test(userAgent);
+      setIsIOS(ios);
+
+      // Android 확인
+      const android = /Android/i.test(userAgent);
+      setIsAndroid(android);
+    }
+  }, []);
+
+  return {
+    isWebView,
+    isMobile, // 화면 크기 기반 모바일 여부
+    isMobileDevice, // User Agent 기반 모바일 기기 여부
+    isIOS,
+    isAndroid,
+  };
 };
 
 export default useDevice;
