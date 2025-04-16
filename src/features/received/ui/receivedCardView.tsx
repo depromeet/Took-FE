@@ -10,6 +10,7 @@ import BottomModalTitle from '@/shared/ui/bottomModal/bottomModalTitle';
 import { Button } from '@/shared/ui/button';
 
 import { MAX_FOLDER_NAME_LENGTH } from '../config';
+import { useInterestCardsQuery } from '../model/queries/useInterestCardsQuery';
 import { useFolderStore } from '../model/store/useFoldersStore';
 import { useAddFolderModal } from '../model/useAddFolderModal';
 import { useDeleteFolderModal } from '../model/useDeleteFolderModal';
@@ -18,6 +19,7 @@ import { useUpdateFolderModal } from '../model/useUpdateFolderModal';
 
 import FoldersList from './foldersList';
 // import Intellibanner from './intellibanner';
+import Intellibanner from './intellibanner';
 import ReceivedCardList from './receivedCardList';
 import SortModal from './sortModal';
 
@@ -37,6 +39,9 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
   const outside = useRef<HTMLInputElement>(null);
   const isSubmittingRef = useRef(false);
 
+  // 흥미로운 명함이 있느지
+  const { data } = useInterestCardsQuery();
+  const interestCardCheck = data && data?.cards.length > 0;
   const { isAdd, setIsAdd, newFolderName, handleAdd, handleAddChange, handleAddClick, handleAddKeyDown } =
     useAddFolderModal({
       isSubmittingRef,
@@ -83,7 +88,7 @@ export default function ReceivedCardView({ selectedFolderId, setSelectedFolderId
         if (e.target == outside.current) closeSortingModal();
       }}
     >
-      {/* <Intellibanner /> */}
+      {interestCardCheck && <Intellibanner />}
       <div
         className={cn('sticky top-0 z-10 flex items-center bg-gray-black pb-2', spacingStyles({ paddingTop: 'md' }))}
       >

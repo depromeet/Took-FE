@@ -35,10 +35,14 @@ function Page() {
 
   const router = useRouter();
 
+  const goToSearchPage = () => {
+    router.push(`/received/search`);
+  };
+
   return (
     <div className="flex h-dvh w-full justify-center">
       <div className="flex w-full max-w-[600px] flex-col overflow-y-auto bg-gray-black">
-        <Appbar page="received" onRightClickSecond={openChooseModal} />
+        <Appbar page="received" onRightClick={goToSearchPage} onRightClickSecond={openChooseModal} />
         <div className="h-[calc(100dvh-64px)] overflow-y-auto px-5 pb-24 scrollbar-hide">
           <ReceivedCardView selectedFolderId={selectedFolderId ?? null} setSelectedFolderId={setSelectedFolderId} />
         </div>

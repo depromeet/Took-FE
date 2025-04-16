@@ -7,7 +7,6 @@ import { useReceivedCardsStore } from '@/features/received/model/store/useReceiv
 import ChooseReceivedCardView from '@/features/received/ui/choose/chooseReceivedCardView';
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import Appbar from '@/shared/ui/appbar';
-import Toast from '@/shared/ui/Toast';
 
 function Page() {
   const { cards: serverReceivedCards, isLoading: isCardsLoading } = useReceivedCardsQuery(null);
@@ -25,7 +24,6 @@ function Page() {
         <div className="overflow-y-auto px-5 pb-24 scrollbar-hide">
           <ChooseReceivedCardView />
         </div>
-        <Toast />
       </div>
     </div>
   );

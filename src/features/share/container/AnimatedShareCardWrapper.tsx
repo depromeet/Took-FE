@@ -1,18 +1,15 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
-import { useIsLoggedIn } from '@/shared/hooks/useIsLoggedIn';
 import Toast from '@/shared/ui/Toast';
-import handleAxiosError from '@/shared/utils/handleAxiosError';
 
 import { ShareBackground } from '../components/background/ShareBackground';
-import { useSaveCard } from '../hooks/mutations/useSaveCard';
 import { useCardQuery } from '../hooks/queries/useCardQuery';
-import { useShareStore } from '../store/shareStore';
+import { useCardDetail } from '../hooks/useCardDetail';
+import { useCardShareAutoAction } from '../hooks/useCardShareAutoAction';
 import { Card } from '../types';
 
 import { OpenShareCardDetailContainer } from './OpenShareCardDetailContainer';
@@ -23,23 +20,15 @@ function AnimatedShareCardWrapper() {
   const [isAnimating, setIsAnimating] = useState(true);
   const { id } = useParams();
   const { data } = useCardQuery(id as string);
-  const setFromSharedCard = useShareStore((state) => state.setFromSharedCard);
-  const { mutate: saveCard } = useSaveCard();
-  const { isLoggedIn } = useIsLoggedIn();
-  const router = useRouter();
-
   const cardData = data?.data;
 
+  // 페이지 로드 시 자동 동작
+  useCardShareAutoAction(id as string);
+
+  const { handleMoveToDetail } = useCardDetail(id as string); // 카드 클릭 시 동작 - 상세 페이지로 이동
+
   useEffect(() => {
-    // 명함 공유 페이지에서 접근했음을 표시
-    setFromSharedCard(true);
-
-    // 로그인한 사용자만 명함을 저장
-    if (isLoggedIn) {
-      handleSaveCard();
-    }
-
-    // 페이지 로드 시 애니메이션 시작
+    // 애니메이션 효과 설정
     controls
       .start({
         y: 0,
@@ -57,24 +46,7 @@ function AnimatedShareCardWrapper() {
       .then(() => {
         setIsAnimating(false);
       });
-  }, [controls, setFromSharedCard, isLoggedIn]);
-
-  const handleSaveCard = () => {
-    if (!id) return;
-
-    saveCard(id as string, {
-      onSuccess: () => {
-        toast.success('명함이 저장되었습니다.');
-      },
-      onError: (error) => {
-        handleAxiosError(error);
-      },
-    });
-  };
-
-  const handleMoveToDetail = () => {
-    router.push(`/card-detail/${id}?type=receivedcard`);
-  };
+  }, [controls]);
 
   return (
     <>
