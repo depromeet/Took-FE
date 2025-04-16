@@ -1,7 +1,12 @@
 import { AuthDto } from '@/features/auth/login/types/auth';
 
 // 네이티브 메시지 타입 정의
-export type NativeMessageType = 'GOOGLE_LOGIN' | 'IMAGE_PICKER' | 'SHARE_CARD_DEEP_LINK' | 'AUTH_TOKEN';
+export type NativeMessageType =
+  | 'GOOGLE_LOGIN'
+  | 'IMAGE_PICKER'
+  | 'SHARE_CARD_DEEP_LINK'
+  | 'AUTH_TOKEN'
+  | 'REQUEST_PUSH_TOKEN';
 
 // 네이티브 메시지 인터페이스 정의
 export interface NativeMessage {
