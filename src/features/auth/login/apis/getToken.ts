@@ -4,13 +4,26 @@ import { setCookie } from 'cookies-next';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
+import { webLogger } from '@/shared/lib/utils';
 import { sendAuthTokenMessage } from '@/shared/utils/nativeBridge';
+import { usePushTokenStore } from '@/store/pushTokenStore';
 
-import { AuthDto, SocialProvider } from '../types/auth';
+import { AuthDto, LoginPayloadDto, SocialProvider } from '../types/auth';
 
-export async function getToken(provider: SocialProvider, code: string): Promise<AuthDto> {
+export async function getToken(provider: SocialProvider, code: string, expoToken?: string | null): Promise<AuthDto> {
   try {
-    const data = await client.post<null, AuthDto>(`${CLIENT_SIDE_URL}/api/auth/login/${provider}?code=${code}`);
+    // expoToken이 있는 경우 요청 body에 포함
+    const requestBody = expoToken ? { expoToken } : {};
+
+    // 토큰 로깅
+    if (expoToken) {
+      webLogger.token('소셜 로그인 API 요청에 expoToken 포함됨', { expoToken });
+    }
+
+    const data = await client.post<LoginPayloadDto, AuthDto>(
+      `${CLIENT_SIDE_URL}/api/auth/login/${provider}?code=${code}`,
+      requestBody,
+    );
     return data;
   } catch (error) {
     console.error(error);
@@ -20,7 +33,11 @@ export async function getToken(provider: SocialProvider, code: string): Promise<
 
 export async function handleSocialAuth(provider: SocialProvider, code: string) {
   try {
-    const tokenData: AuthDto = await getToken(provider, code);
+    // 스토어에서 직접 토큰 가져오기
+    const expoToken = usePushTokenStore.getState().expoToken;
+
+    // expoToken을 API 요청에 전달
+    const tokenData: AuthDto = await getToken(provider, code, expoToken);
 
     setCookie('accessToken', tokenData.data.data.token.accessToken);
     setCookie('refreshToken', tokenData.data.data.token.refreshToken);
