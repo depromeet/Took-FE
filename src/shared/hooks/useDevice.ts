@@ -55,6 +55,7 @@ const useDevice = () => {
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
+  const [isWeb, setIsWeb] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -71,8 +72,11 @@ const useDevice = () => {
       // Android 확인
       const android = /Android/i.test(userAgent);
       setIsAndroid(android);
+
+      // 웹 환경 확인 (모바일 기기가 아니고 웹뷰도 아닌 경우)
+      setIsWeb(!mobileDevice && !isWebView);
     }
-  }, []);
+  }, [isWebView]);
 
   return {
     isWebView,
@@ -80,6 +84,7 @@ const useDevice = () => {
     isMobileDevice, // User Agent 기반 모바일 기기 여부
     isIOS,
     isAndroid,
+    isWeb, // 데스크탑 웹 브라우저 여부
   };
 };
 
