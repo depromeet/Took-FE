@@ -102,14 +102,6 @@ export default function OnboardingScreen() {
           <Button onClick={handleNext} className="w-full">
             <Typography variant="body-2">다음</Typography>
           </Button>
-
-          {isWebView && (
-            <div className="mt-2 text-center">
-              <Typography variant="caption-1" className="text-gray-400">
-                {hasToken ? '기기 알림 준비 완료' : '기기 알림 설정 중...'}
-              </Typography>
-            </div>
-          )}
         </div>
       </section>
       <Toast />

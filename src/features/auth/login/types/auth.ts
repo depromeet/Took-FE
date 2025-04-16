@@ -25,6 +25,7 @@ export type AuthResponseDto = {
   data: {
     token: TokenDto;
     user: UserDto;
+    isFirstLogin: boolean;
   };
 };
 
@@ -38,4 +39,8 @@ export type RedirectDto = {
   data: {
     url: string;
   };
+};
+
+export type LoginPayloadDto = {
+  expoToken?: string;
 };
