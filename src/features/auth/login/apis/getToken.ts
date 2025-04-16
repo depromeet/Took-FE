@@ -10,16 +10,44 @@ import { usePushTokenStore } from '@/store/pushTokenStore';
 
 import { AuthDto, LoginPayloadDto, SocialProvider } from '../types/auth';
 
+/**
+ * expoToken이 문자열 또는 JSON 문자열 형태로 올 수 있으므로 이를 처리하는 함수
+ */
+function extractExpoToken(tokenValue: string | null): string | null {
+  if (!tokenValue) return null;
+
+  try {
+    // JSON 형태인지 확인 시도
+    if (tokenValue.startsWith('{') && tokenValue.includes('expoToken')) {
+      const parsed = JSON.parse(tokenValue);
+      return parsed.expoToken || null;
+    }
+    // 이미 토큰 문자열이면 그대로 반환
+    return tokenValue;
+  } catch (e) {
+    // 파싱 실패 시 원본 값 반환
+    console.warn('토큰 파싱 실패:', e);
+    return tokenValue;
+  }
+}
+
 export async function getToken(provider: SocialProvider, code: string, expoToken?: string | null): Promise<AuthDto> {
   try {
-    // expoToken이 있는 경우 요청 body에 포함
-    const requestBody = expoToken ? { expoToken } : {};
+    // expoToken 파싱 및 처리
+    const parsedToken = expoToken ? extractExpoToken(expoToken) : null;
+
+    // expoToken이 있는 경우에만 requestBody를 생성, 없으면 undefined
+    const requestBody = parsedToken ? { expoToken: parsedToken } : undefined;
 
     // 토큰 로깅
-    if (expoToken) {
-      webLogger.token('소셜 로그인 API 요청에 expoToken 포함됨', { expoToken });
+    if (parsedToken) {
+      webLogger.token('소셜 로그인 API 요청에 expoToken 포함됨', { parsedToken });
+      console.log('Login requestBody', requestBody);
+    } else {
+      console.log('expoToken이 없어 requestBody는 전송되지 않음');
     }
 
+    // 토큰이 있을 때만 body 전달
     const data = await client.post<LoginPayloadDto, AuthDto>(
       `${CLIENT_SIDE_URL}/api/auth/login/${provider}?code=${code}`,
       requestBody,

@@ -42,5 +42,5 @@ export type RedirectDto = {
 };
 
 export type LoginPayloadDto = {
-  expoToken?: string;
+  expoToken: string;
 };
