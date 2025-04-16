@@ -4,10 +4,10 @@ import { useRef, useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { sendImagePickerMessage } from '@/features/auth/login/utils/nativeBridge';
 import useDevice from '@/shared/hooks/useDevice';
 import WrappedAvatar from '@/shared/ui/Avatar';
 import ImageAdd from '@/shared/ui/Avatar/imageAdd';
+import { sendImagePickerMessage } from '@/shared/utils/nativeBridge';
 
 import { MAX_FILE_SIZE } from '../config';
 import { CareerFormData } from '../schema';

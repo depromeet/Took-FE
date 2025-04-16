@@ -4,9 +4,9 @@ import { setCookie } from 'cookies-next';
 
 import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
+import { sendAuthTokenMessage } from '@/shared/utils/nativeBridge';
 
 import { AuthDto, SocialProvider } from '../types/auth';
-import { sendAuthTokenMessage } from '../utils/nativeBridge';
 
 export async function getToken(provider: SocialProvider, code: string): Promise<AuthDto> {
   try {

@@ -4,11 +4,14 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import useDevice from '@/shared/hooks/useDevice';
+import usePushToken from '@/shared/hooks/usePushToken';
+import { webLogger } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import Toast from '@/shared/ui/Toast';
 import { Typography } from '@/shared/ui/typography';
@@ -20,9 +23,29 @@ export default function OnboardingScreen() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
+  const { isWebView } = useDevice();
+  const { expoToken, requestToken, hasToken } = usePushToken();
+
+  // 웹뷰 환경에서 푸시 토큰 상태 확인 및 로깅
+  useEffect(() => {
+    if (isWebView) {
+      webLogger.token('온보딩 화면 로드됨');
+
+      if (expoToken) {
+        webLogger.token('온보딩: 토큰 이미 존재함', { expoToken });
+      } else {
+        webLogger.token('온보딩: 토큰 요청 필요');
+        requestToken();
+      }
+    }
+  }, [isWebView, expoToken, requestToken]);
 
   const handleNext = () => {
     if (activeIndex === slides.length - 1) {
+      // 로그인 화면으로 이동 시 토큰 상태 로깅
+      if (isWebView) {
+        webLogger.token('온보딩 완료, 로그인으로 이동', { hasToken, expoToken });
+      }
       router.replace('/login');
     } else if (swiperRef.current) {
       swiperRef.current.slideNext();
@@ -79,6 +102,14 @@ export default function OnboardingScreen() {
           <Button onClick={handleNext} className="w-full">
             <Typography variant="body-2">다음</Typography>
           </Button>
+
+          {isWebView && (
+            <div className="mt-2 text-center">
+              <Typography variant="caption-1" className="text-gray-400">
+                {hasToken ? '기기 알림 준비 완료' : '기기 알림 설정 중...'}
+              </Typography>
+            </div>
+          )}
         </div>
       </section>
       <Toast />
