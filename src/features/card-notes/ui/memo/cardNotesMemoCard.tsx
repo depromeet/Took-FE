@@ -94,7 +94,9 @@ function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardP
                 <button
                   className={`absolute right-[24px] top-[24px] flex h-[24px] w-[24px] items-center justify-center rounded-full ${isMemo ? 'bg-white' : 'bg-gray-600'}`}
                 >
-                  {isMemo && <Image src="/icons/check.svg" alt="선택됨" width={14} height={14} />}
+                  {isMemo && (
+                    <Image src="/icons/check.svg" alt="선택됨" width={11} height={11} className="object-cover" />
+                  )}
                 </button>
                 <ShareCardAvatar
                   src={card?.imagePath || '/icons/avatarIcon.png'}
