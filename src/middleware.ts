@@ -6,28 +6,30 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isFile = request.nextUrl.pathname.match(/\.(.*)$/);
 
-  // 인증이 필요하지 않은 경로들
-  const publicPaths = [
+  // 인증이 필요하지 않은 로그인/인증 관련 경로들
+  const authPublicPaths = [
     '/login', // 로그인 페이지
     '/api/auth', // 인증 관련 API 경로
     '/api/auth/callback', // 소셜 로그인 콜백 경로
     '/onboarding', // 온보딩 페이지
+  ];
+
+  // 인증 여부와 상관없이 접근 가능한 공개 경로들
+  const openAccessPaths = [
+    '/card-share', // 카드 공유 페이지
+    '/card-detail', // 카드 상세 페이지
     '/setting/privacy-terms',
     '/setting/terms',
     '/setting/user-quit',
   ];
 
-  // 카드 관련 경로 - 인증 여부와 상관없이 접근 가능한 경로들
-  const cardPaths = [
-    '/card-share', // 카드 공유 페이지
-    '/card-detail', // 카드 상세 페이지
-  ];
+  // 현재 경로가 인증 관련 공개 경로인지 확인
+  const isAuthPublicPath = authPublicPaths.some(
+    (publicPath) => path === publicPath || path.startsWith(`${publicPath}/`),
+  );
 
-  // 현재 경로가 public 경로인지 확인
-  const isPublicPath = publicPaths.some((publicPath) => path === publicPath || path.startsWith(`${publicPath}/`));
-
-  // 현재 경로가 카드 관련 경로인지 확인
-  const isCardPath = cardPaths.some((cardPath) => path === cardPath || path.startsWith(`${cardPath}/`));
+  // 현재 경로가 인증 여부 상관없이 접근 가능한 공개 경로인지 확인
+  const isOpenAccessPath = openAccessPaths.some((openPath) => path === openPath || path.startsWith(`${openPath}/`));
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
@@ -43,17 +45,17 @@ export function middleware(request: NextRequest) {
   }
 
   // 토큰이 존재할 때 로그인 페이지에 접근한다면 /경로로 리다이렉트
-  if (isPublicPath && isAuthenticated) {
+  if (isAuthPublicPath && isAuthenticated) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  // 카드 경로는 인증 상태와 관계없이 항상 접근 가능
-  if (isCardPath) {
+  // 인증 여부와 상관없이 접근 가능한 경로
+  if (isOpenAccessPath) {
     return NextResponse.next();
   }
 
   // 인증이 필요한 경로에 토큰 없이 접근하려고 하면 온보딩 페이지로 리다이렉트
-  if (!isPublicPath && !isAuthenticated) {
+  if (!isAuthPublicPath && !isAuthenticated) {
     return NextResponse.redirect(new URL('/onboarding', request.url));
   }
 
