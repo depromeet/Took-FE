@@ -71,9 +71,11 @@ export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => 
             <QrInfo {...{ profileImg, name, jobName: job, jobType, linkUrl: url }} />
           </div>
         </motion.div>
-        <Typography className="pt-[24px]" variant="body-5" style={{ color: 'var(--gray-600)' }}>
-          아래로 스와이프하면 홈 화면으로 돌아갈 수 있어요
-        </Typography>
+        <div className="mt-[24px] rounded-full bg-[rgba(255,255,255,0.20)] px-[14px] py-[6px]">
+          <Typography variant="body-5" style={{ color: 'var(--gray-600)' }}>
+            아래로 스와이프하면 홈 화면으로 돌아갈 수 있어요
+          </Typography>
+        </div>
       </div>
     </>
   );
