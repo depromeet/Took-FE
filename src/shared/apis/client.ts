@@ -3,6 +3,8 @@ import { getCookie } from 'cookies-next';
 
 import { CLIENT_SIDE_URL } from '../constants';
 
+import { preventClientMultipleRefreshToken } from './preventClientMultipleRefreshToken';
+
 const axiosInstance = axios.create({
   baseURL: CLIENT_SIDE_URL,
   withCredentials: true,
@@ -22,7 +24,7 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-// preventClientMultipleRefreshToken(axiosInstance, CLIENT_SIDE_URL);
+preventClientMultipleRefreshToken(axiosInstance, CLIENT_SIDE_URL);
 
 export const client = {
   get: async <Response = unknown>(...args: Parameters<typeof axiosInstance.get>) => {
