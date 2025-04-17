@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { List } from '@/shared/ui/list';
@@ -11,9 +12,11 @@ import { ONBOARDING_CARD_CREATE, ROUTE_PATH } from '../config';
 
 function OnBoardingView() {
   const router = useRouter();
+  const { setEditMode } = useUpdateCardStore();
 
   // 새로운 명함 만들기
   const handleCreateNewCard = () => {
+    setEditMode(false);
     router.push(ROUTE_PATH.newCard);
   };
 
