@@ -13,6 +13,7 @@ import { List, ListItem, ListItemText } from '@/shared/ui/list';
 import { ArrowBtn } from '@/shared/ui/list/wrappedList';
 import { Navbar } from '@/shared/ui/Navigation';
 import Toast from '@/shared/ui/Toast';
+import { sendMessageToNative } from '@/shared/utils/nativeBridge';
 
 import useLogout from '../hooks/useLogout';
 
@@ -59,7 +60,14 @@ const SettingView = () => {
   };
 
   const handleInquiry = () => {
-    window.open('https://forms.gle/FsAdnW5s5LVJkmBTA', '_blank');
+    if (isMobileDevice) {
+      sendMessageToNative({
+        // 문의사항 페이지 열기
+        type: 'OPEN_INQUIRY_PAGE',
+      });
+    } else {
+      window.open('https://forms.gle/FsAdnW5s5LVJkmBTA', '_blank');
+    }
   };
 
   // 마운트 상태에 따라 알림 설정 항목 표시 여부 결정

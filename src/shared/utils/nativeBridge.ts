@@ -8,7 +8,8 @@ export type NativeMessageType =
   | 'SHARE_CARD_DEEP_LINK'
   | 'AUTH_TOKEN'
   | 'REQUEST_PUSH_TOKEN'
-  | 'NOTIFICATION_SETTINGS_CHANGED';
+  | 'NOTIFICATION_SETTINGS_CHANGED'
+  | 'OPEN_INQUIRY_PAGE';
 
 // 네이티브 메시지 인터페이스 정의
 export interface NativeMessage {
@@ -28,6 +29,8 @@ export interface NativeMessage {
     isAllowPush: boolean;
     allowPushContent: NotificationType[];
   };
+  // 문의사항 페이지 열기
+  openInquiryPage?: boolean;
 }
 
 // 네이티브 메시지 전송 함수
