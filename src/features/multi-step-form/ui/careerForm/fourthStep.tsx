@@ -20,7 +20,7 @@ const LAST_NUMBER = 7;
 const HEADER_TITLE = `썸네일 명함에 대표로\n 보여줄 정보를 1개 선택해 주세요`;
 
 type FirstStepProps = {
-  cardData?: CardUpdateDto;
+  readonly cardData?: CardUpdateDto;
 };
 
 function FourthStep({ cardData }: FirstStepProps) {
