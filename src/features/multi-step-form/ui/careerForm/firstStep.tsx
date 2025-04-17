@@ -14,10 +14,15 @@ import { Textarea } from '@/shared/ui/textArea';
 import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
+import { CardUpdateDto } from '../../types';
 
 const MAX_SUMMARY_LENGTH = 40;
 
-function FirstStep() {
+type FirstStepProps = {
+  cardData?: CardUpdateDto;
+};
+
+function FirstStep({ cardData }: FirstStepProps) {
   const {
     control,
     formState: { errors },
@@ -38,7 +43,7 @@ function FirstStep() {
       <section className={cn(spacingStyles({ marginTop: 'xl' }))}>
         <div className="flex flex-col gap-4">
           <div className="flex justify-center">
-            <AvatarImg />
+            <AvatarImg cardData={cardData} />
           </div>
           <Controller
             control={control}
