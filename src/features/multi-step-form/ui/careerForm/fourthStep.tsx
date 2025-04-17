@@ -30,7 +30,7 @@ function FourthStep({ cardData }: FirstStepProps) {
   const tagArray = tagConfig.filter((tag) => formState.includes(tag.value));
   const [selectedTag, setSelectedTag] = useState<SelectedTagType>(tagArray[0]?.message ?? '대표 프로젝트');
 
-  const [index, setIndex] = useState<number>(1);
+  const [index, setIndex] = useState<number>(0);
 
   function handleSelectTag(tagMessage: SelectedTagType) {
     setSelectedTag(tagMessage);
