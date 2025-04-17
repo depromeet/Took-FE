@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { useState } from 'react';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { Typography } from '@/shared/ui/typography';
@@ -10,6 +11,7 @@ import { QrLogo } from '../components/QrLogo';
 import { ShareButton } from '../components/ShareButton';
 
 import { BackgroundContainer } from './BackgroundContainer';
+import { SegmentContainer } from './SegmentContainer';
 
 type Params = {
   profileImg: string;
@@ -20,8 +22,14 @@ type Params = {
 };
 
 export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => {
+  const [currentTab, setCurrentTab] = useState('myCard');
+
   const backgroundStyle = {
     backgroundColor: jobType === 'DEVELOPER' ? 'rgba(12, 109, 255, 0.4)' : 'rgba(92, 45, 255, 0.4)',
+  };
+
+  const onClickSetCurrentTab = (tab: string) => {
+    setCurrentTab(tab);
   };
 
   const historyBack = useHistoryBack();
@@ -45,6 +53,8 @@ export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => 
     <>
       <BackgroundContainer jobType={jobType} />
       <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden">
+        <SegmentContainer currentTab={currentTab} setCurrentTab={onClickSetCurrentTab} />
+
         <motion.div
           drag="y"
           dragConstraints={{ top: 0, bottom: 600 }}
