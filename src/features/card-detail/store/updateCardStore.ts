@@ -8,7 +8,9 @@ interface UpdateCardState {
   setEditMode: (isEdit: boolean) => void;
   resetState: () => void;
 }
-
+/**
+ * 카드 수정 모드 스토어
+ */
 export const useUpdateCardStore = create<UpdateCardState>((set) => ({
   cardId: null,
   isEditMode: false,
