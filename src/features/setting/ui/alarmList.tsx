@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing/spacing';
@@ -7,74 +9,73 @@ import Appbar from '@/shared/ui/appbar';
 import { List, ListItem } from '@/shared/ui/list';
 import { Typography } from '@/shared/ui/typography';
 
-const alarmItems = [
-  {
-    id: '1',
-    icon: { type: 'interesting' as const },
-    description: '방금 나와 "관심 도메인"이(가) 같은 사람을 발견했어요! 어떤 사람인지 살펴보세요',
-    date: '12시간 전',
-  },
-  {
-    id: '2',
-    icon: { type: 'interesting' as const },
-    description: '방금 나와 공통점이 같은 사람을 발견했어요! 어떤 사람인지 살펴보세요',
-    date: '12시간 전',
-  },
-  {
-    id: '3',
-    icon: { type: 'oneLineMemo' as const },
-    description: '오늘 공유한 명함을 특별하게 만들어 볼까요? 다음 만남이 훨씬 자연스러워질 거예요',
-    date: '12시간 전',
-  },
-  {
-    id: '4',
-    icon: { type: 'system' as const },
-    description: '새로운 기능이 찾아왔어요! 지금 바로 확인해 보세요',
-    date: '12시간 전',
-  },
-];
+import { ALARM_LIST_PAGE_SIZE } from '../constants';
+import { useGetNotificationList, NotificationListType } from '../hooks/useGetNotificationList';
 
 const AlaramView = () => {
+  const { data: notificationList } = useGetNotificationList();
   const handleBack = useHistoryBack();
+  // 현재 보여줄 알림 개수 상태
+  const [visibleCount, setVisibleCount] = useState(ALARM_LIST_PAGE_SIZE);
+  // 로딩 상태
+  const [isLoading, setIsLoading] = useState(false);
+
+  // 현재 표시할 알림 목록
+  const visibleNotifications: NotificationListType[] = notificationList?.slice(0, visibleCount) || [];
+
+  // 더 로드할 알림이 있는지 여부
+  const hasMoreNotifications = visibleCount < (notificationList?.length || 0);
+
+  // 이전 알림 보기 버튼 클릭 핸들러
+  const handleLoadMore = () => {
+    if (isLoading || !hasMoreNotifications) return;
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + ALARM_LIST_PAGE_SIZE, notificationList?.length || 0));
+      setIsLoading(false);
+    }, 300);
+  };
 
   return (
     <div className="relative mx-auto h-dvh w-full max-w-[600px] justify-center">
       <Appbar page="mypage" title="알림" onLeftClick={handleBack} />
       <section className={cn(spacingStyles({ paddingX: 'ml' }))}>
-        <AlarmListView items={alarmItems} />
+        <AlarmListView items={visibleNotifications} />
       </section>
-      <div className={cn('flex items-center justify-center', spacingStyles({ paddingY: 'ms' }))}>
-        <button>
-          <Typography variant="caption-1">이전 알림 보기</Typography>
-          <AlarmBoader />
-        </button>
-      </div>
+
+      {/* 모든 알림을 로드하지 않았을 때만 버튼 표시 */}
+      {hasMoreNotifications && (
+        <div className={cn('flex items-center justify-center', spacingStyles({ paddingY: 'ms' }))}>
+          <button onClick={handleLoadMore} disabled={isLoading}>
+            <Typography variant="caption-1">{isLoading ? '로딩 중...' : '이전 알림 보기'}</Typography>
+            <AlarmBoader />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-/**
- * @TODO
- * 알림 목록 조회 API 연동 후 데이터 형식 변경 필요
- */
-
-type AlarmItem = {
-  id: string;
-  icon: AlarmItemIconProps;
-  description: string;
-  date: string;
-};
-
-type AlarmListViewProps = {
-  items: AlarmItem[];
-};
+interface AlarmListViewProps {
+  items: NotificationListType[];
+}
 
 const AlarmListView = ({ items }: AlarmListViewProps) => {
+  if (items.length === 0) {
+    return (
+      <div className="flex h-[300px] items-center justify-center">
+        <Typography variant="body-5">알림이 없습니다</Typography>
+      </div>
+    );
+  }
+
   return (
     <List variant="alarmList">
       {items.map((item, idx) => (
-        <div className="flex flex-col" key={item.description}>
-          <AlarmItemComponent key={item.description} {...item} />
+        <div className="flex flex-col" key={`${item.id}-${idx}`}>
+          <AlarmItemComponent key={`item-${item.id}`} {...item} />
           {idx !== items.length - 1 && <AlarmBoader />}
         </div>
       ))}
@@ -86,35 +87,28 @@ const AlarmBoader = () => {
   return <div className="h-[1px] w-full bg-gray-600" />;
 };
 
-type AlarmItemIconProps = {
-  type: 'interesting' | 'oneLineMemo' | 'system';
-};
-
-type AlarmItemProps = {
-  icon: AlarmItemIconProps;
-  description: string;
-  date: string;
-};
-
-const AlarmItemComponent = ({ icon, description, date }: AlarmItemProps) => {
+const AlarmItemComponent = ({ type, title, body, sendAt }: NotificationListType) => {
   return (
     <ListItem variant="alarmList">
       <div className="flex w-full items-start gap-[7px]">
-        <AlarmItemIcon type={icon.type} />
-        <div className="flex flex-1 gap-[7px] sm:flex-row sm:items-center sm:justify-between">
-          <div className="min-w-[240px] flex-1 text-body-5 text-gray-50">{description}</div>
-          <div className="h-[12px] w-[42px] text-caption-2 text-gray-500">{date}</div>
+        <AlarmItemIcon type={type} />
+        <div className="flex flex-1 justify-between gap-[7px]">
+          <div className="flex flex-col gap-[4px]">
+            <div className="text-body-5 text-gray-50">{title}</div>
+            <div className="text-body-5 text-gray-50">{body}</div>
+          </div>
+          <div className="h-[12px] w-[42px] text-caption-2 text-gray-500">{sendAt}</div>
         </div>
       </div>
     </ListItem>
   );
 };
 
-const AlarmItemIcon = ({ type }: AlarmItemIconProps) => {
+const AlarmItemIcon = ({ type }: { type: NotificationListType['type'] }) => {
   const ICON_MAP = {
-    interesting: <InterestingIcon />,
-    oneLineMemo: <OneLineMemoIcon />,
-    system: <SystemIcon />,
+    MEMO: <OneLineMemoIcon />,
+    INTERESTING: <InterestingIcon />,
+    SYSTEM: <SystemIcon />,
   };
 
   return <>{ICON_MAP[type]}</>;
