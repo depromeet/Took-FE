@@ -42,9 +42,6 @@ export async function getToken(provider: SocialProvider, code: string, expoToken
     // 토큰 로깅
     if (parsedToken) {
       webLogger.token('소셜 로그인 API 요청에 expoToken 포함됨', { parsedToken });
-      console.log('Login requestBody', requestBody);
-    } else {
-      console.log('expoToken이 없어 requestBody는 전송되지 않음');
     }
 
     // 토큰이 있을 때만 body 전달
