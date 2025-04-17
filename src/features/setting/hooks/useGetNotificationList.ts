@@ -4,7 +4,13 @@ import { client } from '@/shared/apis/client';
 import { CLIENT_SIDE_URL } from '@/shared/constants';
 import { ApiResponseType } from '@/shared/types';
 
-type NotificationType = {
+import { formatTimeAgo } from '../utils';
+
+type NotificationType = 'MEMO' | 'INTERESTING' | 'SYSTEM';
+
+export type NotificationListType = {
+  id: number;
+  type: NotificationType;
   title: string;
   body: string;
   link: string;
@@ -12,7 +18,7 @@ type NotificationType = {
 };
 
 type NotificationListResponse = {
-  notifications: NotificationType[];
+  notifications: NotificationListType[];
 };
 
 const _getNotificationList = async () => {
@@ -22,12 +28,15 @@ const _getNotificationList = async () => {
 
 const NOTIFICATION_LIST_KEY = '@/setting/notification-list';
 
-const useGetNotificationList = () => {
+export const useGetNotificationList = () => {
   return useQuery({
     queryKey: [NOTIFICATION_LIST_KEY],
     queryFn: () => _getNotificationList(),
-    select: (data) => data.data,
+    select: (data) => {
+      return data.data.notifications.map((notification) => ({
+        ...notification,
+        sendAt: formatTimeAgo(notification.sendAt),
+      }));
+    },
   });
 };
-
-export default useGetNotificationList;

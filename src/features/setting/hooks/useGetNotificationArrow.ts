@@ -5,7 +5,7 @@ import { CLIENT_SIDE_URL } from '@/shared/constants';
 import { useIsLoggedIn } from '@/shared/hooks/useIsLoggedIn';
 import { ApiResponseType } from '@/shared/types';
 
-import { PushContent } from './type';
+type PushContent = '한 줄 메모 알림' | '흥미로운 명함 알림' | '서비스 업데이트 알림';
 
 type NotificationArrowResponse = {
   isAllowPush: boolean;
