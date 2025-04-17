@@ -11,18 +11,31 @@ import ImageAdd from '@/shared/ui/Avatar/imageAdd';
 
 import { MAX_FILE_SIZE } from '../config';
 import { CareerFormData } from '../schema';
+import { CardUpdateDto } from '../types';
 
 // 기본 아바타 이미지 경로 (상대 경로)
 const AVATAR_IMAGE_PATH = '/icons/avatarIcon.svg';
 
-function AvatarImg() {
+type AvatarImgProps = {
+  cardData?: CardUpdateDto;
+};
+
+function AvatarImg({ cardData }: AvatarImgProps) {
+  console.log('iamge : ' + cardData?.data.imagePath);
   const { control, setValue } = useFormContext<CareerFormData>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isWebView } = useDevice();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 미리보기용 state (string | null)
-  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
+  const [avatarSrc, setAvatarSrc] = useState<string | null>(cardData?.data?.imagePath || null);
+
+  useEffect(() => {
+    if (cardData?.data?.imagePath) {
+      setAvatarSrc(cardData.data.imagePath);
+      setValue('isImageRemoved', false);
+    }
+  }, [cardData]);
 
   // 웹뷰로부터 이미지 데이터를 받기 위한 메시지 리스너
   useEffect(() => {
@@ -54,16 +67,16 @@ function AvatarImg() {
 
   // 컴포넌트 마운트 시 기본 이미지 URL을 폼에 설정
   useEffect(() => {
-    // 이미지가 선택되지 않았다면 기본 이미지 URL을 설정
-    if (!avatarSrc) {
-      // 클라이언트 측에서만 실행되도록 (SSR에서는 window가 없음)
-      if (typeof window !== 'undefined') {
-        // 기본 이미지를 File 객체로 변환
+    // 클라이언트 측에서만 실행
+    if (typeof window !== 'undefined') {
+      if (!avatarSrc) {
+        // 이미지가 없는 경우 (기본 이미지 적용)
         fetch(`${window.location.origin}${AVATAR_IMAGE_PATH}`)
           .then((response) => response.blob())
           .then((blob) => {
             const defaultFile = new File([blob], 'default-avatar.png', { type: 'image/png' });
             setValue('profileImage', defaultFile);
+            setValue('isImageRemoved', true); // 기본 이미지는 삭제로 간주
           })
           .catch((error) => {
             console.error('기본 이미지 로드 실패:', error);
