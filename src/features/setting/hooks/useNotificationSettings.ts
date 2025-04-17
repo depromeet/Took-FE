@@ -48,12 +48,12 @@ export const useNotificationSettings = () => {
   }, [notification]);
 
   // API 요청을 위한 데이터 변환
-  const getApiPayload = useCallback(() => {
+  const getApiPayload = useCallback((settings: NotificationSettings) => {
     // 체크된 알림 항목만 필터링
     const allowedTypes: NotificationType[] = [];
-    if (isAlarmOn.interesting) allowedTypes.push('INTERESTING');
-    if (isAlarmOn.oneLineMemo) allowedTypes.push('MEMO');
-    if (isAlarmOn.serviceUpdate) allowedTypes.push('SYSTEM');
+    if (settings.interesting) allowedTypes.push('INTERESTING');
+    if (settings.oneLineMemo) allowedTypes.push('MEMO');
+    if (settings.serviceUpdate) allowedTypes.push('SYSTEM');
 
     const isAllowPush = allowedTypes.length > 0;
 
@@ -61,25 +61,30 @@ export const useNotificationSettings = () => {
       isAllowPush: isAllowPush,
       allowPushContent: allowedTypes,
     };
-  }, [isAlarmOn]);
+  }, []);
 
   // 알림 설정 저장 API 호출
-  const saveNotificationSettings = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const payload = getApiPayload();
+  const saveNotificationSettings = useCallback(
+    async (settings: NotificationSettings) => {
+      try {
+        setIsLoading(true);
+        const payload = getApiPayload(settings);
 
-      // 네이티브 앱에 알림 설정 변경 알리기
-      sendMessageToNative({
-        type: 'NOTIFICATION_SETTINGS_CHANGED',
-        notificationAllow: payload,
-      });
-    } catch (error) {
-      console.error('알림 설정 저장 실패:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getApiPayload]);
+        console.log('알림 설정 저장 페이로드', payload);
+
+        // 네이티브 앱에 알림 설정 변경 알리기
+        sendMessageToNative({
+          type: 'NOTIFICATION_SETTINGS_CHANGED',
+          notificationAllow: payload,
+        });
+      } catch (error) {
+        console.error('알림 설정 저장 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [getApiPayload],
+  );
 
   // 알림 설정 토글
   const handleToggleAlarm = useCallback(
@@ -112,12 +117,13 @@ export const useNotificationSettings = () => {
         newSettings.all = allEnabled;
       }
 
-      setIsAlarmOn(newSettings);
-
-      // 디바운스 처리를 위한 타이머
+      // 업데이트된 설정으로 즉시 API 호출
       const timerId = setTimeout(() => {
-        saveNotificationSettings();
+        saveNotificationSettings(newSettings);
       }, 300);
+
+      // 상태 업데이트는 API 호출 이후에 진행
+      setIsAlarmOn(newSettings);
 
       return () => clearTimeout(timerId);
     },
