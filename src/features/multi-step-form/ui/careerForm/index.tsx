@@ -5,7 +5,8 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { match } from 'ts-pattern';
 
 import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
-import { CardJobType, useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
+import { useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
+import { JopType } from '@/features/share/types';
 import { useCardFormStore } from '@/shared/store/cardFormState';
 import { Button } from '@/shared/ui/button';
 
@@ -14,12 +15,14 @@ import { useCreateCard } from '../../hooks/queries/useCreateCard';
 import { useUpdateCard } from '../../hooks/queries/useUpdateCard';
 import { useUpdateCardInfo } from '../../hooks/queries/useUpdateCardInfo';
 import { CareerFormData } from '../../schema';
+import { CardUpdateDto } from '../../types';
 import { createCareerFormData } from '../../utils';
 
 import { getStepValidationFields } from './constants';
 import FirstStep from './firstStep';
 import FourthStep from './fourthStep';
 import SecondStep from './secondStep';
+import { TagValue } from './tagFormStep/config/config';
 import ThirdStep from './thridStep';
 
 type CareerFormViewProps = {
@@ -30,13 +33,14 @@ type CareerFormViewProps = {
 type StepFormViewProps = {
   readonly currentStep: number;
   readonly handleNextStep: () => void;
+  cardData?: CardUpdateDto;
 };
 
 function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   const formMethod = useFormContext<CareerFormData>();
 
   // Zustand 스토어에서 상태 가져오기
-  const { cardId, isEditMode, resetState } = useUpdateCardStore();
+  const { cardId, isEditMode } = useUpdateCardStore();
   const { mutate: getCardInfo, data: cardData } = useUpdateCardInfo();
 
   const {
@@ -53,10 +57,10 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   const { mutate: updateCardAPI } = useUpdateCard(reset);
 
   const job = useCardFormStore((state) => state.job);
+  const setJob = useCardFormStore((state) => state.setJob);
 
-  // 수정 명함 카드 정보 가져오기
   const { data: careerOptions } = useRegisterQuery({
-    job: isEditMode ? (cardData?.data.job as CardJobType) : job,
+    job: job,
   });
 
   // 수정 모드일 경우 카드 정보 가져오기
@@ -66,18 +70,32 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     }
   }, [isEditMode, cardId, getCardInfo]);
 
-  // 카드 데이터가 있으면 폼에 채우기
+  // 카드 데이터가 있으면 폼에 채우기 - 수정
   useEffect(() => {
-    if (cardData?.data) {
+    // 이미 데이터가 설정된 경우를 방지하기 위한 플래그
+    let isInitialized = false;
+
+    if (cardData?.data && isEditMode && !isInitialized) {
+      isInitialized = true;
       const card = cardData.data;
+
+      // 초기화 시 사용할 태그 배열
+      const tags = [];
+
+      // 수정할 때 직업 저장
+      setJob(card.job as JopType);
 
       // 기본 필드 설정
       setValue('nickname', card.nickname);
-      setValue('organization', card.organization || '');
 
+      if (card?.organization) {
+        tags.push('organization');
+        setValue('organization', card.organization || '');
+      }
+
+      // detailJob 설정
       if (careerOptions && card.detailJob) {
         const matchingOption = careerOptions.find((option) => option.value === card.detailJob);
-
         if (matchingOption) {
           setValue('detailJobId', matchingOption.id);
         }
@@ -87,53 +105,70 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
       setValue('interestDomain', card.interestDomain || []);
       setValue('previewInfoType', card.previewInfoType || '');
 
-      // previewInfo 내의 데이터 설정
-      if (card.previewInfo) {
-        // SNS 설정
-        if (card.previewInfo.sns) {
-          setValue('sns', [
-            {
-              type: card.previewInfo.sns.type,
-              link: card.previewInfo.sns.link,
-            },
-          ]);
-        }
-
-        // Project 설정
-        if (card.previewInfo.project) {
-          setValue('project', [
-            {
-              type: 'project',
-              link: card.previewInfo.project.link,
-              title: card.previewInfo.project.title,
-              imageUrl: card.previewInfo.project.imageUrl,
-              description: card.previewInfo.project.description,
-            },
-          ]);
-        }
-
-        // Content 설정
-        if (card.previewInfo.content) {
-          setValue('content', [
-            {
-              type: 'blog',
-              link: card.previewInfo.content.link,
-              title: card.previewInfo.content.title,
-              imageUrl: card.previewInfo.content.imageUrl,
-              description: card.previewInfo.content.description,
-            },
-          ]);
-        }
-
-        // 기타 필드 설정
-        if (card.previewInfo.hobby) setValue('hobby', card.previewInfo.hobby);
-        if (card.previewInfo.news) setValue('news', card.previewInfo.news);
-        if (card.previewInfo.region) setValue('region', card.previewInfo.region);
+      // SNS 데이터 설정 - 루트 레벨에서 가져옴
+      if (card.sns && card.sns.length > 0) {
+        tags.push('sns');
+        // 모든 SNS 항목을 매핑하여 배열로 설정
+        const snsItems = card.sns.map((item) => ({
+          type: item.type,
+          link: item.link,
+        }));
+        setValue('sns', snsItems);
       }
 
-      // 프로필 이미지는 별도 처리 필요
+      // Project 데이터 설정 - 루트 레벨에서 가져옴
+      if (card.project && card.project.length > 0) {
+        tags.push('project');
+        // 모든 프로젝트 항목을 매핑하여 배열로 설정
+        const projectItems = card.project.map((item) => ({
+          type: 'project' as const,
+          link: item.link,
+          title: item.title,
+          imageUrl: item.imageUrl,
+          description: item.description,
+        }));
+        setValue('project', projectItems);
+      }
+
+      // Content 데이터 설정 - 루트 레벨에서 가져옴
+      if (card.content && card.content.length > 0) {
+        tags.push('content');
+        // 모든 콘텐츠 항목을 매핑하여 배열로 설정
+        const contentItems = card.content.map((item) => ({
+          type: 'blog' as const,
+          link: item.link,
+          title: item.title,
+          imageUrl: item.imageUrl,
+          description: item.description,
+        }));
+        setValue('content', contentItems);
+      }
+
+      // Hobby 데이터 설정
+      if (card.hobby) {
+        tags.push('hobby');
+        setValue('hobby', card.hobby);
+      }
+
+      // News 데이터 설정
+      if (card.news) {
+        tags.push('news');
+        setValue('news', card.news);
+      }
+
+      // Region 데이터 설정
+      if (card.region) {
+        tags.push('region');
+        setValue('region', card.region);
+      }
+
+      // 모든 데이터 설정 후 한 번에 태그 상태 업데이트
+      useCardFormStore.setState({
+        tagArray: tags as TagValue[],
+        tagCount: tags.length,
+      });
     }
-  }, [cardData, setValue, careerOptions]);
+  }, [cardData, setValue, careerOptions, isEditMode, setJob]);
 
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {
@@ -154,9 +189,6 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
       updateCardAPI({
         cardId,
         formData,
-        onSuccess: () => {
-          resetState();
-        },
       });
     } else {
       createCardAPI(formData);
@@ -212,7 +244,7 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   return (
     <>
       <form>
-        <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} />
+        <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} cardData={cardData} />
       </form>
       {currentStep !== 2 && (
         <Button className="z-100" disabled={!isStepValid} onClick={handleNextStep}>
@@ -223,12 +255,12 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   );
 }
 
-const StepFormView = ({ currentStep, handleNextStep }: StepFormViewProps) => {
+const StepFormView = ({ currentStep, handleNextStep, cardData }: StepFormViewProps) => {
   return match(currentStep)
-    .with(1, () => <FirstStep />)
+    .with(1, () => <FirstStep cardData={cardData} />)
     .with(2, () => <SecondStep handleNextStep={handleNextStep} />)
     .with(3, () => <ThirdStep />)
-    .with(4, () => <FourthStep />)
+    .with(4, () => <FourthStep cardData={cardData} />)
     .otherwise(() => <></>);
 };
 
