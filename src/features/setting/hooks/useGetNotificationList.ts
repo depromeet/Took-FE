@@ -6,7 +6,7 @@ import { ApiResponseType } from '@/shared/types';
 
 import { formatTimeAgo } from '../utils';
 
-type NotificationType = 'MEMO' | 'INTERESTING' | 'SYSTEM';
+export type NotificationType = 'MEMO' | 'INTERESTING' | 'SYSTEM';
 
 export type NotificationListType = {
   id: number;

@@ -19,14 +19,14 @@ const _getNotificationAllow = async () => {
   return data;
 };
 
-const NOTIFICATION_ARROW_KEY = '@/setting/notification-arrow';
+const NOTIFICATION_ALLOW_KEY = '@/setting/notification-allow';
 
 // 알림 설정을 조회합니다.
 const useGetNotificationAllow = () => {
   const { isLoggedIn } = useIsLoggedIn();
 
   return useQuery({
-    queryKey: [NOTIFICATION_ARROW_KEY],
+    queryKey: [NOTIFICATION_ALLOW_KEY],
     queryFn: () => _getNotificationAllow(),
     enabled: isLoggedIn,
     select: (data) => data.data,

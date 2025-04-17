@@ -58,6 +58,10 @@ const SettingView = () => {
     router.push('/setting/terms');
   };
 
+  const handleInquiry = () => {
+    window.open('https://forms.gle/FsAdnW5s5LVJkmBTA', '_blank');
+  };
+
   // 마운트 상태에 따라 알림 설정 항목 표시 여부 결정
   const showAlarmSettings = isMounted && isMobileDevice;
 
@@ -72,6 +76,7 @@ const SettingView = () => {
           {showAlarmSettings && <SettingItem text="알림 설정" onClick={handleAlram} />}
           <SettingItem text="이용 약관" onClick={handleTerms} />
           <SettingItem text="개인정보처리약관" onClick={handlePrivacyTerms} />
+          <SettingItem text="문의사항" onClick={handleInquiry} />
 
           <Label className={cn('text-body-3 text-gray-400', spacingStyles({ marginTop: 'ms' }))}>계정</Label>
           <LogoutDialog trigger={<SettingItem text="로그아웃" />} onConfirm={handleLogout} />
