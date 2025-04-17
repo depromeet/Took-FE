@@ -70,105 +70,98 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
     }
   }, [isEditMode, cardId, getCardInfo]);
 
+  // 카드 데이터 설정 함수 - 수정 모드에서 사용
+  const setCardFormData = (card: CardUpdateDto['data']) => {
+    const tags: TagValue[] = [];
+
+    // 직업 설정
+    setJob(card.job as JopType);
+
+    // 기본 필드 설정
+    setValue('nickname', card.nickname);
+    setValue('summary', card.summary);
+    setValue('interestDomain', card.interestDomain || []);
+    setValue('previewInfoType', card.previewInfoType || '');
+
+    // 소속 정보 설정
+    if (card?.organization) {
+      tags.push('organization');
+      setValue('organization', card.organization);
+    }
+
+    // detailJob 설정
+    if (careerOptions && card.detailJob) {
+      const matchingOption = careerOptions.find((option) => option.value === card.detailJob);
+      if (matchingOption) {
+        setValue('detailJobId', matchingOption.id);
+      }
+    }
+
+    // SNS 데이터 설정
+    if (card.sns && card.sns.length > 0) {
+      tags.push('sns');
+      const snsItems = card.sns.map((item) => ({
+        type: item.type,
+        link: item.link,
+      }));
+      setValue('sns', snsItems);
+    }
+
+    // Project 데이터 설정
+    if (card.project && card.project.length > 0) {
+      tags.push('project');
+      const projectItems = card.project.map((item) => ({
+        type: 'project' as const,
+        link: item.link,
+        title: item.title,
+        imageUrl: item.imageUrl,
+        description: item.description,
+      }));
+      setValue('project', projectItems);
+    }
+
+    // Content 데이터 설정
+    if (card.content && card.content.length > 0) {
+      tags.push('content');
+      const contentItems = card.content.map((item) => ({
+        type: 'blog' as const,
+        link: item.link,
+        title: item.title,
+        imageUrl: item.imageUrl,
+        description: item.description,
+      }));
+      setValue('content', contentItems);
+    }
+
+    // 선택적 필드 설정
+    if (card.hobby) {
+      tags.push('hobby');
+      setValue('hobby', card.hobby);
+    }
+
+    if (card.news) {
+      tags.push('news');
+      setValue('news', card.news);
+    }
+
+    if (card.region) {
+      tags.push('region');
+      setValue('region', card.region);
+    }
+
+    // 태그 상태 업데이트
+    useCardFormStore.setState({
+      tagArray: tags,
+      tagCount: tags.length,
+    });
+  };
+
   // 카드 데이터가 있으면 폼에 채우기 - 수정
   useEffect(() => {
-    // 이미 데이터가 설정된 경우를 방지하기 위한 플래그
-    let isInitialized = false;
-
-    if (cardData?.data && isEditMode && !isInitialized) {
-      isInitialized = true;
-      const card = cardData.data;
-
-      // 초기화 시 사용할 태그 배열
-      const tags = [];
-
-      // 수정할 때 직업 저장
-      setJob(card.job as JopType);
-
-      // 기본 필드 설정
-      setValue('nickname', card.nickname);
-
-      if (card?.organization) {
-        tags.push('organization');
-        setValue('organization', card.organization || '');
-      }
-
-      // detailJob 설정
-      if (careerOptions && card.detailJob) {
-        const matchingOption = careerOptions.find((option) => option.value === card.detailJob);
-        if (matchingOption) {
-          setValue('detailJobId', matchingOption.id);
-        }
-      }
-
-      setValue('summary', card.summary);
-      setValue('interestDomain', card.interestDomain || []);
-      setValue('previewInfoType', card.previewInfoType || '');
-
-      // SNS 데이터 설정 - 루트 레벨에서 가져옴
-      if (card.sns && card.sns.length > 0) {
-        tags.push('sns');
-        // 모든 SNS 항목을 매핑하여 배열로 설정
-        const snsItems = card.sns.map((item) => ({
-          type: item.type,
-          link: item.link,
-        }));
-        setValue('sns', snsItems);
-      }
-
-      // Project 데이터 설정 - 루트 레벨에서 가져옴
-      if (card.project && card.project.length > 0) {
-        tags.push('project');
-        // 모든 프로젝트 항목을 매핑하여 배열로 설정
-        const projectItems = card.project.map((item) => ({
-          type: 'project' as const,
-          link: item.link,
-          title: item.title,
-          imageUrl: item.imageUrl,
-          description: item.description,
-        }));
-        setValue('project', projectItems);
-      }
-
-      // Content 데이터 설정 - 루트 레벨에서 가져옴
-      if (card.content && card.content.length > 0) {
-        tags.push('content');
-        // 모든 콘텐츠 항목을 매핑하여 배열로 설정
-        const contentItems = card.content.map((item) => ({
-          type: 'blog' as const,
-          link: item.link,
-          title: item.title,
-          imageUrl: item.imageUrl,
-          description: item.description,
-        }));
-        setValue('content', contentItems);
-      }
-
-      // Hobby 데이터 설정
-      if (card.hobby) {
-        tags.push('hobby');
-        setValue('hobby', card.hobby);
-      }
-
-      // News 데이터 설정
-      if (card.news) {
-        tags.push('news');
-        setValue('news', card.news);
-      }
-
-      // Region 데이터 설정
-      if (card.region) {
-        tags.push('region');
-        setValue('region', card.region);
-      }
-
-      // 모든 데이터 설정 후 한 번에 태그 상태 업데이트
-      useCardFormStore.setState({
-        tagArray: tags as TagValue[],
-        tagCount: tags.length,
-      });
+    if (cardData?.data && isEditMode) {
+      setCardFormData(cardData.data);
     }
-  }, [cardData, setValue, careerOptions, isEditMode, setJob]);
+  }, [cardData, isEditMode, careerOptions]);
 
   // 최종 제출 시 처리
   const onSubmit: SubmitHandler<CareerFormData> = async (data) => {

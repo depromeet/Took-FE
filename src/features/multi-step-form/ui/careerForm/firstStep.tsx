@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
+import { CardJobType, useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
 import { useCardFormStore } from '@/shared/store/cardFormState';
@@ -15,6 +15,9 @@ import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
 import { CardUpdateDto } from '../../types';
+
+import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
+import { useEffect } from 'react';
 
 const MAX_SUMMARY_LENGTH = 40;
 
@@ -29,9 +32,10 @@ function FirstStep({ cardData }: FirstStepProps) {
   } = useFormContext<CareerFormData>();
 
   const job = useCardFormStore((state) => state.job);
+  const { isEditMode } = useUpdateCardStore();
 
   const { data: careerOptions } = useRegisterQuery({
-    job: job,
+    job: isEditMode ? (cardData?.data?.job as CardJobType) : job,
   });
 
   return (
@@ -72,6 +76,8 @@ function FirstStep({ cardData }: FirstStepProps) {
               // 현재 필드의 값(fieldValue)에 해당하는 옵션을 찾아 selectedOption에 할당
               const selectedOptionValue = careerOptions?.find((option) => option.id === fieldValue) || null;
 
+              console.log('fieldValue : ' + fieldValue);
+              console.log('selectedOptionValue : ' + selectedOptionValue);
               return (
                 <SearchDropdown
                   title="세부직군"
