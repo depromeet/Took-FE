@@ -2,6 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
+import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
 import { CardJobType, useRegisterQuery } from '@/features/new-card/hooks/queries/useRegisterQuery';
 import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing';
@@ -15,9 +16,6 @@ import AvatarImg from '../../components/AvartarImg';
 import { CAREER_FORM } from '../../config';
 import { CareerFormData } from '../../schema';
 import { CardUpdateDto } from '../../types';
-
-import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
-import { useEffect } from 'react';
 
 const MAX_SUMMARY_LENGTH = 40;
 

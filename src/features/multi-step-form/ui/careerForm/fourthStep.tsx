@@ -11,9 +11,9 @@ import Header from '@/shared/ui/header';
 import Thumbnail from '@/shared/ui/thumbnail';
 
 import { CareerFormData } from '../../schema';
+import { CardUpdateDto } from '../../types';
 
 import { SelectedTagType, tagConfig } from './tagFormStep/config/config';
-import { CardUpdateDto } from '../../types';
 
 const LAST_NUMBER = 7;
 
@@ -49,7 +49,7 @@ function FourthStep({ cardData }: FirstStepProps) {
         setSelectedTag(tagArray[foundIndex].message);
       }
     }
-  }, []);
+  }, [cardData?.data?.previewInfoType]);
 
   // previewInfoType 초기 값 설정
   useEffect(() => {
