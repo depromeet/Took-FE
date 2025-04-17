@@ -2,6 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 
+import LottieLoading from '@/shared/ui/lottieLoading';
 import Toast from '@/shared/ui/Toast';
 
 import { useCardDetailQuery } from '../hooks/query/useCardDetailQuery';
@@ -15,9 +16,11 @@ function CardDetail() {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
 
-  const { data } = useCardDetailQuery(cardId as string);
+  const { data, isLoading } = useCardDetailQuery(cardId as string);
 
-  return (
+  return isLoading ? (
+    <LottieLoading />
+  ) : (
     <div className="w-full overflow-y-auto scrollbar-hide">
       <CardDetailHeader data={data as CardDetailDto} type={type as string} />
       <CardTabs data={data as CardDetailDto} type={type as string} />
