@@ -1,27 +1,18 @@
 'use client';
 
-import { motion, useAnimation, useMotionValue } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { convertPreviewInfo } from '@/features/share/utils/convertPreviewType';
 import { getPreviewContentByType } from '@/features/share/utils/getPreviewContent';
 import { cn } from '@/shared/lib/utils';
 
 import { AddCard } from '../components/BusinessCard/AddCard';
-import {
-  CardAvatar,
-  CardDescription,
-  CardFooter,
-  CardJob,
-  CardName,
-  CardTags,
-  WrappedCard,
-} from '../components/BusinessCard/Card';
 import { useCardQuery } from '../hooks/queries/useCardQuery';
 import { Card } from '../types';
+
+import { DraggableCard } from './DraggableCard';
 
 // import { ClipboardContainer } from './ClipboardContainer';
 
@@ -41,25 +32,10 @@ export const CardContainer = () => {
       `/share?profileImg=${encodingProfileImg}&name=${cards[activeTab]?.nickname}&job=${cards[activeTab]?.detailJob}&jobType=${cards[activeTab]?.job}&url=https://www.even-took.com/card-share/${cards[activeTab].id}&cardId=${cards[activeTab].id}`,
     );
   };
-  const y = useMotionValue(0);
-  const controls = useAnimation();
 
   if (!data) return null;
 
   const { cards } = data;
-
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any, activeTab: number) => {
-    if (info.offset.y < -200) {
-      // 공유 페이지 이동
-      controls.start({ y: -600, transition: { duration: 0.4 } });
-      setTimeout(() => {
-        goToSharePage(cards, activeTab);
-      }, 200);
-    } else {
-      // 원위치 복귀
-      controls.start({ y: 0, transition: { type: 'spring', stiffness: 300, damping: 25 } });
-    }
-  };
 
   return (
     <>
@@ -82,19 +58,22 @@ export const CardContainer = () => {
         }}
       >
         {cards.map(
-          ({
-            id,
-            job: type,
-            imagePath: profileImg,
-            isPrimary,
-            nickname: name,
-            organization,
-            detailJob,
-            summary: introduction,
-            interestDomain: tags,
-            previewInfo: project,
-            previewInfoType,
-          }) => {
+          (
+            {
+              id,
+              job: type,
+              imagePath: profileImg,
+              isPrimary,
+              nickname: name,
+              organization,
+              detailJob,
+              summary: introduction,
+              interestDomain: tags,
+              previewInfo: project,
+              previewInfoType,
+            },
+            index,
+          ) => {
             const previewContent = getPreviewContentByType(project, previewInfoType);
             return (
               <SwiperSlide
@@ -106,62 +85,29 @@ export const CardContainer = () => {
                   justifyContent: 'center',
                 }}
               >
-                <motion.div
-                  drag="y"
-                  dragConstraints={{ top: -600, bottom: 0 }}
-                  onDragEnd={(e, info) => handleDragEnd(e, info, activeTab)}
-                  animate={controls}
-                  whileDrag={{ zIndex: 9999 }}
-                  style={{
-                    y,
+                <DraggableCard
+                  card={{
+                    type: type,
+                    profileImg: profileImg,
+                    isPrimary: isPrimary,
+                    name: name,
+                    organization: organization,
+                    detailJob: detailJob,
+                    introduction: introduction,
+                    tags: tags,
+                    previewInfoType: previewInfoType,
+                    previewContent: {
+                      title: previewContent?.title,
+                      description: previewContent?.description,
+                      imageUrl: previewContent?.imageUrl,
+                    },
+                    onClick: () => goToDetailPage(id),
                   }}
-                >
-                  <WrappedCard
-                    cardType={type}
-                    style={{
-                      marginBottom: '20px',
-                    }}
-                    onClick={() => goToDetailPage(id)}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        height: '100%',
-                      }}
-                    >
-                      {isPrimary && (
-                        <div
-                          className={cn(
-                            'absolute right-[24px] top-[24px] rounded-full',
-                            type === 'DESIGNER' ? 'bg-opacity-purple-30' : 'bg-opacity-blue-30',
-                          )}
-                        >
-                          <p className="px-[8px] py-[3px] text-caption-1">대표</p>
-                        </div>
-                      )}
-                      <div>
-                        <CardAvatar
-                          src={profileImg || '/icon/default-image-s.svg'}
-                          alt={`${name}의 프로필 이미지`}
-                        />
-                        <CardName organization={organization}>{name}</CardName>
-                        <CardJob jobType={type}>{detailJob}</CardJob>
-                        <CardDescription>{introduction}</CardDescription>
-                      </div>
-                      <div>
-                        <CardTags tagType={type} tags={tags} />
-                        <CardFooter
-                          previewInfo={convertPreviewInfo(previewInfoType)}
-                          title={previewContent.title}
-                          description={previewContent.description}
-                          imageUrl={previewContent.imageUrl}
-                        />
-                      </div>
-                    </div>
-                  </WrappedCard>
-                </motion.div>
+                  isActive={index === activeTab}
+                  activeTab={activeTab}
+                  cards={cards}
+                  goToSharePage={() => goToSharePage(cards, index)}
+                />
               </SwiperSlide>
             );
           },
