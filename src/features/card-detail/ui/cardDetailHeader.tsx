@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
+import { cn } from '@/shared/lib/utils';
 import { spacingStyles } from '@/shared/spacing/spacing';
 import Appbar from '@/shared/ui/appbar';
 import Tag from '@/shared/ui/tag/tag';
@@ -59,7 +60,17 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
         {/* 카드 상세 헤더 */}
         <Appbar page="detail" onRightClick={headerRightHandler} onLeftClick={handleBack} isBlurred={isScroll} />
         {/* 카드 상세 userData */}
-        <div className={`flex w-full items-start ${spacingStyles({ marginTop: 'ms' })}`}>
+        <div className={`relative flex w-full items-start ${spacingStyles({ marginTop: 'ms' })}`}>
+          {data.data.isPrimary && (
+            <div
+              className={cn(
+                'absolute right-[20px] top-[4px] rounded-full',
+                data.data.job === 'DESIGNER' ? 'bg-opacity-purple-30' : 'bg-opacity-blue-30',
+              )}
+            >
+              <p className="px-[8px] py-[3px] text-caption-1">대표 명함</p>
+            </div>
+          )}
           <div className={`flex w-full flex-col items-start ${spacingStyles({ paddingX: 'md' })}`}>
             {/* ${isModalOpen ? 'invisible' : 'visible'} */}
             <div className={`flex w-full items-center justify-between ${spacingStyles({ marginBottom: 'ms' })}`}>
@@ -75,10 +86,6 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
                   />
                 </div>
               )}
-              {/* /icons/avatarIcon.svg */}
-
-              {/* 개발자 , 디자이너 아이콘 */}
-              {data?.data?.job && <Image src={currentJob?.iconPath} alt={currentJob?.iconAlt} width="28" height="28" />}
             </div>
             <p className="line-clamp-1 text-title-1">{data?.data.nickname}</p>
             <div
