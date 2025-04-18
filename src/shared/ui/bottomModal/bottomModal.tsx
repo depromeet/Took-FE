@@ -84,12 +84,16 @@ export const BottomModal = ({ isModalOpen, closeModal, mode, children }: BottomM
           {/* 바텀 모달 */}
           <motion.div
             ref={modalRef}
-            initial={{ y: '20%' }}
+            initial={{ y: '100%' }}
             animate={{
               y: 0,
             }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            transition={{
+              type: 'tween',
+              ease: 'easeOut',
+              duration: 0.3,
+            }}
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={0.1}
