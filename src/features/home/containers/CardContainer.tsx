@@ -38,7 +38,7 @@ export const CardContainer = () => {
     const encodingProfileImg = encodeURIComponent(cards[activeTab]?.imagePath);
 
     router.push(
-      `/share?profileImg=${encodingProfileImg}&name=${cards[activeTab]?.nickname}&job=${cards[activeTab]?.detailJob}&jobType=${cards[activeTab]?.job}&url=https://www.even-took.com/card-share/${cards[activeTab].id}`,
+      `/share?profileImg=${encodingProfileImg}&name=${cards[activeTab]?.nickname}&job=${cards[activeTab]?.detailJob}&jobType=${cards[activeTab]?.job}&url=https://www.even-took.com/card-share/${cards[activeTab].id}&cardId=${cards[activeTab].id}`,
     );
   };
   const y = useMotionValue(0);

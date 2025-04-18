@@ -19,6 +19,7 @@ const Share = () => {
     job: searchParams.get('job') || '',
     jobType: searchParams.get('jobType') as JobType,
     url: searchParams.get('url') || '',
+    cardId: searchParams.get('cardId') || '',
   };
 
   return (
