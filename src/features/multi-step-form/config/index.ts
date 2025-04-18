@@ -23,6 +23,7 @@ export const MAXIMUM_TAG_ADD = 10;
 
 export const CARD_CREATE_INITIAL_VALUES: CareerFormData = {
   profileImage: '',
+  isImageRemoved: false,
   nickname: '',
   detailJobId: 0,
   interestDomain: [],

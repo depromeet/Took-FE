@@ -60,9 +60,8 @@ const CardDetailHeader = ({ data, type }: CardDetailHeaderProps) => {
         <Appbar page="detail" onRightClick={headerRightHandler} onLeftClick={handleBack} isBlurred={isScroll} />
         {/* 카드 상세 userData */}
         <div className={`flex w-full items-start ${spacingStyles({ marginTop: 'ms' })}`}>
-          <div
-            className={`flex w-full flex-col items-start ${spacingStyles({ paddingX: 'md' })} ${isModalOpen ? 'invisible' : 'visible'}`}
-          >
+          <div className={`flex w-full flex-col items-start ${spacingStyles({ paddingX: 'md' })}`}>
+            {/* ${isModalOpen ? 'invisible' : 'visible'} */}
             <div className={`flex w-full items-center justify-between ${spacingStyles({ marginBottom: 'ms' })}`}>
               {/* 프로필 이미지 */}
               {data?.data?.nickname && (

@@ -127,10 +127,13 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
     sns,
     content,
     project,
+    isImageRemoved,
   } = data;
 
+  const { name } = profileImage as File;
+
   // 단순 필드 추가
-  formData.append('profileImage', profileImage as File);
+  if (name !== 'default-avatar.png') formData.append('profileImage', profileImage as File);
   formData.append('nickname', nickname);
   formData.append('detailJobId', detailJobId.toString());
   formData.append('interestDomain', JSON.stringify(interestDomain));
@@ -141,6 +144,7 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
   if (region) formData.append('region', region);
   if (hobby) formData.append('hobby', hobby);
   if (news) formData.append('news', news);
+  if (isImageRemoved !== undefined) formData.append('isImageRemoved', isImageRemoved.toString());
 
   // URL 정규화 함수로 모든 링크 URL을 처리
   // 배열 필드: sns
