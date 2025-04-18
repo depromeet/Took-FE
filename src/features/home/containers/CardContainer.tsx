@@ -48,6 +48,8 @@ export const CardContainer = () => {
 
   const { cards } = data;
 
+  const isSingleCard = cards.length === 1;
+
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any, activeTab: number) => {
     if (info.offset.y < -200) {
       // 공유 페이지 이동
@@ -66,10 +68,15 @@ export const CardContainer = () => {
       <Swiper
         pagination={{
           dynamicBullets: true,
+          enabled: !isSingleCard,
         }}
         modules={[Pagination]}
         onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
-        className="home-swiper h-[420px]"
+        navigation={false}
+        slidesPerView={isSingleCard ? 1 : 1.3}
+        spaceBetween={isSingleCard ? 0 : 24}
+        centeredSlides={true}
+        className="custom-swiper h-[420px]"
       >
         {cards.map(
           ({

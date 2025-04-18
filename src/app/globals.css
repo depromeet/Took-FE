@@ -77,34 +77,34 @@
     }
 
     /* 푸시 알림 메모 스와이프 */
-    .memo-swiper .swiper-pagination-bullet {
+    .custom-swiper .swiper-pagination-bullet {
       background: var(--gray-600);
     }
 
-    .memo-swiper .swiper-pagination-bullet-active {
+    .custom-swiper .swiper-pagination-bullet-active {
       background-color: #fff;
     }
 
-    .memo-swiper {
+    .custom-swiper {
       padding-left: 16px;
       padding-right: 16px;
     }
 
-    .memo-swiper .swiper-slide {
+    .custom-swiper .swiper-slide {
       transition: all 0.2s ease-out; /* 부드러운 전환 효과 */
     }
 
-    .memo-swiper .swiper-slide-prev,
-    .memo-swiper .swiper-slide-next {
+    .custom-swiper .swiper-slide-prev,
+    .custom-swiper .swiper-slide-next {
       backdrop-filter: blur(57px);
     }
 
-    .memo-swiper .swiper-slide-prev {
+    .custom-swiper .swiper-slide-prev {
       opacity: 1;
       transform: translateX(-10%) rotate(-2.5deg);
     }
 
-    .memo-swiper .swiper-slide-next {
+    .custom-swiper .swiper-slide-next {
       opacity: 1;
       transform: translateX(10%) rotate(2.5deg);
     }
