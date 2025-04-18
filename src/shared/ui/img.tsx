@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { cn } from '../lib/utils';
 
 type ImagePropsType = {
-  size: 'large' | 'medium' | 'small' | 'max';
+  size: 'large' | 'medium' | 'small';
   src?: string;
   alt?: string;
   className?: string;
@@ -13,7 +13,6 @@ const sizeVariants = {
   large: { container: 'h-[132px] w-[132px]', image: { width: 41, height: 62.1 }, opacity: 'opacity-20' },
   medium: { container: 'h-[66px] w-[66px]', image: { width: 19.04, height: 28.84 }, opacity: '' },
   small: { container: 'h-14 w-14', image: { width: 15, height: 22.72 }, opacity: '' },
-  max: { container: 'h-full w-full', image: { width: 15, height: 22.72 }, opacity: '' },
 };
 
 /**
