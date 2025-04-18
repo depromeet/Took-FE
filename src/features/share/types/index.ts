@@ -49,3 +49,23 @@ type SNS = {
   type: string;
   link: string;
 };
+
+export interface NearbyUserProfileDto {
+  userId: number;
+  cardId: number;
+  name?: string;
+  nickname?: string;
+  detailJobEn: string;
+  imagePath: string;
+}
+
+export interface NearbyUserDataDto {
+  profiles: NearbyUserProfileDto[];
+}
+
+export interface NearbyUserResponseDto {
+  status: 'OK' | 'FAIL';
+  message: string;
+  timestamp: string;
+  data: NearbyUserDataDto;
+}
