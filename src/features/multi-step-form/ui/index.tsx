@@ -56,10 +56,10 @@ function MultiStepFormView() {
 
   return (
     <FormProvider {...formMethod}>
-      <div className="flex min-h-dvh w-full justify-center">
+      <div className="relative flex min-h-dvh w-full justify-center">
         <div
           className={cn(
-            'flex w-full max-w-[600px] flex-col bg-gray-black',
+            'relative flex w-full max-w-[600px] flex-col bg-gray-black',
             currentStep === 2 && 'bg-[url(/images/tag/background.webp)] bg-cover bg-center',
           )}
         >
