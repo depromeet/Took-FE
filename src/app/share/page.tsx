@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { Toaster } from 'sonner';
@@ -24,9 +25,14 @@ const Share = () => {
 
   return (
     <>
-      <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden"
+      >
         <QrContainer {...params} />
-      </div>
+      </motion.div>
       <Toaster position="top-center" />
     </>
   );

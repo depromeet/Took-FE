@@ -44,8 +44,8 @@ export const DraggableCard = ({ card, isActive, activeTab, cards, goToSharePage 
   const controls = useAnimation();
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo, activeTab: number) => {
-    if (info.offset.y < -200) {
-      controls.start({ y: -600, transition: { duration: 0.4 } });
+    if (info.offset.y < -100) {
+      controls.start({ y: -100, transition: { duration: 0.2 } });
       setTimeout(() => {
         goToSharePage(cards, activeTab);
       }, 200);
@@ -57,14 +57,19 @@ export const DraggableCard = ({ card, isActive, activeTab, cards, goToSharePage 
     <motion.div
       {...(isActive && {
         drag: 'y',
-        dragConstraints: { top: -600, bottom: 0 },
+        dragConstraints: { top: 0, bottom: 0 },
+        onDrag: (e: any, info: PanInfo) => {
+          if (info.offset.y > 0) {
+            controls.set({ y: 0 }); // 아래로 드래그 바로 막기
+          }
+        },
         onDragEnd: (e, info) => handleDragEnd(e, info, activeTab),
         animate: controls,
         whileDrag: { zIndex: 9999 },
         style: { y },
       })}
     >
-      <WrappedCard cardType={card.type} style={{ marginBottom: '20px' }} onClick={card.onClick}>
+      <WrappedCard cardType={card.type} style={{ marginBottom: '5rem', marginTop: '5rem' }} onClick={card.onClick}>
         <div
           style={{
             display: 'flex',
