@@ -53,7 +53,6 @@ type AppbarProps = AppbarVariantProps & {
   router?: () => void;
   isBlurred?: boolean;
   className?: string;
-
   searchValue?: string;
   onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -62,7 +61,8 @@ function renderLeftIcon({
   page,
   isBlurred = false,
   onLeftClick,
-}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'>) {
+  isWebView,
+}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'> & { isWebView?: boolean }) {
   switch (page) {
     case 'main':
       return (
@@ -92,11 +92,14 @@ function renderLeftIcon({
         </button>
       );
     case 'interest':
-      return (
-        <button onClick={onLeftClick}>
-          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
-        </button>
-      );
+      if (!isWebView) {
+        return (
+          <button onClick={onLeftClick}>
+            <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      return null;
 
     case 'received':
       return (
@@ -105,11 +108,14 @@ function renderLeftIcon({
         </button>
       );
     case 'notes':
-      return (
-        <button onClick={onLeftClick}>
-          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
-        </button>
-      );
+      if (!isWebView) {
+        return (
+          <button onClick={onLeftClick}>
+            <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      return null;
     default:
       return null;
   }
@@ -215,7 +221,7 @@ function Appbar({
 
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
-      <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
+      <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred, isWebView })}</div>
       {title && <h1 className="self-center text-center text-body-3 text-white">{title}</h1>}
       {page === 'search' && (
         <input
