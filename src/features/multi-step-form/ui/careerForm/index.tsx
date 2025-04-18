@@ -235,18 +235,20 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
   };
 
   return (
-    <>
-      <form>
+    <div className="flex h-[calc(100dvh-92px)] flex-col justify-between">
+      <form className="flex-1 overflow-y-scroll pb-[36px] pt-[24px] scrollbar-hide">
         <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} cardData={cardData} />
       </form>
-      <div className="z-100 absolute bottom-[18px] left-0 w-full px-[20px]">
+
+      <div className="h-[20px] w-full bg-gradient-to-b from-transparent to-[#14151A]"></div>
+      <div className="z-100 w-full pb-[18px]">
         {currentStep !== 2 && (
           <Button className="w-full" disabled={!isStepValid} onClick={handleNextStep}>
             {currentStep < TOTAL_STEPS ? '다음' : isEditMode ? '명함 수정하기' : '명함 완성하기'}
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
