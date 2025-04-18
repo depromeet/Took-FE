@@ -74,7 +74,7 @@ function CardNotesMemoCard({ cards, isMemo, onActiveCardChange }: CardNotesCardP
       slidesPerView={isSingleCard ? 1 : 1.3}
       spaceBetween={isSingleCard ? 0 : 24}
       centeredSlides={true}
-      className="memo-swiper h-[420px]"
+      className="custom-swiper h-[420px]"
     >
       {cards.map((card) => {
         const previewContent = getPreviewContent(card);
