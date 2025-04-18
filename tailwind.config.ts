@@ -89,6 +89,7 @@ const config: Config = {
           'white-20': 'var(--white-20)',
           'purple-30': 'var(--purple-30)',
           'purple-40': 'var(--purple-40)',
+          'blue-30': 'var(--blue-30)',
           'blue-40': 'var(--blue-40)',
         },
       },
