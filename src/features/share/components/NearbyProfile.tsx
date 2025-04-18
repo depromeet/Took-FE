@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { Typography } from '@/shared/ui/typography';
 
 type Props = {
+  userId: number;
   profileImg: string;
   name: string;
   jobDetail: string;
 };
 
-export const NearbyProfile = ({ profileImg, name, jobDetail }: Props) => {
+export const NearbyProfile = ({ userId, profileImg, name, jobDetail }: Props) => {
   const [imageSrc, setImageSrc] = useState(profileImg || '/icon/default-image-s.svg');
 
   useEffect(() => {

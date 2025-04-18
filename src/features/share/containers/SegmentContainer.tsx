@@ -41,6 +41,7 @@ export const SegmentContainer = ({ className, currentTab, setCurrentTab, ...rest
           alignItems: 'center',
           justifyContent: 'center',
           color: myCardTextColor,
+          cursor: 'pointer',
         }}
         onClick={() => setCurrentTab('myCard')}
       >
@@ -57,6 +58,7 @@ export const SegmentContainer = ({ className, currentTab, setCurrentTab, ...rest
           alignItems: 'center',
           justifyContent: 'center',
           color: nearbyCardTextColor,
+          cursor: 'pointer',
         }}
         onClick={() => setCurrentTab('nearbyCard')}
       >

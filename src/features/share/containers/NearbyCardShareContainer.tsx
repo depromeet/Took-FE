@@ -4,6 +4,7 @@ import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { Typography } from '@/shared/ui/typography';
 
 import { NearbyProfile } from '../components/NearbyProfile';
+import { useNearbyCardsQuery } from '../hooks/queries/useNearbyCardQuery';
 import { useCurrentLocation } from '../hooks/useCurrentLocation';
 
 type Params = {
@@ -14,9 +15,9 @@ export const NearbyCardShareContainer = ({ jobType }: Params) => {
   const y = useMotionValue(0);
   const controls = useAnimation();
 
-  const { location } = useCurrentLocation();
+  const { location } = useCurrentLocation(1000000);
 
-  console.log(location);
+  const { data } = useNearbyCardsQuery(location?.latitude, location?.longitude);
 
   const historyBack = useHistoryBack();
 
@@ -51,7 +52,15 @@ export const NearbyCardShareContainer = ({ jobType }: Params) => {
           className="flex h-[478px] w-[320px] flex-col items-center justify-end rounded-[24px] px-[30px] pb-10 pt-[28px]"
           style={backgroundStyle}
         >
-          <NearbyProfile />
+          {data?.profiles.map(({ userId, cardId, nickname, detailJobEn, imagePath }) => (
+            <NearbyProfile
+              key={cardId}
+              userId={userId}
+              profileImg={imagePath}
+              name={nickname}
+              jobDetail={detailJobEn}
+            />
+          ))}
         </div>
       </motion.div>
       <div className="mt-[24px] rounded-full bg-[rgba(255,255,255,0.20)] px-[14px] py-[6px]">
