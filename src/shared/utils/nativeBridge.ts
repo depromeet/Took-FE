@@ -1,7 +1,15 @@
-import { AuthDto } from '../types/auth';
+import { AuthDto } from '@/features/auth/login/types/auth';
+import { NotificationType } from '@/features/setting/hooks/useGetNotificationList';
 
 // 네이티브 메시지 타입 정의
-export type NativeMessageType = 'GOOGLE_LOGIN' | 'IMAGE_PICKER' | 'SHARE_CARD_DEEP_LINK' | 'AUTH_TOKEN';
+export type NativeMessageType =
+  | 'GOOGLE_LOGIN'
+  | 'IMAGE_PICKER'
+  | 'SHARE_CARD_DEEP_LINK'
+  | 'AUTH_TOKEN'
+  | 'REQUEST_PUSH_TOKEN'
+  | 'NOTIFICATION_SETTINGS_CHANGED'
+  | 'OPEN_INQUIRY_PAGE';
 
 // 네이티브 메시지 인터페이스 정의
 export interface NativeMessage {
@@ -16,6 +24,13 @@ export interface NativeMessage {
     refreshToken?: string;
     userData?: any;
   };
+  // 알림 설정 변경 메시지
+  notificationAllow?: {
+    isAllowPush: boolean;
+    allowPushContent: NotificationType[];
+  };
+  // 문의사항 페이지 열기
+  openInquiryPage?: boolean;
 }
 
 // 네이티브 메시지 전송 함수
