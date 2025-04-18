@@ -53,6 +53,7 @@
     --white-20: #ffffff33;
     --purple-30: #8661c94d;
     --purple-40: #5c2dff66;
+    --blue-30: #2d42ff4d;
     --blue-40: #2d42ff66;
     /* gradient */
     --background-main: linear-gradient(#2370ff80 0%, #7023ff80 100%);
@@ -101,12 +102,12 @@
 
     .custom-swiper .swiper-slide-prev {
       opacity: 1;
-      transform: translateX(-10%) rotate(-2.5deg);
+      transform: translateX(-10%) rotate(-2.5deg) scale(0.98);
     }
 
     .custom-swiper .swiper-slide-next {
       opacity: 1;
-      transform: translateX(10%) rotate(2.5deg);
+      transform: translateX(10%) rotate(2.5deg) scale(0.98);
     }
 
     .placeholder-focus-white:focus::placeholder {
