@@ -1,6 +1,9 @@
+'use client';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import { motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 
 import { HomeBackground } from '@/features/home/components/BusinessCard/Background/HomeBackground';
@@ -11,7 +14,12 @@ import { Navbar } from '@/shared/ui/Navigation';
 export default function Home() {
   return (
     <>
-      <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden"
+      >
         <HomeBackground className="absolute z-[-10]" />
         <HeaderContainer />
         {/* <div className="pointer-events-none absolute left-0 top-[4rem] z-10 h-20 w-full bg-gradient-to-b from-gray-black via-gray-black to-transparent" /> */}
@@ -20,7 +28,7 @@ export default function Home() {
           <CardContainer />
         </section>
         <Navbar />
-      </div>
+      </motion.div>
       <Toaster position="top-center" />
     </>
   );
