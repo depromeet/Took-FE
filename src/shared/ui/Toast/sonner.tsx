@@ -29,7 +29,7 @@ const Toaster = ({ bottomMargin = 'detail', ...props }: ToasterProps) => {
 
   return (
     <Sonner
-      className={cn('toaster group')}
+      className={cn('toaster custom-toast group')}
       style={{ '--width': '100%' } as React.CSSProperties}
       toastOptions={{
         classNames: {
