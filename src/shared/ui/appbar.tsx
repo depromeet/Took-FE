@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
 import React from 'react';
 
+import useDevice from '../hooks/useDevice';
 import { cn } from '../lib/utils';
 import { spacingStyles } from '../spacing';
 
@@ -52,7 +53,6 @@ type AppbarProps = AppbarVariantProps & {
   router?: () => void;
   isBlurred?: boolean;
   className?: string;
-
   searchValue?: string;
   onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -61,7 +61,8 @@ function renderLeftIcon({
   page,
   isBlurred = false,
   onLeftClick,
-}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'>) {
+  isWebView,
+}: Pick<AppbarProps, 'page' | 'onLeftClick' | 'isBlurred'> & { isWebView?: boolean }) {
   switch (page) {
     case 'main':
       return (
@@ -91,11 +92,14 @@ function renderLeftIcon({
         </button>
       );
     case 'interest':
-      return (
-        <button onClick={onLeftClick}>
-          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
-        </button>
-      );
+      if (!isWebView) {
+        return (
+          <button onClick={onLeftClick}>
+            <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      return null;
 
     case 'received':
       return (
@@ -104,11 +108,14 @@ function renderLeftIcon({
         </button>
       );
     case 'notes':
-      return (
-        <button onClick={onLeftClick}>
-          <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
-        </button>
-      );
+      if (!isWebView) {
+        return (
+          <button onClick={onLeftClick}>
+            <Image src="/icons/leftArrow-gray.svg" alt="이전 아이콘" width={24} height={24} />
+          </button>
+        );
+      }
+      return null;
     default:
       return null;
   }
@@ -120,14 +127,18 @@ function renderRightIcon({
   onRightClickSecond,
   router,
   isBlurred,
-}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  isWebView,
+}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement> & { isWebView?: boolean }) {
   switch (page) {
     case 'main':
-      return (
-        <button onClick={onRightClick}>
-          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
-        </button>
-      );
+      if (isWebView) {
+        return (
+          <button onClick={onRightClick}>
+            <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
+          </button>
+        );
+      }
+      return null;
     case 'detail':
       return (
         <button
@@ -206,9 +217,11 @@ function Appbar({
   onKeyDown,
   onInputClick,
 }: AppbarProps) {
+  const { isWebView } = useDevice();
+
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
-      <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
+      <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred, isWebView })}</div>
       {title && <h1 className="self-center text-center text-body-3 text-white">{title}</h1>}
       {page === 'search' && (
         <input
@@ -224,7 +237,7 @@ function Appbar({
         />
       )}
       <div className="flex justify-end">
-        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred, isWebView })}
       </div>
     </header>
   );
