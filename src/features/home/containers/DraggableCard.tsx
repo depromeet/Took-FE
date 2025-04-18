@@ -60,7 +60,7 @@ export const DraggableCard = ({ card, isActive, activeTab, cards, goToSharePage 
         dragConstraints: { top: 0, bottom: 0 },
         onDrag: (e: any, info: PanInfo) => {
           if (info.offset.y > 0) {
-            controls.set({ y: 0 }); // 아래로 드래그 바로 막기
+            controls.set({ y: 0 });
           }
         },
         onDragEnd: (e, info) => handleDragEnd(e, info, activeTab),

@@ -1,4 +1,4 @@
-import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { motion, PanInfo, useAnimation, useMotionValue } from 'framer-motion';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { Typography } from '@/shared/ui/typography';
@@ -28,8 +28,8 @@ export const MyCardShareWithQrContainer = ({ profileImg, name, job, jobType, url
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
     event.stopPropagation();
 
-    if (info.offset.y > 200) {
-      controls.start({ y: 600, transition: { duration: 0.4 } });
+    if (info.offset.y > 150) {
+      controls.start({ y: 150, transition: { duration: 0.2 } });
       setTimeout(() => {
         historyBack();
       }, 300);
@@ -42,7 +42,12 @@ export const MyCardShareWithQrContainer = ({ profileImg, name, job, jobType, url
     <>
       <motion.div
         drag="y"
-        dragConstraints={{ top: 0, bottom: 600 }}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        onDrag={(e: any, info: PanInfo) => {
+          if (info.delta.y < 0) {
+            controls.set({ y: 0 });
+          }
+        }}
         onDragEnd={(e, info) => handleDragEnd(e, info)}
         animate={controls}
         whileDrag={{ zIndex: 9999 }}

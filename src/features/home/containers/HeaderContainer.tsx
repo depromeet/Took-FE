@@ -13,7 +13,7 @@ export const HeaderContainer = () => {
 
   return (
     <section>
-      <Appbar page="main" onRightClick={goToAlarmPage} />
+      <Appbar page="main" onRightClick={goToAlarmPage} hasBackground={true} />
     </section>
   );
 };

@@ -1,4 +1,6 @@
 'use client';
+
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
@@ -19,6 +21,7 @@ type LatestSearchKeywordProps = {
 
 export default function LatestSearchKeyword({ setIsSearched, searchValue, setSearchValue }: LatestSearchKeywordProps) {
   const [latestSearchKeywords, setLatestSearchKeywords] = useState<LatestType[]>([]);
+  const pathname = usePathname();
 
   useEffect(() => {
     const latestRaw = localStorage.getItem('latest');
@@ -30,7 +33,7 @@ export default function LatestSearchKeyword({ setIsSearched, searchValue, setSea
         console.error('최근 검색어 파싱 실패:', e);
       }
     }
-  }, []);
+  }, [latestSearchKeywords, pathname]);
 
   const handleDeleteKeyword = (keywordToDelete: string) => {
     if (typeof window === 'undefined') return;
@@ -64,7 +67,7 @@ export default function LatestSearchKeyword({ setIsSearched, searchValue, setSea
 
   return (
     <div className={cn('h-auto w-full')}>
-      {searchValue === '' && (
+      {latestSearchKeywords.length > 0 && searchValue === '' && (
         <header className={cn('flex items-center justify-between', spacingStyles({ marginBottom: 'md' }))}>
           <p className="text-caption-1 text-gray-300">최근 검색어</p>
           <button className="cursor-pointer text-caption-1 font-bold text-white" onClick={handleDeleteAllKeyword}>
