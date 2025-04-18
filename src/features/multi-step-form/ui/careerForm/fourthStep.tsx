@@ -11,6 +11,7 @@ import Header from '@/shared/ui/header';
 import Thumbnail from '@/shared/ui/thumbnail';
 
 import { CareerFormData } from '../../schema';
+import { CardUpdateDto } from '../../types';
 
 import { SelectedTagType, tagConfig } from './tagFormStep/config/config';
 
@@ -18,7 +19,11 @@ const LAST_NUMBER = 7;
 
 const HEADER_TITLE = `썸네일 명함에 대표로\n 보여줄 정보를 1개 선택해 주세요`;
 
-function FourthStep() {
+type FirstStepProps = {
+  readonly cardData?: CardUpdateDto;
+};
+
+function FourthStep({ cardData }: FirstStepProps) {
   const { control, setValue } = useFormContext<CareerFormData>();
 
   const formState = useCardFormStore((state) => state.tagArray);
@@ -32,8 +37,21 @@ function FourthStep() {
     setIndex(tagArray.findIndex((tag) => tag.message === tagMessage));
   }
 
-  // previewInfoType 초기 값 설정
+  // 수정 시 초기 활성화를 위한 코드
+  useEffect(() => {
+    if (cardData?.data?.previewInfoType) {
+      const previewType = cardData.data.previewInfoType;
+      const foundIndex = tagArray.findIndex((tag) => tag.value.toUpperCase() === previewType);
+      // 찾았으면 그 인덱스로, 못 찾았으면 기본값 0으로 설정
+      setIndex(foundIndex >= 0 ? foundIndex : 0);
 
+      if (foundIndex >= 0) {
+        setSelectedTag(tagArray[foundIndex].message);
+      }
+    }
+  }, [cardData?.data?.previewInfoType]);
+
+  // previewInfoType 초기 값 설정
   useEffect(() => {
     setValue('previewInfoType', tagArray[index]?.value.toUpperCase() as CareerFormData['previewInfoType']);
   }, [index, setValue, tagArray]);

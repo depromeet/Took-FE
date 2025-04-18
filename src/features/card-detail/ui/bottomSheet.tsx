@@ -12,6 +12,7 @@ import { useDeleteReceivedCardMutation, useDeleteMyCardMutation } from '../hooks
 import { useCardPrimaryMutation } from '../hooks/mutation/useCardPrimaryMutation';
 import { CARD_DETAIL_QUERY_KEY } from '../hooks/query/useCardDetailQuery';
 import { MY_CARD_QUERY_KEY } from '../hooks/query/useCardQuery';
+import { useUpdateCardStore } from '../store/updateCardStore';
 
 type BottomSheetProps = {
   mode: boolean;
@@ -40,6 +41,9 @@ function BottomSheet({
   const deleteMyCardMutation = useDeleteMyCardMutation();
   const cardPrimaryMutation = useCardPrimaryMutation();
   const queryClient = useQueryClient();
+
+  const setCardId = useUpdateCardStore((state) => state.setCardId);
+  const setEditMode = useUpdateCardStore((state) => state.setEditMode);
 
   const handleDelete = () => {
     if (isMyCard) {
@@ -89,6 +93,12 @@ function BottomSheet({
     );
   };
 
+  const handleUpdateCard = () => {
+    setCardId(cardId as string);
+    setEditMode(true);
+    router.push('/card-create/new-card/multi-step-form');
+  };
+
   return (
     <>
       {!mode ? (
@@ -97,7 +107,7 @@ function BottomSheet({
             <>
               {!isPrimary && <BottomMenuItem onClick={handlePrimaryCard}>대표 명함 설정하기</BottomMenuItem>}
 
-              <BottomMenuItem>명함 수정하기</BottomMenuItem>
+              <BottomMenuItem onClick={handleUpdateCard}>명함 수정하기</BottomMenuItem>
             </>
           ) : (
             <BottomMenuItem onClick={handleMode}>한 줄 메모</BottomMenuItem>

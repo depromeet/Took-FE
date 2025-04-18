@@ -7,6 +7,7 @@ export const cardCreateSchema = z.object({
       .refine((file) => file.size > 0, { message: '빈 파일은 업로드할 수 없습니다.' }),
     z.string(),
   ]),
+  isImageRemoved: z.boolean().default(false),
   nickname: z
     .string()
     .min(1, { message: '명함에 노출될 이름을 입력해주세요' })
