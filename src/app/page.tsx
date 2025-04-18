@@ -14,7 +14,9 @@ export default function Home() {
       <div className="relative mx-auto h-dvh w-full max-w-[600px] overflow-x-hidden">
         <HomeBackground className="absolute z-[-10]" />
         <HeaderContainer />
-        <section className="pb-[108px] pt-[24px]">
+        {/* <div className="pointer-events-none absolute left-0 top-[4rem] z-10 h-20 w-full bg-gradient-to-b from-gray-black via-gray-black to-transparent" /> */}
+        <div className="pointer-events-none absolute left-0 top-16 z-10 h-[3.5rem] w-full bg-[linear-gradient(180deg,_#14141A_0%,_#14141A_50%,_transparent_100%)]" />
+        <section className="z-bar mt-6 pb-20">
           <CardContainer />
         </section>
         <Navbar />

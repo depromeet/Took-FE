@@ -38,7 +38,7 @@ export const CardContainer = () => {
   const { cards } = data;
 
   return (
-    <>
+    <div className="relative">
       <Swiper
         pagination={{
           dynamicBullets: true,
@@ -49,7 +49,9 @@ export const CardContainer = () => {
         slidesPerView={1.3}
         spaceBetween={5}
         centeredSlides={true}
-        className="custom-swiper h-[425px]"
+        // className="custom-swiper h-[425px]"
+        className="custom-swiper h-[28rem]"
+        style={{ paddingTop: '5rem', paddingBottom: '5rem' }}
         breakpoints={{
           576: {
             slidesPerView: 1.55,
@@ -143,6 +145,6 @@ export const CardContainer = () => {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 };

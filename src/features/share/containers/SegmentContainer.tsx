@@ -9,8 +9,8 @@ type Props = {
 } & HTMLAttributes<HTMLDivElement>;
 
 export const SegmentContainer = ({ className, currentTab, setCurrentTab, ...restProps }: Props) => {
-  const myCardTextColor = currentTab === 'myCard' ? '#202030' : '#ffffff';
-  const nearbyCardTextColor = currentTab === 'nearbyCard' ? '#202030' : '#ffffff';
+  const myCardTextColor = currentTab === 'myCard' ? '#203030' : '#8282A8';
+  const nearbyCardTextColor = currentTab === 'nearbyCard' ? '#203030' : '#8282A8';
   const bgTranslateClass = currentTab === 'myCard' ? 'translate-x-[3%]' : 'translate-x-[103%]';
 
   return (
