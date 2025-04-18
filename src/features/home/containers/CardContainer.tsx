@@ -71,9 +71,15 @@ export const CardContainer = () => {
         onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
         navigation={false}
         slidesPerView={1.3}
-        spaceBetween={24}
+        spaceBetween={5}
         centeredSlides={true}
-        className="custom-swiper h-[420px]"
+        className="custom-swiper h-[425px]"
+        breakpoints={{
+          576: {
+            slidesPerView: 1.55,
+            spaceBetween: 30,
+          },
+        }}
       >
         {cards.map(
           ({
@@ -97,7 +103,7 @@ export const CardContainer = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'start',
+                  justifyContent: 'center',
                 }}
               >
                 <motion.div
@@ -126,7 +132,12 @@ export const CardContainer = () => {
                       }}
                     >
                       {isPrimary && (
-                        <div className="absolute right-[23px] top-[24px] rounded-full bg-[rgba(255,255,255,0.2)]">
+                        <div
+                          className={cn(
+                            'absolute right-[24px] top-[24px] rounded-full',
+                            type === 'DESIGNER' ? 'bg-opacity-purple-30' : 'bg-opacity-blue-30',
+                          )}
+                        >
                           <p className="px-[8px] py-[3px] text-caption-1">대표</p>
                         </div>
                       )}

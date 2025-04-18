@@ -51,9 +51,15 @@ function CardNotesCard({ cards, toggleCardSelection, selectedCards }: CardNotesC
       }}
       navigation={false}
       slidesPerView={isSingleCard ? 1 : 1.3}
-      spaceBetween={isSingleCard ? 0 : 24}
+      spaceBetween={isSingleCard ? 0 : 5}
       centeredSlides={true}
-      className="custom-swiper h-[420px]"
+      className="custom-swiper h-[425px]"
+      breakpoints={{
+        576: {
+          slidesPerView: isSingleCard ? 1 : 1.55,
+          spaceBetween: isSingleCard ? 0 : 30,
+        },
+      }}
     >
       {cards.map((card) => {
         const previewContent = getPreviewContent(card);
@@ -66,7 +72,7 @@ function CardNotesCard({ cards, toggleCardSelection, selectedCards }: CardNotesC
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'start',
+              justifyContent: 'center',
             }}
           >
             <WrappedCard cardType={card?.job as JopType} className="relative mb-[20px]">
