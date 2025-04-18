@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import EmptyCard from '@/features/received/ui/emptyCard';
 import WrappedInput from '@/shared/ui/Input';
+import LottieLoading from '@/shared/ui/lottieLoading';
 
 import { useCardMemosMutation } from '../../hooks/mutation/useCardMemosMutation';
 import { useCardQuery } from '../../hooks/queries/useCardQuery';
@@ -14,7 +15,7 @@ import { useSelectCardStore } from '../../store/selectCardStore';
 import CardNotesMemoCard from './cardNotesMemoCard';
 
 function CardNotesMemoMain() {
-  const { data } = useCardQuery();
+  const { data, isLoading } = useCardQuery();
   const { selectedCardIds } = useSelectCardStore();
   const cardMemosMutation = useCardMemosMutation();
 
@@ -100,7 +101,9 @@ function CardNotesMemoMain() {
     }
   }, []);
 
-  return (
+  return isLoading ? (
+    <LottieLoading />
+  ) : (
     <div className="mt-[12px]">
       {/* 선택된 카드 표시 영역 */}
       <div className="relative flex h-full justify-center">

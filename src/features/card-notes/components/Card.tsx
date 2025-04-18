@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { forwardRef, HTMLAttributes, PropsWithChildren, useEffect, useState } from 'react';
 
 import { JopType } from '@/features/home/types';
-import { DesignerCardBackground } from '@/features/share/components/background/DesignerCardBackground';
-import { DeveloperCardBackground } from '@/features/share/components/background/DeveloperCardBackground';
 import { DesignerIcon } from '@/features/share/icons/DesignerIcon';
 import { DeveloperIcon } from '@/features/share/icons/DeveloperIcon';
 import { cn } from '@/shared/lib/utils';
@@ -13,6 +11,8 @@ import { spacingStyles } from '@/shared/spacing';
 import Img from '@/shared/ui/img';
 import { Typography } from '@/shared/ui/typography';
 
+import { DesignerCardBackground } from './background/DesignerCardBackground';
+import { DeveloperCardBackground } from './background/DeveloperCardBackground';
 import { ShareCardTag } from './CardTag';
 
 type WrappedCardProps = PropsWithChildren<
