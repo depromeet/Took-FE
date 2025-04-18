@@ -236,11 +236,11 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
 
   return (
     <div className="flex h-[calc(100dvh-92px)] flex-col justify-between">
-      <form className="flex-1 overflow-y-scroll pb-[36px] scrollbar-hide">
+      <form className="flex-1 overflow-y-scroll pb-[36px] pt-[24px] scrollbar-hide">
         <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} cardData={cardData} />
       </form>
 
-      <div className="h-[20px]"></div>
+      <div className="h-[20px] w-full bg-gradient-to-b from-transparent to-[#14151A]"></div>
       <div className="z-100 w-full pb-[18px]">
         {currentStep !== 2 && (
           <Button className="w-full" disabled={!isStepValid} onClick={handleNextStep}>

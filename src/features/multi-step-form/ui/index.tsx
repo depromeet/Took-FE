@@ -74,7 +74,7 @@ function MultiStepFormView() {
             className={cn(
               'flex h-full flex-col gap-4',
               currentStep !== 2
-                ? spacingStyles({ paddingX: 'ml', paddingTop: 'lg' })
+                ? spacingStyles({ paddingX: 'ml' })
                 : spacingStyles({ paddingX: 'ml', paddingBottom: 'lg' }),
             )}
           >
