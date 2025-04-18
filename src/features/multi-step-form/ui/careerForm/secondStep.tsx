@@ -74,7 +74,7 @@ function SecondStep({ handleNextStep }: SecondStepProps) {
           </div>
         </main>
       </div>
-      <div className="z-100 flex h-auto w-full gap-2">
+      <div className="z-100 absolute bottom-[18px] left-0 flex h-auto w-full gap-2 px-[20px]">
         {tagCount !== 0 && (
           <Button className="w-full" variant="prev" onClick={handleReset}>
             다시 담기

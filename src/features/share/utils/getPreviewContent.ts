@@ -1,5 +1,3 @@
-import SNS_CONFIG from '@/features/card-detail/config/sns-config';
-
 import { PreviewInfo } from '../types';
 
 // 미리보기 정보 변환을 처리하는 함수 분리
@@ -26,7 +24,8 @@ export const getPreviewContentByType = (previewInfo: PreviewInfo, type: string) 
         ? {
             title: previewInfo.sns.type,
             description: previewInfo.sns.link,
-            imageUrl: SNS_CONFIG[previewInfo.sns.type as keyof typeof SNS_CONFIG]?.iconPath || '/icons/imageIcon.svg',
+            imageUrl: '/icons/imageIcon.svg',
+            // SNS_CONFIG[previewInfo.sns.type as keyof typeof SNS_CONFIG]?.iconPath ||
           }
         : {};
     case 'HOBBY':

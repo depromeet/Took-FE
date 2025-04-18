@@ -11,7 +11,7 @@ function DomainList({ data }: DomainListProps) {
     return <Empty />;
   }
   return (
-    <div className="flex flex-wrap gap-x-2">
+    <div className="flex flex-wrap gap-2">
       {data.map((name, i) => {
         return <Tag key={i} message={name} className="line-clamp-1 bg-opacity-purple-30" />;
       })}
