@@ -37,7 +37,14 @@ export const NearbyProfile = ({ userId, cardId, profileImg, name, jobDetail }: P
       onClick={onClickPostMyCard}
     >
       <div className="h-[42px] w-[42px] overflow-hidden rounded-full">
-        <Image src={imageSrc} alt={name} width={42} height={42} />
+        <Image
+          src={imageSrc}
+          alt={name}
+          width={42}
+          height={42}
+          className="rounded-full object-cover"
+          onError={() => setImageSrc('/icon/default-image-s.svg')}
+        />
       </div>
       <div className="flex flex-col">
         <Typography variant="body-4">{name}</Typography>
