@@ -239,11 +239,13 @@ function CareerFormView({ currentStep, onNextStep }: CareerFormViewProps) {
       <form>
         <StepFormView currentStep={currentStep} handleNextStep={handleNextStep} cardData={cardData} />
       </form>
-      {currentStep !== 2 && (
-        <Button className="z-100" disabled={!isStepValid} onClick={handleNextStep}>
-          {currentStep < TOTAL_STEPS ? '다음' : isEditMode ? '명함 수정하기' : '명함 완성하기'}
-        </Button>
-      )}
+      <div className="z-100 absolute bottom-[18px] left-0 w-full px-[20px]">
+        {currentStep !== 2 && (
+          <Button className="w-full" disabled={!isStepValid} onClick={handleNextStep}>
+            {currentStep < TOTAL_STEPS ? '다음' : isEditMode ? '명함 수정하기' : '명함 완성하기'}
+          </Button>
+        )}
+      </div>
     </>
   );
 }

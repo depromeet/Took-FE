@@ -34,7 +34,7 @@ export const cardCreateSchema = z.object({
     .max(40, {
       message: '최대 40글자까지 입력 가능해요.',
     })
-    .refine((value) => value.length > 1 && value.length < 40, {
+    .refine((value) => value.length > 1 && value.length <= 40, {
       message: '한 줄 소개는 2글자 이상 40글자 이하로 작성해주세요.',
     }),
   organization: z

@@ -144,7 +144,7 @@ export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl
       {shouldShowThumbnail && (
         <div className="relative max-h-[60px] min-h-[60px] min-w-[60px] max-w-[60px] overflow-hidden rounded-md bg-opacity-white-20">
           {isSns ? (
-            <Image src={imageUrl} alt={`${title} 아이콘`} fill className="object-cover" />
+            <Img size="small" alt={`${title} 아이콘`} className="object-cover" />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
               <Img
@@ -167,10 +167,10 @@ export const CardFooter = ({ previewInfo, title = '', description = '', imageUrl
           {previewInfo}
         </div>
         <div className="mt-1 flex flex-col">
-          <Typography variant="body-5" className="line-clamp-1">
+          <Typography variant="body-5" className="max-w-[130px] truncate">
             {title}
           </Typography>
-          <Typography variant="caption-2" className="line-clamp-1">
+          <Typography variant="caption-2" className="max-w-[130px] truncate">
             {description}
           </Typography>
         </div>
