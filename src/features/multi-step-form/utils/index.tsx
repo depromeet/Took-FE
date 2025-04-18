@@ -1,5 +1,7 @@
 import { UseFormSetValue, UseFormUnregister } from 'react-hook-form';
 
+import { useUpdateCardStore } from '@/features/card-detail/store/updateCardStore';
+
 import { CareerFormData } from '../schema';
 import { getStepValidationFields } from '../ui/careerForm/constants';
 
@@ -132,8 +134,14 @@ export const createCareerFormData = (data: CareerFormData): FormData => {
 
   const { name } = profileImage as File;
 
-  // 단순 필드 추가
+  const isEditMode = useUpdateCardStore.getState().isEditMode;
+
+  if (name === 'default-avatar.png' && !isEditMode) {
+    formData.append('profileImage', profileImage as File);
+  }
+
   if (name !== 'default-avatar.png') formData.append('profileImage', profileImage as File);
+
   formData.append('nickname', nickname);
   formData.append('detailJobId', detailJobId.toString());
   formData.append('interestDomain', JSON.stringify(interestDomain));
