@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import Image from 'next/image';
 import React from 'react';
 
+import useDevice from '../hooks/useDevice';
 import { cn } from '../lib/utils';
 import { spacingStyles } from '../spacing';
 
@@ -120,14 +121,18 @@ function renderRightIcon({
   onRightClickSecond,
   router,
   isBlurred,
-}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  isWebView,
+}: AppbarProps & React.ButtonHTMLAttributes<HTMLButtonElement> & { isWebView?: boolean }) {
   switch (page) {
     case 'main':
-      return (
-        <button onClick={onRightClick}>
-          <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
-        </button>
-      );
+      if (isWebView) {
+        return (
+          <button onClick={onRightClick}>
+            <Image src="/icons/alarmIcon.svg" alt="알람 아이콘" width={24} height={24} onClick={router} />
+          </button>
+        );
+      }
+      return null;
     case 'detail':
       return (
         <button
@@ -206,6 +211,8 @@ function Appbar({
   onKeyDown,
   onInputClick,
 }: AppbarProps) {
+  const { isWebView } = useDevice();
+
   return (
     <header className={cn('z-bar', className, appbarVariants({ page, hasBackground }))}>
       <div className="flex">{renderLeftIcon({ page, onLeftClick, isBlurred })}</div>
@@ -224,7 +231,7 @@ function Appbar({
         />
       )}
       <div className="flex justify-end">
-        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred })}
+        {renderRightIcon({ page, onRightClick, onRightClickSecond, router, isBlurred, isWebView })}
       </div>
     </header>
   );
