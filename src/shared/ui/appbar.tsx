@@ -13,7 +13,7 @@ const appbarVariants = cva(
   {
     variants: {
       page: {
-        main: '',
+        main: 'bg-gray-black',
         detail: '',
         create: 'bg-gray-black',
         none: '',

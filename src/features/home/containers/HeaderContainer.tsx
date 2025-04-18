@@ -1,7 +1,8 @@
 'use client';
 
-import Appbar from '@/shared/ui/appbar';
 import { useRouter } from 'next/navigation';
+
+import Appbar from '@/shared/ui/appbar';
 
 export const HeaderContainer = () => {
   const router = useRouter();
