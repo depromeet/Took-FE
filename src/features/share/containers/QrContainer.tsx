@@ -13,9 +13,10 @@ type Params = {
   job: string;
   jobType: 'DESIGNER' | 'DEVELOPER';
   url: string;
+  cardId: string;
 };
 
-export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => {
+export const QrContainer = ({ profileImg, cardId, name, job, jobType, url }: Params) => {
   const [currentTab, setCurrentTab] = useState('myCard');
 
   const onClickSetCurrentTab = (tab: string) => {
@@ -30,7 +31,7 @@ export const QrContainer = ({ profileImg, name, job, jobType, url }: Params) => 
         {currentTab === 'myCard' ? (
           <MyCardShareWithQrContainer profileImg={profileImg} name={name} job={job} jobType={jobType} url={url} />
         ) : (
-          <NearbyCardShareContainer jobType={jobType} />
+          <NearbyCardShareContainer cardId={cardId} jobType={jobType} />
         )}
       </div>
     </>

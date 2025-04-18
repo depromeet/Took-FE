@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { client } from '@/shared/apis/client';
 
@@ -21,5 +21,6 @@ export const useNearbyCardsQuery = (latitude: number | undefined, longitude: num
     queryKey: [RECEIVED_NEAR_BY_CARDS_QUERY_KEY, latitude, longitude],
     queryFn: () => _getNearbyCards(latitude ?? 0, longitude ?? 0),
     enabled: !!latitude && !!longitude,
+    placeholderData: keepPreviousData,
   });
 };

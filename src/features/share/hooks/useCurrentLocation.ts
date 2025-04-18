@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface Coordinates {
   latitude: number;
@@ -6,16 +7,15 @@ interface Coordinates {
 }
 
 /**
- * @param refreshIntervalMs 위치를 다시 가져올 간격(ms). 기본 3000ms.
+ * @param refreshIntervalMs 위치를 다시 가져올 간격(ms). 기본 5000ms.
  */
-export const useCurrentLocation = (refreshIntervalMs: number = 3000) => {
+export const useCurrentLocation = (refreshIntervalMs: number = 5000) => {
   const [location, setLocation] = useState<Coordinates | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setError('Geolocation을 지원하지 않는 브라우저입니다.');
+      toast.error('위치 기능을 지원하지 않는 브라우저입니다.');
       setLoading(false);
       return;
     }
@@ -36,16 +36,14 @@ export const useCurrentLocation = (refreshIntervalMs: number = 3000) => {
           if (!isMounted) return;
           switch (err.code) {
             case err.PERMISSION_DENIED:
-              setError('위치 권한이 거부되었습니다.');
+              toast.error('위치 권한이 거부되었습니다.');
               break;
             case err.POSITION_UNAVAILABLE:
-              setError('위치 정보를 사용할 수 없습니다.');
+              toast.error('위치 정보를 사용할 수 없습니다.');
               break;
             case err.TIMEOUT:
-              setError('위치 정보를 가져오는 데 시간이 초과되었습니다.');
+              toast.error('위치 정보를 가져오는데 시간이 초과되었습니다.');
               break;
-            default:
-              setError('알 수 없는 에러가 발생했습니다.');
           }
           setLoading(false);
         },
@@ -57,9 +55,8 @@ export const useCurrentLocation = (refreshIntervalMs: number = 3000) => {
       );
     };
 
-    // 초기 호출
     getPosition();
-    // 주기적 호출
+
     const id = setInterval(getPosition, refreshIntervalMs);
 
     return () => {
@@ -68,5 +65,5 @@ export const useCurrentLocation = (refreshIntervalMs: number = 3000) => {
     };
   }, [refreshIntervalMs]);
 
-  return { location, loading, error };
+  return { location, loading };
 };

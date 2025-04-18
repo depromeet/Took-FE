@@ -53,7 +53,8 @@ type SNS = {
 export interface NearbyUserProfileDto {
   userId: number;
   cardId: number;
-  nickname: string;
+  name?: string;
+  nickname?: string;
   detailJobEn: string;
   imagePath: string;
 }

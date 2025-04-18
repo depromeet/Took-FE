@@ -1,4 +1,5 @@
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { LoaderIcon } from 'lucide-react';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
 import { Typography } from '@/shared/ui/typography';
@@ -9,19 +10,22 @@ import { useCurrentLocation } from '../hooks/useCurrentLocation';
 
 type Params = {
   jobType: 'DESIGNER' | 'DEVELOPER';
+  cardId: string;
 };
 
-export const NearbyCardShareContainer = ({ jobType }: Params) => {
+export const NearbyCardShareContainer = ({ cardId, jobType }: Params) => {
   const y = useMotionValue(0);
   const controls = useAnimation();
 
-  const { location } = useCurrentLocation(1000000);
+  const { location } = useCurrentLocation();
 
-  const { data } = useNearbyCardsQuery(location?.latitude, location?.longitude);
+  const { data, isLoading } = useNearbyCardsQuery(location?.latitude, location?.longitude);
 
   const historyBack = useHistoryBack();
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
+    event.stopPropagation();
+
     if (info.offset.y > 200) {
       controls.start({ y: 600, transition: { duration: 0.4 } });
       setTimeout(() => {
@@ -49,15 +53,17 @@ export const NearbyCardShareContainer = ({ jobType }: Params) => {
         }}
       >
         <div
-          className="flex h-[478px] w-[320px] flex-col items-center justify-end rounded-[24px] px-[30px] pb-10 pt-[28px]"
+          className="flex h-[478px] w-[320px] flex-col items-center gap-2 overflow-y-scroll rounded-[24px] px-[30px] pb-10 pt-[28px]"
           style={backgroundStyle}
         >
-          {data?.profiles.map(({ userId, cardId, nickname, detailJobEn, imagePath }) => (
+          {isLoading && <LoaderIcon className="animate-spin" />}
+          {data?.profiles.map(({ userId, nickname, name, detailJobEn, imagePath }) => (
             <NearbyProfile
               key={cardId}
+              cardId={Number(cardId)}
               userId={userId}
               profileImg={imagePath}
-              name={nickname}
+              name={nickname ?? name ?? ''}
               jobDetail={detailJobEn}
             />
           ))}

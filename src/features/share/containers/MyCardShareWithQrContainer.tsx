@@ -26,6 +26,8 @@ export const MyCardShareWithQrContainer = ({ profileImg, name, job, jobType, url
   const historyBack = useHistoryBack();
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
+    event.stopPropagation();
+
     if (info.offset.y > 200) {
       controls.start({ y: 600, transition: { duration: 0.4 } });
       setTimeout(() => {
