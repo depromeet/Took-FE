@@ -72,9 +72,9 @@ function MultiStepFormView() {
           <ProgressBar className="z-bar" currentStep={currentStep} totalSteps={TOTAL_STEPS} page="cardCreate" />
           <main
             className={cn(
-              'flex flex-col gap-4',
+              'flex h-full flex-col gap-4',
               currentStep !== 2
-                ? spacingStyles({ paddingX: 'ml', paddingY: 'lg' })
+                ? spacingStyles({ paddingX: 'ml', paddingTop: 'lg' })
                 : spacingStyles({ paddingX: 'ml', paddingBottom: 'lg' }),
             )}
           >
