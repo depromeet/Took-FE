@@ -102,12 +102,12 @@
 
     .custom-swiper .swiper-slide-prev {
       opacity: 1;
-      transform: translateX(-10%) rotate(-2.5deg);
+      transform: translateX(-10%) rotate(-2.5deg) scale(0.98);
     }
 
     .custom-swiper .swiper-slide-next {
       opacity: 1;
-      transform: translateX(10%) rotate(2.5deg);
+      transform: translateX(10%) rotate(2.5deg) scale(0.98);
     }
 
     .placeholder-focus-white:focus::placeholder {
