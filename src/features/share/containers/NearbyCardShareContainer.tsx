@@ -2,7 +2,6 @@ import { motion, useAnimation, useMotionValue } from 'framer-motion';
 import { LoaderIcon } from 'lucide-react';
 
 import useHistoryBack from '@/shared/hooks/useHistoryBack';
-import { Typography } from '@/shared/ui/typography';
 
 import { NearbyProfile } from '../components/NearbyProfile';
 import { useNearbyCardsQuery } from '../hooks/queries/useNearbyCardQuery';
@@ -53,7 +52,7 @@ export const NearbyCardShareContainer = ({ cardId, jobType }: Params) => {
         }}
       >
         <div
-          className="flex h-[478px] w-[320px] flex-col items-center gap-2 overflow-y-scroll rounded-[24px] px-[30px] pb-10 pt-[28px]"
+          className="flex h-[478px] w-[320px] flex-col items-center gap-2 overflow-y-scroll rounded-[24px] px-[18px] pb-10 pt-[28px]"
           style={backgroundStyle}
         >
           {isLoading && <LoaderIcon className="animate-spin" />}
@@ -69,11 +68,7 @@ export const NearbyCardShareContainer = ({ cardId, jobType }: Params) => {
           ))}
         </div>
       </motion.div>
-      <div className="mt-[24px] rounded-full bg-[rgba(255,255,255,0.20)] px-[14px] py-[6px]">
-        <Typography variant="body-5" style={{ color: 'var(--gray-600)' }}>
-          아래로 스와이프하면 홈 화면으로 돌아갈 수 있어요
-        </Typography>
-      </div>
+      <div className="mt-[24px] h-[36px]" />
     </>
   );
 };
