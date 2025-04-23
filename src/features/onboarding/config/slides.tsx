@@ -10,7 +10,7 @@ export const slides = [
   },
   {
     id: 2,
-    descriptions: ['QR로 쉽게 공유하고', '블루투스로 쉽게 아카이빙하는'],
+    descriptions: ['QR로 쉽게 공유하고', '내 주변 사람에게도 버튼 하나로'],
     component: SecondOnboardingContainer,
   },
   {

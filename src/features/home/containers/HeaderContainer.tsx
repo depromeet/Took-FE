@@ -8,7 +8,7 @@ export const HeaderContainer = () => {
   const router = useRouter();
 
   const goToAlarmPage = () => {
-    router.push('/setting/alram');
+    router.push('/setting/alram-list');
   };
 
   return (
