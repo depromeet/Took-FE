@@ -1,7 +1,7 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { highlightTextBold } from '@/shared/lib/highlightText';
