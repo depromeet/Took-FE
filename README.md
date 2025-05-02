@@ -48,11 +48,11 @@ SNS처럼 사적인 정보는 부담스럽고, 명함처럼 격식 있는 정보
 
 ## 📦 Installation
 
-> 자세한 설치 방법은 [SETUP.md](SETUP)를 참고하세요.
+> 자세한 설치 방법은 [SETUP.md](./docs/SETUP.md)를 참고하세요.
 
 ## 🪪 License
 
-> License 자세한 내용은 [LICENCE.md](LICENCE)를 참고하세요.
+> License 자세한 내용은 [LICENSE.md](docs/LICENSE.md)참고하세요.
 
 ## 🎉 Contributors
 
