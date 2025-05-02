@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "release": "pnpm build && zip -r took-release-v1.0.0.zip .next public package.json next.config.js pnpm-lock.yaml"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
